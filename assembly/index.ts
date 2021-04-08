@@ -64,7 +64,7 @@ function randomNum(): u32 {
       (0xff & buf[1]) << 24 |
       (0xff & buf[2]) << 16 |
       (0xff & buf[3]) << 8  |
-      (0xff & buf[3]) << 0
+      (0xff & buf[4]) << 0
     ) % 100;
 }
   
