@@ -1,7 +1,10 @@
-import { hello_world } from '..'
+import { VM } from "near-mock-vm";
+import { draw } from "../index"
 
-describe("example", () => {
-  it("should return hello world", () => {
-    expect(hello_world()).toStrictEqual("hello world")
-  }) 
-});
+describe("init", () => {
+  it("should draw", () => {
+    draw()
+    
+    log(VM.logs())
+  });
+})
