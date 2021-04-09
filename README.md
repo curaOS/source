@@ -11,16 +11,20 @@ export ACCOUNT = [account_id]
 
 ## Methods
 
-`draw(): void`
+`design(): void`
 
 ```sh
-near call CONTRACT draw --accountId ACCOUNT
+near call CONTRACT design --accountId ACCOUNT
 ```
 
-`createDesign(): void`
+```sh
+near call CONTRACT design '{"seed": [number]}'  --accountId ACCOUNT
+```
+
+`claimMyDesign(): void`
 
 ```sh
-near call CONTRACT createDesign '{"seed": [number]}' --accountId ACCOUNT
+near call CONTRACT claimMyDesign '{"seed": [number]}' --accountId ACCOUNT
 ```
 
 `viewMyDesign(): void`

@@ -3,7 +3,7 @@ import { generate } from './generate';
 import { Design, designs } from './models';
 
 
-export function createDesign(seed: i32) : void {
+export function claimMyDesign(seed: i32) : void {
     assert(seed >= 0, "Seed needs to be valid.");
     assert(!designs.contains(context.sender), "You can only own one design.")
 
@@ -33,7 +33,7 @@ export function burnMyDesign() : void {
     logging.log(`\n\n\t> Design burned \n\n\t`)
 } 
 
-export function draw(seed : i32 = 0) : void {
+export function design(seed : i32 = 0) : void {
     let instructions = generate(seed);
 
     logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")

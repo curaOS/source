@@ -1,10 +1,9 @@
 import { VM } from "near-mock-vm";
-import { draw } from "../index"
+import { design } from "../index"
 
 describe("init", () => {
-  it("should draw", () => {
-    draw()
-    
+  it("should design", () => {
+    design()
     log(VM.logs())
   });
 })

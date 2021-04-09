@@ -14,7 +14,7 @@ export function generate(seed: i32) : string {
     // TODO move this to index
     if (seed == 0) {
         a = <i32>randomNum();
-        logging.log(`\n\n\t Call createDesign with the seed number ${a} to claim it.\n`)
+        logging.log(`\n\n\t Call claimMyDesign with the seed number ${a} to claim it.\n`)
     } else {
         a = <i32>seed;
     }
