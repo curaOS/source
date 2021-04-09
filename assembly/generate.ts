@@ -1,6 +1,6 @@
 import { logging, RNG } from'near-sdk-as'
 
-const SIZE = 24;
+const SIZE = 22;
 const HALF_SIZE = SIZE / 2;
 const ONE = 1;
 
@@ -10,14 +10,14 @@ export function generate(seed: i32) : string {
     let output : string = "";
     
     let a : i32 = 0;
-    
+   
+    // TODO move this to index
     if (seed == 0) {
         a = <i32>randomNum();
+        logging.log(`\n\n\t Call createDesign with the seed number ${a} to claim it.\n`)
     } else {
         a = <i32>seed;
     }
-
-    logging.log(a);
 
     let x : i32 = 0;
     let y : i32 = 0;
