@@ -4,9 +4,9 @@ Generative art on NEAR.
 
 ----
 ## Environment
-```
-export CONTRACT = ncd.ys24.testnet
-export ACCOUNT = [your_account_id]
+```sh
+export CONTRACT = [contract_id] // ncd.ys24.testnet
+export ACCOUNT = [account_id]
 ```
 
 ## Methods
