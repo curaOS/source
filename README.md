@@ -20,7 +20,7 @@ near call CONTRACT draw --accountId ACCOUNT
 `createDesign(): void`
 
 ```sh
-near call CONTRACT createDesign '{"seed": 28392}' --accountId ACCOUNT
+near call CONTRACT createDesign '{"seed": [number]}' --accountId ACCOUNT
 ```
 
 `viewMyDesign(): void`
