@@ -1,4 +1,4 @@
-import { logging, RNG } from'near-sdk-as'
+import { logging, RNG, context } from'near-sdk-as'
 
 const SIZE = 22;
 const HALF_SIZE = SIZE / 2;
@@ -58,7 +58,7 @@ function abs(n: i32) : i32 {
     return -n;
 }
  
-function randomNum(): u8 {
-    const rng = new RNG<u8>(1, 10000000)
+function randomNum(): u32 {
+    const rng = new RNG<u32>(1, <u32>context.blockIndex);
     return rng.next()
 }
