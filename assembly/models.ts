@@ -1,4 +1,4 @@
-import { context, PersistentMap } from "near-sdk-as";
+import { context, PersistentMap, PersistentSet } from "near-sdk-as";
 
 type AccountId = string;
 
@@ -13,3 +13,5 @@ export class Design {
 }
 
 export const designs = new PersistentMap<AccountId, Design>("d");
+
+export const owners = new PersistentSet<AccountId>("o")

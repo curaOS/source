@@ -1,6 +1,6 @@
 import { logging, context } from 'near-sdk-as';
 import { generate } from './generate';
-import { Design, designs } from './models';
+import { Design, designs, owners } from './models';
 
 
 export function claimMyDesign(seed: i32) : void {
@@ -16,6 +16,7 @@ export function claimMyDesign(seed: i32) : void {
     logging.log("\n\n\tClaimed Art")
 
     designs.set(context.sender, design);
+    owners.add(context.sender);
 }
 
 export function viewMyDesign() : void {
@@ -29,6 +30,7 @@ export function burnMyDesign() : void {
     assert(designs.contains(context.sender), "No design to burn here.");
 
     designs.delete(context.sender);
+    owners.delete(context.sender);
 
     logging.log(`\n\n\t> Design burned \n\n\t`)
 } 
@@ -38,6 +40,17 @@ export function design(seed : i32 = 0) : void {
 
     logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 }
+
+export function viewDesigns() : void {
+    const ownersValues = owners.values();
+    let design : Design;
+    
+    for (let i = 0; i < owners.size; i++) {
+        design = designs.getSome(ownersValues[i]);
+        logging.log(`\n\n\t> Owner : ${design.owner} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
+    }
+}
+
 
 // burn/delete user might want to do it to create new one
 
