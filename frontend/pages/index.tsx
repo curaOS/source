@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 
@@ -46,19 +47,17 @@ const design = (w, h, instructions = []) => (p) => {
   } 
 }
 
-class Design extends React.Component {
-  renderP5 = (instructions) => {
+const Design = ({instructions} : { instructions : Array<number>}) => {
+  const renderP5 = (instructions : Array<number>) => {
     const sketch = design(500, 500, instructions);
     return <P5Wrapper sketch={sketch}/>
   }
 
-  render() {    
-    return (
-      <div>      
-        {this.renderP5(this.props.instructions)}
-      </div>
-    );
-  }
+  return (
+    <div>      
+      {renderP5(instructions)}
+    </div>
+  );
 }
 
 
@@ -66,11 +65,11 @@ class Design extends React.Component {
 
 
 const Index = ({ children }) => {
-  const [indexLoader, setIndexLoader] = useState();
+  const [indexLoader, setIndexLoader] = useState(false);
   const [seed, setSeed] = useState();
   const [designInstructions, setDesignInstructions] = useState();
   const [myDesignInstructions, setMyDesignInstructions] = useState();
-  const [randomDesign, setRandomDesign] = useState()
+  const [randomDesign, setRandomDesign] = useState({ owner: '', instructions: []})
   const { state, dispatch, update } = useContext(appStore);
   const { near, wallet, account, localKeys, loading } = state;
   const contract = getContract(account);
@@ -117,8 +116,6 @@ const Index = ({ children }) => {
   }
 
   async function exploreDesign() {
-    console.log("here i am");
-
     setIndexLoader(true);
 
     try {
