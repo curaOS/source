@@ -6,7 +6,8 @@ type AccountId = string;
 export class Design {
     owner: string;
     constructor(
-        public instructions: string
+        public instructions: Array<i32>,
+        public seed: i32, 
     ) {
         this.owner = context.sender;
     }
@@ -14,4 +15,4 @@ export class Design {
 
 export const designs = new PersistentMap<AccountId, Design>("d");
 
-export const owners = new PersistentSet<AccountId>("o")
+export const owners = new PersistentSet<AccountId>("w")

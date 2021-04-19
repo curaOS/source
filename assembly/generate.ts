@@ -1,28 +1,26 @@
-import { logging, RNG, context } from'near-sdk-as'
-
 const SIZE = 22;
 const HALF_SIZE = SIZE / 2;
 const ONE = 1;
 
-let schema = ["🟣", "🟡️️", "⚫️", "⭕️", "🔘"];
-  
-export function generate(seed: i32) : string {
-    let output : string = "";
+
+// 🟣 = 128995
+// 🟡️ = 128993
+// ⚫️ = 9899
+// ⭕️ = 11093
+// 🔘 = 128280
+// ⚪️ = 9898
+
+let schemaCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
+
+export function generate(seed: i32) : Array<i32> {
+    let encodedOutput : Array<i32> = [];
     
-    let a : i32 = 0;
-   
-    // TODO move this to index
-    if (seed == 0) {
-        a = <i32>randomNum();
-        logging.log(`\n\n\tCall claimMyDesign with the seed number ${a} to claim it.\n`)
-    } else {
-        a = <i32>seed;
-    }
+    let a : i32 = seed;
 
     let x : i32 = 0;
     let y : i32 = 0;
     let v : i32 = 0;
-    let value : string = "";
+    let value : i32 = 0;
     let mod = (a % 11) + 5;
 
     for (let i = 0; i < SIZE; i++) {
@@ -41,24 +39,18 @@ export function generate(seed: i32) : string {
             x = x * a;
             v = <i32>(abs(x * y / ONE) % mod);
             if (v < 5) {
-                value = schema[v];
+                value = schemaCodePoints[v];
             } else {
-                value = "⚪️";
+                value = 9898;
             }
-            output = output + value + "";
+            encodedOutput.push(value);
         }
-        output = output + "\n";
     }
 
-    return output;
+    return encodedOutput;
 }
 
 function abs(n: i32) : i32 {
     if (n >= 0) return n;
     return -n;
-}
- 
-function randomNum(): u32 {
-    const rng = new RNG<u32>(1, <u32>context.blockIndex);
-    return rng.next()
 }

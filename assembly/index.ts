@@ -1,4 +1,4 @@
-import { logging, context } from 'near-sdk-as';
+import { logging, RNG, context } from 'near-sdk-as';
 import { generate } from './generate';
 import { Design, designs, owners } from './models';
 
@@ -9,9 +9,9 @@ export function claimMyDesign(seed: i32) : void {
 
     let instructions = generate(seed);
 
-    let design = new Design(instructions);
+    let design = new Design(instructions, seed);
 
-    logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
+    // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
     logging.log("\n\n\tClaimed Art")
 
@@ -19,11 +19,12 @@ export function claimMyDesign(seed: i32) : void {
     owners.add(context.sender);
 }
 
-export function viewMyDesign() : void {
+export function viewMyDesign() : Design {
     let design = designs.getSome(context.sender);
 
-    logging.log(`\n\n\t> Your Art \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
-
+    // logging.log(`\n\n\t> Your Art \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
+    
+    return design;
 }
 
 export function burnMyDesign() : void {
@@ -35,23 +36,37 @@ export function burnMyDesign() : void {
     logging.log(`\n\n\t> Design burned \n\n\t`)
 } 
 
-export function design(seed : i32 = 0) : void {
+export function design(seed : i32 = 0) : Design {
+    if (seed == 0) {
+        seed = <i32>randomNum();
+        logging.log(`\n\n\tCall claimMyDesign with the seed number ${seed} to claim it.\n`)
+    }
+    
     let instructions = generate(seed);
 
-    logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
+    let design = new Design(instructions, seed)
+
+    // logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
+
+    return design;
 }
 
-export function viewDesigns() : void {
-    const ownersValues = owners.values();
-    let design : Design;
+export function viewRandomDesign() : Design {
+    const ownersValues : Array<string> = owners.values();
+    let randomDesignIndex : u32 = randomNum(owners.size); 
+
+    logging.log(randomDesignIndex);
     
-    for (let i = 0; i < owners.size; i++) {
-        design = designs.getSome(ownersValues[i]);
-        logging.log(`\n\n\t> Owner : ${design.owner} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
-    }
+    let design : Design = designs.getSome(ownersValues[randomDesignIndex]);
+    // logging.log(`\n\n\t> Owner : ${design.owner} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
+
+    return design;
 }
 
 
-// burn/delete user might want to do it to create new one
+function randomNum(max : u32 = <u32>context.blockIndex): u32 {
+    const rng = new RNG<u32>(1, max);
+    return rng.next()
+}
 
 
