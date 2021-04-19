@@ -1,19 +1,79 @@
 /** @jsxImportSource theme-ui */
 
+
+import dynamic from 'next/dynamic';
 import Head from 'next/head'
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState, useRef } from "react"
 import PropTypes from "prop-types"
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
-import { Button, Text } from 'theme-ui'
+import { Button, Text, Divider } from 'theme-ui';
 import { appStore, onAppMount } from '../state/app';
 import Link from 'next/link'
 import Image from 'next/image'
+import { utils } from 'near-api-js'
+import { getContract } from '../utils/near-utils';
+
+const P5Wrapper = dynamic(import('react-p5-wrapper'), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
+
+const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.0000000002'); // 200 Tgas
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.0000000002'); // 200 Tgas
+const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.0000000002'); // 200 Tgas
+
+const SIZE = 22;
+
+const design = (w, h, instructions = []) => (p) => {
+  let c = ""
+
+  p.setup = () => {
+    p.createCanvas(w, h)
+  }
+
+  p.draw = () => {
+    if (instructions.length > 0) {
+      p.background(254);
+      p.textSize(17);
+      for(let i = 0; i < SIZE; i++) {
+        for(let j = 0; j < SIZE; j++) {
+          c = String.fromCodePoint(instructions[j + i * SIZE]);
+          p.text(c, 33 + (j * 20), 45 + (i * 20));
+        }
+      }
+    }
+  } 
+}
+
+class Design extends React.Component {
+  renderP5 = (instructions) => {
+    const sketch = design(500, 500, instructions);
+    return <P5Wrapper sketch={sketch}/>
+  }
+
+  render() {    
+    return (
+      <div>      
+        {this.renderP5(this.props.instructions)}
+      </div>
+    );
+  }
+}
+
+
+
 
 
 const Index = ({ children }) => {
+  const [indexLoader, setIndexLoader] = useState();
+  const [seed, setSeed] = useState();
+  const [designInstructions, setDesignInstructions] = useState();
+  const [myDesignInstructions, setMyDesignInstructions] = useState();
+  const [randomDesign, setRandomDesign] = useState()
   const { state, dispatch, update } = useContext(appStore);
   const { near, wallet, account, localKeys, loading } = state;
+  const contract = getContract(account);
   
   const signIn = () => {
     wallet.signIn()
@@ -25,11 +85,102 @@ const Index = ({ children }) => {
   const onMount = () => {
     dispatch(onAppMount());
   };
+
+  useEffect(() => {
+    if (!account) return;
+    retrieveDesign()
+  }, [account])
   
   useEffect(onMount, []);
 
   if (loading) {
       return null;
+  }
+
+
+  async function retrieveDesign() {
+    console.log("here i am");
+
+    setIndexLoader(true);
+
+    try {
+      const result = await contract.viewMyDesign({}, CONTRACT_DESIGN_GAS);
+      
+      setMyDesignInstructions(result?.instructions);
+
+      setTimeout(() => setIndexLoader(false), 1200)
+		} catch (e) {
+			if (!/No message/.test(e.toString())) {
+				throw e;
+			}
+		}
+  }
+
+  async function exploreDesign() {
+    console.log("here i am");
+
+    setIndexLoader(true);
+
+    try {
+      const result = await contract.viewRandomDesign({}, CONTRACT_RANDOM_GAS);
+      
+      setRandomDesign(result);
+
+      setTimeout(() => setIndexLoader(false), 1200)
+		} catch (e) {
+			if (!/No message/.test(e.toString())) {
+				throw e;
+			}
+		}
+  }
+
+  async function retrieveData() {
+    setIndexLoader(true);
+
+    try {
+      const result = await contract.design({}, CONTRACT_DESIGN_GAS);
+      
+      setDesignInstructions(result?.instructions);
+      setSeed(result?.seed);
+
+      setTimeout(() => setIndexLoader(false), 1200)
+		} catch (e) {
+			if (!/No message/.test(e.toString())) {
+				throw e;
+			}
+		}
+  }
+
+  async function claimDesign() {
+    setIndexLoader(true);
+
+    try {
+      const result = await contract.claimMyDesign({ seed }, CONTRACT_CLAIM_GAS);
+      
+      console.log(result);
+
+      // setTimeout(() => setIndexLoader(false), 1200)
+		} catch (e) {
+			if (!/No message/.test(e.toString())) {
+				throw e;
+			}
+		}
+  }
+
+  async function burnDesign() {
+    setIndexLoader(true);
+
+    try {
+      const result = await contract.burnMyDesign({}, CONTRACT_CLAIM_GAS);
+      
+      console.log(result);
+
+      // setTimeout(() => setIndexLoader(false), 1200)
+		} catch (e) {
+			if (!/No message/.test(e.toString())) {
+				throw e;
+			}
+		}
   }
 
   return (
@@ -122,6 +273,69 @@ const Index = ({ children }) => {
           </div>
         </div>
         </header>
+        <div
+          sx={{
+            marginBottom: `1.45rem`,
+            margin: `0 auto`,
+            maxWidth: 960,
+            padding: `1rem 2rem`,
+          }}
+        >
+          <div
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mb: 3,
+            }}
+           >
+            <Button sx={{mx: 2}} onClick={retrieveData}>Design</Button>
+            <Button sx={{mx: 2, }} onClick={claimDesign} bg="secondary">Claim</Button>
+          </div>
+          {/* <div sx={{ fontFamily: "monospace" }}><Design instructions={designInstructions} /></div> */}
+          {/* <Design /> */}
+          <div
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}>
+            <Design instructions={designInstructions}/>
+          </div>
+          <Divider />
+          <div
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mb: 3,
+            }}
+           >
+            <Button sx={{ mt: 4, }} onClick={burnDesign} bg="secondary">Burn</Button>
+          </div>
+          <div
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}>
+            <Design instructions={myDesignInstructions}/>
+          </div>
+          <Divider />
+          <div
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mb: 3,
+            }}
+           >
+            <Button sx={{ mt: 4, }} onClick={exploreDesign}>Explore</Button>
+          </div>
+          <div
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}>
+            <Design instructions={randomDesign?.instructions}/>
+            <p>{randomDesign?.owner}</p>
+          </div>
+        </div>
         <div
           sx={{
             margin: `0 auto`,
