@@ -3,16 +3,7 @@ const HALF_SIZE = SIZE / 2;
 const ONE = 1;
 
 
-// 🟣 = 128995
-// 🟡️ = 128993
-// ⚫️ = 9899
-// ⭕️ = 11093
-// 🔘 = 128280
-// ⚪️ = 9898
-
-let schemaCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
-
-export function generate(seed: i32) : Array<i32> {
+export function generate(seed : i32, schema : Array<i32>) : Array<i32> {
     let encodedOutput : Array<i32> = [];
     
     let a : i32 = seed;
@@ -39,9 +30,9 @@ export function generate(seed: i32) : Array<i32> {
             x = x * a;
             v = <i32>(abs(x * y / ONE) % mod);
             if (v < 5) {
-                value = schemaCodePoints[v];
+                value = schema[v];
             } else {
-                value = 9898;
+                value = schema[schema.length - 1];
             }
             encodedOutput.push(value);
         }
