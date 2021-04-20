@@ -4,16 +4,40 @@
 
 import dynamic from 'next/dynamic';
 import Head from 'next/head'
-import React, { useContext, useEffect, useState, useRef } from "react"
-import PropTypes from "prop-types"
+import React, { useContext, useEffect, useState, useRef } from "react";
+import PropTypes from "prop-types";
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
 import { Button, Text, Divider, Flex, NavLink } from 'theme-ui';
 import { appStore, onAppMount } from '../state/app';
-import Link from 'next/link'
-import Image from 'next/image'
-import { utils } from 'near-api-js'
+import Link from 'next/link';
+import Image from 'next/image';
+import { utils } from 'near-api-js';
 import { getContract } from '../utils/near-utils';
+
+const ALLOWED_EMOJIS = [
+  128995, // 🟣
+  128993, // 🟡️
+  9899, // ⚫️
+  11093, // ⭕️
+  128280, // 🔘
+  9898, // ⚪️
+  128566, // 😶
+  128074, // 👊
+  129336, // 🤸
+];
+
+const SCHEMA_SIZE = 6;
+
+const CustomEmojiPicker = ({ onEmojiPick }) => {
+  return (
+    <div>
+      {ALLOWED_EMOJIS.map((emojiCode) => {
+        return <Text mx="2" sx={{cursor: "pointer"}} onClick={() => onEmojiPick(emojiCode)}>{String.fromCodePoint(emojiCode)}</Text>;
+      })}
+    </div>
+  );
+};
 
 const P5Wrapper = dynamic(import('react-p5-wrapper'), {
   loading: () => <p>Loading...</p>,
@@ -68,6 +92,7 @@ const Index = ({ children }) => {
   const [indexLoader, setIndexLoader] = useState(false);
   const [section, setSection] = useState(2);
   const [seed, setSeed] = useState();
+  const [schema, setSchema] = useState(new Set());
   const [designInstructions, setDesignInstructions] = useState();
   const [myDesignInstructions, setMyDesignInstructions] = useState();
   const [randomDesign, setRandomDesign] = useState({ owner: '', instructions: []})
@@ -77,6 +102,27 @@ const Index = ({ children }) => {
 
   const moveToSection = (s : number) => {
     setSection(s);
+  }
+
+
+  const pickEmoji = (code : number) => {
+    if (schema.has(code)) {
+      setSchema((oldSchema) => {
+        const newSchema = new Set(oldSchema);
+        newSchema.delete(code);
+        return newSchema;
+      });
+    } else if (schema.size < SCHEMA_SIZE) {
+      setSchema((oldSchema) => {
+        const newSchema = new Set(oldSchema);
+        newSchema.add(code);
+        return newSchema;
+      });
+    } else {
+      // schema complete
+      return;
+    }
+
   }
   
   const signIn = () => {
@@ -140,7 +186,7 @@ const Index = ({ children }) => {
     setIndexLoader(true);
 
     try {
-      const result = await contract.design({}, CONTRACT_DESIGN_GAS);
+      const result = await contract.design({ schema : Array.from(schema) }, CONTRACT_DESIGN_GAS);
       
       setDesignInstructions(result?.instructions);
       setSeed(result?.seed);
@@ -157,7 +203,7 @@ const Index = ({ children }) => {
     setIndexLoader(true);
 
     try {
-      const result = await contract.claimMyDesign({ seed }, CONTRACT_CLAIM_GAS);
+      const result = await contract.claimMyDesign({ seed, schema : Array.from(schema) }, CONTRACT_CLAIM_GAS);
       
       console.log(result);
 
@@ -304,9 +350,30 @@ const Index = ({ children }) => {
                   justifyContent: "center",
                   mb: 3,
                 }}
+               >
+                 <CustomEmojiPicker onEmojiPick={pickEmoji} />
+               </div>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
+                }}
                 >
                 <Button sx={{mx: 2, mt: 1}} onClick={retrieveData}>Design</Button>
                 <Button sx={{mx: 2, mt: 1}} onClick={claimDesign} bg="secondary">Claim</Button>
+              </div>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
+                }}
+              >
+                  {Array.from(schema).map(emojiCode => {
+                    console.log("ciao");
+                    return (<Text mx="1">{String.fromCodePoint(emojiCode)}</Text>);
+                  })}
               </div>
               {/* <div sx={{ fontFamily: "monospace" }}><Design instructions={designInstructions} /></div> */}
               {/* <Design /> */}
