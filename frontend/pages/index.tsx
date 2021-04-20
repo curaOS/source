@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState, useRef } from "react"
 import PropTypes from "prop-types"
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
-import { Button, Text, Divider } from 'theme-ui';
+import { Button, Text, Divider, Flex, NavLink } from 'theme-ui';
 import { appStore, onAppMount } from '../state/app';
 import Link from 'next/link'
 import Image from 'next/image'
@@ -66,6 +66,7 @@ const Design = ({instructions} : { instructions : Array<number>}) => {
 
 const Index = ({ children }) => {
   const [indexLoader, setIndexLoader] = useState(false);
+  const [section, setSection] = useState(2);
   const [seed, setSeed] = useState();
   const [designInstructions, setDesignInstructions] = useState();
   const [myDesignInstructions, setMyDesignInstructions] = useState();
@@ -73,6 +74,10 @@ const Index = ({ children }) => {
   const { state, dispatch, update } = useContext(appStore);
   const { near, wallet, account, localKeys, loading } = state;
   const contract = getContract(account);
+
+  const moveToSection = (s : number) => {
+    setSection(s);
+  }
   
   const signIn = () => {
     wallet.signIn()
@@ -183,7 +188,7 @@ const Index = ({ children }) => {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Mojio</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{ minHeight: "100vh" }}>
@@ -275,63 +280,88 @@ const Index = ({ children }) => {
             marginBottom: `1.45rem`,
             margin: `0 auto`,
             maxWidth: 960,
-            padding: `1rem 2rem`,
+            padding: `0rem 2rem`,
           }}
         >
-          <div
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              mb: 3,
-            }}
-           >
-            <Button sx={{mx: 2}} onClick={retrieveData}>Design</Button>
-            <Button sx={{mx: 2, }} onClick={claimDesign} bg="secondary">Claim</Button>
-          </div>
-          {/* <div sx={{ fontFamily: "monospace" }}><Design instructions={designInstructions} /></div> */}
-          {/* <Design /> */}
-          <div
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}>
-            <Design instructions={designInstructions}/>
-          </div>
           <Divider />
-          <div
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              mb: 3,
-            }}
-           >
-            <Button sx={{ mt: 4, }} onClick={burnDesign} bg="secondary">Burn</Button>
-          </div>
-          <div
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}>
-            <Design instructions={myDesignInstructions}/>
-          </div>
+          <Flex as="nav" sx={{ justifyContent: "space-around" }}>
+            <NavLink href="#!" p={1} onClick={() => moveToSection(1)}>
+              Create 
+            </NavLink>
+            <NavLink href="#!" p={1} onClick={() => moveToSection(2)}>
+              View
+            </NavLink>
+            <NavLink href="#!" p={1} onClick={() => moveToSection(3)}>
+              Explore
+            </NavLink>
+          </Flex>
           <Divider />
-          <div
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              mb: 3,
-            }}
-           >
-            <Button sx={{ mt: 4, }} onClick={exploreDesign}>Explore</Button>
-          </div>
-          <div
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}>
-            <Design instructions={randomDesign?.instructions}/>
-            <p>{randomDesign?.owner}</p>
-          </div>
+          {(section === 1) && (
+            <>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
+                }}
+                >
+                <Button sx={{mx: 2, mt: 1}} onClick={retrieveData}>Design</Button>
+                <Button sx={{mx: 2, mt: 1}} onClick={claimDesign} bg="secondary">Claim</Button>
+              </div>
+              {/* <div sx={{ fontFamily: "monospace" }}><Design instructions={designInstructions} /></div> */}
+              {/* <Design /> */}
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}>
+                <Design instructions={designInstructions}/>
+              </div>
+            </>
+          )}
+          {(section === 2) && (
+            <>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
+                }}
+                >
+                <Button sx={{ mt: 1 }} onClick={burnDesign} bg="secondary">Burn</Button>
+              </div>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}>
+                <Design instructions={myDesignInstructions}/>
+              </div>
+            </>
+          )}
+          {(section === 3) && (
+            <>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mb: 3,
+                }}
+                >
+                <Button sx={{ mt: 1 }} onClick={exploreDesign}>Explore</Button>
+              </div>
+              <div
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  mb: 4,
+                }}>
+                <Design instructions={randomDesign?.instructions}/>
+                <Text>{randomDesign?.owner}</Text>
+              </div>
+            </>
+          )}
         </div>
         <div
           sx={{
