@@ -25,6 +25,9 @@ export const initNear = () => async ({ update, getState, dispatch }) => {
 	wallet.signOut = () => {
 		signOut.call(wallet);
 		update('wallet.signedIn', false);
+
+		//TODO use wallet.signedIn in the components instea
+		window.location.replace(window.location.origin)
 	};
 
 	wallet.signedIn = wallet.isSignedIn();
