@@ -61,8 +61,8 @@ const design = (w, h, instructions = []) => (p) => {
 
   p.draw = () => {
     if (instructions.length > 0) {
-      p.background(254);
-      p.textSize(17);
+      p.background(250);
+      p.textSize(27);
       for(let i = 0; i < SIZE; i++) {
         for(let j = 0; j < SIZE; j++) {
           c = String.fromCodePoint(instructions[j + i * SIZE]);
@@ -140,7 +140,7 @@ const Index = ({ children }) => {
 
   useEffect(() => {
     if (!account) return;
-    retrieveDesign()
+    // retrieveDesign()
   }, [account])
   
   useEffect(onMount, []);
@@ -329,22 +329,29 @@ const Index = ({ children }) => {
             margin: `0 auto`,
             maxWidth: 960,
             padding: `0rem 2rem`,
+            minHeight: "70vh",
           }}
         >
           <Divider />
           <Flex as="nav" sx={{ justifyContent: "space-around" }}>
-            <NavLink href="#!" p={1} onClick={() => moveToSection(1)}>
-              Create 
-            </NavLink>
-            <NavLink href="#!" p={1} onClick={() => moveToSection(2)}>
-              View
-            </NavLink>
-            <NavLink href="#!" p={1} onClick={() => moveToSection(3)}>
-              Explore
-            </NavLink>
+            {account?.accountId ? (
+              <>
+                <NavLink href="#!" p={1} onClick={() => moveToSection(1)}>
+                  Create 
+                </NavLink>
+                <NavLink href="#!" p={1} onClick={() => moveToSection(2)}>
+                  View
+                </NavLink>
+                <NavLink href="#!" p={1} onClick={() => moveToSection(3)}>
+                  Explore
+                </NavLink>
+              </>
+            ) :
+                <Text>Please connect to use dapp.</Text>
+            }
           </Flex>
           <Divider />
-          {(section === 1) && (
+          {(section === 1 && account?.accountId) && (
             <>
               <div
                 sx={{
@@ -388,7 +395,7 @@ const Index = ({ children }) => {
               </div>
             </>
           )}
-          {(section === 2) && (
+          {(section === 2 && account?.accountId) && (
             <>
               <div
                 sx={{
@@ -408,7 +415,7 @@ const Index = ({ children }) => {
               </div>
             </>
           )}
-          {(section === 3) && (
+          {(section === 3 && account?.accountId) && (
             <>
               <div
                 sx={{
