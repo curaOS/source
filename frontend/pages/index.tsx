@@ -57,10 +57,8 @@ const design = (w, h, instructions = []) => (p) => {
   let c = ""
 
   p.setup = () => {
-    p.createCanvas(w, h)
-  }
-
-  p.draw = () => {
+    p.createCanvas(w, h);
+    p.noLoop();
     if (instructions.length > 0) {
       p.background(250);
       p.textSize(14);
@@ -71,7 +69,7 @@ const design = (w, h, instructions = []) => (p) => {
         }
       }
     }
-  } 
+  }
 }
 
 const Design = ({instructions} : { instructions : Array<number>}) => {
