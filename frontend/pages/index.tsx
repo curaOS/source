@@ -8,12 +8,13 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
-import { Button, Text, Divider, Flex, NavLink } from 'theme-ui';
+import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close} from 'theme-ui';
 import { appStore, onAppMount } from '../state/app';
 import Link from 'next/link';
 import Image from 'next/image';
 import { utils } from 'near-api-js';
 import { getContract } from '../utils/near-utils';
+
 
 const ALLOWED_EMOJIS = [
   128995, // 🟣
@@ -92,6 +93,7 @@ const Design = ({instructions} : { instructions : Array<number>}) => {
 
 const Index = ({ children }) => {
   const [indexLoader, setIndexLoader] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
   const [section, setSection] = useState(2);
   const [seed, setSeed] = useState();
   const [schema, setSchema] = useState(new Set());
@@ -140,7 +142,7 @@ const Index = ({ children }) => {
 
   useEffect(() => {
     if (!account) return;
-    // retrieveDesign()
+    retrieveDesign()
   }, [account])
   
   useEffect(onMount, []);
@@ -160,11 +162,10 @@ const Index = ({ children }) => {
       
       setMyDesignInstructions(result?.instructions);
 
-      setTimeout(() => setIndexLoader(false), 1200)
+      setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
-			if (!/No message/.test(e.toString())) {
-				throw e;
-			}
+      setIndexLoader(false);
+      setAlertMessage(e.toString());
 		}
   }
 
@@ -176,11 +177,10 @@ const Index = ({ children }) => {
       
       setRandomDesign(result);
 
-      setTimeout(() => setIndexLoader(false), 1200)
+      setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
-			if (!/No message/.test(e.toString())) {
-				throw e;
-			}
+      setIndexLoader(false);
+      setAlertMessage(e.toString());
 		}
   }
 
@@ -193,11 +193,10 @@ const Index = ({ children }) => {
       setDesignInstructions(result?.instructions);
       setSeed(result?.seed);
 
-      setTimeout(() => setIndexLoader(false), 1200)
+      setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
-			if (!/No message/.test(e.toString())) {
-				throw e;
-			}
+      setIndexLoader(false);
+      setAlertMessage(e.toString());
 		}
   }
 
@@ -209,11 +208,10 @@ const Index = ({ children }) => {
       
       console.log(result);
 
-      // setTimeout(() => setIndexLoader(false), 1200)
+      setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
-			if (!/No message/.test(e.toString())) {
-				throw e;
-			}
+      setIndexLoader(false);
+      setAlertMessage(e.toString());
 		}
   }
 
@@ -225,11 +223,10 @@ const Index = ({ children }) => {
       
       console.log(result);
 
-      // setTimeout(() => setIndexLoader(false), 1200)
+      setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
-			if (!/No message/.test(e.toString())) {
-				throw e;
-			}
+      setIndexLoader(false);
+      setAlertMessage(e.toString());
 		}
   }
 
@@ -248,6 +245,13 @@ const Index = ({ children }) => {
             padding: `1rem 2rem`,
           }}
         >
+          {alertMessage && (
+            <Alert>
+              <Text>{alertMessage.substring(0, 80)} ...</Text>
+              {console.log(alertMessage)}
+              <Close ml="auto" mr={-2} sx={{height: "2rem", width: "4rem"}} onClick={() => setAlertMessage('')}/>
+            </Alert>
+          )}
         <div
           sx={{
             margin: `1rem auto 0rem auto`,
@@ -351,7 +355,18 @@ const Index = ({ children }) => {
             }
           </Flex>
           <Divider />
-          {(section === 1 && account?.accountId) && (
+          {indexLoader && (
+            <div
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mb: 3,
+              }}
+            >
+              <Spinner />
+            </div>
+          )}
+          {(section === 1 && account?.accountId && !indexLoader) && (
             <>
               <div
                 sx={{
@@ -395,7 +410,7 @@ const Index = ({ children }) => {
               </div>
             </>
           )}
-          {(section === 2 && account?.accountId) && (
+          {(section === 2 && account?.accountId && !indexLoader) && (
             <>
               <div
                 sx={{
@@ -415,7 +430,7 @@ const Index = ({ children }) => {
               </div>
             </>
           )}
-          {(section === 3 && account?.accountId) && (
+          {(section === 3 && account?.accountId && !indexLoader) && (
             <>
               <div
                 sx={{
