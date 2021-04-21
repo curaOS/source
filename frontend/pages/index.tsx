@@ -63,7 +63,7 @@ const design = (w, h, instructions = []) => (p) => {
   p.draw = () => {
     if (instructions.length > 0) {
       p.background(250);
-      p.textSize(27);
+      p.textSize(14);
       for(let i = 0; i < SIZE; i++) {
         for(let j = 0; j < SIZE; j++) {
           c = String.fromCodePoint(instructions[j + i * SIZE]);
