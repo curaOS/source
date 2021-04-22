@@ -67,8 +67,8 @@ const design = (w, h, instructions = []) => (p) => {
     p.createCanvas(w, h);
     p.noLoop();
     if (instructions.length > 0) {
-      p.background(250);
-      p.textSize(20);
+      p.background(0);
+      p.textSize(18);
       for(let i = 0; i < SIZE; i++) {
         for(let j = 0; j < SIZE; j++) {
           c = String.fromCodePoint(instructions[j + i * SIZE]);
@@ -158,8 +158,6 @@ const Index = ({ children }) => {
 
 
   async function retrieveDesign() {
-    console.log("here i am");
-
     setIndexLoader(true);
 
     try {
@@ -170,7 +168,9 @@ const Index = ({ children }) => {
       setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
       setIndexLoader(false);
-      setAlertMessage(e.toString());
+      if (!/not present/.test(e.toString())) {
+        setAlertMessage(e.toString());
+			}
 		}
   }
 
@@ -213,7 +213,12 @@ const Index = ({ children }) => {
       
       console.log(result);
 
-      setTimeout(() => setIndexLoader(false), 200)
+      retrieveDesign();
+
+      setTimeout(() => {
+        setIndexLoader(false);
+        setAlertMessage("Design claimed!");
+      }, 200)
 		} catch (e) {
       setIndexLoader(false);
       setAlertMessage(e.toString());
@@ -228,7 +233,12 @@ const Index = ({ children }) => {
       
       console.log(result);
 
-      setTimeout(() => setIndexLoader(false), 200)
+      setMyDesignInstructions(null);
+
+      setTimeout(() => {
+        setIndexLoader(false);
+        setAlertMessage("Design burned!");
+      }, 200)
 		} catch (e) {
       setIndexLoader(false);
       setAlertMessage(e.toString());
@@ -415,7 +425,7 @@ const Index = ({ children }) => {
               </div>
             </>
           )}
-          {(section === 2 && account?.accountId && !indexLoader) && (
+          {(section === 2 && account?.accountId && !indexLoader && myDesignInstructions) && (
             <>
               <div
                 sx={{
