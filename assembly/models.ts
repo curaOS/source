@@ -13,6 +13,6 @@ export class Design {
     }
 }
 
-export const designs = new PersistentMap<AccountId, Design>("d");
+export const designs = new PersistentMap<AccountId, Design>("dsgn");
 
-export const owners = new PersistentSet<AccountId>("w")
+export const owners = new PersistentSet<AccountId>("onrs")

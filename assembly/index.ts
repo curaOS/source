@@ -43,7 +43,7 @@ export function burnMyDesign() : void {
 
     designs.delete(context.sender);
     owners.delete(context.sender);
-
+    
     logging.log(`\n\n\t> Design burned \n\n\t`)
 } 
 
