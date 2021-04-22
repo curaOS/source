@@ -410,7 +410,6 @@ const Index = ({ children }) => {
                 }}
               >
                   {Array.from(schema).map(emojiCode => {
-                    console.log("ciao");
                     return (<Text mx="1">{String.fromCodePoint(emojiCode)}</Text>);
                   })}
               </div>
