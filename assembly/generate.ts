@@ -2,6 +2,8 @@ const SIZE = 22;
 const HALF_SIZE = SIZE / 2;
 const ONE = 1;
 
+const SPACE = 32;
+
 
 export function generate(seed : i32, schema : Array<i32>) : Array<i32> {
     let encodedOutput : Array<i32> = [];
@@ -32,7 +34,7 @@ export function generate(seed : i32, schema : Array<i32>) : Array<i32> {
             if (v < 5) {
                 value = schema[v];
             } else {
-                value = schema[schema.length - 1];
+                value = SPACE;
             }
             encodedOutput.push(value);
         }

@@ -9,8 +9,8 @@ import { Design, designs, owners } from './models';
 // 🔘 = 128280
 // ⚪️ = 9898
 
-const SCHEMA_SIZE : i8 = 6;
-const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280, 9898];
+const SCHEMA_SIZE : i8 = 5;
+const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
 
 
 export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : void {
