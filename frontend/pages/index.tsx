@@ -14,6 +14,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { utils } from 'near-api-js';
 import { getContract } from '../utils/near-utils';
+import { useResponsiveValue, useBreakpointIndex } from '@theme-ui/match-media'
+
 
 
 const ALLOWED_EMOJIS = [
@@ -54,25 +56,34 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
   ssr: false,
 });
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.0000000002'); // 200 Tgas
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.0000000002'); // 200 Tgas
-const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.0000000002'); // 200 Tgas
+const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.0000000003'); // 300 Tgas
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.0000000003'); // 300 Tgas
+const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.0000000003'); // 300 Tgas
 
 const SIZE = 22;
 
-const design = (w, h, instructions = []) => (p) => {
+const CANVAS_WIDTH = [300, 400, 500, 600, 700]; // 0-4
+
+const design = (instructions = [], mediaIndex = 0) => (p) => {
   let c = ""
+  const designDimension = CANVAS_WIDTH[mediaIndex];
+
+  const canvasStep = [designDimension / 25, designDimension / 25];
+  const canvasTextSize = designDimension / 30;
+
+  const canvasStart = [(designDimension - (canvasStep[0] * (SIZE - 0.2))) / 2, (designDimension - (canvasStep[1] * (SIZE - 1.5 ))) / 2];
 
   p.setup = () => {
-    p.createCanvas(w, h);
+    p.createCanvas(designDimension, designDimension);
     p.noLoop();
     if (instructions.length > 0) {
       p.background(0);
-      p.textSize(18);
+      p.textSize(canvasTextSize);
       for(let i = 0; i < SIZE; i++) {
         for(let j = 0; j < SIZE; j++) {
           c = String.fromCodePoint(instructions[j + i * SIZE]);
-          p.text(c, 33 + (j * 20), 45 + (i * 20));
+          
+          p.text(c, canvasStart[0] + (j * canvasStep[0]), canvasStart[1] + (i * canvasStep[1]));
         }
       }
     }
@@ -80,8 +91,10 @@ const design = (w, h, instructions = []) => (p) => {
 }
 
 const Design = ({instructions} : { instructions : Array<number>}) => {
+  const mediaIndex = useBreakpointIndex();
+
   const renderP5 = (instructions : Array<number>) => {
-    const sketch = design(500, 500, instructions);
+    const sketch = design(instructions, mediaIndex);
     return <P5Wrapper sketch={sketch}/>
   }
 
@@ -112,7 +125,6 @@ const Index = ({ children }) => {
   const moveToSection = (s : number) => {
     setSection(s);
   }
-
 
   const pickEmoji = (code : number) => {
     if (schema.has(code)) {
