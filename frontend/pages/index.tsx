@@ -20,17 +20,24 @@ const ALLOWED_EMOJIS = [
   128995, // 🟣
   128993, // 🟡️
   9899, // ⚫️
-  11093, // ⭕️
-  128280, // 🔘
   9898, // ⚪️
   128308, // 🔴
   128992, // 🟠
   128994, // 🟢
   128309, // 🔵
   128996, // 🟤
+  128999, // 🟧
+  129000, // 🟨
+  11035, // ⬛
+  128997, // 🟥
+  129001, // 🟩
+  128998, // 🟦
+  129002, // 🟪
+  129003, // 🟫
+  11036, // ⬜ 
 ];
 
-const SCHEMA_SIZE = 6;
+const SCHEMA_SIZE = 5;
 
 const CustomEmojiPicker = ({ onEmojiPick }) => {
   return (
@@ -61,7 +68,7 @@ const design = (w, h, instructions = []) => (p) => {
     p.noLoop();
     if (instructions.length > 0) {
       p.background(250);
-      p.textSize(14);
+      p.textSize(20);
       for(let i = 0; i < SIZE; i++) {
         for(let j = 0; j < SIZE; j++) {
           c = String.fromCodePoint(instructions[j + i * SIZE]);
