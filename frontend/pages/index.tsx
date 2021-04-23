@@ -400,6 +400,8 @@ const Index = ({ children }) => {
                   display: "flex",
                   justifyContent: "center",
                   mb: 3,
+                  px: 10,
+                  textAlign: "center",
                 }}
                >
                  <CustomEmojiPicker onEmojiPick={pickEmoji} />
