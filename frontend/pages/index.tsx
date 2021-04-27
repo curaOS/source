@@ -56,9 +56,9 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
   ssr: false,
 });
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.0000000003'); // 300 Tgas
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.0000000003'); // 300 Tgas
-const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.0000000003'); // 300 Tgas
+const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.0000000018'); // 180 Tgas
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.0000000018'); // 180 Tgas
+const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.0000000018'); // 180 Tgas
 
 const SIZE = 22;
 
