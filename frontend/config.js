@@ -1,4 +1,4 @@
-const contractName = 'ncd.ys24.testnet';
+const contractName = 'mojio-v1.ys24.testnet';
 
 module.exports = function getConfig(isServer = false) {
 	let config = {
