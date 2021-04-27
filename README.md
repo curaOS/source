@@ -2,6 +2,10 @@
 
 Generative art on NEAR.
 
+```
+mojio-v1.ys24.testnet
+```
+
 ----
 ## Environment
 ```sh
