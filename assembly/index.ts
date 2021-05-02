@@ -1,6 +1,8 @@
 import { logging, RNG, context } from 'near-sdk-as';
 import { generate } from './generate';
 import { Design, designs, owners } from './models';
+import { NFTContractMetadata } from './models'
+import { NFTContractMetadataType } from "./types"
 
 // 🟣 = 128995
 // 🟡️ = 128993
@@ -82,4 +84,8 @@ function randomNum(max : u32 = <u32>context.blockIndex): u32 {
     return rng.next()
 }
 
+
+export function nft_metadata(): NFTContractMetadataType {
+    return NFTContractMetadata;
+}
 
