@@ -1,6 +1,6 @@
 import { VM, VMContext } from "near-mock-vm";
 import { env } from 'near-sdk-as'
-import { design } from "../index"
+import { design, nft_metadata } from "../index"
 
 const condo = "condo"
 
@@ -30,4 +30,13 @@ describe("design", () => {
 
     expect(orig.storage_usage).toBe(newOutcome.storage_usage, "No storage used");
   });
+})
+
+
+describe("contract", () => {
+  it("should return metadata", () => {
+    const contractMetadata = nft_metadata();
+
+    log(contractMetadata);
+  })
 })
