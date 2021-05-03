@@ -1,5 +1,4 @@
 import { context, PersistentMap, PersistentSet } from "near-sdk-as";
-import { NFTContractMetadataType } from "./types"
 
 type AccountId = string;
 
