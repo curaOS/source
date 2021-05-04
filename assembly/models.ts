@@ -15,14 +15,17 @@ export class NFTContractMetadata {
 
 @nearBindgen
 export class Design {
-    owner: string;
+    id: string;
+    owner_id: string;
     constructor(
         public instructions: Array<i32>,
         public seed: i32, 
     ) {
-        this.owner = context.sender;
+        this.id = context.sender;
+        this.owner_id = context.sender;
     }
 }
+
 
 export const designs = new PersistentMap<AccountId, Design>("dsgn");
 
