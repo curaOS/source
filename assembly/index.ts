@@ -72,11 +72,14 @@ export function viewRandomDesign() : Design {
     logging.log(randomDesignIndex);
     
     let design : Design = designs.getSome(ownersValues[randomDesignIndex]);
-    // logging.log(`\n\n\t> Owner : ${design.owner} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
+    // logging.log(`\n\n\t> Owner : ${design.owner_id} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
 
     return design;
 }
 
+export function nft_token(token_id: string): Design | null { // token_id == owner_id
+    return designs.getSome(token_id);
+}
 
 function randomNum(max : u32 = <u32>context.blockIndex): u32 {
     const rng = new RNG<u32>(1, max);
@@ -87,5 +90,3 @@ function randomNum(max : u32 = <u32>context.blockIndex): u32 {
 export function nft_metadata(): NFTContractMetadata {
     return new NFTContractMetadata();
 }
-
-
