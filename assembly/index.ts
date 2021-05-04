@@ -114,3 +114,19 @@ export function nft_tokens(
 
     return tokens;
   }
+
+ export function nft_supply_for_owner(
+    account_id: string,
+  ): string {
+      return designs.contains(account_id) ? "1" : "0"; 
+  }
+
+
+  export function nft_tokens_for_owner(
+    account_id: string,
+    from_index: string = "0",
+    limit: number = 0,
+  ): Design[] {
+    limit = 1;
+    return designs.contains(account_id) ? [designs.getSome(account_id)] : [];
+  }
