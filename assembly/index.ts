@@ -90,3 +90,27 @@ function randomNum(max : u32 = <u32>context.blockIndex): u32 {
 export function nft_metadata(): NFTContractMetadata {
     return new NFTContractMetadata();
 }
+
+
+export function nft_total_supply(): string {
+    return owners.size.toString();
+}
+
+
+export function nft_tokens(
+    from_index: string = "0",
+    limit: number = 0,
+  ): Design[] {
+    const start = <u32>parseInt(from_index);
+    const end = (limit > 0 ? parseInt(nft_total_supply()) : limit) + start;
+
+    const ownersValues : Array<string> = owners.values();
+
+    let tokens : Array<Design> = [];
+    
+    for (let i : u32 = start; i < end; i++) {
+        tokens.push(designs.getSome(ownersValues[i]))
+    }
+
+    return tokens;
+  }
