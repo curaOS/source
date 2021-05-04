@@ -477,7 +477,7 @@ const Index = ({ children }) => {
                   mb: 4,
                 }}>
                 <Design instructions={randomDesign?.instructions}/>
-                <Text>{randomDesign?.owner}</Text>
+                <Text>{randomDesign?.owner_id}</Text>
               </div>
             </>
           )}
