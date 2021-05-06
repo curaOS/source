@@ -19,7 +19,7 @@ export const initNear = () => async ({ update, getState, dispatch }) => {
 	const { near, wallet } = await getWallet();
 
 	wallet.signIn = () => {
-		wallet.requestSignIn(contractName, 'Mojio', window.location.origin, window.location.origin);
+		wallet.requestSignIn(contractName, 'SHARE', window.location.origin, window.location.origin);
 	};
 	const signOut = wallet.signOut;
 	wallet.signOut = () => {

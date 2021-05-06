@@ -260,7 +260,7 @@ const Index = ({ children }) => {
   return (
     <>
       <Head>
-        <title>Mojio</title>
+        <title>Share</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{ minHeight: "100vh" }}>
@@ -328,7 +328,7 @@ const Index = ({ children }) => {
               marginRight: "1rem",
             }}
           >
-            Mojio
+           SHARE 
           </Text>
           </Link>
           <div
