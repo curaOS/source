@@ -1,4 +1,4 @@
-import { context, PersistentMap, PersistentSet } from "near-sdk-as";
+import { context, logging, PersistentMap, PersistentSet } from "near-sdk-as";
 
 type AccountId = string;
 
@@ -23,7 +23,7 @@ class TokenMetadata {
         public title: string = "",
         public issued_at: string = "",
         public copies: number = 1,
-        public extra: string = "", 
+        public extra: Uint8Array = new Uint8Array(0), 
         public description: string = "",
         public media: string = "",
         public media_hash: string = "",
@@ -32,6 +32,14 @@ class TokenMetadata {
         public updated_at: string = "",
         public reference: string = "",
         public reference_hash: string = "",
+    ) {}
+  }
+
+
+@nearBindgen
+class Extra {
+    constructor(
+        public instructions: Array<i32> = [],
     ) {}
   }
 
@@ -51,7 +59,8 @@ export class Design {
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
         const copies : number = 1;
-        const extra = `"{'instructions': '${instructions}'}"`;
+
+        const extra = (new Extra(instructions)).encode();
 
         this.metadata = new TokenMetadata(title, issued_at, copies, extra);
 
