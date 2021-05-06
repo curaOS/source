@@ -108,7 +108,7 @@ export function nft_tokens(
 
     let tokens : Array<Design> = [];
     
-    for (let i : u32 = start; i < end; i++) {
+    for (let i = start; i < end; i++) {
         tokens.push(designs.getSome(ownersValues[i]))
     }
 
