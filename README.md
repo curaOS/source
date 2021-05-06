@@ -1,4 +1,4 @@
-# Art Demo
+# Share
 
 Generative art on NEAR.
 
