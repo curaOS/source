@@ -6,6 +6,8 @@ const NFT_SPEC = "nft-1.0.0";
 const NFT_NAME = "Share";
 const NFT_SYMBOL = "SHARE";
 
+export const ROYALTY_MAX_PERCENTAGE : u16 = 5000; // 50%
+
 @nearBindgen
 export class NFTContractMetadata {
     spec: string = NFT_SPEC;
@@ -41,6 +43,22 @@ class Extra {
     constructor(
         public instructions: Array<i32> = [],
     ) {}
+}
+
+@nearBindgen
+export class Royalty {
+    split_between: Map<AccountId, u16> = new Map();
+    percentage: u16 = 0;
+    constructor() {
+        const stakersValues : Array<string> =  stakers.values();
+        const sameSplit = <u16>Math.floor(ROYALTY_MAX_PERCENTAGE / stakers.size);
+
+        for (let i = 0; i < stakers.size; i++) {
+            this.split_between.set(stakersValues[i], sameSplit);
+        }
+
+        this.percentage = <u16>(sameSplit * stakers.size);
+    }
   }
 
 @nearBindgen
@@ -48,6 +66,7 @@ export class Design {
     id: string;
     owner_id: string;
     metadata: TokenMetadata;
+    royalty: Royalty;
     constructor(
         instructions: Array<i32>,
         public seed: i32, 
@@ -55,6 +74,7 @@ export class Design {
         this.id = context.sender;
         this.owner_id = context.sender;
 
+        this.royalty = new Royalty();
        
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
@@ -69,5 +89,6 @@ export class Design {
 
 
 export const designs = new PersistentMap<AccountId, Design>("dsgn");
+export const owners = new PersistentSet<AccountId>("onrs");
 
-export const owners = new PersistentSet<AccountId>("onrs")
+export const stakers = new PersistentSet<AccountId>("stkr");
