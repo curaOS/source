@@ -1,6 +1,6 @@
-import { logging, RNG, context } from 'near-sdk-as';
+import { logging, RNG, context, u128 } from 'near-sdk-as';
 import { generate } from './generate';
-import { Design, designs, owners } from './models';
+import { Design, designs, owners, stakers, SHARE_PRICE, DESIGN_PRICE } from './models';
 import { NFTContractMetadata } from './models'
 
 // 🟣 = 128995
@@ -17,18 +17,42 @@ const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
 export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : void {
     assert(schema.length == SCHEMA_SIZE, "Wrong schema size dimension.");
     assert(seed >= 0, "Seed needs to be valid.");
-    assert(!designs.contains(context.sender), "You can only own one design.")
 
-    let instructions = generate(seed, schema);
+    let type : string = "none";
 
-    let design = new Design(instructions, seed);
+    if (u128.eq(context.attachedDeposit, SHARE_PRICE)) {
+        type = "share";
+    } else if (u128.eq(context.attachedDeposit, DESIGN_PRICE)) {
+        type = "design";
+    }
 
-    // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
+    assert((type == "share" || type == "design"), 'Wrong amount.')
 
-    logging.log("\n\n\tClaimed Art")
+    if(type == "stake") {
+        //TODO check attached deposit is 50N
+        //TODO stakers can't be designer
+        assert(!stakers.has(context.sender), "You can only own one share.");
 
-    designs.set(context.sender, design);
-    owners.add(context.sender);
+        logging.log("Stake");
+        stakers.add(context.sender);
+
+        let instructions = generate(seed, schema);
+        let design = new Design(instructions, seed, type);
+    } else {
+        //TODO check attached deposit is 1N
+        //TODO designer can't be staker
+        assert(!designs.contains(context.sender), "You can only own one design.");
+
+        let instructions = generate(seed, schema);
+        let design = new Design(instructions, seed, type);
+    
+        // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
+    
+        logging.log("\n\n\tClaimed Art")
+    
+        designs.set(context.sender, design);
+        owners.add(context.sender);
+    }
 }
 
 export function viewMyDesign() : Design {
