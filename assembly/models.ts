@@ -94,23 +94,12 @@ export class Design {
     constructor(
         instructions: Array<i32>,
         seed: i32, 
+        type: string = "design",
     ) {
-        let type : string = "none";
-
-        if (u128.eq(context.attachedDeposit, SHARE_PRICE)) {
-            type = "share";
-        } else if (u128.eq(context.attachedDeposit, DESIGN_PRICE)) {
-            type = "design";
-        }
-
-        assert((type == "share" || type == "design"), 'Wrong amount.');
-
         this.id = context.sender;
         this.owner_id = context.sender;
 
-
         this.royalty = new Royalty(type);
-
        
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
