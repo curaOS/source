@@ -1,7 +1,10 @@
 import { VM, VMContext } from "near-mock-vm";
 import { env } from 'near-sdk-as'
-import { design, nft_metadata } from "../index"
+import { design, nft_metadata } from "../index";
+import { generate } from '../generate';
+import { Royalty, Design, stakers, SHARE_PRICE, DESIGN_PRICE } from '../models';
 
+const SEED_EXAMPLE = 100;
 const condo = "condo"
 
 describe("design", () => {
@@ -13,30 +16,22 @@ describe("design", () => {
     // cleanup
   })
   
-  it("should create new", () => {
-    let orig = VM.outcome();
-
+  it("creates new", () => {
     const newDesign = design()
-    log(VM.logs())
 
-    let newOutcome = VM.outcome();
+    expect(newDesign.owner_id).toBe(condo)
 
-    expect(newDesign.owner).toBe(condo)
-    expect(newDesign.instructions.length).toBeGreaterThan(0)
-    expect(newDesign.seed).toBeGreaterThan(0)
-
-    log(orig.storage_usage)
-    log(newOutcome.storage_usage)
-
-    expect(orig.storage_usage).toBe(newOutcome.storage_usage, "No storage used");
   });
 })
 
 
 describe("contract", () => {
-  it("should return metadata", () => {
+  it("returns metadata", () => {
     const contractMetadata = nft_metadata();
 
-    log(contractMetadata);
+
+    expect(contractMetadata.spec).toBe("nft-1.0.0");
+    expect(contractMetadata.name).toBe("Share");
+    expect(contractMetadata.symbol).toBe("SHARE");
   })
-})
+});
