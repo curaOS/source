@@ -1,3 +1,6 @@
 {
-    "extends": "near-sdk-as/asconfig.json"
+    "workspaces": [
+        "contracts/SHARE",
+        "contracts/YSN"
+    ]
 }
