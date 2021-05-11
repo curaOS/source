@@ -4,8 +4,9 @@
   "description": "NCD art demo project",
   "main": "index.js",
   "scripts": {
-    "test": "asp",
-    "build": "asb"
+    "build-share": "asb -d ./contracts/SHARE",
+    "build-ysn": "asb -d ./contracts/YSN",
+    "test": "asp -f unit.spec"
   },
   "author": "Yassine",
   "license": "MIT",
