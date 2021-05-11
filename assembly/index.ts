@@ -14,7 +14,7 @@ const SCHEMA_SIZE : i8 = 5;
 const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
 
 
-export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : void {
+export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : Design {
     assert(schema.length == SCHEMA_SIZE, "Wrong schema size dimension.");
     assert(seed >= 0, "Seed needs to be valid.");
 
@@ -38,6 +38,8 @@ export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints
 
         let instructions = generate(seed, schema);
         let design = new Design(instructions, seed, type);
+
+        return design;
     } else {
         //TODO check attached deposit is 1N
         //TODO designer can't be staker
@@ -52,7 +54,10 @@ export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints
     
         designs.set(context.sender, design);
         owners.add(context.sender);
+
+        return design;
     }
+
 }
 
 export function viewMyDesign() : Design {
