@@ -1,4 +1,4 @@
-import { context, logging, PersistentMap, PersistentSet, u128 } from "near-sdk-as";
+import { context, logging, PersistentMap, PersistentSet, u128, util } from "near-sdk-as";
 
 type AccountId = string;
 
@@ -13,7 +13,7 @@ const FIFTY_NEAR = u128.mul(ONE_NEAR, u128.from(50)); // 50
 export const SHARE_PRICE = FIFTY_NEAR;
 export const DESIGN_PRICE = ONE_NEAR;
 
-export const ROYALTY_MAX_PERCENTAGE : u16 = 5000; // 50%
+export const ROYALTY_MAX_PERCENTAGE : u32 = 5000; // 50%
 
 @nearBindgen
 export class NFTContractMetadata {
@@ -46,7 +46,7 @@ class TokenMetadata {
 
 
 @nearBindgen
-class Extra {
+export class Extra {
     type: string = "design";
     value: u128 = u128.Zero;
     constructor(
@@ -65,20 +65,28 @@ class Extra {
 
 @nearBindgen
 export class Royalty {
-    split_between: Map<AccountId, u16> = new Map();
-    percentage: u16 = 0;
+    split_between: Map<AccountId, u32> = new Map();
+    percentage: u32 = 0;
     constructor(type: string) {
-        if (type == "share") {
+        if (type == "share" || stakers.size == 0) {
             // keep default values
         } else if (type == "design") {
             const stakersValues : Array<string> =  stakers.values();
-            const sameSplit = <u16>Math.floor(ROYALTY_MAX_PERCENTAGE / stakers.size);
+            const sameSplit = <u32>Math.floor(ROYALTY_MAX_PERCENTAGE / stakers.size);
     
             for (let i = 0; i < stakers.size; i++) {
                 this.split_between.set(stakersValues[i], sameSplit);
+
+                // let stakerExtra =  util.parseFromBytes<Extra>(designs.getSome(stakersValues[i]).metadata.extra);
+
+                // stakerExtra.value = u128.add(stakerExtra.value, u128.fromU32(sameSplit));
+
+                // logging.log(stakerExtra);
+                /* Also distribute on creation */
+
             }
 
-            this.percentage = <u16>(sameSplit * stakers.size)
+            this.percentage = <u32>(sameSplit * stakers.size)
         }
 
 ;
@@ -107,9 +115,13 @@ export class Design {
 
         const extra = (new Extra(instructions, type)).encode();
 
+        logging.log(util.parseFromBytes<Extra>(extra).value);
+
         this.metadata = new TokenMetadata(title, issued_at, copies, extra);
 
     }
+
+
 }
 
 
