@@ -1,9 +1,11 @@
-import { PersistentMap } from "near-sdk-as";
+import { PersistentMap, u128 } from "near-sdk-as";
 
 const FT_SPEC = "ft-1.0.0";
 const FT_NAME = "Yassine";
 const FT_SYMBOL = "YSN";
 const FT_DECIMALS = 24;
+
+export const INITIAL_SUPPLY : u128 = u128.Zero;
 
 @nearBindgen
 export class FTContractMetadata {
@@ -16,5 +18,4 @@ export class FTContractMetadata {
     decimals: number = FT_DECIMALS;
 }
 
-const balances = new PersistentMap<string, u64>("b:");
-const approves = new PersistentMap<string, u64>("a:");
+export const balances = new PersistentMap<string, u64>("bln");
