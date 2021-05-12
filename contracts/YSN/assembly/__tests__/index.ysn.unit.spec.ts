@@ -14,9 +14,6 @@ describe("- CONTRACT -", () => {
     const contractMetadata = ft_metadata();
 
 
-    log(contractMetadata);
-
-
     expect(contractMetadata.spec).toBe("ft-1.0.0");
     expect(contractMetadata.name).toBe("Yassine");
     expect(contractMetadata.symbol).toBe("YSN");
@@ -44,6 +41,6 @@ describe("- HODLER -", () => {
   it("xxx returns zero balance", () => {
     const balance = ft_balance_of(keith);
 
-    log(balance);
+    expect(balance).toBe("0");
   })
 });
