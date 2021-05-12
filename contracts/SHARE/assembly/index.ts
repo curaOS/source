@@ -1,4 +1,4 @@
-import { logging, RNG, context, u128 } from 'near-sdk-as';
+import { logging, RNG, context, u128, ContractPromise, ContractPromiseResult } from 'near-sdk-as';
 import { generate } from './generate';
 import { Design, designs, owners, stakers, SHARE_PRICE, DESIGN_PRICE } from './models';
 import { NFTContractMetadata } from './models'
@@ -12,6 +12,9 @@ import { NFTContractMetadata } from './models'
 
 const SCHEMA_SIZE : i8 = 5;
 const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
+
+const FT_CONTRACT : string = "ysn.ys24.testnet";
+const XCC_FT_MINE_TO_GAS = 20000000000000;
 
 
 export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : Design {
@@ -87,7 +90,7 @@ export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) 
     
     let instructions = generate(seed, schema);
 
-    let design = new Design(instructions, seed)
+    let design = new Design(instructions, seed);
 
     // logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
@@ -151,11 +154,41 @@ export function nft_tokens(
   }
 
 
-  export function nft_tokens_for_owner(
+export function nft_tokens_for_owner(
     account_id: string,
     from_index: string = "0",
     limit: number = 0,
-  ): Design[] {
-    limit = 1;
+): Design[] {
+    limit = 1;  
     return designs.contains(account_id) ? [designs.getSome(account_id)] : [];
-  }
+}
+
+/* XCC ft_mine_to */
+
+@nearBindgen
+export class FTMineToArgs {
+    account_id: string;
+    amount: u128;
+}
+
+export function xcc_ft_mine_to(
+    account_id: string,
+    amount: u128,
+): void {
+    const remoteMethod = "ft_mine_to";
+
+    let remoteMethodArgs: FTMineToArgs = {
+        account_id: account_id,
+        amount: amount,
+    };
+
+    const promise = ContractPromise.create(
+        FT_CONTRACT,
+        remoteMethod,
+        remoteMethodArgs,
+        XCC_FT_MINE_TO_GAS,
+        u128.Zero
+    )
+      
+    promise.returnAsResult();
+}
