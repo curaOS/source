@@ -1,5 +1,5 @@
 import { VM, VMContext } from "near-mock-vm";
-import { logging, util} from 'near-sdk-as'
+import { util } from 'near-sdk-as'
 import { design, nft_metadata, claimMyDesign } from "../index";
 import { Royalty, Design, stakers, SHARE_PRICE, DESIGN_PRICE, Extra, designs } from '../models';
 
