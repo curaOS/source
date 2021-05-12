@@ -1,8 +1,11 @@
-import { storage, u128 } from 'near-sdk-as';
+import { logging, storage, u128, context } from 'near-sdk-as';
 import { FTContractMetadata, INITIAL_SUPPLY, balances } from './model';
+import { AccountId } from '../../utils'
 
 
 export const SUPPLY_KEY = "minted_supply";
+
+const whitelist : Array<AccountId> = ["share.ysn.testnet"];
 
 export function ft_total_supply(): string {
   if (storage.hasKey(SUPPLY_KEY)) {
@@ -25,6 +28,26 @@ export function ft_balance_of(
 export function ft_metadata(): FTContractMetadata {
   return new FTContractMetadata();
 }
+
+
+export function ft_mine_to(
+  account_id: string,
+  amount: u128,
+  ): string {
+    assert(whitelist.includes(context.predecessor), "Caller not whitelisted");
+
+    let newBalance : u128 = u128.Zero;
+    
+    if (balances.contains(account_id)) {
+      newBalance = u128.add(balances.getSome(account_id), amount);
+    } else {
+      newBalance = amount;
+    }
+
+    balances.set(account_id, newBalance);
+
+    return newBalance.toString();
+  }
 
 /** INIT */
 
