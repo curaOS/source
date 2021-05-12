@@ -1,6 +1,7 @@
-import { storage } from "near-sdk-as";
-import { VMContext } from "near-mock-vm";
-import { ft_balance_of, ft_metadata, ft_total_supply, init, SUPPLY_KEY } from '../index';
+import { storage, u128 } from "near-sdk-as";
+import { VMContext, VM } from "near-mock-vm";
+import { ft_balance_of, ft_metadata, ft_mine_to, ft_total_supply, init, SUPPLY_KEY } from '../index';
+import { toYocto } from '../../../utils';
 
 const condo = "condo"
 const keith = "keith"
@@ -42,5 +43,21 @@ describe("- HODLER -", () => {
     const balance = ft_balance_of(keith);
 
     expect(balance).toBe("0");
+  })
+
+  it("xxx throws if not whitelisted precedessor", () => {
+    expect(() => {
+      ft_mine_to(keith, toYocto(1));
+    }).toThrow("Caller not whitelisted");
+  })
+
+  it("xxx mines to account", () => {
+    VMContext.setPredecessor_account_id("share.ysn.testnet")
+
+    ft_mine_to(keith, toYocto(1));
+    
+    const newBalance = ft_balance_of(keith);
+    
+    expect(newBalance).toBe(toYocto(1).toString());
   })
 });
