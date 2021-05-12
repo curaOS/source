@@ -3,7 +3,7 @@ import { PersistentMap, u128 } from "near-sdk-as";
 const FT_SPEC = "ft-1.0.0";
 const FT_NAME = "Yassine";
 const FT_SYMBOL = "YSN";
-const FT_DECIMALS = 24;
+const FT_DECIMALS : u8 = 24;
 
 export const INITIAL_SUPPLY : u128 = u128.Zero;
 
@@ -15,7 +15,7 @@ export class FTContractMetadata {
     icon: string;
     reference: string;
     reference_hash: string;
-    decimals: number = FT_DECIMALS;
+    decimals: u8 = FT_DECIMALS;
 }
 
-export const balances = new PersistentMap<string, u64>("bln");
+export const balances = new PersistentMap<string, u128>("bln");
