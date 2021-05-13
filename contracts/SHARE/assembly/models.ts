@@ -95,6 +95,14 @@ export class Design {
 
 }
 
+@nearBindgen
+export class TemporaryDesign {
+    constructor(
+        public instructions: Array<i32>,
+        public seed: i32, 
+    ) { }
+}
+
 
 export const designs = new PersistentMap<AccountId, Design>("dsgn");
 export const owners = new PersistentSet<AccountId>("onrs");
