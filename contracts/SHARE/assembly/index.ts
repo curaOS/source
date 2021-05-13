@@ -1,6 +1,6 @@
 import { logging, RNG, context, u128, ContractPromise } from 'near-sdk-as';
 import { generate } from './generate';
-import { Design, designs, owners, DESIGN_PRICE, FT_CONTRACT } from './models';
+import { Design, TemporaryDesign, designs, owners, DESIGN_PRICE, FT_CONTRACT } from './models';
 import { NFTContractMetadata } from './models'
 
 // 🟣 = 128995
@@ -58,7 +58,7 @@ export function burnMyDesign() : void {
     logging.log(`\n\n\t> Design burned \n\n\t`)
 } 
 
-export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) : Design {
+export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) : TemporaryDesign {
     assert(schema.length == SCHEMA_SIZE, "Wrong schema size dimension.");
     
     if (seed == 0) {
@@ -68,7 +68,7 @@ export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) 
     
     let instructions = generate(seed, schema);
 
-    let design = new Design(instructions, seed);
+    let design = new TemporaryDesign(instructions, seed);
 
     // logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
