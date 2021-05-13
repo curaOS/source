@@ -1,6 +1,6 @@
 import { logging, RNG, context, u128, ContractPromise, ContractPromiseResult } from 'near-sdk-as';
 import { generate } from './generate';
-import { Design, designs, owners, stakers, SHARE_PRICE, DESIGN_PRICE } from './models';
+import { Design, designs, owners, stakers, SHARE_PRICE, DESIGN_PRICE, FT_CONTRACT } from './models';
 import { NFTContractMetadata } from './models'
 
 // 🟣 = 128995
@@ -13,8 +13,12 @@ import { NFTContractMetadata } from './models'
 const SCHEMA_SIZE : i8 = 5;
 const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
 
-const FT_CONTRACT : string = "ysn.ys24.testnet";
 const XCC_FT_MINE_TO_GAS = 20000000000000;
+
+const ONE_YSN = u128.from("1000000000000000000000000");
+
+const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
+const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
 
 
 export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : Design {
@@ -94,6 +98,8 @@ export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) 
 
     // logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
+    xcc_ft_mine_to(context.sender, YSN_FOR_DESIGN);
+
     return design;
 }
 
@@ -105,6 +111,8 @@ export function viewRandomDesign() : Design {
     
     let design : Design = designs.getSome(ownersValues[randomDesignIndex]);
     // logging.log(`\n\n\t> Owner : ${design.owner_id} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
+
+    xcc_ft_mine_to(context.sender, YSN_FOR_EXPLORE);
 
     return design;
 }
@@ -171,7 +179,7 @@ export class FTMineToArgs {
     amount: u128;
 }
 
-export function xcc_ft_mine_to(
+function xcc_ft_mine_to(
     account_id: string,
     amount: u128,
 ): void {
