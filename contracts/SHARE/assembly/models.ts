@@ -15,6 +15,9 @@ export const DESIGN_PRICE = ONE_NEAR;
 
 export const ROYALTY_MAX_PERCENTAGE : u32 = 5000; // 50%
 
+export const FT_CONTRACT : string = "ysn.ys24.testnet";
+const FT_CONTRACT_ROYALTY : u32 = 2500; // 25%
+
 @nearBindgen
 export class NFTContractMetadata {
     spec: string = NFT_SPEC;
@@ -68,28 +71,9 @@ export class Royalty {
     split_between: Map<AccountId, u32> = new Map();
     percentage: u32 = 0;
     constructor(type: string) {
-        if (type == "share" || stakers.size == 0) {
-            // keep default values
-        } else if (type == "design") {
-            const stakersValues : Array<string> =  stakers.values();
-            const sameSplit = <u32>Math.floor(ROYALTY_MAX_PERCENTAGE / stakers.size);
-    
-            for (let i = 0; i < stakers.size; i++) {
-                this.split_between.set(stakersValues[i], sameSplit);
-
-                // let stakerExtra =  util.parseFromBytes<Extra>(designs.getSome(stakersValues[i]).metadata.extra);
-
-                // stakerExtra.value = u128.add(stakerExtra.value, u128.fromU32(sameSplit));
-
-                // logging.log(stakerExtra);
-                /* Also distribute on creation */
-
-            }
-
-            this.percentage = <u32>(sameSplit * stakers.size)
-        }
-
-;
+        /** 25% of future sales goes to FT */
+        this.split_between.set(FT_CONTRACT, FT_CONTRACT_ROYALTY);
+        this.percentage = FT_CONTRACT_ROYALTY;
     }
   }
 
