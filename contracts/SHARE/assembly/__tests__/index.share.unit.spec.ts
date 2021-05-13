@@ -1,7 +1,7 @@
-import { VM, VMContext } from "near-mock-vm";
+import { VMContext } from "near-mock-vm";
 import { util } from 'near-sdk-as'
-import { design, nft_metadata, claimMyDesign } from "../index";
-import { Royalty, Design, stakers, SHARE_PRICE, DESIGN_PRICE, Extra, designs } from '../models';
+import { design, nft_metadata } from "../index";
+import { Extra } from '../models';
 
 const SEED_EXAMPLE = 100;
 const condo = "condo"
@@ -46,6 +46,6 @@ describe("- ROYALTY -", () => {
 
     const metadataExtra = util.parseFromBytes<Extra>(newDesign.metadata.extra);
 
-    expect(metadataExtra.value).toBe(DESIGN_PRICE);
+    expect(metadataExtra.instructions).not.toBeNull();
   })
 });

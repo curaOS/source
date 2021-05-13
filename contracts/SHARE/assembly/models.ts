@@ -10,7 +10,6 @@ const NFT_SYMBOL = "SHARE";
 const ONE_NEAR = u128.from('1000000000000000000000000');
 const FIFTY_NEAR = u128.mul(ONE_NEAR, u128.from(50)); // 50
 
-export const SHARE_PRICE = FIFTY_NEAR;
 export const DESIGN_PRICE = ONE_NEAR;
 
 export const ROYALTY_MAX_PERCENTAGE : u32 = 5000; // 50%
@@ -50,27 +49,16 @@ class TokenMetadata {
 
 @nearBindgen
 export class Extra {
-    type: string = "design";
-    value: u128 = u128.Zero;
     constructor(
         public instructions: Array<i32> = [],
-        type: string = "design",
-    ) {
-        if (type == "share") {
-            this.value = FIFTY_NEAR;
-            this.type = type;
-        } else if (type == "design") {
-            this.value = ONE_NEAR;
-            this.type = type;
-        }
-    }
+    ) { }
 }
 
 @nearBindgen
 export class Royalty {
     split_between: Map<AccountId, u32> = new Map();
     percentage: u32 = 0;
-    constructor(type: string) {
+    constructor() {
         /** 25% of future sales goes to FT */
         this.split_between.set(FT_CONTRACT, FT_CONTRACT_ROYALTY);
         this.percentage = FT_CONTRACT_ROYALTY;
@@ -86,20 +74,19 @@ export class Design {
     constructor(
         instructions: Array<i32>,
         seed: i32, 
-        type: string = "design",
     ) {
         this.id = context.sender;
         this.owner_id = context.sender;
 
-        this.royalty = new Royalty(type);
+        this.royalty = new Royalty();
        
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
         const copies : number = 1;
 
-        const extra = (new Extra(instructions, type)).encode();
+        const extra = (new Extra(instructions)).encode();
 
-        logging.log(util.parseFromBytes<Extra>(extra).value);
+        logging.log(util.parseFromBytes<Extra>(extra));
 
         this.metadata = new TokenMetadata(title, issued_at, copies, extra);
 
@@ -111,5 +98,3 @@ export class Design {
 
 export const designs = new PersistentMap<AccountId, Design>("dsgn");
 export const owners = new PersistentSet<AccountId>("onrs");
-
-export const stakers = new PersistentSet<AccountId>("stkr");

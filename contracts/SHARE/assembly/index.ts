@@ -1,6 +1,6 @@
-import { logging, RNG, context, u128, ContractPromise, ContractPromiseResult } from 'near-sdk-as';
+import { logging, RNG, context, u128, ContractPromise } from 'near-sdk-as';
 import { generate } from './generate';
-import { Design, designs, owners, stakers, SHARE_PRICE, DESIGN_PRICE, FT_CONTRACT } from './models';
+import { Design, designs, owners, DESIGN_PRICE, FT_CONTRACT } from './models';
 import { NFTContractMetadata } from './models'
 
 // 🟣 = 128995
@@ -24,47 +24,21 @@ const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
 export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : Design {
     assert(schema.length == SCHEMA_SIZE, "Wrong schema size dimension.");
     assert(seed >= 0, "Seed needs to be valid.");
+    assert(u128.eq(context.attachedDeposit, DESIGN_PRICE), "Deposit is one NEAR.");
 
-    let type : string = "none";
+    assert(!designs.contains(context.sender), "You can only own one design.");
 
-    if (u128.eq(context.attachedDeposit, SHARE_PRICE)) {
-        type = "share";
-    } else if (u128.eq(context.attachedDeposit, DESIGN_PRICE)) {
-        type = "design";
-    }
+    let instructions = generate(seed, schema);
+    let design = new Design(instructions, seed);
 
-    assert((type == "share" || type == "design"), 'Wrong amount.')
+    // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
-    if(type == "stake") {
-        //TODO check attached deposit is 50N
-        //TODO stakers can't be designer
-        assert(!stakers.has(context.sender), "You can only own one share.");
+    logging.log("\n\n\tClaimed Art")
 
-        logging.log("Stake");
-        stakers.add(context.sender);
+    designs.set(context.sender, design);
+    owners.add(context.sender);
 
-        let instructions = generate(seed, schema);
-        let design = new Design(instructions, seed, type);
-
-        return design;
-    } else {
-        //TODO check attached deposit is 1N
-        //TODO designer can't be staker
-        assert(!designs.contains(context.sender), "You can only own one design.");
-
-        let instructions = generate(seed, schema);
-        let design = new Design(instructions, seed, type);
-    
-        // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
-    
-        logging.log("\n\n\tClaimed Art")
-    
-        designs.set(context.sender, design);
-        owners.add(context.sender);
-
-        return design;
-    }
-
+    return design;
 }
 
 export function viewMyDesign() : Design {
