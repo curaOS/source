@@ -1,6 +1,6 @@
 import { VMContext } from "near-mock-vm";
 import { util } from 'near-sdk-as'
-import { design, nft_metadata } from "../index";
+import { claimMyDesign, design, nft_metadata } from "../index";
 import { Extra } from '../models';
 
 const SEED_EXAMPLE = 100;
@@ -14,8 +14,8 @@ describe("- DESIGN -", () => {
   it("xxx creates new", () => {
     const newDesign = design()
 
-    expect(newDesign.owner_id).toBe(condo)
-
+    expect(newDesign.seed).toBeTruthy();
+    expect(newDesign.instructions).toBeTruthy();
   });
 })
 
@@ -38,7 +38,7 @@ describe("- ROYALTY -", () => {
   
 
   it("xxx creates Design object with Royalty type design", () => {
-    const newDesign  = design();
+    const newDesign  = claimMyDesign(100);
 
     expect(newDesign).not.toBeNull();
     expect(newDesign.metadata).not.toBeNull();
