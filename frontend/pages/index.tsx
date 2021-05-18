@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
-import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close} from 'theme-ui';
+import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close, Badge } from 'theme-ui';
 import { appStore, onAppMount } from '../state/app';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -56,11 +56,12 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
   ssr: false,
 });
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020'); // 180 Tgas
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000020'); // 180 Tgas
-const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020'); // 180 Tgas
+const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020'); // 190 Tgas
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029'); // 300 Tgas
+const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020'); // 200 Tgas
+const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1'); // 1N
 
-const SIZE = 22;
+const SIZE = 32;
 
 const CANVAS_WIDTH = [300, 400, 500, 600, 700]; // 0-4
 
@@ -68,8 +69,8 @@ const design = (instructions = [], mediaIndex = 0) => (p) => {
   let c = ""
   const designDimension = CANVAS_WIDTH[mediaIndex];
 
-  const canvasStep = [designDimension / 25, designDimension / 25];
-  const canvasTextSize = designDimension / 30;
+  const canvasStep = [designDimension / (SIZE * 1.1), designDimension / (SIZE * 1.1)];
+  const canvasTextSize = designDimension / (SIZE * 1.7);
 
   const canvasStart = [(designDimension - (canvasStep[0] * (SIZE - 0.2))) / 2, (designDimension - (canvasStep[1] * (SIZE - 1.5 ))) / 2];
 
@@ -175,7 +176,9 @@ const Index = ({ children }) => {
     try {
       const result = await contract.viewMyDesign({}, CONTRACT_DESIGN_GAS);
       
-      setMyDesignInstructions(result?.instructions);
+      const extra = JSON.parse(atob(result?.metadata?.extra));
+
+      setMyDesignInstructions(extra?.instructions?.split(","));
 
       setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {
@@ -206,8 +209,8 @@ const Index = ({ children }) => {
 
     try {
       const result = await contract.design({ schema : Array.from(schema) }, CONTRACT_DESIGN_GAS);
-      
-      setDesignInstructions(result?.instructions);
+
+      setDesignInstructions(result?.instructions?.split(","));
       setSeed(result?.seed);
 
       setTimeout(() => setIndexLoader(false), 200)
@@ -221,7 +224,7 @@ const Index = ({ children }) => {
     setIndexLoader(true);
 
     try {
-      const result = await contract.claimMyDesign({ seed, schema : Array.from(schema) }, CONTRACT_CLAIM_GAS);
+      const result = await contract.claimMyDesign({ seed, schema : Array.from(schema) }, CONTRACT_CLAIM_GAS, CONTRACT_CLAIM_PRICE);
       
       console.log(result);
 

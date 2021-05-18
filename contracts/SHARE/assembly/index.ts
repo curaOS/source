@@ -10,26 +10,27 @@ import { NFTContractMetadata } from './models'
 // 🔘 = 128280
 // ⚪️ = 9898
 
-const SCHEMA_SIZE : i8 = 5;
-const defaultCodePoints : Array<i32> = [128995, 128993, 9899, 11093, 128280];
 
-const XCC_FT_MINE_TO_GAS = 20000000000000;
+const SCHEMA_SIZE : i8 = 5;
+const defaultCodePoints : Array<u32> = [128995, 128993, 9899, 11093, 128280];
+
+const XCC_FT_MINE_TO_GAS = 15000000000000;
 
 const ONE_YSN = u128.from("1000000000000000000000000");
 
 const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
+const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)); // 1 YSN
 const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
 
 
-export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints) : Design {
+export function claimMyDesign(seed: i32, schema : Array<u32> = defaultCodePoints) : Design {
     assert(schema.length == SCHEMA_SIZE, "Wrong schema size dimension.");
     assert(seed >= 0, "Seed needs to be valid.");
     assert(u128.eq(context.attachedDeposit, DESIGN_PRICE), "Deposit is one NEAR.");
-
     assert(!designs.contains(context.sender), "You can only own one design.");
 
     let instructions = generate(seed, schema);
-    let design = new Design(instructions, seed);
+    let design = new Design(instructions.toString() , seed);
 
     // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
@@ -37,6 +38,8 @@ export function claimMyDesign(seed: i32, schema : Array<i32> = defaultCodePoints
 
     designs.set(context.sender, design);
     owners.add(context.sender);
+
+    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE);
 
     return design;
 }
@@ -58,7 +61,7 @@ export function burnMyDesign() : void {
     logging.log(`\n\n\t> Design burned \n\n\t`)
 } 
 
-export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) : TemporaryDesign {
+export function design(seed : i32 = 0, schema : Array<u32> = defaultCodePoints) : TemporaryDesign {
     assert(schema.length == SCHEMA_SIZE, "Wrong schema size dimension.");
     
     if (seed == 0) {
@@ -68,11 +71,11 @@ export function design(seed : i32 = 0, schema : Array<i32> = defaultCodePoints) 
     
     let instructions = generate(seed, schema);
 
-    let design = new TemporaryDesign(instructions, seed);
+    let design = new TemporaryDesign(instructions.toString(), seed);
 
     // logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
 
-    xcc_ft_mine_to(context.sender, YSN_FOR_DESIGN);
+    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_DESIGN);
 
     return design;
 }
@@ -86,7 +89,7 @@ export function viewRandomDesign() : Design {
     let design : Design = designs.getSome(ownersValues[randomDesignIndex]);
     // logging.log(`\n\n\t> Owner : ${design.owner_id} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
 
-    xcc_ft_mine_to(context.sender, YSN_FOR_EXPLORE);
+    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_EXPLORE);
 
     return design;
 }
@@ -153,9 +156,10 @@ export class FTMineToArgs {
     amount: u128;
 }
 
-function xcc_ft_mine_to(
+function xcc_ft_mine_to_and_transfer(
     account_id: string,
     amount: u128,
+    near_amount_to_deposit: u128 = u128.Zero,
 ): void {
     const remoteMethod = "ft_mine_to";
 
@@ -169,7 +173,7 @@ function xcc_ft_mine_to(
         remoteMethod,
         remoteMethodArgs,
         XCC_FT_MINE_TO_GAS,
-        u128.Zero
+        near_amount_to_deposit
     )
       
     promise.returnAsResult();
