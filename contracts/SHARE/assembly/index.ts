@@ -116,7 +116,7 @@ export function nft_total_supply(): string {
 
 export function nft_tokens(
     from_index: string = "0",
-    limit: number = 0,
+    limit: u8 = 0,
   ): Design[] {
     const start = <u32>parseInt(from_index);
     const end = (limit > 0 ? parseInt(nft_total_supply()) : limit) + start;
@@ -142,7 +142,7 @@ export function nft_tokens(
 export function nft_tokens_for_owner(
     account_id: string,
     from_index: string = "0",
-    limit: number = 0,
+    limit: u8 = 0,
 ): Design[] {
     limit = 1;  
     return designs.contains(account_id) ? [designs.getSome(account_id)] : [];

@@ -118,7 +118,8 @@ const Index = ({ children }) => {
   const [schema, setSchema] = useState(new Set());
   const [designInstructions, setDesignInstructions] = useState();
   const [myDesignInstructions, setMyDesignInstructions] = useState();
-  const [randomDesign, setRandomDesign] = useState({ owner: '', instructions: []})
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [randomDesign, setRandomDesign] = useState({ owner_id: '', instructions: []})
   const { state, dispatch, update } = useContext(appStore);
   const { near, wallet, account, localKeys, loading } = state;
   const contract = getContract(account);
@@ -160,7 +161,8 @@ const Index = ({ children }) => {
 
   useEffect(() => {
     if (!account) return;
-    retrieveDesign()
+    retrieveDesign();
+    retrieveTotalSupply();
   }, [account])
   
   useEffect(onMount, []);
@@ -169,6 +171,18 @@ const Index = ({ children }) => {
       return null;
   }
 
+  async function retrieveTotalSupply() {
+
+    try {
+      const result : string = await contract.nft_total_supply({});
+
+      setTotalSupply(parseInt(result));
+		} catch (e) {
+      if (!/not present/.test(e.toString())) {
+        setAlertMessage(e.toString());
+			}
+		}
+  }
 
   async function retrieveDesign() {
     setIndexLoader(true);
@@ -193,9 +207,12 @@ const Index = ({ children }) => {
     setIndexLoader(true);
 
     try {
-      const result = await contract.viewRandomDesign({}, CONTRACT_RANDOM_GAS);
-      
-      setRandomDesign(result);
+      const randomDesign = Math.floor(Math.random() * (totalSupply));
+      const result = await contract.nft_tokens({ from_index: randomDesign.toString(), limit: 1 }, CONTRACT_RANDOM_GAS); 
+
+      const extra = JSON.parse(atob(result[0]?.metadata?.extra));
+
+      setRandomDesign({owner_id: result[0]?.owner_id, instructions: extra?.instructions?.split(",")});
 
       setTimeout(() => setIndexLoader(false), 200)
 		} catch (e) {

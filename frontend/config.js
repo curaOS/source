@@ -1,4 +1,4 @@
-const contractName = 'mojio-v1.ys24.testnet';
+const contractName = 'dev-1620829560133-8675129'; // 'mojio-v1.ys24.testnet';
 
 module.exports = function getConfig(isServer = false) {
 	let config = {
@@ -8,8 +8,8 @@ module.exports = function getConfig(isServer = false) {
 		helperUrl: 'https://helper.testnet.near.org',
 		contractName,
     contractMethods: {
-      changeMethods: ['design', 'claimMyDesign', 'burnMyDesign', 'viewMyDesign', 'viewRandomDesign'],
-      viewMethods: [''],
+      changeMethods: ['design', 'claimMyDesign', 'burnMyDesign', 'viewMyDesign', 'viewRandomDesign', 'nft_tokens'],
+      viewMethods: ['nft_total_supply'],
     }
 	};
 
