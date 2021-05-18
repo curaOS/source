@@ -80,20 +80,6 @@ export function design(seed : i32 = 0, schema : Array<u32> = defaultCodePoints) 
     return design;
 }
 
-export function viewRandomDesign() : Design {
-    const ownersValues : Array<string> = owners.values();
-    let randomDesignIndex : u32 = randomNum(owners.size); 
-
-    logging.log(randomDesignIndex);
-    
-    let design : Design = designs.getSome(ownersValues[randomDesignIndex]);
-    // logging.log(`\n\n\t> Owner : ${design.owner_id} \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
-
-    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_EXPLORE);
-
-    return design;
-}
-
 export function nft_token(token_id: string): Design | null { // token_id == owner_id
     return designs.getSome(token_id);
 }
@@ -128,6 +114,8 @@ export function nft_tokens(
     for (let i = start; i < end; i++) {
         tokens.push(designs.getSome(ownersValues[i]))
     }
+
+    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_EXPLORE);
 
     return tokens;
   }
