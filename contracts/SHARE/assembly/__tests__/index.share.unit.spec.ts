@@ -1,7 +1,7 @@
 import { VMContext } from "near-mock-vm";
 import { util } from 'near-sdk-as'
 import { claimMyDesign, design, nft_metadata } from "../index";
-import { Extra } from '../models';
+import { Extra, DESIGN_PRICE } from '../models';
 
 const SEED_EXAMPLE = 100;
 const condo = "condo"
@@ -38,6 +38,7 @@ describe("- ROYALTY -", () => {
   
 
   it("xxx creates Design object with Royalty type design", () => {
+    VMContext.setAttached_deposit(DESIGN_PRICE);
     const newDesign  = claimMyDesign(100);
 
     expect(newDesign).not.toBeNull();

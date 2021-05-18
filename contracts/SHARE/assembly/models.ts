@@ -50,7 +50,7 @@ class TokenMetadata {
 @nearBindgen
 export class Extra {
     constructor(
-        public instructions: Array<i32> = [],
+        public instructions: string = "",
     ) { }
 }
 
@@ -72,7 +72,7 @@ export class Design {
     metadata: TokenMetadata;
     royalty: Royalty;
     constructor(
-        instructions: Array<i32>,
+        instructions: string,
         seed: i32, 
     ) {
         this.id = context.sender;
@@ -86,8 +86,6 @@ export class Design {
 
         const extra = (new Extra(instructions)).encode();
 
-        logging.log(util.parseFromBytes<Extra>(extra));
-
         this.metadata = new TokenMetadata(title, issued_at, copies, extra);
 
     }
@@ -98,7 +96,7 @@ export class Design {
 @nearBindgen
 export class TemporaryDesign {
     constructor(
-        public instructions: Array<i32>,
+        public instructions: string,
         public seed: i32, 
     ) { }
 }

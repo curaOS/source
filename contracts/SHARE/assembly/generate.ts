@@ -1,19 +1,19 @@
-const SIZE = 22;
+const SIZE = 32;
 const HALF_SIZE = SIZE / 2;
 const ONE = 1;
 
 const SPACE = 32;
 
 
-export function generate(seed : i32, schema : Array<i32>) : Array<i32> {
-    let encodedOutput : Array<i32> = [];
+export function generate(seed : i32, schema : Array<u32>) : Array<u32> {
+    let encodedOutput : Array<u32> = [];
     
     let a : i32 = seed;
 
     let x : i32 = 0;
     let y : i32 = 0;
     let v : i32 = 0;
-    let value : i32 = 0;
+    let value : u32 = 0;
     let mod = (a % 11) + 5;
 
     for (let i = 0; i < SIZE; i++) {
