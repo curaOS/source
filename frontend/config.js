@@ -8,7 +8,7 @@ module.exports = function getConfig(isServer = false) {
 		helperUrl: 'https://helper.testnet.near.org',
 		contractName,
     contractMethods: {
-      changeMethods: ['design', 'claimMyDesign', 'burnMyDesign', 'viewMyDesign', 'viewRandomDesign', 'nft_tokens'],
+      changeMethods: ['design', 'claimMyDesign', 'burnMyDesign', 'viewMyDesign', 'nft_tokens'],
       viewMethods: ['nft_total_supply'],
     }
 	};
