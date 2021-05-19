@@ -14,13 +14,13 @@ import { NFTContractMetadata } from './models'
 const SCHEMA_SIZE : i8 = 5;
 const defaultCodePoints : Array<u32> = [128995, 128993, 9899, 11093, 128280];
 
-const XCC_FT_MINE_TO_GAS = 15000000000000;
+const XCC_FT_MINE_TO_GAS = 25000000000000;
 
 const ONE_YSN = u128.from("1000000000000000000000000");
 
 const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)); // 1 YSN
-const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
+const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)); // 0.05 YSN
 
 
 export function claimMyDesign(seed: i32, schema : Array<u32> = defaultCodePoints) : Design {
