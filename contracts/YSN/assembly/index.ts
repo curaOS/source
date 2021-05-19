@@ -1,11 +1,22 @@
 import { logging, storage, u128, context } from 'near-sdk-as';
-import { FTContractMetadata, INITIAL_SUPPLY, balances } from './model';
-import { AccountId } from '../../utils'
+import { FTContractMetadata, balances } from './model';
+import { AccountId } from '../../utils';
 
 
 export const SUPPLY_KEY = "minted_supply";
+export const TREASURY_KEY = "treasury";
 
-const whitelist : Array<AccountId> = ["share.ysn.testnet"];
+export const ZERO_NEAR : u128 = u128.Zero;
+
+const whitelist : Array<AccountId> = ["dev-1620829560133-8675129"];
+
+export function get_treasury(): string {
+  if (storage.hasKey(TREASURY_KEY)) {
+    return storage.getSome<u128>(TREASURY_KEY).toString();
+  } else {
+    return "0";
+  }
+}
 
 export function ft_total_supply(): string {
   if (storage.hasKey(SUPPLY_KEY)) {
@@ -44,6 +55,9 @@ export function ft_mine_to(
       newBalance = amount;
     }
 
+    storage.set(SUPPLY_KEY, u128.add(storage.getSome<u128>(SUPPLY_KEY), amount));
+    storage.set(TREASURY_KEY, u128.add(storage.getSome<u128>(TREASURY_KEY), context.attachedDeposit));
+
     balances.set(account_id, newBalance);
 
     return newBalance.toString();
@@ -54,7 +68,8 @@ export function ft_mine_to(
 export function init(): void {
   assert(storage.get<string>("init") == null, "Already initialized");
 
-  storage.set(SUPPLY_KEY, INITIAL_SUPPLY);
+  storage.set(SUPPLY_KEY, ZERO_NEAR);
+  storage.set(TREASURY_KEY, ZERO_NEAR);
 
   storage.set("init", "done");
 }
