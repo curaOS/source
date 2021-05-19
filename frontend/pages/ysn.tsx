@@ -80,7 +80,6 @@ const Index = () => {
       const balance : string = await contractFT.ft_balance_of({ account_id : account?.accountId });
       const supply : string = await contractFT.ft_total_supply({});
       const treasury : string = await contractFT.get_treasury({});
-      const ftAccount
       
       setFTBalance(utils.format.formatNearAmount(balance, 5)); // decimals for YSN is same as NEAR
       setFTSupply(utils.format.formatNearAmount(supply, 5));
