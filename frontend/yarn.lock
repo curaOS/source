@@ -1168,6 +1168,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.13.17":
+  version "7.14.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.0.tgz#46794bc20b612c5f75e62dd071e24dfd95f1cbe6"
+  integrity sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.4", "@babel/template@^7.7.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.10.4.tgz"
@@ -1649,6 +1656,14 @@
     "@theme-ui/css" "^0.6.2"
     deepmerge "^4.2.2"
 
+"@theme-ui/color@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@theme-ui/color/-/color-0.8.4.tgz#8582720614b52b441a49a61909a2111a83b847d7"
+  integrity sha512-VL4OZIN4MFO6RMbG5e68AB4sPO6a44WeFQshreEB5DytYL5z3NDolsmW15d4ofxkzRp9+F/tNN5BbgaWUaM7vw==
+  dependencies:
+    "@theme-ui/css" "0.8.4"
+    polished "^4.0.5"
+
 "@theme-ui/components@^0.6.2":
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/@theme-ui/components/-/components-0.6.2.tgz"
@@ -1671,6 +1686,14 @@
     "@theme-ui/css" "^0.6.2"
     "@theme-ui/parse-props" "^0.6.2"
     deepmerge "^4.2.2"
+
+"@theme-ui/css@0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@theme-ui/css/-/css-0.8.4.tgz#2539c8ccb52054d54593786e5f1e89f118e908c0"
+  integrity sha512-ZubYp4glaDpsJSd2z38FlwkItvXk8+t0i0323ZWNO7Liqg4t/hJT+7RmtWj1NQ2IPVqTUEmsH/hVdz5SIPu2LA==
+  dependencies:
+    "@emotion/react" "^11.1.1"
+    csstype "^3.0.5"
 
 "@theme-ui/css@^0.6.2":
   version "0.6.2"
@@ -5633,6 +5656,13 @@ pnp-webpack-plugin@1.6.4:
   integrity sha512-7Wjy+9E3WwLOEL30D+m8TSTF7qJJUJLONBnwQp0518siuMxUQUbgZwssaFX+QKlZkjHZcw/IpZCt/H0srrntSg==
   dependencies:
     ts-pnp "^1.1.6"
+
+polished@^4.0.5:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-4.1.2.tgz#c04fcc203e287e2d866e9cfcaf102dae1c01a816"
+  integrity sha512-jq4t3PJUpVRcveC53nnbEX35VyQI05x3tniwp26WFdm1dwaNUBHAi5awa/roBlwQxx1uRhwNSYeAi/aMbfiJCQ==
+  dependencies:
+    "@babel/runtime" "^7.13.17"
 
 popmotion@9.3.5:
   version "9.3.5"

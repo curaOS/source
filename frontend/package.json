@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@theme-ui/color": "^0.8.4",
     "@theme-ui/match-media": "^0.6.0",
     "@theme-ui/presets": "^0.6.0",
     "@types/theme-ui": "^0.3.7",
