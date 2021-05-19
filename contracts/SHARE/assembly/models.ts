@@ -8,7 +8,6 @@ const NFT_SYMBOL = "SHARE";
 
 
 const ONE_NEAR = u128.from('1000000000000000000000000');
-const FIFTY_NEAR = u128.mul(ONE_NEAR, u128.from(50)); // 50
 
 export const DESIGN_PRICE = ONE_NEAR;
 
