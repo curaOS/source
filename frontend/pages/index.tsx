@@ -9,12 +9,14 @@ import PropTypes from "prop-types";
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
 import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close, Badge } from 'theme-ui';
+import { alpha } from '@theme-ui/color';
 import { appStore, onAppMount } from '../state/app';
 import Link from 'next/link';
 import Image from 'next/image';
-import { utils } from 'near-api-js';
+import { utils, Contract } from 'near-api-js';
 import { getContract } from '../utils/near-utils';
 import { useResponsiveValue, useBreakpointIndex } from '@theme-ui/match-media'
+
 
 
 
@@ -60,6 +62,8 @@ const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020'); // 19
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029'); // 300 Tgas
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020'); // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1'); // 1N
+
+const FT_CONTRACT_NAME = "ysn.ys24.testnet"
 
 const SIZE = 32;
 
@@ -119,10 +123,16 @@ const Index = ({ children }) => {
   const [designInstructions, setDesignInstructions] = useState();
   const [myDesignInstructions, setMyDesignInstructions] = useState();
   const [totalSupply, setTotalSupply] = useState(0);
+  const [ftBalance, setFTBalance] = useState(0);
   const [randomDesign, setRandomDesign] = useState({ owner_id: '', instructions: []})
   const { state, dispatch, update } = useContext(appStore);
   const { near, wallet, account, localKeys, loading } = state;
   const contract = getContract(account);
+
+  const contractFT = new Contract(account, FT_CONTRACT_NAME, {
+    changeMethods: [],
+		viewMethods: ['ft_balance_of']
+  })
 
   const moveToSection = (s : number) => {
     setSection(s);
@@ -163,6 +173,7 @@ const Index = ({ children }) => {
     if (!account) return;
     retrieveDesign();
     retrieveTotalSupply();
+    retrieveBalanceOfFT();
   }, [account])
   
   useEffect(onMount, []);
@@ -171,8 +182,20 @@ const Index = ({ children }) => {
       return null;
   }
 
-  async function retrieveTotalSupply() {
+  async function retrieveBalanceOfFT() {
+    try {
+      const result : string = await contractFT.ft_balance_of({ account_id : account?.accountId });
+      
+      setFTBalance(utils.format.formatNearAmount(result, 5)); // decimals for YSN is same as NEAR
+		} catch (e) {
+      if (!/not present/.test(e.toString())) {
+        setAlertMessage(e.toString());
+			}
+		}
+  }
 
+
+  async function retrieveTotalSupply() {
     try {
       const result : string = await contract.nft_total_supply({});
 
@@ -289,7 +312,7 @@ const Index = ({ children }) => {
             marginBottom: `1.45rem`,
             margin: `0 auto`,
             maxWidth: 960,
-            padding: `1rem 2rem`,
+            padding: `1rem 2rem 0 2rem`,
           }}
         >
           {alertMessage && (
@@ -374,6 +397,36 @@ const Index = ({ children }) => {
           </div>
         </div>
         </header>
+        <div
+          sx={{
+            margin: `0 auto`,
+            maxWidth: 960,
+            padding: `0 1rem`,
+            textAlign: "center",
+          }}
+        >
+        <Link href="/ysn">
+          <NavLink href="#!">
+            <span
+              sx={{
+                fontSize: 22,
+                fontWeight: 600,
+                backgroundImage: (t) => `
+                  linear-gradient(
+                    to right,
+                    ${alpha('secondary', 1)(t)},
+                    ${alpha('text', 0.2)(t)}
+                  )
+                `,
+                backgroundClip: "text",
+                textFillColor: "transparent",
+              }}
+            >
+              {ftBalance} YSN
+            </span> 
+          </NavLink>
+        </Link>
+        </div>
         <div
           sx={{
             marginBottom: `1.45rem`,
