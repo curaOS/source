@@ -8,7 +8,7 @@ export const TREASURY_KEY = "treasury";
 
 export const ZERO_NEAR : u128 = u128.Zero;
 
-const whitelist : Array<AccountId> = ["dev-1620829560133-8675129"];
+const whitelist : Array<AccountId> = ["v1.share.ysn.testnet"];
 
 export function get_treasury(): string {
   if (storage.hasKey(TREASURY_KEY)) {

@@ -13,7 +13,7 @@ export const DESIGN_PRICE = ONE_NEAR;
 
 export const ROYALTY_MAX_PERCENTAGE : u32 = 5000; // 50%
 
-export const FT_CONTRACT : string = "ysn.ys24.testnet";
+export const FT_CONTRACT : string = "v1.ysn.testnet";
 const FT_CONTRACT_ROYALTY : u32 = 2500; // 25%
 
 @nearBindgen
