@@ -1,4 +1,4 @@
-import { logging, storage, u128, context } from 'near-sdk-as';
+import { storage, u128, context } from 'near-sdk-as';
 import { FTContractMetadata, balances } from './model';
 import { AccountId } from '../../utils';
 
