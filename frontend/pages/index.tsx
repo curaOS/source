@@ -63,7 +63,7 @@ const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029'); // 300
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020'); // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1'); // 1N
 
-const FT_CONTRACT_NAME = "ysn.ys24.testnet"
+const FT_CONTRACT_NAME = "v1.ysn.testnet"
 
 const SIZE = 32;
 
