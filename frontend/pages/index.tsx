@@ -266,8 +266,6 @@ const Index = ({ children }) => {
     try {
       const result = await contract.claimMyDesign({ seed, schema : Array.from(schema) }, CONTRACT_CLAIM_GAS, CONTRACT_CLAIM_PRICE);
       
-      console.log(result);
-
       retrieveDesign();
 
       setTimeout(() => {
@@ -286,8 +284,6 @@ const Index = ({ children }) => {
     try {
       const result = await contract.burnMyDesign({}, CONTRACT_CLAIM_GAS);
       
-      console.log(result);
-
       setMyDesignInstructions(null);
 
       setTimeout(() => {
