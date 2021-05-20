@@ -1,4 +1,4 @@
-const contractName = 'dev-1620829560133-8675129'; // 'mojio-v1.ys24.testnet';
+const contractName = 'v1.share.ysn.testnet';
 
 module.exports = function getConfig(isServer = false) {
 	let config = {
