@@ -1,19 +1,23 @@
-# Share
+![Group 1](https://user-images.githubusercontent.com/5102099/119519396-ac0a9800-bd79-11eb-9b07-4f345212a52d.png)
 
-Generative art on NEAR.
+
+# YSN
+
+Generative art, social token and future DAO on NEAR.
+
 
 ```
-mojio-v1.ys24.testnet
+Generative art "SHARE" -> v1.share.ysn.testnet
+Social token "YSN" -> v1.ysn.testnet
 ```
-
 ----
 ## Environment
 ```sh
-export CONTRACT = [contract_id] // ncd.ys24.testnet
+export CONTRACT = [contract_id]
 export ACCOUNT = [account_id]
 ```
 
-## Methods
+## Methods (not up to date)
 
 `design(): void`
 
