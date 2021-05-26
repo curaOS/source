@@ -1,6 +1,7 @@
 import { context, PersistentMap, PersistentSet, u128 } from "near-sdk-as";
 
 type AccountId = string;
+type CurrencyId = string;
 
 const NFT_SPEC = "nft-1.0.0";
 const NFT_NAME = "Share";
@@ -79,8 +80,18 @@ export class BidShares {
 }
 
 @nearBindgen
+export class Ask {
+    amount : u128; // Amount asked
+    currency: CurrencyId = "near"; // currency of ask, default is NEAR
+    sellOnShare : u32; // % to pay to previous owner on this sale
+    constructor() { }
+}
+
+
+@nearBindgen
 export class Market {
     bid_shares: BidShares;
+    ask: Ask;
     constructor(royalty_percentage : u32 = 0) {
         this.bid_shares = new BidShares(royalty_percentage);
     }
@@ -102,6 +113,7 @@ export class Design {
 
         this.royalty = new Royalty();
 
+        // pass it to market to make sure that on mint royalties add up to 100%
         const royalty_percentage = this.royalty.percentage;
 
         this.market = new Market(royalty_percentage);
