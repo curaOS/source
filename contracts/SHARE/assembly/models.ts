@@ -69,6 +69,17 @@ export class Royalty {
 }
 
 
+
+@nearBindgen
+export class Bid {
+    amount: u128;
+    currency: CurrencyId = "near";
+    bidder : AccountId;
+    recipient : AccountId;
+    sell_on_share : u32;
+    constructor() { }
+}
+
 @nearBindgen
 export class BidShares {
     prev_owner: Map<AccountId, u32> = new Map(); // previous owner split (sell-on fee)
@@ -83,7 +94,7 @@ export class BidShares {
 export class Ask {
     amount : u128; // Amount asked
     currency: CurrencyId = "near"; // currency of ask, default is NEAR
-    sellOnShare : u32; // % to pay to previous owner on this sale
+    sell_on_share : u32; // % to pay to previous owner on this sale
     constructor() { }
 }
 
@@ -92,6 +103,7 @@ export class Ask {
 export class Market {
     bid_shares: BidShares;
     ask: Ask;
+    bids:  Map<AccountId, Bid> = new Map();
     constructor(royalty_percentage : u32 = 0) {
         this.bid_shares = new BidShares(royalty_percentage);
     }
