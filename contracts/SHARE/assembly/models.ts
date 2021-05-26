@@ -16,6 +16,9 @@ export const ROYALTY_MAX_PERCENTAGE : u32 = 5000; // 50%
 export const FT_CONTRACT : string = "v1.ysn.testnet";
 const FT_CONTRACT_ROYALTY : u32 = 2500; // 25%
 
+const ONE_HUNDRED_PERCENT : u32 = 10000; // 100%
+const ZERO_PERCENT : u32 = 0; // 0%
+
 @nearBindgen
 export class NFTContractMetadata {
     spec: string = NFT_SPEC;
@@ -62,7 +65,26 @@ export class Royalty {
         this.split_between.set(FT_CONTRACT, FT_CONTRACT_ROYALTY);
         this.percentage = FT_CONTRACT_ROYALTY;
     }
-  }
+}
+
+
+@nearBindgen
+export class BidShares {
+    prev_owner: Map<AccountId, u32> = new Map(); // previous owner split (sell-on fee)
+    owner: Map<AccountId, u32> = new Map(); // owner splits
+    constructor(royalty_percentage : u32 = 0) {
+        this.prev_owner.set(context.sender, ZERO_PERCENT);  /** 0% minus perpetual royalties of future sales goes to reseller(s) on first sale */
+        this.owner.set(context.sender, ONE_HUNDRED_PERCENT - royalty_percentage);  /** 100% minus perpetual royalties of future sales goes to creator(s) on first sale */
+    }
+}
+
+@nearBindgen
+export class Market {
+    bid_shares: BidShares;
+    constructor(royalty_percentage : u32 = 0) {
+        this.bid_shares = new BidShares(royalty_percentage);
+    }
+}
 
 @nearBindgen
 export class Design {
@@ -70,6 +92,7 @@ export class Design {
     owner_id: string;
     metadata: TokenMetadata;
     royalty: Royalty;
+    market: Market;
     constructor(
         instructions: string,
         seed: i32, 
@@ -78,6 +101,10 @@ export class Design {
         this.owner_id = context.sender;
 
         this.royalty = new Royalty();
+
+        const royalty_percentage = this.royalty.percentage;
+
+        this.market = new Market(royalty_percentage);
        
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
