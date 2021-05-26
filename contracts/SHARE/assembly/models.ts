@@ -32,7 +32,7 @@ class TokenMetadata {
     constructor(
         public title: string = "",
         public issued_at: string = "",
-        public copies: number = 1,
+        public copies: u8 = 1,
         public extra: Uint8Array = new Uint8Array(0), 
         public description: string = "",
         public media: string = "",
@@ -81,7 +81,7 @@ export class Design {
        
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
-        const copies : number = 1;
+        const copies : u8 = 1;
 
         const extra = (new Extra(instructions)).encode();
 
