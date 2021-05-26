@@ -16,7 +16,7 @@ describe("- CONTRACT -", () => {
 
 
     expect(contractMetadata.spec).toBe("ft-1.0.0");
-    expect(contractMetadata.name).toBe("Yassine");
+    expect(contractMetadata.name).toBe("Ysn");
     expect(contractMetadata.symbol).toBe("YSN");
   })
 
@@ -52,7 +52,7 @@ describe("- HODLER -", () => {
   })
 
   it("xxx mines to account", () => {
-    VMContext.setPredecessor_account_id("share.ysn.testnet")
+    VMContext.setPredecessor_account_id("v1.share.ysn.testnet")
 
     ft_mine_to(keith, toYocto(1));
     
