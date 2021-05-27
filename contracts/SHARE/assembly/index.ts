@@ -1,7 +1,8 @@
 import { logging, RNG, context, u128, ContractPromise } from 'near-sdk-as';
 import { generate } from './generate';
 import { Design, TemporaryDesign, designs, owners, DESIGN_PRICE, FT_CONTRACT } from './models';
-import { NFTContractMetadata } from './models'
+import { NFTContractMetadata } from './models';
+import { xcc_market_set_bid_shares } from './xcc_market';
 
 // 🟣 = 128995
 // 🟡️ = 128993
@@ -40,6 +41,9 @@ export function claimMyDesign(seed: i32, schema : Array<u32> = defaultCodePoints
     owners.add(context.sender);
 
     xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE);
+
+    // Market
+    xcc_market_set_bid_shares(design.id, 0, 1000, 9000);
 
     return design;
 }
