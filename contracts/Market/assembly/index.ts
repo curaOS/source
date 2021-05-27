@@ -6,7 +6,7 @@ import { AccountId } from "./models";
  */
 
 // The media contract that can call this market
-const MEDIA_CONTRACT_KEY = "media_contract";
+export const MEDIA_CONTRACT_KEY = "media_contract";
 
 export function init(media_contract: AccountId): void {
     assert(storage.get<string>("init") == null, "Already initialized");
