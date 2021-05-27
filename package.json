@@ -6,6 +6,7 @@
   "scripts": {
     "build-share": "asb -d ./contracts/SHARE",
     "build-ysn": "asb -d ./contracts/YSN",
+    "build-market": "asb -d ./contracts/Market",
     "test": "asp -f unit.spec"
   },
   "author": "Yassine",
