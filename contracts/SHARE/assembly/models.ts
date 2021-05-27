@@ -1,7 +1,6 @@
 import { context, PersistentMap, PersistentSet, u128 } from "near-sdk-as";
 
 type AccountId = string;
-type CurrencyId = string;
 
 const NFT_SPEC = "nft-1.0.0";
 const NFT_NAME = "Share";
@@ -16,9 +15,6 @@ export const ROYALTY_MAX_PERCENTAGE : u32 = 5000; // 50%
 
 export const FT_CONTRACT : string = "v1.ysn.testnet";
 const FT_CONTRACT_ROYALTY : u32 = 2500; // 25%
-
-const ONE_HUNDRED_PERCENT : u32 = 10000; // 100%
-const ZERO_PERCENT : u32 = 0; // 0%
 
 @nearBindgen
 export class NFTContractMetadata {
@@ -70,44 +66,6 @@ export class Royalty {
 
 
 
-@nearBindgen
-export class Bid {
-    amount: u128;
-    currency: CurrencyId = "near";
-    bidder : AccountId;
-    recipient : AccountId;
-    sell_on_share : u32;
-    constructor() { }
-}
-
-@nearBindgen
-export class BidShares {
-    prev_owner: Map<AccountId, u32> = new Map(); // previous owner split (sell-on fee)
-    owner: Map<AccountId, u32> = new Map(); // owner splits
-    constructor(royalty_percentage : u32 = 0) {
-        this.prev_owner.set(context.sender, ZERO_PERCENT);  /** 0% minus perpetual royalties of future sales goes to reseller(s) on first sale */
-        this.owner.set(context.sender, ONE_HUNDRED_PERCENT - royalty_percentage);  /** 100% minus perpetual royalties of future sales goes to creator(s) on first sale */
-    }
-}
-
-@nearBindgen
-export class Ask {
-    amount : u128; // Amount asked
-    currency: CurrencyId = "near"; // currency of ask, default is NEAR
-    sell_on_share : u32; // % to pay to previous owner on this sale
-    constructor() { }
-}
-
-
-@nearBindgen
-export class Market {
-    bid_shares: BidShares;
-    ask: Ask;
-    bids:  Map<AccountId, Bid> = new Map();
-    constructor(royalty_percentage : u32 = 0) {
-        this.bid_shares = new BidShares(royalty_percentage);
-    }
-}
 
 @nearBindgen
 export class Design {
@@ -115,7 +73,6 @@ export class Design {
     owner_id: string;
     metadata: TokenMetadata;
     royalty: Royalty;
-    market: Market;
     constructor(
         instructions: string,
         seed: i32, 
@@ -128,8 +85,6 @@ export class Design {
         // pass it to market to make sure that on mint royalties add up to 100%
         const royalty_percentage = this.royalty.percentage;
 
-        this.market = new Market(royalty_percentage);
-       
         const title = `${seed}`; 
         const issued_at = context.blockTimestamp.toString();
         const copies : u8 = 1;
