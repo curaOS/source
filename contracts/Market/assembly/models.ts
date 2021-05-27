@@ -28,11 +28,7 @@ export class Bid {
 
 @nearBindgen
 export class BidShares {
-    prev_owner: Map<AccountId, u32> = new Map(); // previous owner split (sell-on fee)
-    owner: Map<AccountId, u32> = new Map(); // owner splits
-    constructor(royalty_percentage : u32 = 0) {
-        this.prev_owner.set(context.sender, ZERO_PERCENT);  /** 0% minus perpetual royalties of future sales goes to reseller(s) on first sale */
-        this.owner.set(context.sender, ONE_HUNDRED_PERCENT - royalty_percentage);  /** 100% minus perpetual royalties of future sales goes to creator(s) on first sale */
+    constructor(public prev_owner : u16, public creator : u16, public owner : u16) {
     }
 }
 
