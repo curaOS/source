@@ -8,7 +8,8 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
-import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close, Badge } from 'theme-ui';
+import CreatorShare  from "../components/CreatorShare"
+import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close, Badge, Card } from 'theme-ui';
 import { alpha } from '@theme-ui/color';
 import { appStore, onAppMount } from '../state/app';
 import Link from 'next/link';
@@ -18,6 +19,8 @@ import { getContract } from '../utils/near-utils';
 import { useResponsiveValue, useBreakpointIndex } from '@theme-ui/match-media'
 
 
+const HARDCODED_ROYALTY_ADDRESS = "ysn.testnet";
+const HARDCODED_ROYALTY_SHARE = "2500"
 
 
 const ALLOWED_EMOJIS = [
@@ -463,11 +466,15 @@ const Index = ({ children }) => {
             </div>
           )}
           {(section === 1 && account?.accountId && !indexLoader) && (
-            <>
+            <div
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
               <div
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
                   mb: 3,
                   px: 10,
                   textAlign: "center",
@@ -477,8 +484,7 @@ const Index = ({ children }) => {
                </div>
               <div
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
+                  textAlign: "center",
                   mb: 3,
                 }}
                 >
@@ -487,8 +493,7 @@ const Index = ({ children }) => {
               </div>
               <div
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
+                  textAlign: "center",
                   mb: 3,
                 }}
               >
@@ -496,8 +501,6 @@ const Index = ({ children }) => {
                     return (<Text mx="1">{String.fromCodePoint(emojiCode)}</Text>);
                   })}
               </div>
-              {/* <div sx={{ fontFamily: "monospace" }}><Design instructions={designInstructions} /></div> */}
-              {/* <Design /> */}
               <div
                 sx={{
                   display: "flex",
@@ -505,7 +508,15 @@ const Index = ({ children }) => {
                 }}>
                 <Design instructions={designInstructions}/>
               </div>
-            </>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 3,
+                }}>
+                  <CreatorShare address={HARDCODED_ROYALTY_ADDRESS} share={HARDCODED_ROYALTY_SHARE} />
+              </div>
+            </div>
           )}
           {(section === 2 && account?.accountId && !indexLoader && myDesignInstructions) && (
             <>
