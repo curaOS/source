@@ -1,8 +1,8 @@
 import { context, PersistentMap, u128 } from "near-sdk-as";
 
 export type AccountId = string;
-type CurrencyId = string;
-type TokenId = string;
+export type CurrencyId = string;
+export type TokenId = string;
 
 type Bids = Map<AccountId, Bid>;
 
@@ -18,12 +18,13 @@ const ZERO_PERCENT : u32 = 0; // 0%
 
 @nearBindgen
 export class Bid {
-    amount: u128;
-    currency: CurrencyId = "near";
-    bidder : AccountId;
-    recipient : AccountId;
-    sell_on_share : u32;
-    constructor() { }
+    constructor(
+        public amount: u128,
+        public bidder : AccountId,
+        public recipient : AccountId,
+        public sell_on_share : u32,
+        public currency: CurrencyId = "near",
+    ) { }
 }
 
 @nearBindgen
