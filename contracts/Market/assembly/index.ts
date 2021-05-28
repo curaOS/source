@@ -1,12 +1,6 @@
 import { storage } from 'near-sdk-as';
 import { AccountId, bid_shares, BidShares } from "./models";
 
-/** 
- * Init
- */
-
-// The media contract that can call this market
-export const MEDIA_CONTRACT_KEY = "media_contract";
 
 export function set_bid_shares(
     token_id: string,
@@ -19,6 +13,12 @@ export function set_bid_shares(
 
 }
 
+/** 
+ * Init
+ */
+
+// The media contract that can call this market
+export const MEDIA_CONTRACT_KEY = "media_contract";
 
 export function init(media_contract: AccountId): void {
     assert(storage.get<string>("init") == null, "Already initialized");

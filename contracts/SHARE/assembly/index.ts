@@ -19,6 +19,10 @@ const XCC_FT_MINE_TO_GAS = 25000000000000;
 
 const ONE_YSN = u128.from("1000000000000000000000000");
 
+const ROYALTY_PERCENTAGE : u16 = 2500; // 25%
+const OWNER_PERCENTAGE : u16 = 7500 // 75%
+const ROYALTY_ADDRESS : string = "yassine.testnet"; // social token
+
 const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)); // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)); // 1 YSN
 const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)); // 0.05 YSN
@@ -43,7 +47,7 @@ export function claimMyDesign(seed: i32, schema : Array<u32> = defaultCodePoints
     xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE);
 
     // Market
-    xcc_market_set_bid_shares(design.id, 0, 1000, 9000);
+    xcc_market_set_bid_shares(design.id, 0, ROYALTY_PERCENTAGE, OWNER_PERCENTAGE);
 
     return design;
 }
