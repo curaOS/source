@@ -1,4 +1,4 @@
-import { u128, ContractPromise } from 'near-sdk-as'
+import { u128, ContractPromise, context } from 'near-sdk-as'
 
 const XCC_MARKET_SET_BID_SHARES_GAS = 25000000000000;
 
@@ -40,6 +40,49 @@ export function xcc_market_set_bid_shares(
         remoteMethodArgs,
         XCC_MARKET_SET_BID_SHARES_GAS,
         u128.Zero
+    )
+      
+    promise.returnAsResult();
+}
+
+/**
+ * market.set_bid
+ */
+@nearBindgen
+export class MarketSetBidArgs {
+    token_id: string;
+    amount: u128;
+    bidder : string;
+    recipient : string;
+    sell_on_share : u32;
+    currency: string = "near";
+}
+
+export function xcc_market_set_bid(
+    token_id: string,
+    amount: u128,
+    bidder: string,
+    recipient: string,
+    sell_on_share: u32,
+    currency: string = "near",
+): void {
+    const remoteMethod = "set_bid";
+
+    let remoteMethodArgs: MarketSetBidArgs = {
+        token_id: token_id,
+        amount: amount,
+        bidder: bidder,
+        recipient: recipient,
+        sell_on_share: sell_on_share,
+        currency: currency,
+    };
+
+    const promise = ContractPromise.create(
+        MARKET_CONTRACT,
+        remoteMethod,
+        remoteMethodArgs,
+        XCC_MARKET_SET_BID_SHARES_GAS,
+        context.attachedDeposit, 
     )
       
     promise.returnAsResult();

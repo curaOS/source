@@ -2,7 +2,7 @@ import { logging, RNG, context, u128, ContractPromise } from 'near-sdk-as';
 import { generate } from './generate';
 import { Design, TemporaryDesign, designs, owners, DESIGN_PRICE, FT_CONTRACT } from './models';
 import { NFTContractMetadata } from './models';
-import { xcc_market_set_bid_shares } from './xcc_market';
+import { xcc_market_set_bid_shares, xcc_market_set_bid } from './xcc_market';
 
 // 🟣 = 128995
 // 🟡️ = 128993
@@ -147,7 +147,7 @@ export function nft_tokens_for_owner(
 /* XCC ft_mine_to */
 
 @nearBindgen
-export class FTMineToArgs {
+class FTMineToArgs {
     account_id: string;
     amount: u128;
 }
@@ -173,4 +173,24 @@ function xcc_ft_mine_to_and_transfer(
     )
       
     promise.returnAsResult();
+}
+
+/* Market */
+
+export function set_bid(
+    token_id: string,
+    amount: u128,
+    bidder: string,
+    recipient: string,
+    sell_on_share: u32,
+    currency: string = "near"
+): void {
+    xcc_market_set_bid(
+        token_id,
+        amount,
+        bidder,
+        recipient,
+        sell_on_share,
+        currency
+    );
 }
