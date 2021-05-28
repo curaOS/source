@@ -1,5 +1,5 @@
-import { storage } from 'near-sdk-as';
-import { AccountId, bid_shares, BidShares } from "./models";
+import { storage, u128 } from 'near-sdk-as';
+import { AccountId, CurrencyId, bid_shares, token_bidders, BidShares, Bid } from "./models";
 
 
 export function set_bid_shares(
@@ -11,6 +11,27 @@ export function set_bid_shares(
     const new_bid_shares = new BidShares(prev_owner, creator, owner);
     bid_shares.set(token_id, new_bid_shares);
 
+}
+
+export function set_bid(
+    token_id: string,
+    amount: u128,
+    bidder : AccountId,
+    recipient : AccountId,
+    sell_on_share : u32,
+    currency: CurrencyId = "near",
+): void {
+    let bidders = token_bidders.get(token_id);
+    
+    if (!bidders) {
+        bidders = new Map();
+    } 
+
+    const new_bid = new Bid(amount, bidder, recipient, sell_on_share, currency);
+    
+    bidders.set(bidder, new_bid);
+    
+    token_bidders.set(token_id, bidders);
 }
 
 /** 
