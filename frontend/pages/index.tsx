@@ -8,7 +8,8 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
-import CreatorShare  from "../components/CreatorShare"
+import CreatorShare  from "../components/CreatorShare";
+import Bidders from "../components/Bidders";
 import { Button, Text, Divider, Flex, NavLink, Spinner, Alert, Close, Badge, Card } from 'theme-ui';
 import { alpha } from '@theme-ui/color';
 import { appStore, onAppMount } from '../state/app';
@@ -126,6 +127,7 @@ const Index = ({ children }) => {
   const [designInstructions, setDesignInstructions] = useState();
   const [myDesignInstructions, setMyDesignInstructions] = useState();
   const [totalSupply, setTotalSupply] = useState(0);
+  const [bidders, setBidders] = useState({});
   const [ftBalance, setFTBalance] = useState(0);
   const [randomDesign, setRandomDesign] = useState({ owner_id: '', instructions: []})
   const { state, dispatch, update } = useContext(appStore);
@@ -135,6 +137,11 @@ const Index = ({ children }) => {
   const contractFT = new Contract(account, FT_CONTRACT_NAME, {
     changeMethods: [],
 		viewMethods: ['ft_balance_of']
+  })
+
+  const contractMarket = new Contract(account, MARKET_CONTRACT_NAME, {
+    changeMethods: [],
+		viewMethods: ['get_bids']
   })
 
   const moveToSection = (s : number) => {
@@ -174,9 +181,7 @@ const Index = ({ children }) => {
 
   useEffect(() => {
     if (!account) return;
-    retrieveDesign();
-    retrieveTotalSupply();
-    retrieveBalanceOfFT();
+    retrieveBidders();
   }, [account])
   
   useEffect(onMount, []);
@@ -190,6 +195,18 @@ const Index = ({ children }) => {
       const result : string = await contractFT.ft_balance_of({ account_id : account?.accountId });
       
       setFTBalance(utils.format.formatNearAmount(result, 5)); // decimals for YSN is same as NEAR
+		} catch (e) {
+      if (!/not present/.test(e.toString())) {
+        setAlertMessage(e.toString());
+			}
+		}
+  }
+
+  async function retrieveBidders() {
+    try {
+      const result : string = await contractMarket.get_bids({ token_id : account?.accountId });
+      
+      setBidders(result);
 		} catch (e) {
       if (!/not present/.test(e.toString())) {
         setAlertMessage(e.toString());
@@ -535,6 +552,22 @@ const Index = ({ children }) => {
                   justifyContent: "center",
                 }}>
                 <Design instructions={myDesignInstructions}/>
+              </div>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 3,
+                }}>
+                  <Bidders bidders={bidders} />
+              </div>
+              <div
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 3,
+                }}>
+                  <CreatorShare address={HARDCODED_ROYALTY_ADDRESS} share={HARDCODED_ROYALTY_SHARE} />
               </div>
             </>
           )}
