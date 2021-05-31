@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import React from 'react'
