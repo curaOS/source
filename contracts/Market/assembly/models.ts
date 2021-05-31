@@ -4,7 +4,7 @@ export type AccountId = string;
 export type CurrencyId = string;
 export type TokenId = string;
 
-type Bids = Map<AccountId, Bid>;
+export type Bids = Map<AccountId, Bid>;
 
 const ONE_HUNDRED_PERCENT : u32 = 10000; // 100%
 const ZERO_PERCENT : u32 = 0; // 0%
