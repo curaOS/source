@@ -1,6 +1,19 @@
 import { storage, u128 } from 'near-sdk-as';
-import { AccountId, CurrencyId, bid_shares, token_bidders, BidShares, Bid } from "./models";
+import { AccountId, CurrencyId, bid_shares, token_bidders, BidShares, Bid, Bids } from "./models";
 
+/** Get functions */
+
+export function get_bids(token_id: string): Bids {
+    let bidders = token_bidders.get(token_id);
+    
+    if (!bidders) {
+        bidders = new Map();
+    } 
+
+    return bidders;
+}
+
+/** Set functions */
 
 export function set_bid_shares(
     token_id: string,
