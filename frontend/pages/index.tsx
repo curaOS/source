@@ -183,6 +183,9 @@ const Index = ({ children }) => {
   useEffect(() => {
     if (!account) return;
     retrieveBidders();
+    retrieveDesign();
+    retrieveTotalSupply();
+    retrieveBalanceOfFT();
   }, [account])
   
   useEffect(onMount, []);
