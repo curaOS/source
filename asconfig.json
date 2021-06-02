@@ -1,6 +1,3 @@
 {
-    "workspaces": [
-        "contracts/SHARE",
-        "contracts/YSN"
-    ]
+    "workspaces": ["contracts/SHARE", "contracts/YSN"]
 }

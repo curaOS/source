@@ -1,4 +1,4 @@
-import { u128, Context, ContractPromise } from "near-sdk-as";
+import { u128, Context, ContractPromise } from 'near-sdk-as'
 
 /**
  * == TYPES ====================================================================
@@ -7,27 +7,27 @@ import { u128, Context, ContractPromise } from "near-sdk-as";
 /**
  * Account IDs in NEAR are just strings.
  */
-export type AccountId = string;
+export type AccountId = string
 
 /**
  * Gas is u64
  */
-export type Gas = u64;
+export type Gas = u64
 
 /**
  * Amounts, Balances, and Money in NEAR is are u128.
  */
 
-export type Amount = u128;
+export type Amount = u128
 
-export type Balance = Amount;
+export type Balance = Amount
 
-export type Money = Amount;
+export type Money = Amount
 
 /**
  * Timestamp in NEAR is a number.
  */
-export type Timestamp = u64;
+export type Timestamp = u64
 
 /**
  * == CONSTANTS ================================================================
@@ -40,9 +40,9 @@ export type Timestamp = u64;
  *  could end up being much higher
  */
 
-export const ONE_NEAR = u128.from("1000000000000000000000000");
-export const XCC_GAS: Gas = 20_000_000_000_000;
-export const MIN_ACCOUNT_BALANCE: u128 = u128.mul(ONE_NEAR, u128.from(3));
+export const ONE_NEAR = u128.from('1000000000000000000000000')
+export const XCC_GAS: Gas = 20_000_000_000_000
+export const MIN_ACCOUNT_BALANCE: u128 = u128.mul(ONE_NEAR, u128.from(3))
 
 /**
  * == FUNCTIONS ================================================================
@@ -59,7 +59,7 @@ export const MIN_ACCOUNT_BALANCE: u128 = u128.mul(ONE_NEAR, u128.from(3));
  *    // => '7'
  */
 export function asNEAR(amount: u128): string {
-  return u128.div(amount, ONE_NEAR).toString();
+    return u128.div(amount, ONE_NEAR).toString()
 }
 
 /**
@@ -73,20 +73,20 @@ export function asNEAR(amount: u128): string {
  *    // => 7000000000000000000000000
  */
 export function toYocto(amount: number): u128 {
-  return u128.mul(ONE_NEAR, u128.from(amount))
+    return u128.mul(ONE_NEAR, u128.from(amount))
 }
 
 /**
  * Function to assert that the contract has called itself
  */
 export function assert_self(): void {
-  const caller = Context.predecessor
-  const self = Context.contractName
-  assert(caller == self, "Only this contract may call itself");
+    const caller = Context.predecessor
+    const self = Context.contractName
+    assert(caller == self, 'Only this contract may call itself')
 }
 
 export function assert_single_promise_success(): void {
-  const x = ContractPromise.getResults()
-  assert(x.length == 1, "Expected exactly one promise result")
-  assert(x[0].succeeded, "Expected PromiseStatus to be successful")
+    const x = ContractPromise.getResults()
+    assert(x.length == 1, 'Expected exactly one promise result')
+    assert(x[0].succeeded, 'Expected PromiseStatus to be successful')
 }

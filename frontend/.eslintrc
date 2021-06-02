@@ -1,68 +1,68 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "plugins": ["react-hooks", "jsx-a11y"],
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "rules": {
-    /* Base */
-    "no-var": "error",
-    "prefer-const": "warn",
-    "no-console": "off",
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "plugins": ["react-hooks", "jsx-a11y"],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        /* Base */
+        "no-var": "error",
+        "prefer-const": "warn",
+        "no-console": "off",
 
-    /* Typescript */
-    "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/quotes": ["warn", "backtick"],
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/indent": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/member-delimiter-style": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
+        /* Typescript */
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/quotes": ["warn", "backtick"],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/member-delimiter-style": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
 
-    /* React */
-    "react/prop-types": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+        /* React */
+        "react/prop-types": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
 
-    "no-restricted-imports": [
-      "error",
-      {
-        "paths": [
-          {
-            "name": "theme-ui",
-            "importNames": ["Text", "Flex"],
-            "message": "Import from /components instead"
-          }
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "theme-ui",
+                        "importNames": ["Text", "Flex"],
+                        "message": "Import from /components instead"
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "node": true,
+        "es6": true,
+        "jest": true
     }
-  },
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "node": true,
-    "es6": true,
-    "jest": true
-  }
 }
