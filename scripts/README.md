@@ -10,4 +10,4 @@ node scripts deploy [--init --clean]
 
 `--init` : creates _NEAR_ accounts for contracts, blocks deploy
 
-`--clean` : delete _NEAR_ accounts for contracts, blocks deploy
+`--clean` : deletes _NEAR_ accounts for contracts, blocks deploy
