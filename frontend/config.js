@@ -1,4 +1,4 @@
-const contractName = 'v1.share.ysn.testnet'
+const contractName = process.env.SHARE_ADDRESS
 
 module.exports = function getConfig(isServer = false) {
     let config = {

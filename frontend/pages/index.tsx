@@ -83,8 +83,8 @@ const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
 
-const MARKET_CONTRACT_NAME = 'market.v1.share.ysn.testnet'
-const FT_CONTRACT_NAME = 'v1.ysn.testnet'
+const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
+const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
 
 const SIZE = 32
 

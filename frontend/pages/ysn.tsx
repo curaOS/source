@@ -20,7 +20,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { utils, Contract } from 'near-api-js'
 
-const FT_CONTRACT_NAME = 'v1.ysn.testnet'
+const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
 
 const GradientText = ({ text }: { text: string }) => {
     return (

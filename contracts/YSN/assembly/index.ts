@@ -1,13 +1,14 @@
 import { storage, u128, context } from 'near-sdk-as'
 import { FTContractMetadata, balances } from './model'
 import { AccountId } from '../../utils'
+import { SHARE_ADDRESS } from '../../accounts'
 
 export const SUPPLY_KEY = 'minted_supply'
 export const TREASURY_KEY = 'treasury'
 
 export const ZERO_NEAR: u128 = u128.Zero
 
-const whitelist: Array<AccountId> = ['v1.share.ysn.testnet']
+const whitelist: Array<AccountId> = [SHARE_ADDRESS]
 
 export function get_treasury(): string {
     if (storage.hasKey(TREASURY_KEY)) {

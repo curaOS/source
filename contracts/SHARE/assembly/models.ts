@@ -1,4 +1,5 @@
 import { context, PersistentMap, PersistentSet, u128 } from 'near-sdk-as'
+import { YSN_ADDRESS } from '../../accounts'
 
 type AccountId = string
 
@@ -12,7 +13,7 @@ export const DESIGN_PRICE = ONE_NEAR
 
 export const ROYALTY_MAX_PERCENTAGE: u32 = 5000 // 50%
 
-export const FT_CONTRACT: string = 'v1.ysn.testnet'
+export const FT_CONTRACT: string = YSN_ADDRESS
 const FT_CONTRACT_ROYALTY: u32 = 2500 // 25%
 
 @nearBindgen
