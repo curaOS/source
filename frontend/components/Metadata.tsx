@@ -1,0 +1,55 @@
+// @ts-nocheck
+/** @jsxImportSource theme-ui */
+
+import React from 'react'
+import { Box, Heading, Text } from 'theme-ui'
+
+export default function CreatorShare({
+    title,
+    creator,
+}: {
+    title?: string
+    creator?: string
+}) {
+    return (
+        <Box
+            sx={{
+                width: 300,
+            }}
+        >
+            <Heading
+                as="h2"
+                sx={{
+                    mt: 2,
+                    letterSpacing: 8,
+                }}
+            >
+                {title}
+            </Heading>
+            <Text
+                sx={{
+                    color: 'secondary',
+                    fontSize: 12,
+                }}
+            >
+                TITLE
+            </Text>
+            <Heading
+                as="h3"
+                sx={{
+                    mt: 2,
+                }}
+            >
+                {creator}
+            </Heading>
+            <Text
+                sx={{
+                    color: 'secondary',
+                    fontSize: 12,
+                }}
+            >
+                CREATOR
+            </Text>
+        </Box>
+    )
+}

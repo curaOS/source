@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 // import Footer from "../../components/footer"
 import CreatorShare from '../components/CreatorShare'
 import Bidders from '../components/Bidders'
+import Metadata from '../components/Metadata'
 import {
     Button,
     Text,
@@ -151,6 +152,9 @@ const Index = ({ children }) => {
     const [randomDesign, setRandomDesign] = useState({
         owner_id: '',
         instructions: [],
+        metadata: {
+            title: '',
+        },
     })
     const { state, dispatch, update } = useContext(appStore)
     const { near, wallet, account, localKeys, loading } = state
@@ -287,6 +291,9 @@ const Index = ({ children }) => {
 
             setRandomDesign({
                 owner_id: result[0]?.owner_id,
+                metadata: {
+                    title: result[0]?.metadata?.title,
+                },
                 instructions: extra?.instructions?.split(','),
             })
 
@@ -687,13 +694,35 @@ const Index = ({ children }) => {
                                     display: 'flex',
                                     alignItems: 'center',
                                     flexDirection: 'column',
-                                    mb: 4,
                                 }}
                             >
                                 <Design
                                     instructions={randomDesign?.instructions}
                                 />
-                                <Text>{randomDesign?.owner_id}</Text>
+                            </div>
+                            <div
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Metadata
+                                    title={randomDesign?.metadata.title}
+                                    creator={randomDesign?.owner_id}
+                                />
+                            </div>
+                            <div
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    mt: 3,
+                                }}
+                            >
+                                <CreatorShare
+                                    address={HARDCODED_ROYALTY_ADDRESS}
+                                    share={HARDCODED_ROYALTY_SHARE}
+                                />
                             </div>
                         </>
                     )}
