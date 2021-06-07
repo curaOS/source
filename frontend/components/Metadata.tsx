@@ -4,7 +4,7 @@
 import React from 'react'
 import { Box, Heading, Text } from 'theme-ui'
 
-export default function CreatorShare({
+export default function Metadata({
     title,
     creator,
 }: {
