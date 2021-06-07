@@ -24,7 +24,7 @@ log(`
 
 const OWNER = `ysn.testnet`
 
-module.exports = function deploy(clean, init) {
+module.exports = function deploy(clean, init, build) {
     if (init) {
         const spinner1 = ora('Init...').start()
 
@@ -65,19 +65,23 @@ module.exports = function deploy(clean, init) {
         )
     }
 
-    const spinner3 = ora('Build...').start()
-    async.map(
-        ['yarn build-share', 'yarn build-ysn', 'yarn build-market'],
-        exec,
-        function (err, results) {
-            err ? log(`${chalk.red(err.message)}`) : results.map((r) => log(r))
-            !err
-                ? spinner3.succeed('Build contracts')
-                : spinner3.fail('Build contracts')
-        }
-    )
+    if (build) {
+        const spinner3 = ora('Build...').start()
+        async.map(
+            ['yarn build-share', 'yarn build-ysn', 'yarn build-market'],
+            exec,
+            function (err, results) {
+                err
+                    ? log(`${chalk.red(err.message)}`)
+                    : results.map((r) => log(r))
+                !err
+                    ? spinner3.succeed('Build contracts')
+                    : spinner3.fail('Build contracts')
+            }
+        )
+    }
 
-    if (!clean && !init) {
+    if (!clean && !init && !build) {
         const spinner4 = ora('Deploy...').start()
         async.map(
             [
