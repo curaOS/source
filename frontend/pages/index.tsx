@@ -3,7 +3,7 @@
 
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
-import React, { useContext, useEffect, useState, useRef } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 // import Header from "../../components/header"
 // import Footer from "../../components/footer"
@@ -19,8 +19,6 @@ import {
     Spinner,
     Alert,
     Close,
-    Badge,
-    Card,
 } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
 import { appStore, onAppMount } from '../state/app'
@@ -28,7 +26,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { utils, Contract } from 'near-api-js'
 import { getContract } from '../utils/near-utils'
-import { useResponsiveValue, useBreakpointIndex } from '@theme-ui/match-media'
+import { useBreakpointIndex } from '@theme-ui/match-media'
 
 const HARDCODED_ROYALTY_ADDRESS = 'ysn.testnet'
 const HARDCODED_ROYALTY_SHARE = '2500'

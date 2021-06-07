@@ -15,6 +15,7 @@ export default function CreatorShare({
         <Box
             sx={{
                 width: 300,
+                px: 20,
             }}
         >
             <Heading
