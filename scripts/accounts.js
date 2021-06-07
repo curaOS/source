@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk')
 const fs = require('fs')
 
 const {
@@ -8,14 +7,6 @@ const {
     SHARE_ADDRESS,
     SHARE_MARKET_ADDRESS,
 } = require('../accounts')
-
-const log = console.log
-
-log(`
-    YSN_ADDRESS: ${chalk.blue(YSN_ADDRESS)}
-    SHARE_ADDRESS: ${chalk.green(SHARE_ADDRESS)}
-    MARKET_ADDRESS: ${chalk.red(SHARE_MARKET_ADDRESS)}
-`)
 
 const accountsTsFile = `export const YSN_ADDRESS : string = "${YSN_ADDRESS}"
 export const SHARE_ADDRESS : string = "${SHARE_ADDRESS}"

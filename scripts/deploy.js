@@ -16,7 +16,7 @@ const log = console.log
 log(`
     YSN_ADDRESS: ${chalk.blue(YSN_ADDRESS)}
     SHARE_ADDRESS: ${chalk.green(SHARE_ADDRESS)}
-    MARKET_ADDRESS: ${chalk.red(SHARE_MARKET_ADDRESS)}
+    SHARE_MARKET_ADDRESS: ${chalk.red(SHARE_MARKET_ADDRESS)}
 `)
 
 const OWNER = `ysn.testnet`
