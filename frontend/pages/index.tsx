@@ -27,6 +27,7 @@ import Image from 'next/image'
 import { utils, Contract } from 'near-api-js'
 import { getContract } from '../utils/near-utils'
 import { useBreakpointIndex } from '@theme-ui/match-media'
+import BidCreate from 'components/BidCreate'
 
 const HARDCODED_ROYALTY_ADDRESS = 'ysn.testnet'
 const HARDCODED_ROYALTY_SHARE = '2500'
@@ -79,6 +80,7 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 190 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
+const MARKET_SET_BIG_GAS = utils.format.parseNearAmount('0.00000000002') // 20 Tgas
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
 
@@ -214,6 +216,23 @@ const Index = ({ children }) => {
 
     if (loading) {
         return null
+    }
+
+    async function setBid(amount, resale) {
+        try {
+            await contract.set_bid(
+                {
+                    token_id: randomDesign.owner_id,
+                    amount: utils.format.parseNearAmount(amount),
+                    bidder: account?.accountId,
+                    recipient: randomDesign.owner_id,
+                    sell_on_share: parseInt(resale) * 100,
+                    currency: 'near',
+                },
+                MARKET_SET_BIG_GAS,
+                utils.format.parseNearAmount(amount)
+            )
+        } catch (e) {}
     }
 
     async function retrieveBalanceOfFT() {
@@ -720,6 +739,23 @@ const Index = ({ children }) => {
                                 <CreatorShare
                                     address={HARDCODED_ROYALTY_ADDRESS}
                                     share={HARDCODED_ROYALTY_SHARE}
+                                />
+                            </div>
+                            <div
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    mt: 3,
+                                    mb: 3,
+                                }}
+                            >
+                                <Divider sx={{ width: 300 }} />
+                                <BidCreate
+                                    title={randomDesign?.metadata.title}
+                                    creator={randomDesign?.owner_id}
+                                    onBid={setBid}
                                 />
                             </div>
                         </>
