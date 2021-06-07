@@ -2,6 +2,7 @@
 
 const program = require('commander')
 const deploy = require('./deploy')
+const accounts = require('./accounts')
 
 program
     .command('deploy') // sub-command name
@@ -12,6 +13,14 @@ program
     .option('--build', 'build contracts')
     .action(function (options) {
         deploy(options.clean, options.init, options.build)
+    })
+
+program
+    .command('accounts') // sub-command name
+    .alias('acn')
+    .description('Write env files for contract addresses')
+    .action(function () {
+        accounts()
     })
 
 // allow commander to parse `process.argv`

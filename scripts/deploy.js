@@ -5,21 +5,18 @@ const { exec } = require('child_process')
 const ora = require('ora')
 const async = require('async')
 
-const pjson = require('../package.json')
+const {
+    YSN_ADDRESS,
+    SHARE_ADDRESS,
+    SHARE_MARKET_ADDRESS,
+} = require('../accounts')
 
 const log = console.log
-
-// When package version is updated, contract are deployed to new addresses
-const version = pjson.version.replaceAll('.', '_')
-
-const YSN_ADDRESS = `ysn-${version}.ysn.testnet`
-const SHARE_ADDRESS = `share.ysn-${version}.ysn.testnet`
-const MARKET_ADDRESS = `market.share.ysn-${version}.ysn.testnet`
 
 log(`
     YSN_ADDRESS: ${chalk.blue(YSN_ADDRESS)}
     SHARE_ADDRESS: ${chalk.green(SHARE_ADDRESS)}
-    MARKET_ADDRESS: ${chalk.red(MARKET_ADDRESS)}
+    MARKET_ADDRESS: ${chalk.red(SHARE_MARKET_ADDRESS)}
 `)
 
 const OWNER = `ysn.testnet`
@@ -32,7 +29,7 @@ module.exports = function deploy(clean, init, build) {
             [
                 `near create-account ${YSN_ADDRESS} --masterAccount ${OWNER} --initialBalance 10`,
                 `near create-account ${SHARE_ADDRESS} --masterAccount ${YSN_ADDRESS} --initialBalance 5`,
-                `near create-account ${MARKET_ADDRESS} --masterAccount ${SHARE_ADDRESS} --initialBalance 1`,
+                `near create-account ${SHARE_MARKET_ADDRESS} --masterAccount ${SHARE_ADDRESS} --initialBalance 1`,
             ],
             exec,
             function (err, results) {
@@ -53,7 +50,7 @@ module.exports = function deploy(clean, init, build) {
             [
                 `near delete ${YSN_ADDRESS} ${OWNER}`,
                 `near delete ${SHARE_ADDRESS} ${OWNER}`,
-                `near delete ${MARKET_ADDRESS} ${OWNER}`,
+                `near delete ${SHARE_MARKET_ADDRESS} ${OWNER}`,
             ],
             exec,
             function (err, results) {
@@ -87,7 +84,7 @@ module.exports = function deploy(clean, init, build) {
             [
                 `near deploy --wasmFile build/release/YSN.wasm --accountId ${YSN_ADDRESS}`,
                 `near deploy --wasmFile build/release/SHARE.wasm --accountId ${SHARE_ADDRESS}`,
-                `near deploy --wasmFile build/release/Market.wasm --accountId ${MARKET_ADDRESS}`,
+                `near deploy --wasmFile build/release/Market.wasm --accountId ${SHARE_MARKET_ADDRESS}`,
             ],
             exec,
             function (err, results) {
