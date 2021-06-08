@@ -6,7 +6,7 @@ export type TokenId = string
 
 export type Bids = Map<AccountId, Bid>
 
-const ONE_HUNDRED_PERCENT: u32 = 10000 // 100%
+const ONE_HUNDRED_PERCENT: u16 = 10000 // 100%
 const ZERO_PERCENT: u32 = 0 // 0%
 
 /**
@@ -22,7 +22,7 @@ export class Bid {
         public amount: u128,
         public bidder: AccountId,
         public recipient: AccountId,
-        public sell_on_share: u32,
+        public sell_on_share: u16,
         public currency: CurrencyId = 'near'
     ) {}
 }
@@ -40,7 +40,7 @@ export class BidShares {
 export class Ask {
     amount: u128 // Amount asked
     currency: CurrencyId = 'near' // currency of ask, default is NEAR
-    sell_on_share: u32 // % to pay to previous owner on this sale
+    sell_on_share: u16 // % to pay to previous owner on this sale
     constructor() {}
 }
 

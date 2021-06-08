@@ -57,7 +57,7 @@ export class MarketSetBidArgs {
     amount: u128
     bidder: string
     recipient: string
-    sell_on_share: u32
+    sell_on_share: u16
     currency: string = 'near'
 }
 
@@ -66,7 +66,7 @@ export function xcc_market_set_bid(
     amount: u128,
     bidder: string,
     recipient: string,
-    sell_on_share: u32,
+    sell_on_share: u16,
     currency: string = 'near'
 ): void {
     const remoteMethod = 'set_bid'

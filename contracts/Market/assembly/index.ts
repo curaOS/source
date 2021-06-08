@@ -39,7 +39,7 @@ export function set_bid(
     amount: u128,
     bidder: AccountId,
     recipient: AccountId,
-    sell_on_share: u32,
+    sell_on_share: u16,
     currency: CurrencyId = 'near'
 ): void {
     let bidders = token_bidders.get(token_id)

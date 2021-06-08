@@ -200,7 +200,7 @@ export function set_bid(
     amount: u128,
     bidder: string,
     recipient: string,
-    sell_on_share: u32,
+    sell_on_share: u16,
     currency: string = 'near'
 ): void {
     xcc_market_set_bid(
