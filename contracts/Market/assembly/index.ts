@@ -1,4 +1,4 @@
-import { context, storage, u128, logging } from 'near-sdk-as'
+import { storage, u128, ContractPromiseBatch, env } from 'near-sdk-as'
 import {
     AccountId,
     CurrencyId,
@@ -60,6 +60,13 @@ export function remove_bid(token_id: string, bidder: AccountId): void {
     if (!bidders || !bidders.has(bidder)) {
         return
     }
+
+    let bid = bidders.get(bidder)
+
+    const promise = ContractPromiseBatch.create(bidder)
+    promise.transfer(bid.amount)
+
+    env.promise_return(promise.id)
 
     bidders.delete(bidder)
 
