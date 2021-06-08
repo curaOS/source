@@ -10,6 +10,7 @@ module.exports = function getConfig(isServer = false) {
         contractMethods: {
             changeMethods: [
                 'set_bid',
+                'accept_bid',
                 'design',
                 'claimMyDesign',
                 'burnMyDesign',

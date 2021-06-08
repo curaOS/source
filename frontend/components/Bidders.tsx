@@ -1,21 +1,23 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 import React from 'react'
-import { Box, Heading, Text } from 'theme-ui'
+import { Box, Heading, Text, Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 
 export default function CreatorShare({
     bidders,
+    onAcceptBid,
 }: {
     bidders: {
         [key: string]: {
             amount: string
             bidder: string
             recipient: string
-            sell_on_share: string
+            sell_on_share: number
             currency: string
         }
     }
+    onAcceptBid: (bidder: string) => void
 }) {
     console.log(bidders)
     return (
@@ -42,10 +44,12 @@ export default function CreatorShare({
                             mt: 2,
                         }}
                     >
-                        <Heading as="h5" sx={{ color: 'text' }}>
-                            {' '}
-                            {bid.bidder}
-                        </Heading>
+                        <div>
+                            <Heading as="h5" sx={{ color: 'text' }}>
+                                {' '}
+                                {bid.bidder}
+                            </Heading>
+                        </div>
                         <div
                             sx={{
                                 display: 'flex',
@@ -59,6 +63,12 @@ export default function CreatorShare({
                             <Text sx={{ fontSize: 12 }}>
                                 Resale Fee <b>10%</b>
                             </Text>
+                            <Button
+                                sx={{ pt: 0, pb: 0, fontSize: 12 }}
+                                onClick={() => onAcceptBid(bidder)}
+                            >
+                                Accept
+                            </Button>
                         </div>
                     </div>
                 )

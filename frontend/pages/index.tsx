@@ -81,8 +81,10 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
 const MARKET_SET_BIG_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
+const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
 
 const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
 const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
@@ -231,6 +233,19 @@ const Index = ({ children }) => {
                 },
                 MARKET_SET_BIG_GAS,
                 utils.format.parseNearAmount(amount)
+            )
+        } catch (e) {}
+    }
+
+    async function acceptBid(bidder: string) {
+        try {
+            await contract.accept_bid(
+                {
+                    token_id: account?.accountId, // mydesign
+                    bidder: bidder,
+                },
+                MARKET_ACCEPT_BID_GAS,
+                YOCTO_NEAR
             )
         } catch (e) {}
     }
@@ -677,7 +692,10 @@ const Index = ({ children }) => {
                                         mt: 3,
                                     }}
                                 >
-                                    <Bidders bidders={bidders} />
+                                    <Bidders
+                                        bidders={bidders}
+                                        onAcceptBid={acceptBid}
+                                    />
                                 </div>
                                 <div
                                     sx={{
