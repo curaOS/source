@@ -9,7 +9,11 @@ import {
     FT_CONTRACT,
 } from './models'
 import { NFTContractMetadata } from './models'
-import { xcc_market_set_bid_shares, xcc_market_set_bid } from './xcc_market'
+import {
+    xcc_market_set_bid_shares,
+    xcc_market_set_bid,
+    xcc_market_remove_bid,
+} from './xcc_market'
 
 // 🟣 = 128995
 // 🟡️ = 128993
@@ -206,4 +210,8 @@ export function set_bid(
         sell_on_share,
         currency
     )
+}
+
+export function remove_bid(token_id: string, bidder: string): void {
+    xcc_market_remove_bid(token_id, bidder)
 }

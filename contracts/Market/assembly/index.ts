@@ -1,4 +1,4 @@
-import { storage, u128 } from 'near-sdk-as'
+import { context, storage, u128, logging } from 'near-sdk-as'
 import {
     AccountId,
     CurrencyId,
@@ -50,6 +50,18 @@ export function set_bid(
     const new_bid = new Bid(amount, bidder, recipient, sell_on_share, currency)
 
     bidders.set(bidder, new_bid)
+
+    token_bidders.set(token_id, bidders)
+}
+
+export function remove_bid(token_id: string, bidder: AccountId): void {
+    let bidders = token_bidders.get(token_id)
+
+    if (!bidders || !bidders.has(bidder)) {
+        return
+    }
+
+    bidders.delete(bidder)
 
     token_bidders.set(token_id, bidders)
 }
