@@ -78,9 +78,9 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
     ssr: false,
 })
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 190 Tgas
+const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
-const MARKET_SET_BIG_GAS = utils.format.parseNearAmount('0.00000000002') // 20 Tgas
+const MARKET_SET_BIG_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
 

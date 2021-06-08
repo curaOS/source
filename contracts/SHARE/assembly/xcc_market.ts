@@ -1,8 +1,8 @@
 import { u128, ContractPromise, context } from 'near-sdk-as'
 import { SHARE_MARKET_ADDRESS } from '../../accounts'
 
-const XCC_MARKET_SET_BID_SHARES_GAS = 2500000000000
-const XCC_MARKET_REMOVE_BID_SHARES_GAS = 2500000000000
+const XCC_MARKET_SET_BID_SHARES_GAS = 25000000000000
+const XCC_MARKET_REMOVE_BID_SHARES_GAS = 25000000000000
 
 /**
  * TODO move to init
