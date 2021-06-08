@@ -8,6 +8,7 @@ import {
     Bid,
     Bids,
 } from './models'
+import { xcc_media_nft_transfer } from './xcc_media'
 import { split_share, ONE_HUNDRED_PERCENT } from '../../utils'
 
 /** Get functions */
@@ -109,6 +110,7 @@ export function accept_bid(
     bid_shares.set(token_id, bidShares)
 
     /** TODO call NFT_TRANSFER */
+    xcc_media_nft_transfer(token_id, bid.bidder)
 
     bidders.delete(bidder)
     token_bidders.set(token_id, bidders)

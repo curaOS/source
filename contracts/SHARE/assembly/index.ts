@@ -162,6 +162,18 @@ export function nft_tokens_for_owner(
     return designs.contains(account_id) ? [designs.getSome(account_id)] : []
 }
 
+/* nft_transfer */
+
+export function nft_transfer(token_id: string, bidder: string): void {
+    const design = designs.getSome(token_id)
+
+    designs.set(bidder, design)
+    owners.add(bidder)
+
+    designs.delete(context.sender)
+    owners.delete(context.sender)
+}
+
 /* XCC ft_mine_to */
 
 @nearBindgen
