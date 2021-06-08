@@ -8,6 +8,7 @@ import {
     Bid,
     Bids,
 } from './models'
+import { split_share, ONE_HUNDRED_PERCENT } from '../../utils'
 
 /** Get functions */
 
@@ -70,6 +71,46 @@ export function remove_bid(token_id: string, bidder: AccountId): void {
 
     bidders.delete(bidder)
 
+    token_bidders.set(token_id, bidders)
+}
+
+export function accept_bid(
+    token_id: string,
+    bidder: AccountId,
+    creator: string,
+    owner: string,
+    prev_owner: string
+): void {
+    let bidders = token_bidders.get(token_id)
+    let bidShares = bid_shares.get(token_id)
+
+    if (!bidders || !bidders.has(bidder) || !bidShares) {
+        return
+    }
+
+    let bid = bidders.get(bidder)
+
+    const promiseCreator = ContractPromiseBatch.create(creator)
+    promiseCreator.transfer(split_share(bidShares.creator, bid.amount))
+
+    const promiseOwner = ContractPromiseBatch.create(owner)
+    promiseOwner.transfer(split_share(bidShares.owner, bid.amount))
+
+    const promisePrevOwner = ContractPromiseBatch.create(prev_owner)
+    promisePrevOwner.transfer(split_share(bidShares.prev_owner, bid.amount))
+
+    env.promise_return(promiseCreator.id)
+    env.promise_return(promiseOwner.id)
+    env.promise_return(promisePrevOwner.id)
+
+    bidShares.owner =
+        ONE_HUNDRED_PERCENT - bid.sell_on_share - bidShares.creator
+    bidShares.prev_owner = bid.sell_on_share
+    bid_shares.set(token_id, bidShares)
+
+    /** TODO call NFT_TRANSFER */
+
+    bidders.delete(bidder)
     token_bidders.set(token_id, bidders)
 }
 

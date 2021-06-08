@@ -65,11 +65,15 @@ export class Royalty {
 export class Design {
     id: string
     owner_id: string
+    creator: string
+    prev_owner: string
     metadata: TokenMetadata
     royalty: Royalty
     constructor(instructions: string, seed: i32) {
         this.id = context.sender
         this.owner_id = context.sender
+        this.creator = context.sender
+        this.prev_owner = context.sender
 
         this.royalty = new Royalty()
 

@@ -2,6 +2,7 @@ import { u128, ContractPromise, context } from 'near-sdk-as'
 import { SHARE_MARKET_ADDRESS } from '../../accounts'
 
 const XCC_MARKET_SET_BID_SHARES_GAS = 25000000000000
+const XCC_MARKET_ACCEPT_BID_SHARES_GAS = 25000000000000
 const XCC_MARKET_REMOVE_BID_SHARES_GAS = 25000000000000
 
 /**
@@ -112,6 +113,46 @@ export function xcc_market_remove_bid(token_id: string, bidder: string): void {
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_REMOVE_BID_SHARES_GAS,
+        u128.Zero
+    )
+
+    promise.returnAsResult()
+}
+
+/**
+ * market.accept_bid
+ */
+@nearBindgen
+export class MarketAcceptBidArgs {
+    token_id: string
+    bidder: string
+    creator: string
+    owner: string
+    prev_owner: string
+}
+
+export function xcc_market_accept_bid(
+    token_id: string,
+    bidder: string,
+    creator: string,
+    owner: string,
+    prev_owner: string
+): void {
+    const remoteMethod = 'accept_bid'
+
+    let remoteMethodArgs: MarketAcceptBidArgs = {
+        token_id: token_id,
+        bidder: bidder,
+        creator: creator,
+        owner: owner,
+        prev_owner: prev_owner,
+    }
+
+    const promise = ContractPromise.create(
+        MARKET_CONTRACT,
+        remoteMethod,
+        remoteMethodArgs,
+        XCC_MARKET_ACCEPT_BID_SHARES_GAS,
         u128.Zero
     )
 

@@ -13,6 +13,7 @@ import {
     xcc_market_set_bid_shares,
     xcc_market_set_bid,
     xcc_market_remove_bid,
+    xcc_market_accept_bid,
 } from './xcc_market'
 
 // 🟣 = 128995
@@ -214,4 +215,20 @@ export function set_bid(
 
 export function remove_bid(token_id: string, bidder: string): void {
     xcc_market_remove_bid(token_id, bidder)
+}
+
+export function accept_bid(token_id: string, bidder: string): void {
+    const design = designs.get(token_id)
+
+    if (!design) {
+        return
+    }
+
+    xcc_market_accept_bid(
+        token_id,
+        bidder,
+        design.creator,
+        design.owner_id,
+        design.prev_owner
+    )
 }
