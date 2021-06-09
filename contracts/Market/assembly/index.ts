@@ -115,6 +115,11 @@ export function accept_bid(
 
     bidders.delete(bidder)
     token_bidders.set(token_id, bidders)
+
+    // remove ask if there
+    if (token_asks.contains(token_id)) {
+        token_asks.delete(token_id)
+    }
 }
 
 /**
