@@ -3,6 +3,7 @@ import { SHARE_MARKET_ADDRESS } from '../../accounts'
 
 const XCC_MARKET_SET_BID_SHARES_GAS = 25000000000000
 const XCC_MARKET_ACCEPT_BID_SHARES_GAS = 25000000000000
+const XCC_MARKET_BURN_GAS = 25000000000000
 const XCC_MARKET_REMOVE_BID_SHARES_GAS = 25000000000000
 
 /**
@@ -153,6 +154,32 @@ export function xcc_market_accept_bid(
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_ACCEPT_BID_SHARES_GAS,
+        u128.Zero
+    )
+
+    promise.returnAsResult()
+}
+
+/**
+ * market.burn
+ */
+@nearBindgen
+export class MarketBurnArgs {
+    token_id: string
+}
+
+export function xcc_market_burn(token_id: string): void {
+    const remoteMethod = 'burn'
+
+    let remoteMethodArgs: MarketBurnArgs = {
+        token_id: token_id,
+    }
+
+    const promise = ContractPromise.create(
+        MARKET_CONTRACT,
+        remoteMethod,
+        remoteMethodArgs,
+        XCC_MARKET_BURN_GAS,
         u128.Zero
     )
 

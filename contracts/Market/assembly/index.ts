@@ -7,6 +7,7 @@ import {
     BidShares,
     Bid,
     Bids,
+    token_asks,
 } from './models'
 import { xcc_media_nft_transfer } from './xcc_media'
 import { split_share, ONE_HUNDRED_PERCENT } from '../../utils'
@@ -114,6 +115,34 @@ export function accept_bid(
 
     bidders.delete(bidder)
     token_bidders.set(token_id, bidders)
+}
+
+/**
+ * Burn market for token
+ */
+
+export function burn(token_id: string): void {
+    if (bid_shares.contains(token_id)) {
+        bid_shares.delete(token_id)
+    }
+    if (token_asks.contains(token_id)) {
+        token_asks.delete(token_id)
+    }
+
+    let bidders = token_bidders.get(token_id)
+
+    if (!bidders) {
+        return
+    }
+
+    const biddersValues = bidders.values()
+
+    for (let i = 0; i < bidders.size; i++) {
+        let promise = ContractPromiseBatch.create(
+            biddersValues[i].bidder
+        ).transfer(biddersValues[i].amount)
+        env.promise_return(promise.id)
+    }
 }
 
 /**

@@ -14,6 +14,7 @@ import {
     xcc_market_set_bid,
     xcc_market_remove_bid,
     xcc_market_accept_bid,
+    xcc_market_burn,
 } from './xcc_market'
 
 // 🟣 = 128995
@@ -85,6 +86,8 @@ export function burnMyDesign(): void {
 
     designs.delete(context.sender)
     owners.delete(context.sender)
+
+    xcc_market_burn(context.sender)
 
     logging.log(`\n\n\t> Design burned \n\n\t`)
 }
