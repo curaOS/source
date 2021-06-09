@@ -169,6 +169,9 @@ export function nft_tokens_for_owner(
 export function nft_transfer(token_id: string, bidder: string): void {
     const design = designs.getSome(token_id)
 
+    design.prev_owner = design.owner_id
+    design.owner_id = bidder
+
     designs.set(bidder, design)
     owners.add(bidder)
 
