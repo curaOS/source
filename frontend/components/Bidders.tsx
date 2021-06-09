@@ -34,7 +34,7 @@ export default function CreatorShare({
             }}
         >
             <Text sx={{ color: 'secondary', fontSize: 12 }}>BIDS</Text>
-            {Object.entries(bidders) && (
+            {!Object.entries(bidders).length && (
                 <div>
                     <Heading as="h5" sx={{ color: 'text' }}>
                         -
@@ -67,7 +67,8 @@ export default function CreatorShare({
                                 {utils.format.formatNearAmount(bid.amount, 5)}Ⓝ
                             </Heading>
                             <Text sx={{ fontSize: 12 }}>
-                                Resale Fee <b>10%</b>
+                                Resale Fee{' '}
+                                <b>{parseInt(sell_on_share) * 100}%</b>
                             </Text>
                             <Button
                                 sx={{ pt: 0, pb: 0, fontSize: 12 }}
