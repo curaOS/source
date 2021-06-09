@@ -241,7 +241,7 @@ const Index = ({ children }) => {
         try {
             await contract.accept_bid(
                 {
-                    token_id: account?.accountId, // mydesign
+                    token_id: account?.accountId,
                     bidder: bidder,
                 },
                 MARKET_ACCEPT_BID_GAS,
