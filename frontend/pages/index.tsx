@@ -329,6 +329,8 @@ const Index = ({ children }) => {
                 instructions: extra?.instructions?.split(','),
             })
 
+            retrieveBalanceOfFT()
+
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
             setIndexLoader(false)
@@ -347,6 +349,8 @@ const Index = ({ children }) => {
 
             setDesignInstructions(result?.instructions?.split(','))
             setSeed(result?.seed)
+
+            retrieveBalanceOfFT()
 
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
@@ -384,6 +388,8 @@ const Index = ({ children }) => {
             const result = await contract.burnMyDesign({}, CONTRACT_CLAIM_GAS)
 
             setMyDesignInstructions(null)
+
+            retrieveBalanceOfFT()
 
             setTimeout(() => {
                 setIndexLoader(false)
