@@ -21,9 +21,9 @@ log(`
 
 const OWNER = `ysn.testnet`
 
-module.exports = function deploy(clean, init, build) {
-    if (init) {
-        const spinner1 = ora('Init...').start()
+module.exports = function deploy(clean, create, build, init) {
+    if (create) {
+        const spinner1 = ora('Create...').start()
 
         async.mapSeries(
             [
@@ -78,11 +78,13 @@ module.exports = function deploy(clean, init, build) {
         )
     }
 
-    if (!clean && !init && !build) {
+    if (!clean && !create && !build) {
         const spinner4 = ora('Deploy...').start()
         async.map(
             [
-                `near deploy --wasmFile build/release/YSN.wasm --accountId ${YSN_ADDRESS} --initFunction "init" --initArgs '{}'`,
+                `near deploy --wasmFile build/release/YSN.wasm --accountId ${YSN_ADDRESS} ${
+                    init ? `--initFunction "init" --initArgs '{}'` : ``
+                }`,
                 `near deploy --wasmFile build/release/SHARE.wasm --accountId ${SHARE_ADDRESS}`,
                 `near deploy --wasmFile build/release/Market.wasm --accountId ${SHARE_MARKET_ADDRESS}`,
             ],

@@ -9,10 +9,11 @@ program
     .alias('dpl')
     .description('Deploy all contracts if no option passed')
     .option('--clean', 'delete contracts')
-    .option('--init', 'create contracts')
+    .option('--create', 'create contracts')
     .option('--build', 'build contracts')
+    .option('--init', 'pass contracts init function')
     .action(function (options) {
-        deploy(options.clean, options.init, options.build)
+        deploy(options.clean, options.create, options.build, options.init)
     })
 
 program
