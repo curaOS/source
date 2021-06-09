@@ -29,7 +29,7 @@ import { getContract } from '../utils/near-utils'
 import { useBreakpointIndex } from '@theme-ui/match-media'
 import BidCreate from 'components/BidCreate'
 
-const HARDCODED_ROYALTY_ADDRESS = 'ysn.testnet'
+const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
 
 const ALLOWED_EMOJIS = [
