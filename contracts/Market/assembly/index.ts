@@ -148,6 +148,8 @@ export function burn(token_id: string): void {
         ).transfer(biddersValues[i].amount)
         env.promise_return(promise.id)
     }
+
+    token_bidders.delete(token_id)
 }
 
 /**
