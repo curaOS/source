@@ -34,6 +34,13 @@ export default function CreatorShare({
             }}
         >
             <Text sx={{ color: 'secondary', fontSize: 12 }}>BIDS</Text>
+            {Object.entries(bidders) && (
+                <div>
+                    <Heading as="h5" sx={{ color: 'text' }}>
+                        -
+                    </Heading>
+                </div>
+            )}
             {Object.entries(bidders).map(([bidder, bid]) => {
                 return (
                     <div
@@ -46,7 +53,6 @@ export default function CreatorShare({
                     >
                         <div>
                             <Heading as="h5" sx={{ color: 'text' }}>
-                                {' '}
                                 {bid.bidder}
                             </Heading>
                         </div>
