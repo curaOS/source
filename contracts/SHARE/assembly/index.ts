@@ -32,7 +32,6 @@ const ONE_YSN = u128.from('1000000000000000000000000')
 
 const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
 const OWNER_PERCENTAGE: u16 = 7500 // 75%
-const ROYALTY_ADDRESS: string = 'yassine.testnet' // social token
 
 const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)) // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)) // 1 YSN

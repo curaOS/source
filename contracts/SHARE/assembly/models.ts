@@ -14,6 +14,8 @@ export const DESIGN_PRICE = ONE_NEAR
 export const ROYALTY_MAX_PERCENTAGE: u32 = 5000 // 50%
 
 export const FT_CONTRACT: string = YSN_ADDRESS
+const ROYALTY_ADDRESS: string = YSN_ADDRESS // social token
+
 const FT_CONTRACT_ROYALTY: u32 = 2500 // 25%
 
 @nearBindgen
@@ -72,8 +74,8 @@ export class Design {
     constructor(instructions: string, seed: i32) {
         this.id = context.sender
         this.owner_id = context.sender
-        this.creator = context.sender
         this.prev_owner = context.sender
+        this.creator = ROYALTY_ADDRESS
 
         this.royalty = new Royalty()
 
