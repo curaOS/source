@@ -1,7 +1,7 @@
 import { ContractPromise, u128 } from 'near-sdk-as'
 import { SHARE_ADDRESS } from '../../accounts'
 
-const XCC_MEDIA_NFT_TRANSFER_GAS = 25000000000000
+const XCC_MEDIA_NFT_TRANSFER_GAS = 100000000000000
 
 const MEDIA_CONTRACT = SHARE_ADDRESS
 
