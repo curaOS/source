@@ -10,6 +10,8 @@ import PropTypes from 'prop-types'
 import CreatorShare from '../components/CreatorShare'
 import Bidders from '../components/Bidders'
 import Metadata from '../components/Metadata'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 import {
     Button,
     Text,
@@ -408,105 +410,12 @@ const Index = ({ children }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div style={{ minHeight: '100vh' }}>
-                <header
-                    sx={{
-                        marginBottom: `1.45rem`,
-                        margin: `0 auto`,
-                        maxWidth: 960,
-                        padding: `1rem 2rem 0 2rem`,
-                    }}
-                >
-                    {alertMessage && (
-                        <Alert>
-                            <Text>{alertMessage.substring(0, 80)} ...</Text>
-                            {console.log(alertMessage)}
-                            <Close
-                                ml="auto"
-                                mr={-2}
-                                sx={{ height: '2rem', width: '4rem' }}
-                                onClick={() => setAlertMessage('')}
-                            />
-                        </Alert>
-                    )}
-                    <div
-                        sx={{
-                            margin: `1rem auto 0rem auto`,
-                            background: `black`,
-                            maxWidth: 960,
-                            padding: `0.02rem 0rem`,
-                        }}
-                    />
-                    <div
-                        sx={{
-                            display: 'flex',
-                            flexDirection: ['column', 'row'],
-                            justifyContent: ['space-between'],
-                            alignItems: ['center'],
-                            mt: [3, 0],
-                            flexWrap: 'wrap',
-                        }}
-                    >
-                        <div
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                mx: 3,
-                                flexWrap: 'wrap',
-                                flex: '1 1 0%',
-                            }}
-                        >
-                            <>
-                                {!account?.accountId ? (
-                                    <Button onClick={signIn} bg="primary">
-                                        {' '}
-                                        Connect NEAR{' '}
-                                    </Button>
-                                ) : (
-                                    <Button onClick={signOut} bg="secondary">
-                                        {' '}
-                                        Disconnect{' '}
-                                    </Button>
-                                )}
-                            </>
-                        </div>
-                        <Link href="/">
-                            <Text
-                                sx={{
-                                    flex: 'none',
-                                    color: 'black',
-                                    textDecoration: 'none',
-                                    fontFamily: 'IBM Plex Sans, sans-serif',
-                                    fontWeight: 500,
-                                    fontSize: '4rem',
-                                    marginRight: '1rem',
-                                }}
-                            >
-                                SHARE
-                            </Text>
-                        </Link>
-                        <div
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                mx: 3,
-                                flexWrap: 'wrap',
-                                flex: '1 1 0%',
-                            }}
-                        >
-                            {account?.accountId ? (
-                                <div>
-                                    <p>{account?.accountId}</p>
-                                </div>
-                            ) : (
-                                <div>[blank]</div>
-                            )}
-                        </div>
-                    </div>
-                </header>
+                <Header
+                    message={alertMessage}
+                    accountId={account?.accountId}
+                    onSignIn={signIn}
+                    onSignOut={signOut}
+                />
                 <div
                     sx={{
                         margin: `0 auto`,
@@ -785,55 +694,7 @@ const Index = ({ children }) => {
                         </>
                     )}
                 </div>
-                <div
-                    sx={{
-                        margin: `0 auto`,
-                        maxWidth: 960,
-                        padding: `1rem 2rem`,
-                    }}
-                >
-                    <div
-                        sx={{
-                            margin: `1rem auto`,
-                            background: `black`,
-                            maxWidth: 960,
-                            padding: `0.02rem 0rem`,
-                        }}
-                    />
-                    <footer
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <div
-                            sx={{
-                                marginTop: 1,
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <a
-                                sx={{
-                                    ':hover': {
-                                        opacity: '0.5',
-                                    },
-                                }}
-                                href="https://twitter.com/Yassine_2024"
-                            >
-                                <Image
-                                    src="/twitter-logo-black.png"
-                                    alt="Black logo"
-                                    width={30}
-                                    height={25}
-                                />
-                            </a>
-                        </div>
-                    </footer>
-                </div>
+                <Footer />
             </div>
         </>
     )
