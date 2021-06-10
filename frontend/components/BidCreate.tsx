@@ -24,16 +24,6 @@ export default function BidCreate({
                 onBid(amount, resale)
             }}
         >
-            <Heading
-                as="h2"
-                color="text"
-                sx={{
-                    mt: 2,
-                    mb: 3,
-                }}
-            >
-                Bid
-            </Heading>
             <Label htmlFor="currency" sx={{ mb: 1 }}>
                 Currency
             </Label>

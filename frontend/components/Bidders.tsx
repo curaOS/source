@@ -68,7 +68,7 @@ export default function CreatorShare({
                             </Heading>
                             <Text sx={{ fontSize: 12 }}>
                                 Resale Fee{' '}
-                                <b>{parseInt(sell_on_share) * 100}%</b>
+                                <b>{parseInt(bid.sell_on_share) / 100}%</b>
                             </Text>
                             <Button
                                 sx={{ pt: 0, pb: 0, fontSize: 12 }}
