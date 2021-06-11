@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 
 import React from 'react'
-import { Text, Alert, Button } from 'theme-ui'
+import { Text, Alert, Button, Close } from 'theme-ui'
 import Link from 'next/link'
 
 export default function Header({
