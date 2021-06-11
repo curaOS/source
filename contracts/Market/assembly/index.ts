@@ -67,6 +67,14 @@ export function set_bid(
     bidders.set(bidder, new_bid)
 
     token_bidders.set(token_id, bidders)
+
+    /** Bidders bids */
+    let biddersBids = bidders_bids.get(bidder)
+    if (!biddersBids) {
+        biddersBids = new Map()
+    }
+    biddersBids.set(token_id, new_bid)
+    bidders_bids.set(bidder, biddersBids)
 }
 
 export function remove_bid(token_id: string, bidder: AccountId): void {
@@ -86,6 +94,14 @@ export function remove_bid(token_id: string, bidder: AccountId): void {
     bidders.delete(bidder)
 
     token_bidders.set(token_id, bidders)
+
+    /** Bidders bids */
+    let biddersBids = bidders_bids.get(bidder)
+    if (!biddersBids || !biddersBids.has(token_id)) {
+        return
+    }
+    biddersBids.delete(token_id)
+    bidders_bids.set(bidder, biddersBids)
 }
 
 export function accept_bid(
@@ -132,6 +148,14 @@ export function accept_bid(
     if (token_asks.contains(token_id)) {
         token_asks.delete(token_id)
     }
+
+    /** Bidders bids */
+    let biddersBids = bidders_bids.get(bidder)
+    if (!biddersBids || !biddersBids.has(token_id)) {
+        return
+    }
+    biddersBids.delete(token_id)
+    bidders_bids.set(bidder, biddersBids)
 }
 
 /**
@@ -159,6 +183,14 @@ export function burn(token_id: string): void {
             biddersValues[i].bidder
         ).transfer(biddersValues[i].amount)
         env.promise_return(promise.id)
+
+        /** Bidders bids */
+        let biddersBids = bidders_bids.get(biddersValues[i].bidder)
+        if (!biddersBids || !biddersBids.has(token_id)) {
+            return
+        }
+        biddersBids.delete(token_id)
+        bidders_bids.set(biddersValues[i].bidder, biddersBids)
     }
 
     token_bidders.delete(token_id)
