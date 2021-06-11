@@ -4,9 +4,11 @@ import {
     CurrencyId,
     bid_shares,
     token_bidders,
+    bidders_bids,
     BidShares,
     Bid,
     Bids,
+    BidsByToken,
     token_asks,
 } from './models'
 import { xcc_media_nft_transfer } from './xcc_media'
@@ -22,6 +24,16 @@ export function get_bids(token_id: string): Bids {
     }
 
     return bidders
+}
+
+export function get_bidders_bids(account_id: string): BidsByToken {
+    let bids = bidders_bids.get(account_id)
+
+    if (!bids) {
+        bids = new Map()
+    }
+
+    return bids
 }
 
 /** Set functions */

@@ -4,17 +4,15 @@ export type AccountId = string
 export type CurrencyId = string
 export type TokenId = string
 
-export type Bids = Map<AccountId, Bid>
-
-const ONE_HUNDRED_PERCENT: u16 = 10000 // 100%
-const ZERO_PERCENT: u32 = 0 // 0%
-
 /**
  * Structures
- *  - Bids
+ *  - Bid
  *  - BidShares
  *  - Ask
  */
+
+export type Bids = Map<AccountId, Bid>
+export type BidsByToken = Map<TokenId, Bid>
 
 @nearBindgen
 export class Bid {
@@ -51,3 +49,6 @@ export class Ask {
 export const token_bidders = new PersistentMap<TokenId, Bids>('bdrs')
 export const bid_shares = new PersistentMap<TokenId, BidShares>('shrs')
 export const token_asks = new PersistentMap<TokenId, Ask>('asks')
+
+/* Bidders bids */
+export const bidders_bids = new PersistentMap<AccountId, BidsByToken>('bbds')
