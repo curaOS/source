@@ -6,6 +6,7 @@ import {
     u128,
 } from 'near-sdk-as'
 import { YSN_ADDRESS } from '../../accounts'
+import { ROYALTY_PERCENTAGE } from './index'
 
 type AccountId = string
 type MediaId = string
@@ -22,9 +23,6 @@ export const ROYALTY_MAX_PERCENTAGE: u32 = 5000 // 50%
 
 export const FT_CONTRACT: string = YSN_ADDRESS
 const ROYALTY_ADDRESS: string = YSN_ADDRESS // social token
-
-const FT_CONTRACT_ROYALTY: u32 = 2500 // 25%
-
 @nearBindgen
 export class NFTContractMetadata {
     spec: string = NFT_SPEC
@@ -65,8 +63,8 @@ export class Royalty {
     percentage: u32 = 0
     constructor() {
         /** 25% of future sales goes to FT */
-        this.split_between.set(FT_CONTRACT, FT_CONTRACT_ROYALTY)
-        this.percentage = FT_CONTRACT_ROYALTY
+        this.split_between.set(FT_CONTRACT, ROYALTY_PERCENTAGE)
+        this.percentage = ROYALTY_PERCENTAGE
     }
 }
 
