@@ -23,8 +23,6 @@ const Layout = ({ children }) => {
 
     useEffect(onMount, [])
 
-    const [alertMessage, setAlertMessage] = useState('')
-
     const signIn = () => {
         wallet.signIn()
     }
@@ -35,7 +33,6 @@ const Layout = ({ children }) => {
     return (
         <div>
             <Header
-                message={alertMessage}
                 accountId={account?.accountId}
                 onSignIn={signIn}
                 onSignOut={signOut}

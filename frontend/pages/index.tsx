@@ -30,6 +30,8 @@ import { utils, Contract } from 'near-api-js'
 import { getContract } from '../utils/near-utils'
 import { useBreakpointIndex } from '@theme-ui/match-media'
 import BidCreate from 'components/BidCreate'
+import { alertMessageState } from '../state/recoil'
+import { useSetRecoilState } from 'recoil'
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
@@ -143,8 +145,9 @@ const Design = ({ instructions }: { instructions: Array<number> }) => {
 }
 
 const Index = ({ children }) => {
+    const setAlertMessage = useSetRecoilState(alertMessageState)
+
     const [indexLoader, setIndexLoader] = useState(false)
-    const [alertMessage, setAlertMessage] = useState('')
     const [section, setSection] = useState(2)
     const [seed, setSeed] = useState()
     const [schema, setSchema] = useState(new Set())
@@ -435,7 +438,6 @@ const Index = ({ children }) => {
             </Head>
             <div style={{ minHeight: '100vh' }}>
                 <Header
-                    message={alertMessage}
                     accountId={account?.accountId}
                     onSignIn={signIn}
                     onSignOut={signOut}
