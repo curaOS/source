@@ -8,6 +8,10 @@ import {
     init,
     SUPPLY_KEY,
 } from '../index'
+import { SHARE_ADDRESS } from '../../../accounts'
+
+const whitelistedAddress = SHARE_ADDRESS
+
 import { toYocto } from '../../../utils'
 
 const condo = 'condo'
@@ -57,7 +61,7 @@ describe('- HODLER -', () => {
     })
 
     it('xxx mines to account', () => {
-        VMContext.setPredecessor_account_id('v1.share.ysn.testnet')
+        VMContext.setPredecessor_account_id(whitelistedAddress)
 
         ft_mine_to(keith, toYocto(1))
 

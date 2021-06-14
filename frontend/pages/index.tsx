@@ -83,7 +83,7 @@ const P5Wrapper = dynamic(import('react-p5-wrapper'), {
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
 const MARKET_SET_BIG_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
-const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
 const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
@@ -149,11 +149,19 @@ const Index = ({ children }) => {
     const [seed, setSeed] = useState()
     const [schema, setSchema] = useState(new Set())
     const [designInstructions, setDesignInstructions] = useState()
-    const [myDesignInstructions, setMyDesignInstructions] = useState()
+    const [myDesign, setMyDesign] = useState({
+        id: '',
+        owner_id: '',
+        instructions: [],
+        metadata: {
+            title: '',
+        },
+    })
     const [totalSupply, setTotalSupply] = useState(0)
     const [bidders, setBidders] = useState({})
     const [ftBalance, setFTBalance] = useState(0)
     const [randomDesign, setRandomDesign] = useState({
+        id: '',
         owner_id: '',
         instructions: [],
         metadata: {
@@ -210,7 +218,6 @@ const Index = ({ children }) => {
 
     useEffect(() => {
         if (!account) return
-        retrieveBidders()
         retrieveDesign()
         retrieveTotalSupply()
         retrieveBalanceOfFT()
@@ -226,7 +233,7 @@ const Index = ({ children }) => {
         try {
             await contract.set_bid(
                 {
-                    token_id: randomDesign.owner_id,
+                    token_id: randomDesign.id,
                     amount: utils.format.parseNearAmount(amount),
                     bidder: account?.accountId,
                     recipient: randomDesign.owner_id,
@@ -243,7 +250,7 @@ const Index = ({ children }) => {
         try {
             await contract.accept_bid(
                 {
-                    token_id: account?.accountId,
+                    token_id: myDesign.id,
                     bidder: bidder,
                 },
                 MARKET_ACCEPT_BID_GAS,
@@ -266,10 +273,10 @@ const Index = ({ children }) => {
         }
     }
 
-    async function retrieveBidders() {
+    async function retrieveBidders(token_id) {
         try {
             const result: string = await contractMarket.get_bids({
-                token_id: account?.accountId,
+                token_id: token_id,
             })
 
             setBidders(result)
@@ -296,11 +303,20 @@ const Index = ({ children }) => {
         setIndexLoader(true)
 
         try {
-            const result = await contract.viewMyDesign({}, CONTRACT_DESIGN_GAS)
+            const result = await contract.view_media({}, CONTRACT_DESIGN_GAS)
 
             const extra = JSON.parse(atob(result?.metadata?.extra))
 
-            setMyDesignInstructions(extra?.instructions?.split(','))
+            setMyDesign({
+                id: result?.id,
+                owner_id: result?.owner_id,
+                metadata: {
+                    title: result?.metadata?.title,
+                },
+                instructions: extra?.instructions?.split(','),
+            })
+
+            retrieveBidders(result?.id)
 
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
@@ -324,6 +340,7 @@ const Index = ({ children }) => {
             const extra = JSON.parse(atob(result[0]?.metadata?.extra))
 
             setRandomDesign({
+                id: result[0]?.id,
                 owner_id: result[0]?.owner_id,
                 metadata: {
                     title: result[0]?.metadata?.title,
@@ -365,7 +382,7 @@ const Index = ({ children }) => {
         setIndexLoader(true)
 
         try {
-            const result = await contract.claimMyDesign(
+            await contract.claim_media(
                 { seed, schema: Array.from(schema) },
                 CONTRACT_CLAIM_GAS,
                 CONTRACT_CLAIM_PRICE
@@ -387,9 +404,16 @@ const Index = ({ children }) => {
         setIndexLoader(true)
 
         try {
-            const result = await contract.burnMyDesign({}, CONTRACT_CLAIM_GAS)
+            await contract.burn_design({}, CONTRACT_CLAIM_GAS)
 
-            setMyDesignInstructions(null)
+            setMyDesign({
+                id: '',
+                owner_id: '',
+                instructions: [],
+                metadata: {
+                    title: '',
+                },
+            })
 
             retrieveBalanceOfFT()
 
@@ -573,7 +597,7 @@ const Index = ({ children }) => {
                     {section === 2 &&
                         account?.accountId &&
                         !indexLoader &&
-                        myDesignInstructions && (
+                        myDesign.id && (
                             <>
                                 <div
                                     sx={{
@@ -597,7 +621,7 @@ const Index = ({ children }) => {
                                     }}
                                 >
                                     <Design
-                                        instructions={myDesignInstructions}
+                                        instructions={myDesign.instructions}
                                     />
                                 </div>
                                 <div

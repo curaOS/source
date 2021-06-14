@@ -138,9 +138,6 @@ export function accept_bid(
     bidShares.prev_owner = bid.sell_on_share
     bid_shares.set(token_id, bidShares)
 
-    /** TODO call NFT_TRANSFER */
-    xcc_media_nft_transfer(token_id, bid.bidder)
-
     bidders.delete(bidder)
     token_bidders.set(token_id, bidders)
 
@@ -156,6 +153,9 @@ export function accept_bid(
     }
     biddersBids.delete(token_id)
     bidders_bids.set(bidder, biddersBids)
+
+    /** TODO call NFT_TRANSFER */
+    xcc_media_nft_transfer(token_id, bid.bidder)
 }
 
 /**

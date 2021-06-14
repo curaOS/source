@@ -1,10 +1,18 @@
-import { logging, RNG, context, u128, ContractPromise } from 'near-sdk-as'
+import {
+    logging,
+    RNG,
+    context,
+    u128,
+    ContractPromise,
+    PersistentSet,
+} from 'near-sdk-as'
 import { generate } from './generate'
 import {
     Design,
     TemporaryDesign,
     designs,
     owners,
+    account_media,
     DESIGN_PRICE,
     FT_CONTRACT,
 } from './models'
@@ -38,7 +46,7 @@ const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)) // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)) // 1 YSN
 const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)) // 0.05 YSN
 
-export function claimMyDesign(
+export function claim_media(
     seed: i32,
     schema: Array<u32> = defaultCodePoints
 ): Design {
@@ -48,20 +56,24 @@ export function claimMyDesign(
         u128.eq(context.attachedDeposit, DESIGN_PRICE),
         'Deposit is one NEAR.'
     )
-    assert(!designs.contains(context.sender), 'You can only own one design.')
+    assert(!owners.has(context.sender), 'You can only own one design.')
 
     let instructions = generate(seed, schema)
     let design = new Design(instructions.toString(), seed)
 
-    // logging.log(`\n\n\t> ART / Seed: ${seed} \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
-
-    logging.log('\n\n\tClaimed Art')
-
-    designs.set(context.sender, design)
     owners.add(context.sender)
 
-    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE)
+    designs.set(design.id, design)
 
+    let accountMedia = account_media.get(context.sender)
+    if (!accountMedia) {
+        accountMedia = new PersistentSet(context.sender)
+    }
+    accountMedia.add(design.id)
+    account_media.set(context.sender, accountMedia)
+
+    // FT
+    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE)
     // Market
     xcc_market_set_bid_shares(
         design.id,
@@ -73,23 +85,28 @@ export function claimMyDesign(
     return design
 }
 
-export function viewMyDesign(): Design {
-    let design = designs.getSome(context.sender)
+export function view_media(): Design {
+    let accountMedia = account_media.getSome(context.sender)
+    let media = accountMedia.values().at(0)
 
-    // logging.log(`\n\n\t> Your Art \n\n\t` + design.instructions.replaceAll("\n", "\n\t") + "\n")
-
-    return design
+    return designs.getSome(media)
 }
 
-export function burnMyDesign(): void {
-    assert(designs.contains(context.sender), 'No design to burn here.')
+export function burn_design(): void {
+    assert(owners.has(context.sender), 'No design to burn here.')
 
-    designs.delete(context.sender)
+    const accountMedia = account_media.get(context.sender)
+    if (!accountMedia) {
+        return
+    }
+    const media = accountMedia.values().at(0)
+    accountMedia.delete(media)
+    account_media.set(context.sender, accountMedia)
+
     owners.delete(context.sender)
+    designs.delete(media)
 
-    xcc_market_burn(context.sender)
-
-    logging.log(`\n\n\t> Design burned \n\n\t`)
+    xcc_market_burn(media)
 }
 
 export function design(
@@ -101,7 +118,7 @@ export function design(
     if (seed == 0) {
         seed = <i32>randomNum()
         logging.log(
-            `\n\n\tCall claimMyDesign with the seed number ${seed} to claim it.\n`
+            `\n\n\tCall claim_media with the seed number ${seed} to claim it.\n`
         )
     }
 
@@ -117,21 +134,16 @@ export function design(
 }
 
 export function nft_token(token_id: string): Design | null {
-    // token_id == owner_id
     return designs.getSome(token_id)
 }
 
-function randomNum(max: u32 = <u32>context.blockIndex): u32 {
-    const rng = new RNG<u32>(1, max)
-    return rng.next()
-}
-
 export function nft_metadata(): NFTContractMetadata {
+    // TODO move to init
     return new NFTContractMetadata()
 }
 
 export function nft_total_supply(): string {
-    return owners.size.toString()
+    return designs.length.toString()
 }
 
 export function nft_tokens(from_index: string = '0', limit: u8 = 0): Design[] {
@@ -143,7 +155,9 @@ export function nft_tokens(from_index: string = '0', limit: u8 = 0): Design[] {
     let tokens: Array<Design> = []
 
     for (let i = start; i < end; i++) {
-        tokens.push(designs.getSome(ownersValues[i]))
+        let accountMedia = account_media.getSome(ownersValues[i])
+        let media = accountMedia.values().at(0)
+        tokens.push(designs.getSome(media))
     }
 
     xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_EXPLORE)
@@ -152,7 +166,7 @@ export function nft_tokens(from_index: string = '0', limit: u8 = 0): Design[] {
 }
 
 export function nft_supply_for_owner(account_id: string): string {
-    return designs.contains(account_id) ? '1' : '0'
+    return owners.has(account_id) ? '1' : '0'
 }
 
 export function nft_tokens_for_owner(
@@ -161,7 +175,17 @@ export function nft_tokens_for_owner(
     limit: u8 = 0
 ): Design[] {
     limit = 1
-    return designs.contains(account_id) ? [designs.getSome(account_id)] : []
+    const accountMedia = account_media.get(account_id)
+    if (!accountMedia) {
+        return []
+    }
+    const media = accountMedia.values().at(0)
+    return owners.has(account_id) ? [designs.getSome(media)] : []
+}
+
+function randomNum(max: u32 = <u32>context.blockIndex): u32 {
+    const rng = new RNG<u32>(1, max)
+    return rng.next()
 }
 
 /* nft_transfer */
@@ -172,11 +196,24 @@ export function nft_transfer(token_id: string, bidder: string): void {
     design.prev_owner = design.owner_id
     design.owner_id = bidder
 
-    designs.set(bidder, design)
+    designs.set(token_id, design)
     owners.add(bidder)
+    let accountMedia = account_media.get(bidder)
+    if (!accountMedia) {
+        accountMedia = new PersistentSet(bidder)
+    }
+    accountMedia.add(token_id)
+    account_media.set(bidder, accountMedia)
 
-    designs.delete(context.sender)
     owners.delete(context.sender)
+
+    accountMedia = account_media.get(design.prev_owner)
+    if (!accountMedia) {
+        return
+    }
+    const media = accountMedia.values().at(0)
+    accountMedia.delete(media)
+    account_media.set(design.prev_owner, accountMedia)
 }
 
 /* XCC ft_mine_to */

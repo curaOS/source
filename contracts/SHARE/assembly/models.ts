@@ -1,7 +1,14 @@
-import { context, PersistentMap, PersistentSet, u128 } from 'near-sdk-as'
+import {
+    context,
+    PersistentMap,
+    PersistentSet,
+    PersistentUnorderedMap,
+    u128,
+} from 'near-sdk-as'
 import { YSN_ADDRESS } from '../../accounts'
 
 type AccountId = string
+type MediaId = string
 
 const NFT_SPEC = 'nft-1.0.0'
 const NFT_NAME = 'Share'
@@ -72,7 +79,7 @@ export class Design {
     metadata: TokenMetadata
     royalty: Royalty
     constructor(instructions: string, seed: i32) {
-        this.id = context.sender
+        this.id = seed.toString()
         this.owner_id = context.sender
         this.prev_owner = context.sender
         this.creator = ROYALTY_ADDRESS
@@ -82,7 +89,10 @@ export class Design {
         // pass it to market to make sure that on mint royalties add up to 100%
         const royalty_percentage = this.royalty.percentage
 
-        const title = `${seed}`
+        const title = context.sender.substring(
+            0,
+            context.sender.lastIndexOf('.')
+        )
         const issued_at = context.blockTimestamp.toString()
         const copies: u8 = 1
 
@@ -97,5 +107,10 @@ export class TemporaryDesign {
     constructor(public instructions: string, public seed: i32) {}
 }
 
-export const designs = new PersistentMap<AccountId, Design>('dsgn')
+export const designs = new PersistentUnorderedMap<AccountId, Design>('dsgn')
 export const owners = new PersistentSet<AccountId>('onrs')
+
+export const account_media = new PersistentUnorderedMap<
+    AccountId,
+    PersistentSet<MediaId>
+>('acmd')
