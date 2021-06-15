@@ -1,6 +1,5 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import React from 'react'
 import { Text } from 'theme-ui'
 
 const ALLOWED_EMOJIS = [

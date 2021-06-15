@@ -1,47 +1,17 @@
-// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import React, { useContext, useState, useEffect } from 'react'
-import { appStore, onAppMount } from '../state/app'
-import { getContract } from '../utils/near-utils'
+import { appStore } from '../../state/app'
+import { getContract } from '../../utils/near-utils'
 import { Spinner } from 'theme-ui'
 import { Contract, utils } from 'near-api-js'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import BiddersBids from '../components/BiddersBids'
+import BiddersBids from '../../components/BiddersBids'
+import Layout from '../../components/Layout'
+import { indexLoaderState } from '../../state/recoil'
+import { useRecoilState } from 'recoil'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
-
-const Layout = ({ children }) => {
-    const { state, dispatch } = useContext(appStore)
-    const { wallet, account } = state
-
-    const onMount = () => {
-        dispatch(onAppMount())
-    }
-
-    useEffect(onMount, [])
-
-    const signIn = () => {
-        wallet.signIn()
-    }
-    const signOut = () => {
-        wallet.signOut()
-    }
-
-    return (
-        <div>
-            <Header
-                accountId={account?.accountId}
-                onSignIn={signIn}
-                onSignOut={signOut}
-            />
-            {children}
-            <Footer />
-        </div>
-    )
-}
 
 const Bids = () => {
     const { state } = useContext(appStore)
@@ -49,7 +19,8 @@ const Bids = () => {
     const contract = getContract(account)
 
     const [biddersBids, setBiddersBids] = useState({})
-    const [indexLoader, setIndexLoader] = useState(false)
+
+    const [indexLoader, setIndexLoader] = useRecoilState(indexLoaderState)
 
     const contractMarket = new Contract(account, MARKET_CONTRACT_NAME, {
         changeMethods: [],
