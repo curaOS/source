@@ -19,6 +19,8 @@ import { appStore, onAppMount } from '../state/app'
 import Link from 'next/link'
 import Image from 'next/image'
 import { utils, Contract } from 'near-api-js'
+import { indexLoaderState } from '../state/recoil'
+import { useRecoilState } from 'recoil'
 
 const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
 
@@ -44,13 +46,14 @@ const GradientText = ({ text }: { text: string }) => {
 }
 
 const Index = () => {
-    const [indexLoader, setIndexLoader] = useState(false)
     const [alertMessage, setAlertMessage] = useState('')
     const [ftBalance, setFTBalance] = useState(0)
     const [treasury, setTreasury] = useState(0)
     const [ftSupply, setFTSupply] = useState(0)
     const { state, dispatch } = useContext(appStore)
     const { wallet, account, loading } = state
+
+    const [indexLoader, setIndexLoader] = useRecoilState(indexLoaderState)
 
     const contractFT = new Contract(account, FT_CONTRACT_NAME, {
         changeMethods: [],
