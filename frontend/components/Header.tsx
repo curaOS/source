@@ -72,13 +72,11 @@ export default function Header({
                         <>
                             {!accountId ? (
                                 <Button onClick={onSignIn} bg="primary">
-                                    {' '}
-                                    Connect NEAR{' '}
+                                    Connect NEAR
                                 </Button>
                             ) : (
                                 <Button onClick={onSignOut} bg="secondary">
-                                    {' '}
-                                    Disconnect{' '}
+                                    Disconnect
                                 </Button>
                             )}
                         </>
