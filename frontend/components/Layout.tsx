@@ -1,71 +1,27 @@
 /** @jsxImportSource theme-ui */
 
-import { useContext, useEffect, useState } from 'react'
-import { appStore, onAppMount } from '../state/app'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Link from 'next/link'
 import { NavLink, Spinner } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
 import Menu from '../components/Menu'
-import { utils, Contract } from 'near-api-js'
+import { utils } from 'near-api-js'
 import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
+import { Near } from 'containers/index'
+import { useFTBalance } from 'hooks/useFTContract'
 
-const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
-
-import { alertMessageState } from '../state/recoil'
-import { useSetRecoilState } from 'recoil'
+import { accountState } from '../state/account'
 
 export default function Layout({ children }) {
-    const { state, dispatch } = useContext(appStore)
-    const { wallet, account, loading } = state
-    const [ftBalance, setFTBalance] = useState('0')
+    const indexLoader = useRecoilValue(indexLoaderState)
 
-    const setAlertMessage = useSetRecoilState(alertMessageState)
-    const [indexLoader] = useRecoilState(indexLoaderState)
+    const { accountId } = useRecoilValue(accountState)
+    const { signIn, signOut } = Near.useContainer()
 
-    const onMount = () => {
-        dispatch(onAppMount())
-    }
-
-    useEffect(onMount, [])
-
-    const signIn = () => {
-        wallet.signIn()
-    }
-    const signOut = () => {
-        wallet.signOut()
-    }
-
-    useEffect(() => {
-        if (!account) return
-        retrieveBalanceOfFT()
-    }, [account])
-
-    const contractFT = new Contract(account, FT_CONTRACT_NAME, {
-        changeMethods: [],
-        viewMethods: ['ft_balance_of'],
-    })
-
-    async function retrieveBalanceOfFT() {
-        try {
-            const result: string = await contractFT.ft_balance_of({
-                account_id: account?.accountId,
-            })
-
-            setFTBalance(utils.format.formatNearAmount(result, 5)) // decimals for YSN is same as NEAR
-        } catch (e) {
-            if (!/not present/.test(e.toString())) {
-                setAlertMessage(e.toString())
-            }
-        }
-    }
-
-    if (loading) {
-        return null
-    }
+    const { data: ftBalance, loading: loadingFTBalance } = useFTBalance()
 
     return (
         <>
@@ -75,7 +31,7 @@ export default function Layout({ children }) {
             </Head>
             <div style={{ minHeight: '100vh' }}>
                 <Header
-                    accountId={account?.accountId}
+                    accountId={accountId}
                     onSignIn={signIn}
                     onSignOut={signOut}
                 />
@@ -104,7 +60,13 @@ export default function Layout({ children }) {
                                     textFillColor: 'transparent',
                                 }}
                             >
-                                {ftBalance} YSN
+                                {loadingFTBalance
+                                    ? '-'
+                                    : utils.format.formatNearAmount(
+                                          ftBalance,
+                                          5
+                                      )}{' '}
+                                YSN
                             </span>
                         </NavLink>
                     </Link>
