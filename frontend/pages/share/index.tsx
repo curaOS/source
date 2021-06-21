@@ -1,20 +1,23 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useContext, useState, useEffect } from 'react'
+import { useContext } from 'react'
 import { appStore } from '../../state/app'
 import { getContract } from '../../utils/near-utils'
 import { Button } from 'theme-ui'
-import { Contract, utils } from 'near-api-js'
+import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
 import CreatorShare from '../../components/CreatorShare'
 import Design from '../../components/Design'
 import Bidders from '../../components/Bidders'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
+import { useNFTMethod } from 'hooks/useNFTContract'
+import { useMarketMethod } from 'hooks/useMarketContract'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
+const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
 
@@ -22,112 +25,57 @@ const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
 
+const getInstructions = (media) => {
+    if (media) {
+        const extra = JSON.parse(atob(media?.metadata?.extra))
+        const instructions = extra?.instructions?.split(',')
+
+        return instructions
+    } else {
+        return []
+    }
+}
+
 const View = ({}) => {
     const { state } = useContext(appStore)
     const { account } = state
     const contract = getContract(account)
-    const [bidders, setBidders] = useState({})
-    const [myDesign, setMyDesign] = useState({
-        id: '',
-        owner_id: '',
-        instructions: [],
-        metadata: {
-            title: '',
-        },
-    })
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    useEffect(() => {
-        if (!account) return
-        retrieveDesign()
-    }, [account])
+    const { data: media } = useNFTMethod('view_media', {}, CONTRACT_DESIGN_GAS)
+
+    const { data: bids } = useMarketMethod('get_bids', {
+        token_id: media?.id,
+    })
+
+    console.log(media)
 
     async function acceptBid(bidder: string) {
+        setIndexLoader(true)
         try {
             await contract.accept_bid(
                 {
-                    token_id: myDesign.id,
+                    token_id: media?.id,
                     bidder: bidder,
                 },
                 MARKET_ACCEPT_BID_GAS,
                 YOCTO_NEAR
             )
-        } catch (e) {}
-    }
-
-    async function retrieveDesign() {
-        setIndexLoader(true)
-
-        try {
-            const result = await contract.view_media({}, CONTRACT_DESIGN_GAS)
-
-            const extra = JSON.parse(atob(result?.metadata?.extra))
-
-            setMyDesign({
-                id: result?.id,
-                owner_id: result?.owner_id,
-                metadata: {
-                    title: result?.metadata?.title,
-                },
-                instructions: extra?.instructions?.split(','),
-            })
-
-            retrieveBidders(result?.id)
-
-            setTimeout(() => setIndexLoader(false), 200)
-        } catch (e) {
-            setIndexLoader(false)
-            if (!/not present/.test(e.toString())) {
-                setAlertMessage(e.toString())
-            }
-        }
-    }
-
-    async function burnDesign() {
-        setIndexLoader(true)
-
-        try {
-            await contract.burn_design({}, CONTRACT_CLAIM_GAS)
-
-            setMyDesign({
-                id: '',
-                owner_id: '',
-                instructions: [],
-                metadata: {
-                    title: '',
-                },
-            })
-
-            retrieveBalanceOfFT()
-
-            setTimeout(() => {
-                setIndexLoader(false)
-                setAlertMessage('Design burned!')
-            }, 200)
         } catch (e) {
             setIndexLoader(false)
             setAlertMessage(e.toString())
         }
     }
 
-    const contractMarket = new Contract(account, MARKET_CONTRACT_NAME, {
-        changeMethods: [],
-        viewMethods: ['get_bids'],
-    })
-
-    async function retrieveBidders(token_id) {
+    async function burnDesign() {
+        setIndexLoader(true)
         try {
-            const result: string = await contractMarket.get_bids({
-                token_id: token_id,
-            })
-
-            setBidders(result)
+            await contract.burn_design({}, CONTRACT_BURN_GAS, YOCTO_NEAR)
         } catch (e) {
-            if (!/not present/.test(e.toString())) {
-                setAlertMessage(e.toString())
-            }
+            setIndexLoader(false)
+            setAlertMessage(e.toString())
         }
     }
 
@@ -151,7 +99,7 @@ const View = ({}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Design instructions={myDesign.instructions} />
+                    <Design instructions={getInstructions(media)} />
                 </div>
                 <div
                     sx={{
@@ -160,7 +108,7 @@ const View = ({}) => {
                         mt: 3,
                     }}
                 >
-                    <Bidders bidders={bidders} onAcceptBid={acceptBid} />
+                    <Bidders bidders={bids} onAcceptBid={acceptBid} />
                 </div>
                 <div
                     sx={{
