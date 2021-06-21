@@ -1,9 +1,6 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useContext } from 'react'
-import { appStore } from '../../state/app'
-import { getContract } from '../../utils/near-utils'
 import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
@@ -13,15 +10,13 @@ import Bidders from '../../components/Bidders'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTMethod } from 'hooks/useNFTContract'
-import { useMarketMethod } from 'hooks/useMarketContract'
+import useMarketContract, { useMarketMethod } from 'hooks/useMarketContract'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
 
-const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
 
@@ -37,9 +32,7 @@ const getInstructions = (media) => {
 }
 
 const View = ({}) => {
-    const { state } = useContext(appStore)
-    const { account } = state
-    const contract = getContract(account)
+    const { contract } = useMarketContract()
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
@@ -49,8 +42,6 @@ const View = ({}) => {
     const { data: bids } = useMarketMethod('get_bids', {
         token_id: media?.id,
     })
-
-    console.log(media)
 
     async function acceptBid(bidder: string) {
         setIndexLoader(true)
