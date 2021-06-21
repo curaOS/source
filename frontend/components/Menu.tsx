@@ -1,19 +1,18 @@
 /** @jsxImportSource theme-ui */
 
-import { useContext } from 'react'
-import { appStore } from '../state/app'
 import { Text, Divider, Flex, NavLink } from 'theme-ui'
 import Link from 'next/link'
+import { useRecoilValue } from 'recoil'
+import { accountState } from 'state/account'
 
 export default function Menu() {
-    const { state } = useContext(appStore)
-    const { account } = state
+    const { accountId } = useRecoilValue(accountState)
 
     return (
         <div>
             <Divider />
             <Flex as="nav" sx={{ justifyContent: 'space-around' }}>
-                {account?.accountId ? (
+                {accountId ? (
                     <>
                         <Link href="/share/create">
                             <NavLink>Create</NavLink>
