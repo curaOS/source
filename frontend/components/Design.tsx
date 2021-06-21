@@ -25,9 +25,9 @@ const design = (instructions = [], mediaIndex = 0) => (p) => {
 
     p.setup = () => {
         p.createCanvas(designDimension, designDimension)
+        p.background(0)
         p.noLoop()
         if (instructions.length > 0) {
-            p.background(0)
             p.textSize(canvasTextSize)
             for (let i = 0; i < SIZE; i++) {
                 for (let j = 0; j < SIZE; j++) {
