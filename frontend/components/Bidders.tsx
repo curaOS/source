@@ -5,7 +5,7 @@ import { Box, Heading, Text, Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 
 export default function CreatorShare({
-    bidders,
+    bidders = {},
     onAcceptBid,
 }: {
     bidders: {
