@@ -1,9 +1,7 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useContext, useState } from 'react'
-import { appStore } from '../../state/app'
-import { getContract } from '../../utils/near-utils'
+import { useState } from 'react'
 import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
@@ -12,6 +10,7 @@ import Picker from '../../components/Picker'
 import Design from '../../components/Design'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
+import useNFTContract from 'hooks/useNFTContract'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -23,16 +22,14 @@ const HARDCODED_ROYALTY_SHARE = '2500'
 const SCHEMA_SIZE = 5
 
 const Create = ({}) => {
-    const { state } = useContext(appStore)
-    const { account } = state
-    const contract = getContract(account)
-    const setAlertMessage = useSetRecoilState(alertMessageState)
+    const { contract } = useNFTContract()
+
     const [seed, setSeed] = useState()
-
-    const setIndexLoader = useSetRecoilState(indexLoaderState)
-
     const [schema, setSchema] = useState(new Set())
     const [designInstructions, setDesignInstructions] = useState()
+
+    const setAlertMessage = useSetRecoilState(alertMessageState)
+    const setIndexLoader = useSetRecoilState(indexLoaderState)
 
     const pickEmoji = (code: number) => {
         if (schema.has(code)) {
@@ -65,8 +62,6 @@ const Create = ({}) => {
             setDesignInstructions(result?.instructions?.split(','))
             setSeed(result?.seed)
 
-            retrieveBalanceOfFT()
-
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
             setIndexLoader(false)
@@ -83,13 +78,6 @@ const Create = ({}) => {
                 CONTRACT_CLAIM_GAS,
                 CONTRACT_CLAIM_PRICE
             )
-
-            retrieveDesign()
-
-            setTimeout(() => {
-                setIndexLoader(false)
-                setAlertMessage('Design claimed!')
-            }, 200)
         } catch (e) {
             setIndexLoader(false)
             setAlertMessage(e.toString())
