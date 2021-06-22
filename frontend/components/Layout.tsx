@@ -11,7 +11,7 @@ import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'
 import { useRecoilValue } from 'recoil'
 import { Near } from 'containers/index'
-import { useFTBalance } from 'hooks/useFTContract'
+import { useFTMethod } from 'hooks/useFTContract'
 
 import { accountState } from '../state/account'
 
@@ -21,7 +21,12 @@ export default function Layout({ children }) {
     const { accountId } = useRecoilValue(accountState)
     const { signIn, signOut } = Near.useContainer()
 
-    const { data: ftBalance, loading: loadingFTBalance } = useFTBalance()
+    const { data: ftBalance, loading: loadingFTBalance } = useFTMethod(
+        'ft_balance_of',
+        {
+            account_id: accountId,
+        }
+    )
 
     return (
         <>

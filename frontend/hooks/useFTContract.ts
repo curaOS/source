@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react'
 import { getContractMethods } from 'utils/near-utils'
 import Near from 'containers/near'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { accountState } from 'state/account'
 import useSWR from 'swr'
+import { alertMessageState, indexLoaderState } from 'state/recoil'
+import { utils } from 'near-api-js'
 
 const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
+const GAS_CAP = utils.format.parseNearAmount('0.0000000003') // 300 Tgas
 
-export default function useftContract() {
+export default function useFTContract() {
     const [contract, setContract] = useState({ account: null })
     const { getContract } = Near.useContainer()
     const { accountId } = useRecoilValue(accountState)
@@ -27,23 +30,38 @@ export default function useftContract() {
     return { contract }
 }
 
-export const useFTBalance = () => {
-    const methodName = 'ft_balance_of'
+export const useFTMethod = (methodName, params, gas) => {
+    const setAlertMessage = useSetRecoilState(alertMessageState)
+    const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const { contract } = useftContract()
-    const { accountId } = useRecoilValue(accountState)
+    const { contract } = useFTContract()
+
+    const validParams = contract.account
 
     const fetcher = (methodName, serializedParams) => {
         const params = JSON.parse(serializedParams)
-        return contract[methodName]({ ...params }).then((res) => res)
+        return contract[methodName]({ ...params }, gas).then((res) => {
+            return res
+        })
     }
 
     const { data, error } = useSWR(
-        contract.account
-            ? [methodName, JSON.stringify({ account_id: accountId })]
-            : null,
-        fetcher
+        validParams ? [methodName, JSON.stringify(params)] : null,
+        fetcher,
+        {
+            dedupingInterval: 0,
+        }
     )
+
+    if (!error && !data) {
+        setIndexLoader(true)
+    } else {
+        setIndexLoader(false)
+    }
+
+    if (error) {
+        setAlertMessage(error.toString())
+    }
 
     return {
         data: data,
