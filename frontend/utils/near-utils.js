@@ -18,7 +18,11 @@ export function getContractMethods(contractName) {
         case ftContract:
             return {
                 changeMethods: [],
-                viewMethods: ['ft_balance_of'],
+                viewMethods: [
+                    'ft_balance_of',
+                    'get_treasury',
+                    'ft_total_supply',
+                ],
             }
         case nftContract:
             return {
