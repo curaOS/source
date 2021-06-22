@@ -48,11 +48,14 @@ export const useMarketMethod = (methodName, params, gas) => {
         })
     }
 
-    const { data, error } = useSWR(
+    const { data, error, mutate } = useSWR(
         contract.account && validParams
             ? [methodName, JSON.stringify(params)]
             : null,
-        fetcher
+        fetcher,
+        {
+            dedupingInterval: 0,
+        }
     )
 
     if (!error && !data) {
@@ -69,5 +72,6 @@ export const useMarketMethod = (methodName, params, gas) => {
         data: data,
         loading: !error && !data,
         error: error,
+        mutate: mutate,
     }
 }

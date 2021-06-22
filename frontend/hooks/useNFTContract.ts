@@ -38,7 +38,10 @@ export const useNFTMethod = (methodName, params, gas) => {
 
     const { data, error } = useSWR(
         contract.account ? [methodName, JSON.stringify(params)] : null,
-        fetcher
+        fetcher,
+        {
+            dedupingInterval: 0,
+        }
     )
 
     return {
