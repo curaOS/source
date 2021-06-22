@@ -1,9 +1,6 @@
-// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useContext, useState, useEffect } from 'react'
-import { appStore } from '../../state/app'
-import { getContract } from '../../utils/near-utils'
+import { useState } from 'react'
 import { Button, Divider } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
@@ -12,20 +9,25 @@ import Design from '../../components/Design'
 import Metadata from '../../components/Metadata'
 import BidCreate from 'components/BidCreate'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import useNFTContract from 'hooks/useNFTContract'
+import { accountState } from 'state/account'
+import { useMarketMethod } from 'hooks/useMarketContract'
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
-const MARKET_SET_BIG_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
 
 const Explore = ({}) => {
-    const { state } = useContext(appStore)
-    const { account } = state
-    const contract = getContract(account)
+    const { contract } = useNFTContract()
+
+    const { accountId } = useRecoilValue(accountState)
+
     const setAlertMessage = useSetRecoilState(alertMessageState)
+    const setIndexLoader = useSetRecoilState(indexLoaderState)
+
     const [randomDesign, setRandomDesign] = useState({
         id: '',
         owner_id: '',
@@ -34,70 +36,27 @@ const Explore = ({}) => {
             title: '',
         },
     })
-    const [totalSupply, setTotalSupply] = useState(0)
 
-    useEffect(() => {
-        if (!account) return
-        retrieveDesign()
-        retrieveTotalSupply()
-    }, [account])
-
-    const setIndexLoader = useSetRecoilState(indexLoaderState)
-
-    async function retrieveTotalSupply() {
-        try {
-            const result: string = await contract.nft_total_supply({})
-
-            setTotalSupply(parseInt(result))
-        } catch (e) {
-            if (!/not present/.test(e.toString())) {
-                setAlertMessage(e.toString())
-            }
-        }
-    }
+    const { data: totalSupply } = useMarketMethod('nft_total_supply', {})
 
     async function setBid(amount, resale) {
+        setIndexLoader(true)
         try {
             await contract.set_bid(
                 {
                     token_id: randomDesign.id,
                     amount: utils.format.parseNearAmount(amount),
-                    bidder: account?.accountId,
+                    bidder: accountId,
                     recipient: randomDesign.owner_id,
                     sell_on_share: parseInt(resale) * 100,
                     currency: 'near',
                 },
-                MARKET_SET_BIG_GAS,
+                MARKET_SET_BID_GAS,
                 utils.format.parseNearAmount(amount)
             )
-        } catch (e) {}
-    }
-
-    async function retrieveDesign() {
-        setIndexLoader(true)
-
-        try {
-            const result = await contract.view_media({}, CONTRACT_DESIGN_GAS)
-
-            const extra = JSON.parse(atob(result?.metadata?.extra))
-
-            setMyDesign({
-                id: result?.id,
-                owner_id: result?.owner_id,
-                metadata: {
-                    title: result?.metadata?.title,
-                },
-                instructions: extra?.instructions?.split(','),
-            })
-
-            retrieveBidders(result?.id)
-
-            setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
             setIndexLoader(false)
-            if (!/not present/.test(e.toString())) {
-                setAlertMessage(e.toString())
-            }
+            setAlertMessage(e.toString())
         }
     }
 
