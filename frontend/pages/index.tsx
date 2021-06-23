@@ -52,7 +52,7 @@ const Index = () => {
                             opacity: '0.5',
                         },
                     }}
-                    href="https://twitter.com/Yassine_2024"
+                    href="https://twitter.com/YSNGMBH"
                 >
                     <Image
                         src="/twitter-logo-black.png"
