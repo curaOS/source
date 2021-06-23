@@ -1,5 +1,6 @@
 /** @jsxImportSource theme-ui */
 
+import { useState } from 'react'
 import { Spinner } from 'theme-ui'
 import { utils } from 'near-api-js'
 import BiddersBids from '../../components/BiddersBids'
@@ -12,24 +13,22 @@ import { accountState } from 'state/account'
 import { omit } from 'ramda'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
-const MARKET_GET_USER_BIDS__GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 
 const Bids = () => {
     const { contract } = useNFTContract()
 
     const { accountId } = useRecoilValue(accountState)
-    const [indexLoader, setIndexLoader] = useRecoilState(indexLoaderState)
+    const [removeBidLoader, setRemoveBidLoader] = useState(false)
 
     const { data: biddersBids, mutate: mutateBiddersBids } = useMarketMethod(
         'get_bidders_bids',
         {
             account_id: accountId,
-        },
-        MARKET_GET_USER_BIDS__GAS
+        }
     )
 
     async function removeBid(token_id: string, bidder: string) {
-        setIndexLoader(true)
+        setRemoveBidLoader(true)
 
         try {
             await contract.remove_bid(
@@ -40,11 +39,11 @@ const Bids = () => {
             mutateBiddersBids(omit(token_id, biddersBids))
 
             setTimeout(() => {
-                setIndexLoader(false)
+                setRemoveBidLoader(false)
             }, 200)
         } catch (e) {
             console.log(e)
-            setIndexLoader(false)
+            setRemoveBidLoader(false)
         }
     }
 
@@ -57,7 +56,7 @@ const Bids = () => {
                     mt: 3,
                 }}
             >
-                {indexLoader && (
+                {removeBidLoader && (
                     <div
                         sx={{
                             display: 'flex',
@@ -68,7 +67,7 @@ const Bids = () => {
                         <Spinner />
                     </div>
                 )}
-                {!indexLoader && (
+                {!removeBidLoader && (
                     <BiddersBids
                         biddersBids={biddersBids}
                         onRemoveBid={removeBid}
