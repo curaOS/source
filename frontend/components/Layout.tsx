@@ -96,9 +96,9 @@ export default function Layout({ children }) {
                         >
                             <Spinner />
                         </div>
-                    ) : (
+                    ) : accountId ? (
                         children
-                    )}
+                    ) : null}
                 </div>
                 <Footer />
             </div>
