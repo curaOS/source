@@ -109,7 +109,7 @@ export default function Header({
                     >
                         {accountId ? (
                             <div>
-                                <Link href="/bids">{accountId}</Link>
+                                <Link href="/share/bids">{accountId}</Link>
                             </div>
                         ) : (
                             <div>[blank]</div>

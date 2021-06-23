@@ -9,10 +9,10 @@ import Design from '../../components/Design'
 import Bidders from '../../components/Bidders'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
-import { useNFTMethod } from 'hooks/useNFTContract'
+import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import useMarketContract, { useMarketMethod } from 'hooks/useMarketContract'
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
@@ -32,12 +32,12 @@ const getInstructions = (media) => {
 }
 
 const View = ({}) => {
-    const { contract } = useMarketContract()
+    const { contract } = useNFTContract()
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const { data: media } = useNFTMethod('view_media', {}, CONTRACT_DESIGN_GAS)
+    const { data: media } = useNFTMethod('view_media', {}, CONTRACT_VIEW_GAS)
 
     const { data: bids } = useMarketMethod('get_bids', {
         token_id: media?.id,

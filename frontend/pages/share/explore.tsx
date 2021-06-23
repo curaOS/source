@@ -10,9 +10,8 @@ import Metadata from '../../components/Metadata'
 import BidCreate from 'components/BidCreate'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import useNFTContract from 'hooks/useNFTContract'
+import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
-import { useMarketMethod } from 'hooks/useMarketContract'
 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
@@ -37,7 +36,7 @@ const Explore = ({}) => {
         },
     })
 
-    const { data: totalSupply } = useMarketMethod('nft_total_supply', {})
+    const { data: totalSupply } = useNFTMethod('nft_total_supply', {})
 
     async function setBid(amount, resale) {
         setIndexLoader(true)
