@@ -176,7 +176,7 @@ export function nft_tokens_for_owner(
 ): Design[] {
     limit = 1
     const accountMedia = account_media.get(account_id)
-    if (!accountMedia) {
+    if (accountMedia == null || accountMedia.size == 0) {
         return []
     }
     const media = accountMedia.values().at(0)

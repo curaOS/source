@@ -35,6 +35,7 @@ export function getContractMethods(contractName) {
                     'burn_design',
                     'view_media',
                     'nft_tokens',
+                    'nft_tokens_for_owner',
                 ],
                 viewMethods: ['nft_total_supply'],
             }

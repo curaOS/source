@@ -8,9 +8,10 @@ import CreatorShare from '../../components/CreatorShare'
 import Design from '../../components/Design'
 import Bidders from '../../components/Bidders'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
-import useMarketContract, { useMarketMethod } from 'hooks/useMarketContract'
+import { useMarketMethod } from 'hooks/useMarketContract'
+import { accountState } from 'state/account'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
@@ -37,10 +38,20 @@ const View = ({}) => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const { data: media } = useNFTMethod('view_media', {}, CONTRACT_VIEW_GAS)
+    const { accountId } = useRecoilValue(accountState)
+
+    const { data: media } = useNFTMethod(
+        'nft_tokens_for_owner',
+        {
+            account_id: accountId,
+        },
+        CONTRACT_VIEW_GAS
+    )
+
+    console.log(media)
 
     const { data: bids } = useMarketMethod('get_bids', {
-        token_id: media?.id,
+        token_id: media?.[0]?.id,
     })
 
     async function acceptBid(bidder: string) {
@@ -48,7 +59,7 @@ const View = ({}) => {
         try {
             await contract.accept_bid(
                 {
-                    token_id: media?.id,
+                    token_id: media?.[0]?.id,
                     bidder: bidder,
                 },
                 MARKET_ACCEPT_BID_GAS,
@@ -90,7 +101,7 @@ const View = ({}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Design instructions={getInstructions(media)} />
+                    <Design instructions={getInstructions(media?.[0])} />
                 </div>
                 <div
                     sx={{
