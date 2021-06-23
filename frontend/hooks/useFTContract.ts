@@ -4,11 +4,9 @@ import Near from 'containers/near'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { accountState } from 'state/account'
 import useSWR from 'swr'
-import { alertMessageState, indexLoaderState } from 'state/recoil'
-import { utils } from 'near-api-js'
+import { alertMessageState } from 'state/recoil'
 
 const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
-const GAS_CAP = utils.format.parseNearAmount('0.0000000003') // 300 Tgas
 
 export default function useFTContract() {
     const [contract, setContract] = useState({ account: null })
@@ -32,11 +30,10 @@ export default function useFTContract() {
 
 export const useFTMethod = (methodName, params, gas) => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
-    const setIndexLoader = useSetRecoilState(indexLoaderState)
 
     const { contract } = useFTContract()
 
-    const validParams = contract.account
+    const validParams = contract?.account?.accountId
 
     const fetcher = (methodName, serializedParams) => {
         const params = JSON.parse(serializedParams)
@@ -47,17 +44,8 @@ export const useFTMethod = (methodName, params, gas) => {
 
     const { data, error } = useSWR(
         validParams ? [methodName, JSON.stringify(params)] : null,
-        fetcher,
-        {
-            dedupingInterval: 0,
-        }
+        fetcher
     )
-
-    if (!error && !data) {
-        setIndexLoader(true)
-    } else {
-        setIndexLoader(false)
-    }
 
     if (error) {
         setAlertMessage(error.toString())
