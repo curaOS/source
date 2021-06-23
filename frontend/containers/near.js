@@ -1,6 +1,7 @@
 import { createContainer } from 'unstated-next'
 import { useEffect, useState } from 'react'
 import { networkId, nodeUrl, walletUrl, contractName } from '@utils/near-utils'
+import { useRouter } from 'next/router'
 import { WalletConnection, keyStores, connect, Contract } from 'near-api-js'
 import { useSetRecoilState } from 'recoil'
 import { accountState } from '../state/account'
@@ -14,6 +15,8 @@ function useNear() {
     const [nearAccount, setNearAccount] = useState(null)
 
     const setAccount = useSetRecoilState(accountState)
+
+    const router = useRouter()
 
     const setupNear = async () => {
         const connectSetup = await connect({
@@ -51,6 +54,7 @@ function useNear() {
 
     const signOut = () => {
         nearWallet.signOut()
+        router.reload(window.location.origin + '/share')
     }
 
     const getContract = (contractName, contractMethods) => {
