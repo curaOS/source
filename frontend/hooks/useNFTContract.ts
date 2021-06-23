@@ -4,6 +4,8 @@ import Near from 'containers/near'
 import { useRecoilValue } from 'recoil'
 import { accountState } from 'state/account'
 import useSWR from 'swr'
+import { useSetRecoilState } from 'recoil'
+import { indexLoaderState, alertMessageState } from '../state/recoil'
 
 const NFT_CONTRACT_NAME = process.env.SHARE_ADDRESS
 
@@ -28,21 +30,37 @@ export default function useNFTContract() {
 }
 
 export const useNFTMethod = (methodName, params, gas) => {
+    const setAlertMessage = useSetRecoilState(alertMessageState)
+    const setIndexLoader = useSetRecoilState(indexLoaderState)
+
     const { contract } = useNFTContract()
 
+    const validParams = contract?.account?.accountId
+
     const fetcher = (methodName, serializedParams) => {
-        console.log(methodName, serializedParams)
         const params = JSON.parse(serializedParams)
-        return contract[methodName]({ ...params }, gas).then((res) => res)
+        return contract[methodName]({ ...params }, gas).then((res) => {
+            return res
+        })
     }
 
     const { data, error } = useSWR(
-        contract.account ? [methodName, JSON.stringify(params)] : null,
-        fetcher,
-        {
-            dedupingInterval: 0,
-        }
+        validParams ? [methodName, JSON.stringify(params)] : null,
+        fetcher
     )
+
+    if (!error && !data && validParams) {
+        setIndexLoader(true)
+    }
+
+    if (error) {
+        setAlertMessage(error.toString())
+        setIndexLoader(false)
+    }
+
+    if (data) {
+        setIndexLoader(false)
+    }
 
     return {
         data: data,
