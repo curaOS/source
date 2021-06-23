@@ -4,11 +4,8 @@ import Near from 'containers/near'
 import { useRecoilValue } from 'recoil'
 import { accountState } from 'state/account'
 import useSWR from 'swr'
-import { has } from 'ramda'
 import { useSetRecoilState } from 'recoil'
 import { indexLoaderState, alertMessageState } from '../state/recoil'
-
-const marketParams = has()
 
 const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
 
@@ -43,7 +40,6 @@ export const useMarketMethod = (methodName, params, gas) => {
     const fetcher = (methodName, serializedParams) => {
         const params = JSON.parse(serializedParams)
         return contract[methodName]({ ...params }, gas).then((res) => {
-            setIndexLoader(false)
             return res
         })
     }
@@ -52,20 +48,20 @@ export const useMarketMethod = (methodName, params, gas) => {
         contract.account && validParams
             ? [methodName, JSON.stringify(params)]
             : null,
-        fetcher,
-        {
-            dedupingInterval: 0,
-        }
+        fetcher
     )
 
-    if (!error && !data) {
+    if (!error && !data && validParams) {
         setIndexLoader(true)
-    } else {
-        setIndexLoader(false)
     }
 
     if (error) {
         setAlertMessage(error.toString())
+        setIndexLoader(false)
+    }
+
+    if (data) {
+        setIndexLoader(false)
     }
 
     return {
