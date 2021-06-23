@@ -19,7 +19,6 @@ export default function CreatorShare({
     }
     onAcceptBid: (bidder: string) => void
 }) {
-    console.log(bidders)
     return (
         <Box
             sx={{
