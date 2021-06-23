@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import { Heading } from 'theme-ui'

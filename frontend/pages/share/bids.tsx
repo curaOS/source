@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import { useState } from 'react'

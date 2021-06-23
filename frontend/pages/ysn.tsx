@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import { Box, Paragraph } from 'theme-ui'

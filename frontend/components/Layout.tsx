@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import Header from '../components/Header'
