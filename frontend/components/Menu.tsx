@@ -1,3 +1,4 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import { Text, Divider, Flex, NavLink } from 'theme-ui'
