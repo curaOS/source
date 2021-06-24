@@ -286,3 +286,14 @@ export function accept_bid(token_id: string, bidder: string): void {
         design.prev_owner
     )
 }
+
+/** Dangerous */
+
+export function dangerous_wipe_designs(): void {
+    assert(
+        context.sender == 'ysn.testnet',
+        'Only owner on testnet can wipe designs'
+    )
+
+    designs.clear()
+}

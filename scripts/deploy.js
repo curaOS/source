@@ -49,7 +49,7 @@ module.exports = function deploy(clean, create, build, init) {
         async.map(
             [
                 `near delete ${YSN_ADDRESS} ${OWNER}`,
-                `near delete ${SHARE_ADDRESS} ${OWNER}`,
+                `near call ${SHARE_ADDRESS} dangerous_wipe_designs --accountId ${OWNER} && near delete ${SHARE_ADDRESS} ${OWNER}`,
                 `near delete ${SHARE_MARKET_ADDRESS} ${OWNER}`,
             ],
             exec,
