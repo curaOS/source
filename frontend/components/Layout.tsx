@@ -32,7 +32,7 @@ export default function Layout({ children }) {
     return (
         <>
             <Head>
-                <title>Share</title>
+                <title>YSN</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div style={{ minHeight: '100vh' }}>
