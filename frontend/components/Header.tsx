@@ -71,11 +71,11 @@ export default function Header({
                     >
                         <>
                             {!accountId ? (
-                                <Button onClick={onSignIn} bg="primary">
+                                <Button onClick={onSignIn} variant="due">
                                     Connect NEAR
                                 </Button>
                             ) : (
-                                <Button onClick={onSignOut} bg="secondary">
+                                <Button onClick={onSignOut} variant="uno">
                                     Disconnect
                                 </Button>
                             )}

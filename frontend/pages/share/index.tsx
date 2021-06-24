@@ -80,7 +80,7 @@ const View = ({}) => {
                         mb: 3,
                     }}
                 >
-                    <Button sx={{ mt: 1 }} onClick={burnDesign} bg="secondary">
+                    <Button onClick={burnDesign} variant="red">
                         Burn
                     </Button>
                 </div>

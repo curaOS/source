@@ -98,7 +98,7 @@ const Explore = ({}) => {
                         mb: 3,
                     }}
                 >
-                    <Button sx={{ mt: 1 }} onClick={exploreDesign}>
+                    <Button onClick={exploreDesign} variant="orange">
                         Explore
                     </Button>
                 </div>

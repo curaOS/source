@@ -54,7 +54,7 @@ export default function BidCreate({
                 value={resale}
                 onChange={(e) => setResale(e.target.value)}
             />
-            <Button sx={{ width: '100%' }} disabled={!amount}>
+            <Button sx={{ width: '100%' }} disabled={!amount} variant="uno">
                 <b>
                     {amount ? `${amount} Ⓝ` : 'Bid'}{' '}
                     {amount ? `+ ${resale}%` : ''}

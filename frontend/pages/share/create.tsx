@@ -108,14 +108,10 @@ const Create = ({}) => {
                         mb: 3,
                     }}
                 >
-                    <Button sx={{ mx: 2, mt: 1 }} onClick={retrieveData}>
+                    <Button mx="2" mt="1" onClick={retrieveData} variant="uno">
                         Design
                     </Button>
-                    <Button
-                        sx={{ mx: 2, mt: 1 }}
-                        onClick={claimDesign}
-                        bg="secondary"
-                    >
+                    <Button mx="2" mt="1" onClick={claimDesign} variant="due">
                         Claim
                     </Button>
                 </div>
