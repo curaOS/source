@@ -2,5 +2,8 @@
 
 * [Introduction](../README.md)
 * [Scripts](scripts.md)
-* [Front-end](frontend.md)
+
+## Front-end
+
+* [Overview](front-end/frontend.md)
 
