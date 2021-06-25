@@ -1,8 +1,8 @@
-# README
+---
+description: A Next.js app continuosly deployed on Vercel.
+---
 
-This is my starter template for Next.js projects.
-
-It uses [theme-ui](https://theme-ui.com/) for styling and [framer-motion](https://www.framer.com/motion/) for animations. The `/components` folder contains some base components that I often use with theme-ui and framer-motion.
+# Front-end
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
@@ -34,4 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/zeit/next.j
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Tools
+
+### State
+
+* **unstated-next:** to wrap up Near Context
+* **recoil**: state for app-related info
+* **SWR**: contract data fetch and cache
+
+### Design
+
+* **theme-ui**: for a consistent themable UI
 
