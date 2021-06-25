@@ -1,16 +1,30 @@
+---
+description: It's a collection of scripts to make development faster.
+---
+
 # Scripts
 
-It's a collection of scripts to make development faster.
+## Deploy
 
 ```bash
-node deploy [--init --clean --build]
+node deploy [--init --clean --create --build]
 ```
 
-> Contracts are deployed if no option is passed.
+> Contracts are deployed if no option or only init is passed.
 
-`--init` : creates _NEAR_ accounts for contracts, blocks deploy
+`--init` : deploys and calls init function
 
-`--clean` : deletes _NEAR_ accounts for contracts, blocks deploy
+`--clean` : deletes _NEAR_ accounts for contracts
 
-`--build` : builds contracts, blocks deploy
+`--build` : builds contracts
+
+`--create` : create accounts for contract deploys
+
+## Accounts
+
+```bash
+node accounts
+```
+
+> Write contract addressed to be consumed by front-end and smart contracts.
 
