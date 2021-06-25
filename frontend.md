@@ -1,9 +1,8 @@
+# README
+
 This is my starter template for Next.js projects.
 
-It uses [theme-ui](https://theme-ui.com/) for styling and [framer-motion](https://www.framer.com/motion/) for animations. The `/components` folder contains some base
-components that I often use with theme-ui and framer-motion.
-
----
+It uses [theme-ui](https://theme-ui.com/) for styling and [framer-motion](https://www.framer.com/motion/) for animations. The `/components` folder contains some base components that I often use with theme-ui and framer-motion.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
@@ -25,8 +24,8 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 To learn more about Next.js, take a look at the following resources:
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+* [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
 
@@ -35,3 +34,4 @@ You can check out [the Next.js GitHub repository](https://github.com/zeit/next.j
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+

@@ -2,9 +2,7 @@
 
 It's a collection of scripts to make development faster.
 
----
-
-```sh
+```bash
 node deploy [--init --clean --build]
 ```
 
@@ -15,3 +13,4 @@ node deploy [--init --clean --build]
 `--clean` : deletes _NEAR_ accounts for contracts, blocks deploy
 
 `--build` : builds contracts, blocks deploy
+
