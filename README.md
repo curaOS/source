@@ -6,6 +6,14 @@ description: >-
 
 # Introduction
 
+## Links
+
+* [Docs](https://docs.ysn.design)
+* [Components](https://master--60d9b2ac2cf86a00396f9b0f.chromatic.com)
+* [Testnet](https://test.ysn.design)
+
+## Concepts
+
 **YSN** is an experimental project on the [NEAR sharded blockchain](https://near.org) that puts together non-fungible tokens, fungible-tokens as social tokens. This token is then the base for a decentralized organization.
 
 A palette for building an open web on NEAR. The contracts are currently geared towards generative art as a great way to create communities, but the idea is that any type of media primitives, from text to music, can be integrated.
