@@ -6,6 +6,8 @@ description: >-
 
 # Introduction
 
+![](docs/.gitbook/assets/ysn-3-.png)
+
 ## Links
 
 * [Docs](https://docs.ysn.design)
