@@ -1,24 +1,24 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import React from 'react'
 import { Text, Alert, Button, Close } from 'theme-ui'
 import Link from 'next/link'
 import { alertMessageState } from '../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-export default function Header({
+export const Header = ({
     accountId,
     onSignIn,
     onSignOut,
+    alertMessage,
+    setAlertMessage,
 }: {
     accountId?: string
     onSignIn: () => void
     onSignOut: () => void
-}) {
-    const alertMessage = useRecoilValue(alertMessageState)
-    const setAlertMessage = useSetRecoilState(alertMessageState)
-
+    alertMessage: string
+    setAlertMessage: () => void
+}) => {
     return (
         <div>
             <header
@@ -118,5 +118,28 @@ export default function Header({
                 </div>
             </header>
         </div>
+    )
+}
+
+export default function HeaderContainer({
+    accountId,
+    onSignIn,
+    onSignOut,
+}: {
+    accountId?: string
+    onSignIn: () => void
+    onSignOut: () => void
+}) {
+    const alertMessage = useRecoilValue(alertMessageState)
+    const setAlertMessage = useSetRecoilState(alertMessageState)
+
+    return (
+        <Header
+            accountId={accountId}
+            onSignIn={onSignIn}
+            onSignOut={onSignOut}
+            alertMessage={alertMessage}
+            setAlertMessage={setAlertMessage}
+        />
     )
 }
