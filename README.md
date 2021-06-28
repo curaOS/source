@@ -26,5 +26,5 @@ The long-term goal is to have an ecosystem of media projects forked from here an
 
 ## Plans
 
-![Group 1](https://user-images.githubusercontent.com/5102099/119519396-ac0a9800-bd79-11eb-9b07-4f345212a52d.png)
+![](docs/.gitbook/assets/second.png)
 
