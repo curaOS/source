@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useRecoilValue } from 'recoil'
 import { accountState } from 'state/account'
 
-export default function Menu() {
+export default function Menu({ base }: { base: string }) {
     const { accountId } = useRecoilValue(accountState)
 
     return (
@@ -15,13 +15,13 @@ export default function Menu() {
             <Flex as="nav" sx={{ justifyContent: 'space-around' }}>
                 {accountId ? (
                     <>
-                        <Link href="/share/create">
+                        <Link href={`/${base}/create`}>
                             <NavLink>Create</NavLink>
                         </Link>
-                        <Link href="/share">
+                        <Link href={`/${base}`}>
                             <NavLink>View</NavLink>
                         </Link>
-                        <Link href="/share/explore">
+                        <Link href={`/${base}/explore`}>
                             <NavLink>Explore</NavLink>
                         </Link>
                     </>
