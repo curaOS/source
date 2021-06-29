@@ -16,7 +16,7 @@ import { useFTMethod } from 'hooks/useFTContract'
 
 import { accountState } from '../state/account'
 
-export default function Layout({ children }) {
+export default function Layout({ children, project = 'share' }) {
     const indexLoader = useRecoilValue(indexLoaderState)
 
     const { accountId } = useRecoilValue(accountState)
@@ -40,6 +40,7 @@ export default function Layout({ children }) {
                     accountId={accountId}
                     onSignIn={signIn}
                     onSignOut={signOut}
+                    title={project.toUpperCase()}
                 />
                 <div
                     sx={{
@@ -86,7 +87,7 @@ export default function Layout({ children }) {
                         minHeight: '70vh',
                     }}
                 >
-                    <Menu />
+                    <Menu base={project} />
                     {indexLoader ? (
                         <div
                             sx={{

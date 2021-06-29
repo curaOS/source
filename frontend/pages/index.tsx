@@ -32,11 +32,11 @@ const Index = () => {
             <Link href="/share">
                 <Heading as="h1">SHARE</Heading>
             </Link>
-            <Link href="/watchs">
-                <Heading as="h1">WATCHS</Heading>
+            <Link href="/ml/1w">
+                <Heading as="h1">ML/1W</Heading>
             </Link>
-            <Link href="/cloths">
-                <Heading as="h1">CLOTHS</Heading>
+            <Link href="/ml/1c">
+                <Heading as="h1">ML/1C</Heading>
             </Link>
             <div
                 sx={{
