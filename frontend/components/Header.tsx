@@ -12,14 +12,12 @@ export const Header = ({
     onSignOut,
     alertMessage,
     setAlertMessage,
-    title,
 }: {
     accountId?: string
     onSignIn: () => void
     onSignOut: () => void
     alertMessage: string
     setAlertMessage: () => void
-    title: string
 }) => {
     return (
         <div>
@@ -90,12 +88,12 @@ export const Header = ({
                                 color: 'black',
                                 textDecoration: 'none',
                                 fontFamily: 'IBM Plex Sans, sans-serif',
-                                fontWeight: 600,
+                                fontWeight: 500,
                                 fontSize: '4rem',
                                 marginRight: '1rem',
                             }}
                         >
-                            {title}
+                            SHARE
                         </Text>
                     </Link>
                     <div
@@ -127,12 +125,10 @@ export default function HeaderContainer({
     accountId,
     onSignIn,
     onSignOut,
-    title,
 }: {
     accountId?: string
     onSignIn: () => void
     onSignOut: () => void
-    title: string
 }) {
     const alertMessage = useRecoilValue(alertMessageState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
@@ -144,7 +140,6 @@ export default function HeaderContainer({
             onSignOut={onSignOut}
             alertMessage={alertMessage}
             setAlertMessage={setAlertMessage}
-            title={title}
         />
     )
 }
