@@ -4,7 +4,7 @@ import React from 'react'
 import { Box, Heading, Text, Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 
-export default function CreatorShare({
+export default function Bidders({
     bidders = {},
     onAcceptBid,
 }: {
