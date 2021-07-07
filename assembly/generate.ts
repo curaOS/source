@@ -7,7 +7,7 @@ const ONE = 1;
 let schema = ["🟣", "🟡️️", "⚫️", "⭕️", "🔘"];
 
 export function generate(seed: i32): string {
-    let output: string = "";
+    let output: Array<string> = new Array<string>((SIZE + 1) * SIZE);
 
     let a: i32 = 0;
 
@@ -24,6 +24,7 @@ export function generate(seed: i32): string {
     let v: i32 = 0;
     let value: string = "";
     let mod = (a % 11) + 5;
+    let pos = 0;
 
     for (let i = 0; i < SIZE; i++) {
         y = (2 * (i - HALF_SIZE) + 1);
@@ -45,12 +46,11 @@ export function generate(seed: i32): string {
             } else {
                 value = "⚪️";
             }
-            output = output + value + "";
+            output[pos++] = value;
         }
-        output = output + "\n";
+        output[pos++] = "\n";
     }
-
-    return output;
+    return output.join("");
 }
 
 function abs(n: i32): i32 {
