@@ -24,6 +24,7 @@ export function getContractMethods(contractName) {
                     'ft_total_supply',
                 ],
             }
+        case 'nft':
         case nftContract:
             return {
                 changeMethods: [
@@ -34,6 +35,7 @@ export function getContractMethods(contractName) {
                     'claim_media',
                     'burn_design',
                     'view_media',
+                    'nft_token',
                     'nft_tokens',
                     'nft_tokens_for_owner',
                 ],
