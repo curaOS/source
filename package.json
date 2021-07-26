@@ -7,6 +7,7 @@
         "build-share": "asb -d ./contracts/SHARE",
         "build-ysn": "asb -d ./contracts/YSN",
         "build-market": "asb -d ./contracts/Market",
+        "build-nft": "npx asb -d ./contracts/NFT",
         "test": "asp -f unit.spec"
     },
     "author": "Yassine",
