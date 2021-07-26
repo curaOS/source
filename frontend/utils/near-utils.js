@@ -41,6 +41,7 @@ export function getContractMethods(contractName) {
                 ],
                 viewMethods: ['nft_total_supply'],
             }
+        case 'market':
         case marketContract:
             return {
                 changeMethods: [],
