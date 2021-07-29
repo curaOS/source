@@ -1,9 +1,7 @@
-import { ContractPromise, u128 } from 'near-sdk-as'
-import { SHARE_ADDRESS } from '../../accounts'
+import { ContractPromise, storage, u128 } from 'near-sdk-as'
+import { MEDIA_CONTRACT_KEY } from '.'
 
 const XCC_MEDIA_NFT_TRANSFER_GAS = 125000000000000
-
-const MEDIA_CONTRACT = 'ml1c.ysn-1_0_0.ysn.testnet'
 
 /**
  * media.nft_transfer
@@ -16,6 +14,7 @@ export class MediaNftTransferArgs {
 }
 
 export function xcc_media_nft_transfer(token_id: string, bidder: string): void {
+    const mediaContract = storage.getSome<string>(MEDIA_CONTRACT_KEY)
     const remoteMethod = 'nft_transfer'
 
     let remoteMethodArgs: MediaNftTransferArgs = {
@@ -24,7 +23,7 @@ export function xcc_media_nft_transfer(token_id: string, bidder: string): void {
     }
 
     const promise = ContractPromise.create(
-        MEDIA_CONTRACT,
+        mediaContract,
         remoteMethod,
         remoteMethodArgs,
         XCC_MEDIA_NFT_TRANSFER_GAS,
