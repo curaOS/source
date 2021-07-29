@@ -7,7 +7,10 @@ import useSWR from 'swr'
 import { useSetRecoilState } from 'recoil'
 import { indexLoaderState, alertMessageState } from '../state/recoil'
 
-const MARKET_CONTRACT_NAME = process.env.SHARE_MARKET_ADDRESS
+/**
+ * TODO move out of here
+ */
+const MARKET_CONTRACT_NAME = 'market.ml1w.ysn-1_0_0.ysn.testnet'
 
 export default function useMarketContract() {
     const [contract, setContract] = useState({ account: null })
@@ -17,7 +20,7 @@ export default function useMarketContract() {
     const setupContract = () => {
         const newContract = getContract(
             MARKET_CONTRACT_NAME,
-            getContractMethods(MARKET_CONTRACT_NAME)
+            getContractMethods('market')
         )
 
         setContract(newContract)
