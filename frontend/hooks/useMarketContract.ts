@@ -7,19 +7,20 @@ import useSWR from 'swr'
 import { useSetRecoilState } from 'recoil'
 import { indexLoaderState, alertMessageState } from '../state/recoil'
 
-/**
- * TODO move out of here
- */
-const MARKET_CONTRACT_NAME = 'market.ml1w.ysn-1_0_0.ysn.testnet'
-
-export default function useMarketContract() {
+export default function useMarketContract(
+    contractAddress: string = 'market.share.ysn-1_0_0.ysn.testnet'
+) {
     const [contract, setContract] = useState({ account: null })
     const { getContract } = Near.useContainer()
     const { accountId } = useRecoilValue(accountState)
 
     const setupContract = () => {
+        if (contractAddress.includes('undefined')) {
+            return
+        }
+
         const newContract = getContract(
-            MARKET_CONTRACT_NAME,
+            contractAddress,
             getContractMethods('market')
         )
 
@@ -27,16 +28,16 @@ export default function useMarketContract() {
     }
 
     // If contractName or accountId changes a new contract is setup
-    useEffect(setupContract, [accountId])
+    useEffect(setupContract, [accountId, contractAddress])
 
     return { contract }
 }
 
-export const useMarketMethod = (methodName, params, gas) => {
+export const useMarketMethod = (contractAddress, methodName, params, gas) => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const { contract } = useMarketContract()
+    const { contract } = useMarketContract(contractAddress)
 
     const validParams = params?.token_id || params?.account_id
 
