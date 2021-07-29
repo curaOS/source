@@ -6,6 +6,7 @@ import {
     ContractPromise,
     PersistentSet,
     MapEntry,
+    storage,
 } from 'near-sdk-as'
 import { generate } from './generate'
 import {
@@ -131,11 +132,6 @@ export function design(
 
 export function nft_token(token_id: string): Media | null {
     return designs.getSome(token_id)
-}
-
-export function nft_metadata(): NFTContractMetadata {
-    // TODO move to init
-    return new NFTContractMetadata()
 }
 
 export function nft_total_supply(): string {
@@ -305,4 +301,39 @@ export function dangerous_wipe_designs(): void {
     )
 
     designs.clear()
+}
+
+/**
+ * Init
+ */
+
+export const MARKET_CONTRACT_KEY = 'market_contract'
+export const METADATA_KEY = 'contract_metadata'
+
+export function init(
+    contract_metadata: NFTContractMetadata,
+    market_contract: string
+): void {
+    assert(storage.get<string>('init') == null, 'Already initialized')
+
+    storage.set(MARKET_CONTRACT_KEY, market_contract)
+
+    storage.set(
+        METADATA_KEY,
+        new NFTContractMetadata(
+            contract_metadata.spec,
+            contract_metadata.name,
+            contract_metadata.symbol,
+            contract_metadata.icon,
+            contract_metadata.base_uri,
+            contract_metadata.reference,
+            contract_metadata.reference_hash
+        )
+    )
+
+    storage.set('init', 'done')
+}
+
+export function nft_metadata(): NFTContractMetadata {
+    return storage.getSome(METADATA_KEY)
 }
