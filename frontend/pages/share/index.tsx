@@ -51,9 +51,13 @@ const View = ({}) => {
 
     console.log(media)
 
-    const { data: bids } = useMarketMethod('get_bids', {
-        token_id: media?.[0]?.id,
-    })
+    const { data: bids } = useMarketMethod(
+        'market.share.ysn-1_0_0.ysn.testnet',
+        'get_bids',
+        {
+            token_id: media?.[0]?.id,
+        }
+    )
 
     async function acceptBid(bidder: string) {
         setIndexLoader(true)

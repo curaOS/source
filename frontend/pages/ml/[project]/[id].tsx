@@ -47,9 +47,13 @@ const MLProject = ({}) => {
         CONTRACT_VIEW_GAS
     )
 
-    const { data: bids } = useMarketMethod('get_bids', {
-        token_id: media?.id,
-    })
+    const { data: bids } = useMarketMethod(
+        `market.ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
+        'get_bids',
+        {
+            token_id: media?.id,
+        }
+    )
 
     async function acceptBid(bidder: string) {
         setIndexLoader(true)

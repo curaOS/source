@@ -27,6 +27,7 @@ const Bids = () => {
     const [removeBidLoader, setRemoveBidLoader] = useState(false)
 
     const { data: biddersBids, mutate: mutateBiddersBids } = useMarketMethod(
+        `market.ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
         'get_bidders_bids',
         {
             account_id: accountId,
