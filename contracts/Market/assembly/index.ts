@@ -154,7 +154,6 @@ export function accept_bid(
     biddersBids.delete(token_id)
     bidders_bids.set(bidder, biddersBids)
 
-    /** TODO call NFT_TRANSFER */
     xcc_media_nft_transfer(token_id, bid.bidder)
 }
 
