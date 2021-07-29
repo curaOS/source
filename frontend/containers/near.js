@@ -1,6 +1,6 @@
 import { createContainer } from 'unstated-next'
 import { useEffect, useState } from 'react'
-import { networkId, nodeUrl, walletUrl, contractName } from '@utils/near-utils'
+import { networkId, nodeUrl, walletUrl } from '@utils/near-utils'
 import { useRouter } from 'next/router'
 import { WalletConnection, keyStores, connect, Contract } from 'near-api-js'
 import { useSetRecoilState } from 'recoil'
@@ -8,6 +8,17 @@ import { accountState } from '../state/account'
 import { lensPath, set } from 'ramda'
 
 const accountIdLens = lensPath(['accountId'])
+
+const mapPathToProject = (path) => {
+    switch (true) {
+        case path.startsWith('/ml/1c'):
+            return 'ml1c.ysn-1_0_0.ysn.testnet'
+        case path.startsWith('/ml/1w'):
+            return 'ml1w.ysn-1_0_0.ysn.testnet'
+        case path.startsWith('/share'):
+            return 'share.ysn-1_0_0.ysn.testnet'
+    }
+}
 
 function useNear() {
     const [nearConnect, setNearConnect] = useState(null)
@@ -43,18 +54,37 @@ function useNear() {
 
     useEffect(setupNear, [])
 
+    const switchProject = () => {
+        const currentProject = mapPathToProject(router.asPath)
+        const signedProject = localStorage.getItem('contractAddress')
+
+        if (
+            signedProject &&
+            currentProject &&
+            currentProject != signedProject
+        ) {
+            signOut()
+        }
+    }
+
+    useEffect(switchProject, [router.asPath])
+
     const signIn = () => {
+        const project = mapPathToProject(router.asPath)
+
+        localStorage.setItem('contractAddress', project)
+
         nearWallet.requestSignIn(
-            contractName,
-            'SHARE',
-            window.location.origin + '/share',
-            window.location.origin + '/share'
+            project,
+            window.location.origin + router.asPath,
+            window.location.origin + router.asPath
         )
     }
 
     const signOut = () => {
-        nearWallet.signOut()
-        router.reload(window.location.origin + '/share')
+        localStorage.removeItem('contractAddress')
+        nearWallet?.signOut()
+        router.reload(window.location.origin + router.asPath)
     }
 
     const getContract = (contractName, contractMethods) => {
