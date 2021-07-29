@@ -1,15 +1,10 @@
-import { u128, ContractPromise, context } from 'near-sdk-as'
-import { SHARE_MARKET_ADDRESS } from '../../accounts'
+import { u128, ContractPromise, context, storage } from 'near-sdk-as'
+import { MARKET_CONTRACT_KEY } from '.'
 
 const XCC_MARKET_SET_BID_SHARES_GAS = 25000000000000
 const XCC_MARKET_ACCEPT_BID_SHARES_GAS = 150000000000000
 const XCC_MARKET_BURN_GAS = 25000000000000
 const XCC_MARKET_REMOVE_BID_SHARES_GAS = 25000000000000
-
-/**
- * TODO move to init
- */
-const MARKET_CONTRACT = 'market.ml1c.ysn-1_0_0.ysn.testnet'
 
 /**
  * market.set_bid_shares
@@ -29,6 +24,7 @@ export function xcc_market_set_bid_shares(
     creator: u16,
     owner: u16
 ): void {
+    const mediaContract = storage.getSome<string>(MARKET_CONTRACT_KEY)
     const remoteMethod = 'set_bid_shares'
 
     let remoteMethodArgs: MarketSetBidSharesArgs = {
@@ -39,7 +35,7 @@ export function xcc_market_set_bid_shares(
     }
 
     const promise = ContractPromise.create(
-        MARKET_CONTRACT,
+        mediaContract,
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_SET_BID_SHARES_GAS,
@@ -70,6 +66,7 @@ export function xcc_market_set_bid(
     sell_on_share: u16,
     currency: string = 'near'
 ): void {
+    const mediaContract = storage.getSome<string>(MARKET_CONTRACT_KEY)
     const remoteMethod = 'set_bid'
 
     let remoteMethodArgs: MarketSetBidArgs = {
@@ -82,7 +79,7 @@ export function xcc_market_set_bid(
     }
 
     const promise = ContractPromise.create(
-        MARKET_CONTRACT,
+        mediaContract,
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_SET_BID_SHARES_GAS,
@@ -102,6 +99,7 @@ export class MarketRemoveBidArgs {
 }
 
 export function xcc_market_remove_bid(token_id: string, bidder: string): void {
+    const mediaContract = storage.getSome<string>(MARKET_CONTRACT_KEY)
     const remoteMethod = 'remove_bid'
 
     let remoteMethodArgs: MarketRemoveBidArgs = {
@@ -110,7 +108,7 @@ export function xcc_market_remove_bid(token_id: string, bidder: string): void {
     }
 
     const promise = ContractPromise.create(
-        MARKET_CONTRACT,
+        mediaContract,
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_REMOVE_BID_SHARES_GAS,
@@ -139,6 +137,7 @@ export function xcc_market_accept_bid(
     owner: string,
     prev_owner: string
 ): void {
+    const mediaContract = storage.getSome<string>(MARKET_CONTRACT_KEY)
     const remoteMethod = 'accept_bid'
 
     let remoteMethodArgs: MarketAcceptBidArgs = {
@@ -150,7 +149,7 @@ export function xcc_market_accept_bid(
     }
 
     const promise = ContractPromise.create(
-        MARKET_CONTRACT,
+        mediaContract,
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_ACCEPT_BID_SHARES_GAS,
@@ -169,6 +168,7 @@ export class MarketBurnArgs {
 }
 
 export function xcc_market_burn(token_id: string): void {
+    const mediaContract = storage.getSome<string>(MARKET_CONTRACT_KEY)
     const remoteMethod = 'burn'
 
     let remoteMethodArgs: MarketBurnArgs = {
@@ -176,7 +176,7 @@ export function xcc_market_burn(token_id: string): void {
     }
 
     const promise = ContractPromise.create(
-        MARKET_CONTRACT,
+        mediaContract,
         remoteMethod,
         remoteMethodArgs,
         XCC_MARKET_BURN_GAS,

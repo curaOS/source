@@ -1,6 +1,3 @@
-/**
- * TODO move to init
- */
 const NFT_SPEC = 'nft-1.0.0'
 const NFT_NAME = 'Nft'
 const NFT_SYMBOL = 'NFT'
@@ -25,11 +22,13 @@ export class TokenMetadata {
 
 @nearBindgen
 export class NFTContractMetadata {
-    spec: string = NFT_SPEC
-    name: string = NFT_NAME
-    symbol: string = NFT_SYMBOL
-    icon: string
-    base_uri: string
-    reference: string
-    reference_hash: string
+    constructor(
+        public spec: string = NFT_SPEC,
+        public name: string = NFT_NAME,
+        public symbol: string = NFT_SYMBOL,
+        public icon: string = '',
+        public base_uri: string = '',
+        public reference: string = '',
+        public reference_hash: string = ''
+    ) {}
 }
