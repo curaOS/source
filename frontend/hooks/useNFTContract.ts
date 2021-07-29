@@ -7,33 +7,37 @@ import useSWR from 'swr'
 import { useSetRecoilState } from 'recoil'
 import { indexLoaderState, alertMessageState } from '../state/recoil'
 
-const NFT_CONTRACT_NAME = process.env.SHARE_ADDRESS
-
-export default function useNFTContract() {
+export default function useNFTContract(
+    contractAddress: string = 'share.ysn-1_0_0.ysn.testnet'
+) {
     const [contract, setContract] = useState({ account: null })
     const { getContract } = Near.useContainer()
     const { accountId } = useRecoilValue(accountState)
 
     const setupContract = () => {
+        if (contractAddress.includes('undefined')) {
+            return
+        }
+
         const newContract = getContract(
-            NFT_CONTRACT_NAME,
-            getContractMethods(NFT_CONTRACT_NAME)
+            contractAddress,
+            getContractMethods('nft')
         )
 
         setContract(newContract)
     }
 
     // If contractName or accountId changes a new contract is setup
-    useEffect(setupContract, [accountId])
+    useEffect(setupContract, [accountId, contractAddress])
 
     return { contract }
 }
 
-export const useNFTMethod = (methodName, params, gas) => {
+export const useNFTMethod = (contractAddress, methodName, params, gas) => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const { contract } = useNFTContract()
+    const { contract } = useNFTContract(contractAddress)
 
     const validParams = contract?.account?.accountId
 
