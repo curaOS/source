@@ -37,7 +37,11 @@ const Explore = ({}) => {
         },
     })
 
-    const { data: totalSupply } = useNFTMethod('nft_total_supply', {})
+    const { data: totalSupply } = useNFTMethod(
+        `share.ysn-1_0_0.ysn.testnet`,
+        'nft_total_supply',
+        {}
+    )
 
     async function setBid(amount, resale) {
         setIndexLoader(true)

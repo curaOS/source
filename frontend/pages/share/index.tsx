@@ -41,6 +41,7 @@ const View = ({}) => {
     const { accountId } = useRecoilValue(accountState)
 
     const { data: media } = useNFTMethod(
+        'share.ysn-1_0_0.ysn.testnet',
         'nft_tokens_for_owner',
         {
             account_id: accountId,
