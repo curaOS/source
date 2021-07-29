@@ -26,8 +26,7 @@ export class Media {
     prev_owner: string
     metadata: TokenMetadata
     royalty: Royalty
-    constructor(media: string, uniqueId: string) {
-        this.id = uniqueId
+    constructor(media: string) {
         this.owner_id = context.sender
         this.prev_owner = context.sender
         this.creator = ROYALTY_ADDRESS
@@ -38,6 +37,9 @@ export class Media {
             0,
             context.sender.lastIndexOf('.')
         )
+
+        this.id = title + context.blockIndex.toString()
+
         const issued_at = context.blockTimestamp.toString()
         const copies: u8 = 1
 

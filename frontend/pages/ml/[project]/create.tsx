@@ -125,11 +125,9 @@ const MLProjectCreate = ({}) => {
                 },
             })
             .then(async function (response) {
-                console.log(response)
                 await contract.claim_media(
                     {
                         media: response.data.transaction.id,
-                        uniqueId: 'yyyyy',
                     },
                     CONTRACT_CLAIM_GAS,
                     CONTRACT_CLAIM_PRICE
