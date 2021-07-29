@@ -7,6 +7,7 @@ import { alertMessageState } from '../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 export const Header = ({
+    base,
     accountId,
     onSignIn,
     onSignOut,
@@ -14,6 +15,7 @@ export const Header = ({
     setAlertMessage,
     title,
 }: {
+    base: string
     accountId?: string
     onSignIn: () => void
     onSignOut: () => void
@@ -111,7 +113,7 @@ export const Header = ({
                     >
                         {accountId ? (
                             <div>
-                                <Link href="/share/bids">{accountId}</Link>
+                                <Link href={`/${base}/bids`}>{accountId}</Link>
                             </div>
                         ) : (
                             <div>[blank]</div>
@@ -124,11 +126,13 @@ export const Header = ({
 }
 
 export default function HeaderContainer({
+    base,
     accountId,
     onSignIn,
     onSignOut,
     title,
 }: {
+    base: string
     accountId?: string
     onSignIn: () => void
     onSignOut: () => void
@@ -139,6 +143,7 @@ export default function HeaderContainer({
 
     return (
         <Header
+            base={base}
             accountId={accountId}
             onSignIn={onSignIn}
             onSignOut={onSignOut}

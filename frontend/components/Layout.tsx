@@ -37,6 +37,7 @@ export default function Layout({ children, project = 'share' }) {
             </Head>
             <div style={{ minHeight: '100vh' }}>
                 <Header
+                    base={project}
                     accountId={accountId}
                     onSignIn={signIn}
                     onSignOut={signOut}
