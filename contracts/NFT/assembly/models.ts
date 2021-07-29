@@ -38,7 +38,7 @@ export class Media {
             context.sender.lastIndexOf('.')
         )
 
-        this.id = title + context.blockIndex.toString()
+        this.id = title + '-' + context.blockIndex.toString()
 
         const issued_at = context.blockTimestamp.toString()
         const copies: u8 = 1
