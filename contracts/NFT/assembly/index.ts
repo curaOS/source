@@ -48,12 +48,12 @@ const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)) // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)) // 1 YSN
 const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)) // 0.05 YSN
 
-export function claim_media(media: string, uniqueId: string): Media {
+export function claim_media(media: string): Media {
     assert_deposit_attached(DESIGN_PRICE)
 
     /** Assert uniqueId is actually unique */
 
-    let design = new Media(media, uniqueId)
+    let design = new Media(media)
 
     owners.add(context.sender)
 
