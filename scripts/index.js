@@ -3,6 +3,9 @@
 const program = require('commander')
 const deploy = require('./deploy')
 const accounts = require('./accounts')
+const build = require('./build')
+const deploy_nft = require('./deploy_nft')
+const deploy_market = require('./deploy_market')
 
 program
     .command('deploy') // sub-command name
@@ -22,6 +25,30 @@ program
     .description('Write env files for contract addresses')
     .action(function () {
         accounts()
+    })
+
+program
+    .command('build')
+    .alias('b')
+    .description('Build contracts')
+    .action(function () {
+        build()
+    })
+
+program
+    .command('deploy-nft')
+    .alias('d-nft')
+    .description('Deploy NFT contract')
+    .action(function () {
+        deploy_nft()
+    })
+
+program
+    .command('deploy-market')
+    .alias('d-mkt')
+    .description('Deploy Market contract')
+    .action(function () {
+        deploy_market()
     })
 
 // allow commander to parse `process.argv`
