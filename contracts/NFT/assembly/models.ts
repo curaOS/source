@@ -47,11 +47,6 @@ export class Media {
     }
 }
 
-@nearBindgen
-export class TemporaryMedia {
-    constructor(public instructions: string, public seed: i32) {}
-}
-
 export const designs = new PersistentUnorderedMap<AccountId, Media>('md')
 export const owners = new PersistentSet<AccountId>('onrs')
 

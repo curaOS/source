@@ -8,10 +8,8 @@ import {
     MapEntry,
     storage,
 } from 'near-sdk-as'
-import { generate } from './generate'
 import {
     Media,
-    TemporaryMedia,
     designs,
     owners,
     account_media,
@@ -27,16 +25,6 @@ import {
     xcc_market_burn,
 } from './xcc_market'
 import { assert_deposit_attached } from './asserts'
-
-// 🟣 = 128995
-// 🟡️ = 128993
-// ⚫️ = 9899
-// ⭕️ = 11093
-// 🔘 = 128280
-// ⚪️ = 9898
-
-const SCHEMA_SIZE: i8 = 5
-const defaultCodePoints: Array<u32> = [128995, 128993, 9899, 11093, 128280]
 
 const XCC_FT_MINE_TO_GAS = 25000000000000
 
@@ -80,13 +68,6 @@ export function claim_media(media: string): Media {
     return design
 }
 
-export function view_media(): Media {
-    let accountMedia = account_media.getSome(context.sender)
-    let media = accountMedia.values().at(0)
-
-    return designs.getSome(media)
-}
-
 export function burn_design(token_id: string): void {
     assert(owners.has(context.sender), 'No design to burn here.')
 
@@ -104,30 +85,6 @@ export function burn_design(token_id: string): void {
     designs.delete(token_id)
 
     xcc_market_burn(token_id)
-}
-
-export function design(
-    seed: i32 = 0,
-    schema: Array<u32> = defaultCodePoints
-): TemporaryMedia {
-    assert(schema.length == SCHEMA_SIZE, 'Wrong schema size dimension.')
-
-    if (seed == 0) {
-        seed = <i32>randomNum()
-        logging.log(
-            `\n\n\tCall claim_media with the seed number ${seed} to claim it.\n`
-        )
-    }
-
-    let instructions = generate(seed, schema)
-
-    let design = new TemporaryMedia(instructions.toString(), seed)
-
-    // logging.log(`\n\n\t> ART \n\n\t` + instructions.replaceAll("\n", "\n\t") + "\n")
-
-    xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_DESIGN)
-
-    return design
 }
 
 export function nft_token(token_id: string): Media | null {
@@ -184,11 +141,6 @@ export function nft_tokens_for_owner(
     }
 
     return tokens
-}
-
-function randomNum(max: u32 = <u32>context.blockIndex): u32 {
-    const rng = new RNG<u32>(1, max)
-    return rng.next()
 }
 
 /* nft_transfer */
