@@ -59,7 +59,7 @@ module.exports = function deployNFT() {
                     err
                         ? log(`${chalk.red(err.message)}`)
                         : results.map((r) => log(r))
-                    !err ? spinner.succeed('Sucess') : spinner.fail('Failure')
+                    !err ? spinner.succeed('Success') : spinner.fail('Failure')
                 }
             )
         })
