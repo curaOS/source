@@ -287,5 +287,5 @@ export function init(
 }
 
 export function nft_metadata(): NFTContractMetadata {
-    return storage.getSome(METADATA_KEY)
+    return storage.getSome<NFTContractMetadata>(METADATA_KEY)
 }
