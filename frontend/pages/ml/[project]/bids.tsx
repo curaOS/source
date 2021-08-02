@@ -19,7 +19,9 @@ const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') //
 const Bids = () => {
     const router = useRouter()
 
-    const { contract } = useNFTContract()
+    const { contract } = useNFTContract(
+        `ml${router.query.project}.ysn-1_0_0.ysn.testnet`
+    )
 
     const project = `ml/${router.query.project}`
 
