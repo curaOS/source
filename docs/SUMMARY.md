@@ -9,6 +9,7 @@
 ## Contracts
 
 * [NFT](contracts/nft.md)
+* [Market](contracts/market.md)
 * [FT](contracts/ft.md)
 * [DAO](contracts/dao.md)
 
