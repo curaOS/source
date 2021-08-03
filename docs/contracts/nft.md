@@ -434,7 +434,7 @@ The number of tokens.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".nft\_transfer\(token\_id, bidder\)" %}
+{% api-method method="patch" host="\[nft-contract\]" path=".nft\_transfer\(token\_id, bidder\)" %}
 {% api-method-summary %}
 NFT Transfer
 {% endapi-method-summary %}
@@ -451,7 +451,7 @@ Token to transfer.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="bidder" type="string" required=false %}
-The receiver of token.
+The receiver of the token.
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -504,9 +504,9 @@ Return contract metadata.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".init\(contract\_metadata, market\_contract\)" %}
+{% api-method method="post" host="\[nft-contract\]" path=".init\(contract\_metadata, market\_contract\)" %}
 {% api-method-summary %}
-Init
+init
 {% endapi-method-summary %}
 
 {% api-method-description %}
