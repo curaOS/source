@@ -68,5 +68,94 @@ export class Royalty {
 
 ```
 
+## Methods
 
+{% api-method method="post" host="\[nft-contract\]" path=".claim\_media\(media\)" %}
+{% api-method-summary %}
+Claim Media
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Mint Media for user.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="media" type="string" required=true %}
+Identifier of media on decentralized storage.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Return Media created.
+{% endapi-method-response-example-description %}
+
+```
+{
+  "id": "mmmmm",
+  "owner_id": "berrytest.testnet",
+  "creator": "ysn-1_0_0.ysn.testnet",
+  "prev_owner": "ysn.testnet",
+  "metadata": {
+    "title": "berrytest",
+    "issued_at": "1627037962034007695",
+    "copies": 1,
+    "media": "b-ATrsmcvLYREXzQKpW8Yq9u9WZMR4KU-jnjOMNGt64",
+    "extra": "",
+    "description": "",
+    "media_hash": "",
+    "expires_at": "",
+    "starts_at": "",
+    "updated_at": "",
+    "reference": "",
+    "reference_hash": ""
+  },
+  "royalty": {
+    "split_between": {
+      "ysn-1_0_0.ysn.testnet": 2500
+    },
+    "percentage": 2500
+  }
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="delete" host="\[nft-contract\]" path=".burn\_design\(token\_id\)" %}
+{% api-method-summary %}
+Burn Design
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Removes Media.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to remove.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+void
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
 
