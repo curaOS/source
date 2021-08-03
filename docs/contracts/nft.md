@@ -252,3 +252,88 @@ Returns number of tokens.
 {% endapi-method-spec %}
 {% endapi-method %}
 
+{% api-method method="get" host="\[nft-contract\]." path="nft\_tokens\(from\_index, limit\)" %}
+{% api-method-summary %}
+NFT Tokens
+{% endapi-method-summary %}
+
+{% api-method-description %}
+An array of tokens from index to limit.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="from\_index" type="string" required=false %}
+"0"
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="limit" type="integer" required=false %}
+0
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+[
+  {
+    id: 'mmmmm',
+    owner_id: 'berrytest.testnet',
+    creator: 'ysn-1_0_0.ysn.testnet',
+    prev_owner: 'ysn.testnet',
+    metadata: {
+      title: 'berrytest',
+      issued_at: '1627037962034007695',
+      copies: 1,
+      media: 'b-ATrsmcvLYREXzQKpW8Yq9u9WZMR4KU-jnjOMNGt64',
+      extra: '',
+      description: '',
+      media_hash: '',
+      expires_at: '',
+      starts_at: '',
+      updated_at: '',
+      reference: '',
+      reference_hash: ''
+    },
+    royalty: {
+      split_between: { 'ysn-1_0_0.ysn.testnet': 2500 },
+      percentage: 2500
+    }
+  },
+  {
+    id: 'yyyyy',
+    owner_id: 'berrytest.testnet',
+    creator: 'ysn-1_0_0.ysn.testnet',
+    prev_owner: 'berrytest.testnet',
+    metadata: {
+      title: 'berrytest',
+      issued_at: '1627550039482793937',
+      copies: 1,
+      media: 'iNannrXFNmLKZOoSrbl9KGuqptHKkNh1BsAomyXSu7Q',
+      extra: '',
+      description: '',
+      media_hash: '',
+      expires_at: '',
+      starts_at: '',
+      updated_at: '',
+      reference: '',
+      reference_hash: ''
+    },
+    royalty: {
+      split_between: { 'ysn-1_0_0.ysn.testnet': 2500 },
+      percentage: 2500
+    }
+  }
+]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
