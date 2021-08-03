@@ -133,3 +133,175 @@ Bidder's account.
 {% endapi-method-spec %}
 {% endapi-method %}
 
+{% api-method method="post" host="\[market-contract\]" path=".set\_bid\_shares\(token\_id, prev\_owner, creator, owner\)" %}
+{% api-method-summary %}
+Set Bid Shares
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Set or update the split shares for a certain token.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to set or update.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="prev\_owner" type="string" required=true %}
+Share of sale to previous owner.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="creator" type="string" required=true %}
+Share of sale to initial creator.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="owner" type="string" required=true %}
+Share of sale to current owner.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+No response.
+{% endapi-method-response-example-description %}
+
+```
+void
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="post" host="\[market-contract\]" path=".set\_bid\(token\_id, amount, bidder, recipient, sell\_on\_share, currency\)" %}
+{% api-method-summary %}
+Set Bid
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Places a bid on a token.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="" type="string" required=false %}
+
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="delete" host="\[market-contract\]" path=".remove\_bid\(token\_id, bidder, creator, owner, prev\_owner\)" %}
+{% api-method-summary %}
+Remove Bid
+{% endapi-method-summary %}
+
+{% api-method-description %}
+
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="" type="string" required=false %}
+
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[market-contract\]" path=".burn\(token\_id\)" %}
+{% api-method-summary %}
+Burn
+{% endapi-method-summary %}
+
+{% api-method-description %}
+
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="" type="string" required=false %}
+
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="patch" host="\[market-contract\]" path=".accept\_bid\(token\_id, bidder,\)" %}
+{% api-method-summary %}
+Accept Bid
+{% endapi-method-summary %}
+
+{% api-method-description %}
+
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="" type="string" required=false %}
+
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
