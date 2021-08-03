@@ -150,7 +150,7 @@ Token to set or update.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="prev\_owner" type="string" required=true %}
-Share of sale to previous owner.
+Share of sale to the previous owner.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="creator" type="string" required=true %}
@@ -158,7 +158,7 @@ Share of sale to initial creator.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="owner" type="string" required=true %}
-Share of sale to current owner.
+Share of sale to the current owner.
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -188,11 +188,31 @@ Places a bid on a token.
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
-
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to bid on.
 {% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+
+{% api-method-parameter name="amount" type="string" required=true %}
+Amount of bid.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="bidder" type="string" required=true %}
+Account of bidder \(tx user\).
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="recipient" type="string" required=true %}
+Recipient of bid \(current owner\).
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="sell\_on\_share" type="string" required=true %}
+The amount for prev\_owner in case of sale.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="currency" type="string" required=true %}
+Currency of the bid.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -202,29 +222,33 @@ Places a bid on a token.
 {% endapi-method-response-example-description %}
 
 ```
-
+void
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="delete" host="\[market-contract\]" path=".remove\_bid\(token\_id, bidder, creator, owner, prev\_owner\)" %}
+{% api-method method="delete" host="\[market-contract\]" path=".remove\_bid\(token\_id, bidder\)" %}
 {% api-method-summary %}
 Remove Bid
 {% endapi-method-summary %}
 
 {% api-method-description %}
-
+Remove a bid for token.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
-
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to remove the bid from.
 {% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+
+{% api-method-parameter name="bidder" type="string" required=true %}
+Account of the bid to remove.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -234,7 +258,7 @@ Remove Bid
 {% endapi-method-response-example-description %}
 
 ```
-
+void
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -247,16 +271,16 @@ Burn
 {% endapi-method-summary %}
 
 {% api-method-description %}
-
+Removes bid shares, asks, and bids for a token while returing bid amounts.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
-
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to remove.
 {% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+{% endapi-method-body-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -266,29 +290,45 @@ Burn
 {% endapi-method-response-example-description %}
 
 ```
-
+void
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="patch" host="\[market-contract\]" path=".accept\_bid\(token\_id, bidder,\)" %}
+{% api-method method="patch" host="\[market-contract\]" path=".accept\_bid\(token\_id, bidder, creator, owner, prev\_owner\)" %}
 {% api-method-summary %}
 Accept Bid
 {% endapi-method-summary %}
 
 {% api-method-description %}
-
+Pays off the bid shares,  updates to new shares, and removes only this bid.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
-
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to accept the bid for.
 {% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+
+{% api-method-parameter name="bidder" type="string" required=true %}
+Account of the bid to accept.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="creator" type="string" required=true %}
+Account of the initial creator.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="owner" type="string" required=true %}
+Account of the current owner.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="prev\_owner" type="string" required=true %}
+Account of the previous owner.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -298,7 +338,7 @@ Accept Bid
 {% endapi-method-response-example-description %}
 
 ```
-
+void
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
