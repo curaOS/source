@@ -159,3 +159,96 @@ void
 {% endapi-method-spec %}
 {% endapi-method %}
 
+{% api-method method="get" host="\[nft-contract\]" path=".nft\_token\(token\_id\)" %}
+{% api-method-summary %}
+NFT Token
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Retrieve a specific token.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=true %}
+Token to retrieve.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+{
+  "id": "ysn57031827",
+  "owner_id": "ysn.testnet",
+  "creator": "ysn-1_0_0.ysn.testnet",
+  "prev_owner": "ysn.testnet",
+  "metadata": {
+    "title": "ysn",
+    "issued_at": "1627565749029316411",
+    "copies": 1,
+    "media": "-H5vVA2HosWrOecpXebEKLt4cq4_BmAZzm1QjcCzB8o",
+    "extra": "",
+    "description": "",
+    "media_hash": "",
+    "expires_at": "",
+    "starts_at": "",
+    "updated_at": "",
+    "reference": "",
+    "reference_hash": ""
+  },
+  "royalty": {
+    "split_between": {
+      "ysn-1_0_0.ysn.testnet": 2500
+    },
+    "percentage": 2500
+  }
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=404 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+null
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[nft-contract\]" path=".nft\_total\_supply\(\)" %}
+{% api-method-summary %}
+NFT Total Supply
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns number of tokens.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+"5"
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
