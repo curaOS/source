@@ -265,11 +265,11 @@ An array of tokens from index to limit.
 {% api-method-request %}
 {% api-method-body-parameters %}
 {% api-method-parameter name="from\_index" type="string" required=false %}
-"0"
+Start index.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="integer" required=false %}
-0
+The number of tokens.
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
 {% endapi-method-request %}
@@ -331,6 +331,209 @@ An array of tokens from index to limit.
     }
   }
 ]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[nft-contract\]" path=".nft\_supply\_for\_owner\(account\_id\)" %}
+{% api-method-summary %}
+NFT Supply For Owner
+{% endapi-method-summary %}
+
+{% api-method-description %}
+A number of tokens are owned by the account.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="account\_id" type="string" required=true %}
+Account to retrieve.
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+"1"
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[nft-contract\]" path=".nft\_tokens\_for\_owner\(account\_id, from\_index, limit\)" %}
+{% api-method-summary %}
+NFT Tokens For Owner
+{% endapi-method-summary %}
+
+{% api-method-description %}
+An array of tokens owned by account.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="account\_id" type="string" required=true %}
+Account to retrieve.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="from\_index" type="string" required=false %}
+Start index.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="limit" type="integer" required=false %}
+The number of tokens.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+[
+  {
+    id: 'yyyyy',
+    owner_id: 'berrytest.testnet',
+    creator: 'ysn-1_0_0.ysn.testnet',
+    prev_owner: 'berrytest.testnet',
+    metadata: {
+      title: 'berrytest',
+      issued_at: '1627550039482793937',
+      copies: 1,
+      media: 'iNannrXFNmLKZOoSrbl9KGuqptHKkNh1BsAomyXSu7Q',
+      extra: '',
+      description: '',
+      media_hash: '',
+      expires_at: '',
+      starts_at: '',
+      updated_at: '',
+      reference: '',
+      reference_hash: ''
+    },
+    royalty: {
+      split_between: { 'ysn-1_0_0.ysn.testnet': 2500 },
+      percentage: 2500
+    }
+  }
+]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[nft-contract\]" path=".nft\_transfer\(token\_id, bidder\)" %}
+{% api-method-summary %}
+NFT Transfer
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Transfer token to the new owner.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="token\_id" type="string" required=false %}
+Token to transfer.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="bidder" type="string" required=false %}
+The receiver of token.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+void
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[nft-contract\]" path=".nft\_metadata\(\)" %}
+{% api-method-summary %}
+NFT Metadata
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Return contract metadata.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+{
+  "spec": "nft-1.0.0",
+  "name": "ml1w",
+  "symbol": "ML1W",
+  "icon": null,
+  "base_uri": null,
+  "reference": null,
+  "reference_hash": null
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="\[nft-contract\]" path=".init\(contract\_metadata, market\_contract\)" %}
+{% api-method-summary %}
+Init
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Initialize new contract.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-body-parameters %}
+{% api-method-parameter name="contract\_metadata" type="object" required=true %}
+Metadata list.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="market\_contract" type="string" required=true %}
+Address of the Market contract.
+{% endapi-method-parameter %}
+{% endapi-method-body-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+void
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
