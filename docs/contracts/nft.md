@@ -520,7 +520,7 @@ Initialize new contract.
 Metadata list.
 {% endapi-method-parameter %}
 
-{% api-method-parameter name="market\_contract" type="string" required=true %}
+{% api-method-parameter name="market\_contracta" type="string" required=true %}
 Address of the Market contract.
 {% endapi-method-parameter %}
 {% endapi-method-body-parameters %}
