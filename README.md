@@ -6,7 +6,7 @@ description: >-
 
 # Introduction
 
-![](docs/.gitbook/assets/ysn-3-.png)
+![](docs/.gitbook/assets/cura.png)
 
 ## Links
 
