@@ -6,6 +6,7 @@ const accounts = require('./accounts')
 const build = require('./build')
 const deploy_nft = require('./deploy_nft')
 const deploy_market = require('./deploy_market')
+const deploy_generator = require('./deploy_generator')
 
 program
     .command('deploy') // sub-command name
@@ -49,6 +50,14 @@ program
     .description('Deploy Market contract')
     .action(function () {
         deploy_market()
+    })
+
+program
+    .command('deploy-generator')
+    .alias('d-gnr')
+    .description('Deploy Generator contract')
+    .action(function () {
+        deploy_generator()
     })
 
 // allow commander to parse `process.argv`

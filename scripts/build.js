@@ -15,14 +15,15 @@ module.exports = function build() {
                 type: 'list',
                 name: 'contracts',
                 message: 'What do you want to build?',
-                choices: ['All', new inquirer.Separator(), 'NFT', 'Market'],
+                choices: ['All', new inquirer.Separator(), 'NFT', 'Market', 'Generator'],
             },
         ])
         .then((answers) => {
             const buildCommands = {
-                All: ['yarn build-nft', 'yarn build-market'],
+                All: ['yarn build-nft', 'yarn build-market', 'yarn build-generator'],
                 NFT: ['yarn build-nft'],
                 Market: ['yarn build-market'],
+                Generator: ['yarn build-generator'],
             }[answers.contracts]
 
             const spinner = ora(`Build ${answers.contracts}`).start()
