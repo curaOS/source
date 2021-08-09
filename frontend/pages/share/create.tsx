@@ -11,6 +11,8 @@ import Design from '../../components/Design'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import useNFTContract from 'hooks/useNFTContract'
+import { combineHTML } from '../../utils/combine-html'
+import axios from 'axios'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -18,6 +20,8 @@ const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
+
+const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const SCHEMA_SIZE = 5
 
@@ -78,6 +82,47 @@ const Create = ({}) => {
             setIndexLoader(false)
             setAlertMessage(e.toString())
         }
+    }
+
+    async function claimDesign() {
+        setIndexLoader(true)
+
+        const nftMetadata = await contract.nft_metadata()
+
+        const arweaveHTML = combineHTML(
+            `<script>let jsonParams = '${JSON.stringify({
+                instructions: designInstructions,
+            })}'</script>`,
+            nftMetadata.packages_script,
+            nftMetadata.render_script,
+            nftMetadata.style_css
+        )
+
+        console.log(arweaveHTML)
+
+        axios
+            .post(arweaveLambda, arweaveHTML, {
+                headers: {
+                    'Content-Type': 'text/html',
+                },
+            })
+            .then(async function (response) {
+                console.log(response)
+
+                await contract.claim_media(
+                    {
+                        tokenMetadata: {
+                            media: response.data.transaction.id,
+                        },
+                    },
+                    CONTRACT_CLAIM_GAS,
+                    CONTRACT_CLAIM_PRICE
+                )
+            })
+            .catch(function (error) {
+                setIndexLoader(false)
+                setAlertMessage(error.toString())
+            })
     }
 
     return (
