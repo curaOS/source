@@ -95,15 +95,6 @@ const Create = ({}) => {
             >
                 <div
                     sx={{
-                        mb: 3,
-                        px: 10,
-                        textAlign: 'center',
-                    }}
-                >
-                    <Picker onEmojiPick={pickEmoji} />
-                </div>
-                <div
-                    sx={{
                         textAlign: 'center',
                         mb: 3,
                     }}
