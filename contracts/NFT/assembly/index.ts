@@ -265,15 +265,19 @@ export function dangerous_wipe_designs(): void {
  */
 
 export const MARKET_CONTRACT_KEY = 'market_contract'
+export const GENERATOR_CONTRACT_KEY = 'generator_contract'
 export const METADATA_KEY = 'contract_metadata'
 
 export function init(
     contract_metadata: NFTContractMetadata,
-    market_contract: string
+    market_contract: AccountId,
+    generator_contract: AccountId = ''
 ): void {
     assert(storage.get<string>('init') == null, 'Already initialized')
 
     storage.set(MARKET_CONTRACT_KEY, market_contract)
+
+    storage.set(GENERATOR_CONTRACT_KEY, generator_contract)
 
     storage.set(
         METADATA_KEY,
@@ -284,7 +288,10 @@ export function init(
             contract_metadata.icon,
             contract_metadata.base_uri,
             contract_metadata.reference,
-            contract_metadata.reference_hash
+            contract_metadata.reference_hash,
+            contract_metadata.packages_script,
+            contract_metadata.render_script,
+            contract_metadata.style_css
         )
     )
 
