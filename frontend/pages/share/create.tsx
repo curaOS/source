@@ -73,21 +73,6 @@ const Create = ({}) => {
     async function claimDesign() {
         setIndexLoader(true)
 
-        try {
-            await contract.claim_media(
-                { seed, schema: Array.from(schema) },
-                CONTRACT_CLAIM_GAS,
-                CONTRACT_CLAIM_PRICE
-            )
-        } catch (e) {
-            setIndexLoader(false)
-            setAlertMessage(e.toString())
-        }
-    }
-
-    async function claimDesign() {
-        setIndexLoader(true)
-
         const nftMetadata = await contract.nft_metadata()
 
         const arweaveHTML = combineHTML(
