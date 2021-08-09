@@ -1,6 +1,5 @@
 import {
     logging,
-    RNG,
     context,
     u128,
     ContractPromise,
@@ -16,7 +15,7 @@ import {
     DESIGN_PRICE,
     FT_CONTRACT,
 } from './models'
-import { NFTContractMetadata } from './metadata'
+import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
     xcc_market_set_bid_shares,
     xcc_market_set_bid,
@@ -25,6 +24,7 @@ import {
     xcc_market_burn,
 } from './xcc_market'
 import { assert_deposit_attached } from './asserts'
+import { AccountId } from '../../utils'
 
 const XCC_FT_MINE_TO_GAS = 25000000000000
 
@@ -37,12 +37,12 @@ const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)) // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)) // 1 YSN
 const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)) // 0.05 YSN
 
-export function claim_media(media: string): Media {
+export function claim_media(tokenMetadata: TokenMetadata): Media {
     assert_deposit_attached(DESIGN_PRICE)
 
     /** Assert uniqueId is actually unique */
 
-    let design = new Media(media)
+    let design = new Media(tokenMetadata.media)
 
     owners.add(context.sender)
 
