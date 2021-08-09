@@ -16,7 +16,7 @@ const mapPathToProject = (path) => {
         case path.startsWith('/ml/1w'):
             return 'ml1w.ysn-1_0_0.ysn.testnet'
         case path.startsWith('/share'):
-            return 'share.ysn-1_0_0.ysn.testnet'
+            return '0.share-nft.testnet'
     }
 }
 

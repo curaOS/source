@@ -8,7 +8,7 @@ import { useSetRecoilState } from 'recoil'
 import { indexLoaderState, alertMessageState } from '../state/recoil'
 
 export default function useNFTContract(
-    contractAddress: string = 'share.ysn-1_0_0.ysn.testnet'
+    contractAddress: string = '0.share-nft.testnet'
 ) {
     const [contract, setContract] = useState({ account: null })
     const { getContract } = Near.useContainer()

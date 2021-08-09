@@ -38,7 +38,7 @@ const Explore = ({}) => {
     })
 
     const { data: totalSupply } = useNFTMethod(
-        `share.ysn-1_0_0.ysn.testnet`,
+        '0.share-nft.testnet',
         'nft_total_supply',
         {}
     )
