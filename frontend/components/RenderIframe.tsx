@@ -4,7 +4,7 @@ import { useBreakpointIndex } from '@theme-ui/match-media'
 
 const CANVAS_WIDTH = [300, 400, 500, 600, 700] // 0-4
 
-export default function MediaImage({
+export default function RenderIframe({
     mediaURI,
     small,
 }: {
