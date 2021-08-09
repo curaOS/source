@@ -97,9 +97,11 @@ const View = ({}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <RenderIframe
-                        mediaURI={`https://arweave.net/${media?.[0].metadata.media}`}
-                    />
+                    {media?.[0]?.metadata?.media && (
+                        <RenderIframe
+                            mediaURI={`https://arweave.net/${media[0].metadata.media}`}
+                        />
+                    )}
                 </div>
                 <div
                     sx={{
