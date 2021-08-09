@@ -66,7 +66,11 @@ const View = ({}) => {
     async function burnDesign() {
         setIndexLoader(true)
         try {
-            await contract.burn_design({}, CONTRACT_BURN_GAS, YOCTO_NEAR)
+            await contract.burn_design(
+                { token_id: media?.[0]?.id },
+                CONTRACT_BURN_GAS,
+                YOCTO_NEAR
+            )
         } catch (e) {
             setIndexLoader(false)
             setAlertMessage(e.toString())
