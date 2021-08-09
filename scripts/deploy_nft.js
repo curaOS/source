@@ -56,6 +56,11 @@ module.exports = function deployNFT() {
                 message: 'Styles CSS (if any):',
                 default: '',
             },
+            {
+                type: 'editor',
+                name: 'parameters',
+                message: 'Parameters (if any):',
+            },
         ])
         .then((answers) => {
             const spinner = ora(`Deploy NFT to ${answers.address}`).start()
@@ -74,6 +79,9 @@ module.exports = function deployNFT() {
                     style_css: Buffer.from(answers.style_css).toString(
                         'base64'
                     ),
+                    parameters: Buffer.from(
+                        JSON.stringify(answers.parameters)
+                    ).toString('base64'),
                 },
                 market_contract: answers.market_contract,
                 generator_contract: answers.generator_contract,

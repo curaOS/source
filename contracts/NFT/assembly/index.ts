@@ -291,7 +291,8 @@ export function init(
             contract_metadata.reference_hash,
             contract_metadata.packages_script,
             contract_metadata.render_script,
-            contract_metadata.style_css
+            contract_metadata.style_css,
+            contract_metadata.parameters
         )
     )
 
