@@ -29,6 +29,9 @@ export class NFTContractMetadata {
         public icon: string = '',
         public base_uri: string = '',
         public reference: string = '',
-        public reference_hash: string = ''
+        public reference_hash: string = '',
+        public packages_script: string = '',
+        public render_script: string = '',
+        public style_css: string = '',
     ) {}
 }
