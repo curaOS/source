@@ -54,13 +54,9 @@ const Create = ({}) => {
         setIndexLoader(true)
 
         try {
-            const result = await contract.design(
-                { schema: Array.from(schema) },
-                CONTRACT_DESIGN_GAS
-            )
+            const result = await contract.generate({}, CONTRACT_DESIGN_GAS)
 
-            setDesignInstructions(result?.instructions?.split(','))
-            setSeed(result?.seed)
+            setDesignInstructions(result?.split(','))
 
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
