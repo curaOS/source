@@ -30,8 +30,31 @@ module.exports = function deployNFT() {
             },
             {
                 name: 'market_contract',
-                message: 'Address of the Market:',
-                validate: (input) => !!input,
+                message: 'Address of the Market (if any):',
+                default: '',
+            },
+            {
+                name: 'generator_contract',
+                message: 'Address of the Generator (if any):',
+                default: '',
+            },
+            {
+                type: 'editor',
+                name: 'packages_script',
+                message: 'Packages script (if any):',
+                default: '',
+            },
+            {
+                type: 'editor',
+                name: 'render_script',
+                message: 'Render script:',
+                default: '',
+            },
+            {
+                type: 'editor',
+                name: 'style_css',
+                message: 'Styles CSS (if any):',
+                default: '',
             },
         ])
         .then((answers) => {
@@ -42,8 +65,18 @@ module.exports = function deployNFT() {
                     spec: answers.spec,
                     name: answers.name,
                     symbol: answers.symbol,
+                    packages_script: Buffer.from(
+                        answers.packages_script
+                    ).toString('base64'),
+                    render_script: Buffer.from(answers.render_script).toString(
+                        'base64'
+                    ),
+                    style_css: Buffer.from(answers.style_css).toString(
+                        'base64'
+                    ),
                 },
                 market_contract: answers.market_contract,
+                generator_contract: answers.generator_contract,
             }
 
             async.map(
