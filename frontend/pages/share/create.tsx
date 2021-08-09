@@ -60,7 +60,8 @@ const Create = ({}) => {
         try {
             const result = await contract.generate({}, CONTRACT_DESIGN_GAS)
 
-            setDesignInstructions(result?.split(','))
+            setDesignInstructions(result?.instructions?.split(','))
+            setSeed(result?.seed)
 
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
@@ -112,6 +113,11 @@ const Create = ({}) => {
                     {
                         tokenMetadata: {
                             media: response.data.transaction.id,
+                            extra: Buffer.from(
+                                JSON.stringify({
+                                    seed: seed,
+                                })
+                            ).toString('base64'),
                         },
                     },
                     CONTRACT_CLAIM_GAS,
