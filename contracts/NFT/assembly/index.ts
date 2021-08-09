@@ -43,7 +43,7 @@ export function claim_media(tokenMetadata: TokenMetadata): Media {
 
     /** Assert uniqueId is actually unique */
 
-    let design = new Media(tokenMetadata.media)
+    let design = new Media(tokenMetadata.media, tokenMetadata.extra)
 
     owners.add(context.sender)
 
@@ -273,7 +273,7 @@ export function init(
     market_contract: AccountId,
     generator_contract: AccountId = ''
 ): void {
-    assert(storage.get<string>('init') == null, 'Already initialized')
+    // assert(storage.get<string>('init') == null, 'Already initialized')
 
     storage.set(MARKET_CONTRACT_KEY, market_contract)
 
