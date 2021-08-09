@@ -76,8 +76,6 @@ const Explore = ({}) => {
                 CONTRACT_RANDOM_GAS
             )
 
-            // const extra = JSON.parse(atob(result[0]?.metadata?.extra))
-
             setRandomDesign({
                 id: result[0]?.id,
                 owner_id: result[0]?.owner_id,
@@ -85,7 +83,6 @@ const Explore = ({}) => {
                     title: result[0]?.metadata?.title,
                     media: result[0]?.metadata?.media,
                 },
-                // instructions: extra?.instructions?.split(','),
             })
 
             setTimeout(() => setIndexLoader(false), 200)
