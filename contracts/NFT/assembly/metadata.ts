@@ -9,7 +9,7 @@ export class TokenMetadata {
         public issued_at: string = '',
         public copies: u8 = 1,
         public media: string = '',
-        public extra: Uint8Array = new Uint8Array(0),
+        public extra: string = '',
         public description: string = '',
         public media_hash: string = '',
         public expires_at: string = '',
@@ -32,6 +32,6 @@ export class NFTContractMetadata {
         public reference_hash: string = '',
         public packages_script: string = '',
         public render_script: string = '',
-        public style_css: string = '',
+        public style_css: string = ''
     ) {}
 }
