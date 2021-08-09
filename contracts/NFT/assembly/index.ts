@@ -113,7 +113,11 @@ export function nft_tokens(from_index: string = '0', limit: u8 = 0): Media[] {
 }
 
 export function nft_supply_for_owner(account_id: string): string {
-    return owners.has(account_id) ? '1' : '0'
+    const accountMedia = account_media.get(account_id)
+    if (accountMedia == null || accountMedia.size == 0) {
+        return '0'
+    }
+    return accountMedia.size.toString()
 }
 
 export function nft_tokens_for_owner(
