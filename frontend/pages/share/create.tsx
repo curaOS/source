@@ -101,11 +101,10 @@ const Create = ({}) => {
         console.log(arweaveHTML)
 
         axios
-            .post(arweaveLambda, arweaveHTML, {
-                headers: {
-                    'Content-Type': 'text/html',
-                },
-            })
+            .post(
+                arweaveLambda,
+                JSON.stringify({ contentType: 'text/html', data: arweaveHTML })
+            )
             .then(async function (response) {
                 console.log(response)
 
