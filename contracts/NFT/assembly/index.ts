@@ -25,6 +25,7 @@ import {
 } from './xcc_market'
 import { assert_deposit_attached } from './asserts'
 import { AccountId } from '../../utils'
+import { xcc_generator_generate } from './xcc_generator'
 
 const XCC_FT_MINE_TO_GAS = 25000000000000
 
@@ -292,4 +293,10 @@ export function init(
 
 export function nft_metadata(): NFTContractMetadata {
     return storage.getSome<NFTContractMetadata>(METADATA_KEY)
+}
+
+/** Generate */
+
+export function generate(): void {
+    xcc_generator_generate()
 }
