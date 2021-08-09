@@ -6,10 +6,15 @@ const ONE = 1
 const SPACE = 32
 const schema: Array<u32> = [128995, 128993, 9899, 11093, 128280]
 
+@nearBindgen
+export class GenerateReturn {
+    constructor(public instructions: string = '', public seed: u32 = 0) {}
+}
+
 /** Generate
  * In case art is generated on-chain, Autoglyphs as an example here
  */
-export function generate(): string {
+export function generate(): GenerateReturn {
     const seed = <i32>randomNum()
 
     let encodedOutput: Array<u32> = []
@@ -46,7 +51,9 @@ export function generate(): string {
         }
     }
 
-    return encodedOutput.toString()
+    const instructions = encodedOutput.toString()
+
+    return new GenerateReturn(instructions, seed)
 }
 
 function abs(n: i32): i32 {
