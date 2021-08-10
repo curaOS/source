@@ -13,6 +13,7 @@ import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
+import RenderIframe from 'components/RenderIframe'
 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
@@ -34,11 +35,12 @@ const Explore = ({}) => {
         instructions: [],
         metadata: {
             title: '',
+            media: '',
         },
     })
 
     const { data: totalSupply } = useNFTMethod(
-        `share.ysn-1_0_0.ysn.testnet`,
+        '0.share-nft.testnet',
         'nft_total_supply',
         {}
     )
@@ -74,15 +76,13 @@ const Explore = ({}) => {
                 CONTRACT_RANDOM_GAS
             )
 
-            const extra = JSON.parse(atob(result[0]?.metadata?.extra))
-
             setRandomDesign({
                 id: result[0]?.id,
                 owner_id: result[0]?.owner_id,
                 metadata: {
                     title: result[0]?.metadata?.title,
+                    media: result[0]?.metadata?.media,
                 },
-                instructions: extra?.instructions?.split(','),
             })
 
             setTimeout(() => setIndexLoader(false), 200)
@@ -113,7 +113,11 @@ const Explore = ({}) => {
                         flexDirection: 'column',
                     }}
                 >
-                    <Design instructions={randomDesign?.instructions} />
+                    {randomDesign.metadata.media && (
+                        <RenderIframe
+                            mediaURI={`https://arweave.net/${randomDesign.metadata.media}`}
+                        />
+                    )}
                 </div>
                 <div
                     sx={{

@@ -11,6 +11,8 @@ import Design from '../../components/Design'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import useNFTContract from 'hooks/useNFTContract'
+import { combineHTML } from '../../utils/combine-html'
+import axios from 'axios'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -18,6 +20,8 @@ const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
+
+const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const SCHEMA_SIZE = 5
 
@@ -54,10 +58,7 @@ const Create = ({}) => {
         setIndexLoader(true)
 
         try {
-            const result = await contract.design(
-                { schema: Array.from(schema) },
-                CONTRACT_DESIGN_GAS
-            )
+            const result = await contract.generate({}, CONTRACT_DESIGN_GAS)
 
             setDesignInstructions(result?.instructions?.split(','))
             setSeed(result?.seed)
@@ -72,16 +73,42 @@ const Create = ({}) => {
     async function claimDesign() {
         setIndexLoader(true)
 
-        try {
-            await contract.claim_media(
-                { seed, schema: Array.from(schema) },
-                CONTRACT_CLAIM_GAS,
-                CONTRACT_CLAIM_PRICE
+        const nftMetadata = await contract.nft_metadata()
+
+        const arweaveHTML = combineHTML(
+            `<script>let jsonParams = '${JSON.stringify({
+                instructions: designInstructions,
+            })}'</script>`,
+            nftMetadata.packages_script,
+            nftMetadata.render_script,
+            nftMetadata.style_css
+        )
+
+        axios
+            .post(
+                arweaveLambda,
+                JSON.stringify({ contentType: 'text/html', data: arweaveHTML })
             )
-        } catch (e) {
-            setIndexLoader(false)
-            setAlertMessage(e.toString())
-        }
+            .then(async function (response) {
+                await contract.claim_media(
+                    {
+                        tokenMetadata: {
+                            media: response.data.transaction.id,
+                            extra: Buffer.from(
+                                JSON.stringify({
+                                    seed: seed,
+                                })
+                            ).toString('base64'),
+                        },
+                    },
+                    CONTRACT_CLAIM_GAS,
+                    CONTRACT_CLAIM_PRICE
+                )
+            })
+            .catch(function (error) {
+                setIndexLoader(false)
+                setAlertMessage(error.toString())
+            })
     }
 
     return (
@@ -93,15 +120,6 @@ const Create = ({}) => {
                     justifyContent: 'center',
                 }}
             >
-                <div
-                    sx={{
-                        mb: 3,
-                        px: 10,
-                        textAlign: 'center',
-                    }}
-                >
-                    <Picker onEmojiPick={pickEmoji} />
-                </div>
                 <div
                     sx={{
                         textAlign: 'center',

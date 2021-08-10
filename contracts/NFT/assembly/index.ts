@@ -1,6 +1,5 @@
 import {
     logging,
-    RNG,
     context,
     u128,
     ContractPromise,
@@ -16,7 +15,7 @@ import {
     DESIGN_PRICE,
     FT_CONTRACT,
 } from './models'
-import { NFTContractMetadata } from './metadata'
+import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
     xcc_market_set_bid_shares,
     xcc_market_set_bid,
@@ -25,6 +24,8 @@ import {
     xcc_market_burn,
 } from './xcc_market'
 import { assert_deposit_attached } from './asserts'
+import { AccountId } from '../../utils'
+import { xcc_generator_generate } from './xcc_generator'
 
 const XCC_FT_MINE_TO_GAS = 25000000000000
 
@@ -37,12 +38,12 @@ const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)) // 0.1 YSN
 const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)) // 1 YSN
 const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)) // 0.05 YSN
 
-export function claim_media(media: string): Media {
+export function claim_media(tokenMetadata: TokenMetadata): Media {
     assert_deposit_attached(DESIGN_PRICE)
 
     /** Assert uniqueId is actually unique */
 
-    let design = new Media(media)
+    let design = new Media(tokenMetadata.media, tokenMetadata.extra)
 
     owners.add(context.sender)
 
@@ -113,7 +114,11 @@ export function nft_tokens(from_index: string = '0', limit: u8 = 0): Media[] {
 }
 
 export function nft_supply_for_owner(account_id: string): string {
-    return owners.has(account_id) ? '1' : '0'
+    const accountMedia = account_media.get(account_id)
+    if (accountMedia == null || accountMedia.size == 0) {
+        return '0'
+    }
+    return accountMedia.size.toString()
 }
 
 export function nft_tokens_for_owner(
@@ -260,15 +265,19 @@ export function dangerous_wipe_designs(): void {
  */
 
 export const MARKET_CONTRACT_KEY = 'market_contract'
+export const GENERATOR_CONTRACT_KEY = 'generator_contract'
 export const METADATA_KEY = 'contract_metadata'
 
 export function init(
     contract_metadata: NFTContractMetadata,
-    market_contract: string
+    market_contract: AccountId,
+    generator_contract: AccountId = ''
 ): void {
     assert(storage.get<string>('init') == null, 'Already initialized')
 
     storage.set(MARKET_CONTRACT_KEY, market_contract)
+
+    storage.set(GENERATOR_CONTRACT_KEY, generator_contract)
 
     storage.set(
         METADATA_KEY,
@@ -279,7 +288,11 @@ export function init(
             contract_metadata.icon,
             contract_metadata.base_uri,
             contract_metadata.reference,
-            contract_metadata.reference_hash
+            contract_metadata.reference_hash,
+            contract_metadata.packages_script,
+            contract_metadata.render_script,
+            contract_metadata.style_css,
+            contract_metadata.parameters
         )
     )
 
@@ -288,4 +301,10 @@ export function init(
 
 export function nft_metadata(): NFTContractMetadata {
     return storage.getSome<NFTContractMetadata>(METADATA_KEY)
+}
+
+/** Generate */
+
+export function generate(): void {
+    xcc_generator_generate()
 }

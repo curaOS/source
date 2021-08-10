@@ -8,6 +8,7 @@
         "build-ysn": "asb -d ./contracts/YSN",
         "build-market": "asb -d ./contracts/Market",
         "build-nft": "npx asb -d ./contracts/NFT",
+        "build-generator": "npx asb -d ./contracts/Generator",
         "test": "asp -f unit.spec"
     },
     "author": "Yassine",

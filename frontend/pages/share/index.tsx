@@ -5,13 +5,13 @@ import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
 import CreatorShare from '../../components/CreatorShare'
-import Design from '../../components/Design'
 import Bidders from '../../components/Bidders'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { useMarketMethod } from 'hooks/useMarketContract'
 import { accountState } from 'state/account'
+import RenderIframe from '../../components/RenderIframe'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
@@ -20,17 +20,6 @@ const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
 const HARDCODED_ROYALTY_SHARE = '2500'
-
-const getInstructions = (media) => {
-    if (media) {
-        const extra = JSON.parse(atob(media?.metadata?.extra))
-        const instructions = extra?.instructions?.split(',')
-
-        return instructions
-    } else {
-        return []
-    }
-}
 
 const View = ({}) => {
     const { contract } = useNFTContract()
@@ -41,15 +30,13 @@ const View = ({}) => {
     const { accountId } = useRecoilValue(accountState)
 
     const { data: media } = useNFTMethod(
-        'share.ysn-1_0_0.ysn.testnet',
+        '0.share-nft.testnet',
         'nft_tokens_for_owner',
         {
             account_id: accountId,
         },
         CONTRACT_VIEW_GAS
     )
-
-    console.log(media)
 
     const { data: bids } = useMarketMethod(
         'market.share.ysn-1_0_0.ysn.testnet',
@@ -79,7 +66,11 @@ const View = ({}) => {
     async function burnDesign() {
         setIndexLoader(true)
         try {
-            await contract.burn_design({}, CONTRACT_BURN_GAS, YOCTO_NEAR)
+            await contract.burn_design(
+                { token_id: media?.[0]?.id },
+                CONTRACT_BURN_GAS,
+                YOCTO_NEAR
+            )
         } catch (e) {
             setIndexLoader(false)
             setAlertMessage(e.toString())
@@ -106,7 +97,11 @@ const View = ({}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Design instructions={getInstructions(media?.[0])} />
+                    {media?.[0]?.metadata?.media && (
+                        <RenderIframe
+                            mediaURI={`https://arweave.net/${media[0].metadata.media}`}
+                        />
+                    )}
                 </div>
                 <div
                     sx={{

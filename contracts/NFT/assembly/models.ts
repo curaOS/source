@@ -26,7 +26,7 @@ export class Media {
     prev_owner: string
     metadata: TokenMetadata
     royalty: Royalty
-    constructor(media: string) {
+    constructor(media: string, extra: string) {
         this.owner_id = context.sender
         this.prev_owner = context.sender
         this.creator = ROYALTY_ADDRESS
@@ -43,7 +43,13 @@ export class Media {
         const issued_at = context.blockTimestamp.toString()
         const copies: u8 = 1
 
-        this.metadata = new TokenMetadata(title, issued_at, copies, media)
+        this.metadata = new TokenMetadata(
+            title,
+            issued_at,
+            copies,
+            media,
+            extra
+        )
     }
 }
 
