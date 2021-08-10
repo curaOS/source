@@ -84,16 +84,12 @@ const Create = ({}) => {
             nftMetadata.style_css
         )
 
-        console.log(arweaveHTML)
-
         axios
             .post(
                 arweaveLambda,
                 JSON.stringify({ contentType: 'text/html', data: arweaveHTML })
             )
             .then(async function (response) {
-                console.log(response)
-
                 await contract.claim_media(
                     {
                         tokenMetadata: {
