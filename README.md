@@ -16,7 +16,7 @@ description: >-
 
 ## Concepts
 
-**YSN** is an experimental project on the [NEAR sharded blockchain](https://near.org) that puts together non-fungible tokens, fungible-tokens as social tokens. This token is then the base for a decentralized organization.
+**Cura** is an experimental project on the [NEAR sharded blockchain](https://near.org) that puts together non-fungible tokens, fungible-tokens as social tokens. This token is then the base for a decentralized organization.
 
 A palette for building an open web on NEAR. The contracts are currently geared towards generative art as a great way to create communities, but the idea is that any type of media primitives, from text to music, can be integrated.
 
