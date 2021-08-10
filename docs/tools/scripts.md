@@ -2,7 +2,7 @@
 description: It's a collection of scripts to make development faster.
 ---
 
-# Scripts
+# \[deprecated\] deploy + accounts
 
 ## Deploy
 

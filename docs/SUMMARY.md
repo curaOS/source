@@ -15,7 +15,8 @@
 
 ## Tools
 
-* [Scripts](tools/scripts.md)
+* [deploy-nft](tools/deploy-nft.md)
+* [\[deprecated\] deploy + accounts](tools/scripts.md)
 
 ## Discover
 
