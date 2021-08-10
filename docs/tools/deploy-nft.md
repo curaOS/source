@@ -17,9 +17,15 @@ node scripts deploy-nft
 | market\_contract | `string | null` | _Address of the Market_ |
 | generator\_contract | `string | null` | _Address of the Generator_ |
 | packages\_script | `text` | _Creative project packages_ |
-| render\_script | `text` | _Creative project script  \(preferrably minfied\)_ |
+| render\_script | `text` | _Creative project script_ |
 | style\_css | `text` | _Creative project CSS_ |
 | parameters | `JSON` | _Project parameters_ |
 
-Remember to minify JS you put in between script tags.
+{% hint style="info" %}
+Look into the [NFT](../contracts/nft.md) contract for types and methods.
+{% endhint %}
+
+{% hint style="info" %}
+Might want to minify scripts and CSS.
+{% endhint %}
 
