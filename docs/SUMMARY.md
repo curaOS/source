@@ -16,6 +16,8 @@
 ## Tools
 
 * [deploy-nft](tools/deploy-nft.md)
+* [deploy-market](tools/deploy-market.md)
+* [deploy-generator](tools/deploy-generator.md)
 * [\[deprecated\] deploy + accounts](tools/scripts.md)
 
 ## Discover
