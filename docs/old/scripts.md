@@ -2,7 +2,7 @@
 description: It's a collection of scripts to make development faster.
 ---
 
-# \[deprecated\] deploy + accounts
+# deploy + accounts
 
 ## Deploy
 
@@ -10,7 +10,7 @@ description: It's a collection of scripts to make development faster.
 node deploy [--init --clean --create --build]
 ```
 
-❗️Passing clean options wipes out contracts state 
+❗️Passing clean options wipe out contracts state 
 
 > Contracts are deployed if no option or only init is passed.
 

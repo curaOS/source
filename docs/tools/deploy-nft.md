@@ -4,9 +4,13 @@ description: CLI command to deploy an NFT contract to address and pass init prop
 
 # deploy-nft
 
+#### Command
+
 ```text
 node scripts deploy-nft
 ```
+
+#### Parameters
 
 | Name | Type | Message |
 | :--- | :--- | :--- |

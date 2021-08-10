@@ -4,9 +4,13 @@ description: Deploys a perpetual market attached an NFT contract.
 
 # deploy-market
 
+#### Command
+
 ```text
 node scripts deploy-market
 ```
+
+#### Parameters
 
 | Name | Type | Message |
 | :--- | :--- | :--- |

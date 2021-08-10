@@ -4,9 +4,13 @@ description: Deploys an on-chain pattern generator.
 
 # deploy-generator
 
+#### Command
+
 ```text
 node scripts deploy-generator
 ```
+
+#### Parameters
 
 | Name | Type | Message |
 | :--- | :--- | :--- |
