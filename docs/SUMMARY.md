@@ -15,8 +15,10 @@
 
 ## Tools
 
+* [build](tools/build.md)
 * [deploy-nft](tools/deploy-nft.md)
-* [\[deprecated\] deploy + accounts](tools/scripts.md)
+* [deploy-market](tools/deploy-market.md)
+* [deploy-generator](tools/deploy-generator.md)
 
 ## Discover
 
@@ -25,4 +27,8 @@
 * [Community](discover/community.md)
 * [Future](discover/future.md)
 * [Ethereum](discover/ethereum.md)
+
+## Old
+
+* [deploy + accounts](old/scripts.md)
 
