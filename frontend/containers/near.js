@@ -19,6 +19,8 @@ export const mapPathToProject = (path) => {
             return '0.share-nft.testnet'
         case path.startsWith('/cc/aprts'):
             return 'apparitions.art-blocks.testnet'
+        case path.startsWith('/cc/sqgl'):
+            return 'squiggle.art-blocks.testnet'
     }
 }
 
