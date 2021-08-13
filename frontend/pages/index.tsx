@@ -38,6 +38,12 @@ const Index = () => {
             <Link href="/ml/1c">
                 <Heading as="h1">ML/1C</Heading>
             </Link>
+            <Link href="/cc/sqgl">
+                <Heading as="h1">CC/SQGL</Heading>
+            </Link>
+            <Link href="/cc/aprts">
+                <Heading as="h1">CC/APRTS</Heading>
+            </Link>
             <div
                 sx={{
                     marginTop: 1,
