@@ -118,11 +118,13 @@ const MLProjectCreate = ({}) => {
         setIndexLoader(true)
 
         axios
-            .post(arweaveLambda, media, {
-                headers: {
-                    'Content-Type': 'image/jpeg',
-                },
-            })
+            .post(
+                arweaveLambda,
+                JSON.stringify({
+                    contentType: 'image/jpeg',
+                    data: media,
+                })
+            )
             .then(async function (response) {
                 await contract.claim_media(
                     {
