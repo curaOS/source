@@ -16,5 +16,7 @@
         "inquirer": "^8.1.2",
         "ora": "^5.4.0"
     },
-    "bin": "cli.js"
+    "bin": {
+        "cura-cmds": "cli.js"
+    }
 }
