@@ -1,6 +1,6 @@
 {
     "name": "@cura/commands",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Commands to interact with NEAR blockchain.",
     "main": "cli.js",
     "scripts": {},
