@@ -1,11 +1,13 @@
 {
-	"name": "@cura/monorepo",
-	"private": true,
-	"workspaces": {
-		"packages": [
-			"packages/*"
-	    	]
-	},
-	"scripts":{},
-	"version": "0.0.0"
+    "name": "@cura/monorepo",
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "packages/*"
+        ]
+    },
+    "scripts": {
+        "contracts:test": "yarn workspace @cura/contracts test"
+    },
+    "version": "0.0.0"
 }
