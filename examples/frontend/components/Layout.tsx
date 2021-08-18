@@ -1,12 +1,12 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Header from './Header'
+import Footer from './Footer'
 import Link from 'next/link'
 import { NavLink, Spinner } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
-import Menu from '../components/Menu'
+import Menu from './Menu'
 import { utils } from 'near-api-js'
 import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'
