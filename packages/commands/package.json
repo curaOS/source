@@ -2,7 +2,7 @@
     "name": "@cura/commands",
     "version": "0.0.0",
     "description": "Commands to interact with NEAR blockchain.",
-    "main": "index.js",
+    "main": "cli.js",
     "scripts": {},
     "author": "Yassine",
     "license": "MIT",
@@ -15,5 +15,6 @@
         "commander": "^7.2.0",
         "inquirer": "^8.1.2",
         "ora": "^5.4.0"
-    }
+    },
+    "bin": "cli.js"
 }
