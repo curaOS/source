@@ -1,27 +1,16 @@
 {
-    "name": "art-demo",
-    "version": "1.0.0",
-    "description": "NCD art demo project",
-    "main": "index.js",
-    "scripts": {
-        "build-share": "asb -d ./contracts/SHARE",
-        "build-ysn": "asb -d ./contracts/YSN",
-        "build-market": "asb -d ./contracts/Market",
-        "build-nft": "npx asb -d ./contracts/NFT",
-        "build-generator": "npx asb -d ./contracts/Generator",
-        "test": "asp -f unit.spec"
-    },
-    "author": "Yassine",
-    "license": "MIT",
-    "devDependencies": {
-        "near-sdk-as": "^3.1.0",
-        "prettier": "2.3.0"
-    },
-    "dependencies": {
-        "async": "^3.2.0",
-        "chalk": "^4.1.1",
-        "commander": "^7.2.0",
-        "inquirer": "^8.1.2",
-        "ora": "^5.4.0"
-    }
+	"name": "@cura/monorepo",
+	"keywords": [
+		"near",
+		"contracts",
+		"components",
+		"hooks"
+	],
+	"private": true,
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
+	},
+	"version": "0.0.0"
 }
