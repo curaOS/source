@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "description": "Contract to deploy on NEAR blockchain",
     "main": "index.js",
+    "bin": {
+        "curasc": "index.js"
+    },
     "scripts": {
         "build-share": "asb -d ./contracts/SHARE",
         "build-ysn": "asb -d ./contracts/YSN",
