@@ -1,6 +1,6 @@
 {
     "name": "@cura/contracts",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Contract to deploy on NEAR blockchain",
     "main": "index.js",
     "bin": {
