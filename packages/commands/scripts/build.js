@@ -15,15 +15,25 @@ module.exports = function build() {
                 type: 'list',
                 name: 'contracts',
                 message: 'What do you want to build?',
-                choices: ['All', new inquirer.Separator(), 'NFT', 'Market', 'Generator'],
+                choices: [
+                    'All',
+                    new inquirer.Separator(),
+                    'NFT',
+                    'Market',
+                    'Generator',
+                ],
             },
         ])
         .then((answers) => {
             const buildCommands = {
-                All: ['yarn build-nft', 'yarn build-market', 'yarn build-generator'],
-                NFT: ['yarn build-nft'],
-                Market: ['yarn build-market'],
-                Generator: ['yarn build-generator'],
+                All: [
+                    'npx @cura/contracts --contract=NFT',
+                    'npx @cura/contracts --contract=Market',
+                    'npx @cura/contracts --contract=Generator',
+                ],
+                NFT: ['npx @cura/contracts --contract=NFT'],
+                Market: ['npx @cura/contracts --contract=Market'],
+                Generator: ['npx @cura/contracts --contract=Generator'],
             }[answers.contracts]
 
             const spinner = ora(`Build ${answers.contracts}`).start()
