@@ -17,6 +17,10 @@
         "ora": "^5.4.0"
     },
     "bin": {
-        "cura-cmds": "cli.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/devey/cura.git",
+        "directory": "packages/commands"
     }
 }
