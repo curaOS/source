@@ -2,3 +2,6 @@
 
 packages/contracts/as/build/
 packages/contracts/asneardev/
+
+
+packages/commands/build/release
