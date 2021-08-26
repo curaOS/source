@@ -1,7 +1,5 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-
-import React from 'react'
 import { Box, Heading, Text } from 'theme-ui'
 
 export default function CreatorShare({

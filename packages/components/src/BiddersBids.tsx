@@ -1,6 +1,5 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import React from 'react'
 import { Box, Heading, Text, Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 
