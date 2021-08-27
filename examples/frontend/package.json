@@ -10,6 +10,7 @@
         "build-storybook": "build-storybook"
     },
     "dependencies": {
+        "@cura/components": "^0.0.1",
         "@runwayml/hosted-models": "^0.3.0",
         "@theme-ui/color": "^0.8.4",
         "@theme-ui/match-media": "^0.6.0",
