@@ -6,7 +6,7 @@ import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../components/Layout'
 
-import CreatorShare from '../../../components/CreatorShare'
+import { CreatorShare, RenderIframe } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import useNFTContract from 'hooks/useNFTContract'
@@ -14,7 +14,6 @@ import { useState } from 'react'
 import axios from 'axios'
 import { combineHTML } from 'utils/combine-html'
 import { mapPathToProject } from 'containers/near'
-import RenderIframe from '../../../components/RenderIframe'
 
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N

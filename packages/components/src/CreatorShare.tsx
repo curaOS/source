@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 import { Box, Heading, Text } from 'theme-ui'
 
-export default function CreatorShare({
+export function CreatorShare({
     address,
     share,
 }: {

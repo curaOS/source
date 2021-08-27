@@ -5,15 +5,16 @@ import { useState } from 'react'
 import { Button, Divider } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
-import CreatorShare from '../../components/CreatorShare'
-import Design from '../../components/Design'
-import Metadata from '../../components/Metadata'
-import { BidCreate } from '@cura/components'
+import {
+    BidCreate,
+    Metadata,
+    RenderIframe,
+    CreatorShare,
+} from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
-import RenderIframe from 'components/RenderIframe'
 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas

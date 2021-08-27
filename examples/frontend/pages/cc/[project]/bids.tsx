@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Spinner } from 'theme-ui'
 import { utils } from 'near-api-js'
-import BiddersBids from '../../../components/BiddersBids'
+import { BiddersBids } from '@cura/components'
 import Layout from '../../../components/Layout'
 import { useRecoilValue } from 'recoil'
 import { useMarketMethod } from 'hooks/useMarketContract'

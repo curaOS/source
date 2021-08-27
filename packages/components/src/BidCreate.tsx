@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Box, Heading, Select, Label, Input, Button } from 'theme-ui'
 
-export default function BidCreate({
+export function BidCreate({
     onBid,
 }: {
     onBid: (amount: string, resale: string) => void
