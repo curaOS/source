@@ -9,7 +9,7 @@ import { HostedModel } from '@runwayml/hosted-models'
 
 import CreatorShare from '../../../components/CreatorShare'
 import Design from '../../../components/Design'
-import Bidders from '../../../components/Bidders'
+import { Bidders } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract from 'hooks/useNFTContract'
