@@ -1,3 +1,4 @@
 import { Bidders } from './Bidders'
+import BidCreate from './BidCreate'
 
-export { Bidders }
+export { Bidders, BidCreate }
