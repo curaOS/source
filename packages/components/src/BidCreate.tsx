@@ -1,7 +1,7 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Box, Heading, Select, Label, Input, Button } from 'theme-ui'
 
 export default function BidCreate({
