@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 
 import Header from './Header'
-import Footer from './Footer'
+import { Footer } from '@cura/components'
 import Link from 'next/link'
 import { NavLink, Spinner } from 'theme-ui'
 import { alpha } from '@theme-ui/color'

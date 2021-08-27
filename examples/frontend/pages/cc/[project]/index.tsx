@@ -9,7 +9,7 @@ import { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
 import Link from 'next/link'
 import { mapPathToProject } from 'containers/near'
-import RenderIframe from 'components/RenderIframe'
+import { RenderIframe } from '@cura/components'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 

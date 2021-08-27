@@ -3,7 +3,7 @@
 
 import { Box, Heading, Text } from 'theme-ui'
 
-export default function Metadata({
+export function Metadata({
     title,
     creator,
 }: {

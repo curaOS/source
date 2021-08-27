@@ -4,14 +4,14 @@
 import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
-import CreatorShare from '../../components/CreatorShare'
+import { CreatorShare } from '@cura/components'
 import { Bidders } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { useMarketMethod } from 'hooks/useMarketContract'
 import { accountState } from 'state/account'
-import RenderIframe from '../../components/RenderIframe'
+import { RenderIframe } from '@cura/components'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
