@@ -1,5 +1,5 @@
 import type { ComponentStory, ComponentMeta } from '@storybook/react'
-import BidCreate from '../BidCreate'
+import { BidCreate } from '../BidCreate'
 
 export default {
     title: 'Components/Bid Create',
