@@ -1,6 +1,5 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import Image from 'next/image'
 
 export function Footer({}: {}) {
     return (
@@ -43,7 +42,7 @@ export function Footer({}: {}) {
                         }}
                         href="https://twitter.com/Yassine_2024"
                     >
-                        <Image
+                        <img
                             src="/twitter-logo-black.png"
                             alt="Black logo"
                             width={30}
