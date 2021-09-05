@@ -1,28 +1,21 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useBreakpointIndex } from '@theme-ui/match-media'
-
-const CANVAS_WIDTH = [300, 400, 500, 600, 700] // 0-4
 
 export function RenderIframe({
     mediaURI,
     code,
-    small,
+    width,
 }: {
     mediaURI?: string
     code?: string
-    small: boolean
+    width?: number
 }) {
-    const mediaIndex = useBreakpointIndex()
-
-    const designDimension = CANVAS_WIDTH[mediaIndex] / (small ? 2 : 1)
-
     if (code) {
         return (
             <iframe
                 srcDoc={code}
-                width={designDimension}
-                height={designDimension}
+                width={width}
+                height={width}
                 frameBorder="0"
             ></iframe>
         )
@@ -32,8 +25,8 @@ export function RenderIframe({
         return (
             <iframe
                 src={mediaURI}
-                width={designDimension}
-                height={designDimension}
+                width={width}
+                height={width}
                 frameBorder="0"
             ></iframe>
         )

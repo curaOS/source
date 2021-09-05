@@ -10,6 +10,7 @@ import { accountState } from 'state/account'
 import Link from 'next/link'
 import { mapPathToProject } from 'containers/near'
 import { RenderIframe } from '@cura/components'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
@@ -28,6 +29,8 @@ const CCProject = ({}) => {
         },
         CONTRACT_VIEW_GAS
     )
+
+    const frameDimension = getFrameWidth(true)
 
     return (
         <Layout project={project}>
@@ -74,7 +77,7 @@ const CCProject = ({}) => {
                                             {metadata?.media && (
                                                 <RenderIframe
                                                     mediaURI={`https://arweave.net/${metadata.media}`}
-                                                    small
+                                                    width={frameDimension}
                                                 />
                                             )}
                                         </div>
