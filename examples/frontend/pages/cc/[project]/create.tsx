@@ -14,6 +14,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { combineHTML } from 'utils/combine-html'
 import { mapPathToProject } from 'containers/near'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
@@ -99,6 +100,8 @@ const MLProjectCreate = ({}) => {
             })
     }
 
+    const frameDimension = getFrameWidth()
+
     return (
         <Layout project={project}>
             <div
@@ -128,7 +131,10 @@ const MLProjectCreate = ({}) => {
                     }}
                 >
                     {creativeCode && (
-                        <RenderIframe code={creativeCode}></RenderIframe>
+                        <RenderIframe
+                            code={creativeCode}
+                            width={frameDimension}
+                        ></RenderIframe>
                     )}
                 </div>
                 <div

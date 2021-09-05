@@ -11,6 +11,7 @@ import { useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { useMarketMethod } from 'hooks/useMarketContract'
 import { mapPathToProject } from 'containers/near'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
@@ -80,6 +81,8 @@ const CCProjectID = ({}) => {
         }
     }
 
+    const frameDimension = getFrameWidth()
+
     return (
         <Layout project={project}>
             <>
@@ -103,6 +106,7 @@ const CCProjectID = ({}) => {
                     {media && (
                         <RenderIframe
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
+                            width={frameDimension}
                         />
                     )}
                 </div>

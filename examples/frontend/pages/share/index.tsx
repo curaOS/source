@@ -12,6 +12,7 @@ import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { useMarketMethod } from 'hooks/useMarketContract'
 import { accountState } from 'state/account'
 import { RenderIframe } from '@cura/components'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
@@ -77,6 +78,8 @@ const View = ({}) => {
         }
     }
 
+    const mediaDimension = getFrameWidth()
+
     return (
         <Layout>
             <>
@@ -100,6 +103,7 @@ const View = ({}) => {
                     {media?.[0]?.metadata?.media && (
                         <RenderIframe
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
+                            width={mediaDimension}
                         />
                     )}
                 </div>
