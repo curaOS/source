@@ -12,7 +12,7 @@ jobs:
               working-directory: ./examples/frontend
               run: yarn install
             - name: 'Test contracts'
-              working-directory: ./packages/components
+              working-directory: ./packages/contracts
               run: |
                   yarn install
                   yarn test
