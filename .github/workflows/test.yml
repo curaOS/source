@@ -8,8 +8,11 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: '15'
-            - working-directory: ./examples/frontend
-                run: yarn install
-            - working-directory: ./packages/components
-                run: yarn install
-                run: yarn test
+            - name: 'Test frontend'
+              working-directory: ./examples/frontend
+              run: yarn install
+            - name: 'Test contracts'
+              working-directory: ./packages/components
+              run: |
+                  yarn install
+                  yarn test
