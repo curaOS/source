@@ -2273,10 +2273,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@cura/components@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.1.tgz#5dfb4cd73cc87b0eedd8d7223801d3596e9126e9"
-  integrity sha512-MM11uLh9NtJwO/ft4QKaOywqDCYTy1XsF4IcoH+Igd4wTqUPidDT+rBrdCncqI6d0ZZUddLzcU9H8wNOVJyrcQ==
+"@cura/components@~0.0.1":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.6.tgz#ca8af7afb86ae43d77d5177cc8eb735c08fb5998"
+  integrity sha512-rT0itbZXWcQca8uK3+JpfIY1BbtL3zGL9vrdUbk1xPq8poioIJ03beFPXDqJ1mcKKbXQxHaeuYZJ3BkTbhpdew==
   dependencies:
     "@theme-ui/presets" "^0.6.0"
     near-api-js "^0.42.0"
