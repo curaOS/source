@@ -3,6 +3,9 @@ on: [push]
 jobs:
     test-contracts:
         runs-on: macos-latest
+        defaults:
+            run:
+                working-directory: ./examples/frontend
         steps:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v2
