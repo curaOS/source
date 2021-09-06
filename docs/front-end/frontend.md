@@ -28,3 +28,26 @@ Open [http://localhost:3001](http://localhost:3000) with your browser to see the
 
 * **theme-ui**: for a consistent themable UI
 
+## Packages Development
+
+To enable hot reloading of the packages while developing add the following to your app's `next.config.js`:
+
+```bash
+const withTM = require('next-transpile-modules')(['@cura/[package-name]'])
+
+module.exports = withTM({
+    webpack5: false, // you want to keep using Webpack 4
+})
+```
+
+In the library you are trying to use, substitute the following entries:
+
+```bash
+   "main": "src/index.ts",
+    "files": [
+        "src"
+    ],
+```
+
+Then make sure you `yalc publish` in the package and `yalc add @cura/[package-name]` in your app.
+
