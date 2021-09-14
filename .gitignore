@@ -4,6 +4,7 @@ packages/contracts/as/build/
 packages/contracts/asneardev/
 
 packages/components/dist/
+packages/components/storybook-static/
 
 
 packages/commands/build/release
