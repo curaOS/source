@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Button, Divider } from 'theme-ui'
 import { utils } from 'near-api-js'
-import Layout from '../../components/Layout'
+import Layout from '../../containers/Layout'
 import {
     BidCreate,
     Metadata,

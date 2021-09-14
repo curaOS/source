@@ -4,7 +4,7 @@
 import { useState } from 'react'
 import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
-import Layout from '../../components/Layout'
+import Layout from '../../containers/Layout'
 import { CreatorShare, RenderIframe } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'

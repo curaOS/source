@@ -2,11 +2,11 @@
 /** @jsxImportSource theme-ui */
 
 import { Footer } from '@cura/components'
-import Header from '../containers/Header'
+import Header from './Header'
 import Link from 'next/link'
 import { NavLink, Spinner } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
-import Menu from '../containers/Menu'
+import Menu from './Menu'
 import { utils } from 'near-api-js'
 import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'

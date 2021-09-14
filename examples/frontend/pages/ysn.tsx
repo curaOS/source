@@ -4,7 +4,7 @@
 import { Box, Paragraph } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
 import { utils, Contract } from 'near-api-js'
-import Layout from 'components/Layout'
+import Layout from 'containers/Layout'
 import { useRecoilValue } from 'recoil'
 import { accountState } from 'state/account'
 import { useFTMethod } from 'hooks/useFTContract'
