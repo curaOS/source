@@ -7,15 +7,13 @@ import { useRouter } from 'next/router'
 import Layout from '../../../components/Layout'
 import { HostedModel } from '@runwayml/hosted-models'
 import { CreatorShare } from '@cura/components'
-import Design from '../../../components/Design'
-import { Bidders } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
 import { useState } from 'react'
-import MediaImage from 'components/MediaImage'
 import axios from 'axios'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -139,6 +137,8 @@ const MLProjectCreate = ({}) => {
             })
     }
 
+    const frameDimension = getFrameWidth()
+
     return (
         <Layout project={project}>
             <div
@@ -167,7 +167,7 @@ const MLProjectCreate = ({}) => {
                         justifyContent: 'center',
                     }}
                 >
-                    <MediaImage image={media} />
+                    <img src={media} width={frameDimension} />
                 </div>
                 <div
                     sx={{

@@ -9,8 +9,8 @@ import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue } from 'recoil'
 import { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
-import MediaImage from 'components/MediaImage'
 import Link from 'next/link'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
@@ -30,7 +30,7 @@ const MLProject = ({}) => {
         CONTRACT_VIEW_GAS
     )
 
-    console.log(media)
+    const frameDimension = getFrameWidth(true)
 
     return (
         <Layout project={project}>
@@ -56,9 +56,9 @@ const MLProject = ({}) => {
                                         },
                                     }}
                                 >
-                                    <MediaImage
-                                        image={`https://arweave.net/${metadata.media}`}
-                                        small
+                                    <img
+                                        src={`https://arweave.net/${metadata.media}`}
+                                        width={frameDimension}
                                     />
                                 </div>
                             </Link>

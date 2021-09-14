@@ -5,13 +5,13 @@ import { useState } from 'react'
 import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../components/Layout'
-import { CreatorShare } from '@cura/components'
-import Design from '../../components/Design'
+import { CreatorShare, RenderIframe } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import useNFTContract from 'hooks/useNFTContract'
 import { combineHTML } from '../../utils/combine-html'
 import axios from 'axios'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -28,30 +28,11 @@ const Create = ({}) => {
     const { contract } = useNFTContract()
 
     const [seed, setSeed] = useState()
-    const [schema, setSchema] = useState(new Set())
-    const [designInstructions, setDesignInstructions] = useState()
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const pickEmoji = (code: number) => {
-        if (schema.has(code)) {
-            setSchema((oldSchema) => {
-                const newSchema = new Set(oldSchema)
-                newSchema.delete(code)
-                return newSchema
-            })
-        } else if (schema.size < SCHEMA_SIZE) {
-            setSchema((oldSchema) => {
-                const newSchema = new Set(oldSchema)
-                newSchema.add(code)
-                return newSchema
-            })
-        } else {
-            // schema complete
-            return
-        }
-    }
+    const [creativeCode, setCreativeCode] = useState('')
 
     async function retrieveData() {
         setIndexLoader(true)
@@ -59,8 +40,20 @@ const Create = ({}) => {
         try {
             const result = await contract.generate({}, CONTRACT_DESIGN_GAS)
 
-            setDesignInstructions(result?.instructions?.split(','))
+            const nftMetadata = await contract.nft_metadata()
+
             setSeed(result?.seed)
+
+            const arweaveHTML = combineHTML(
+                `<script>let jsonParams = '${JSON.stringify({
+                    instructions: result?.instructions?.split(','),
+                })}'</script>`,
+                nftMetadata.packages_script,
+                nftMetadata.render_script,
+                nftMetadata.style_css
+            )
+
+            setCreativeCode(arweaveHTML)
 
             setTimeout(() => setIndexLoader(false), 200)
         } catch (e) {
@@ -72,21 +65,10 @@ const Create = ({}) => {
     async function claimDesign() {
         setIndexLoader(true)
 
-        const nftMetadata = await contract.nft_metadata()
-
-        const arweaveHTML = combineHTML(
-            `<script>let jsonParams = '${JSON.stringify({
-                instructions: designInstructions,
-            })}'</script>`,
-            nftMetadata.packages_script,
-            nftMetadata.render_script,
-            nftMetadata.style_css
-        )
-
         axios
             .post(
                 arweaveLambda,
-                JSON.stringify({ contentType: 'text/html', data: arweaveHTML })
+                JSON.stringify({ contentType: 'text/html', data: creativeCode })
             )
             .then(async function (response) {
                 await contract.claim_media(
@@ -109,6 +91,8 @@ const Create = ({}) => {
                 setAlertMessage(error.toString())
             })
     }
+
+    const frameDimension = getFrameWidth()
 
     return (
         <Layout>
@@ -134,25 +118,16 @@ const Create = ({}) => {
                 </div>
                 <div
                     sx={{
-                        textAlign: 'center',
-                        mb: 3,
-                    }}
-                >
-                    {Array.from(schema).map((emojiCode) => {
-                        return (
-                            <Text mx="1">
-                                {String.fromCodePoint(emojiCode)}
-                            </Text>
-                        )
-                    })}
-                </div>
-                <div
-                    sx={{
                         display: 'flex',
                         justifyContent: 'center',
                     }}
                 >
-                    <Design instructions={designInstructions} />
+                    {creativeCode && (
+                        <RenderIframe
+                            code={creativeCode}
+                            width={frameDimension}
+                        ></RenderIframe>
+                    )}
                 </div>
                 <div
                     sx={{
