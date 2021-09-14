@@ -4,7 +4,7 @@
 import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../components/Layout'
+import Layout from '../../../containers/Layout'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue } from 'recoil'
 import { useNFTMethod } from 'hooks/useNFTContract'

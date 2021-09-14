@@ -3,7 +3,7 @@
 
 import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
-import Layout from '../../components/Layout'
+import Layout from '../../containers/Layout'
 import { CreatorShare } from '@cura/components'
 import { Bidders } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'

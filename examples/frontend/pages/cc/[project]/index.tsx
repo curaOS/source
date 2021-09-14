@@ -3,7 +3,7 @@
 
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../components/Layout'
+import Layout from '../../../containers/Layout'
 import { useRecoilValue } from 'recoil'
 import { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'

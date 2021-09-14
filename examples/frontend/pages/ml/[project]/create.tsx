@@ -4,7 +4,7 @@
 import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../components/Layout'
+import Layout from '../../../containers/Layout'
 import { HostedModel } from '@runwayml/hosted-models'
 import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
