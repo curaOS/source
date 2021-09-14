@@ -2,28 +2,23 @@
 /** @jsxImportSource theme-ui */
 
 import { Text, Divider, Flex, NavLink } from 'theme-ui'
-import Link from 'next/link'
-import { useRecoilValue } from 'recoil'
-import { accountState } from 'state/account'
 
-export default function Menu({ base }: { base: string }) {
-    const { accountId } = useRecoilValue(accountState)
-
+export function Menu({ accountId, base }: { accountId: string; base: string }) {
     return (
         <div>
             <Divider />
             <Flex as="nav" sx={{ justifyContent: 'space-around' }}>
                 {accountId ? (
                     <>
-                        <Link href={`/${base}/create`}>
+                        <a href={`/${base}/create`}>
                             <NavLink>Create</NavLink>
-                        </Link>
-                        <Link href={`/${base}`}>
+                        </a>
+                        <a href={`/${base}`}>
                             <NavLink>View</NavLink>
-                        </Link>
-                        <Link href={`/${base}/explore`}>
+                        </a>
+                        <a href={`/${base}/explore`}>
                             <NavLink>Explore</NavLink>
-                        </Link>
+                        </a>
                     </>
                 ) : (
                     <Text>Please connect to use dapp.</Text>

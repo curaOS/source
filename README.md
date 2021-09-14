@@ -11,7 +11,7 @@ description: >-
 ## Links
 
 * [Docs](https://docs.ysn.design)
-* [Components](https://master--60d9b2ac2cf86a00396f9b0f.chromatic.com)
+* [Components](https://60d9b2ac2cf86a00396f9b0f-hlbripxipy.chromatic.com)
 * [Testnet](https://test.ysn.design)
 
 ## Concepts

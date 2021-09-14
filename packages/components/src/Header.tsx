@@ -2,9 +2,6 @@
 /** @jsxImportSource theme-ui */
 
 import { Text, Alert, Button, Close } from 'theme-ui'
-import Link from 'next/link'
-import { alertMessageState } from '../state/recoil'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 export const Header = ({
     base,
@@ -85,7 +82,7 @@ export const Header = ({
                             )}
                         </>
                     </div>
-                    <Link href="/">
+                    <a href="/">
                         <Text
                             sx={{
                                 flex: 'none',
@@ -99,7 +96,7 @@ export const Header = ({
                         >
                             {title}
                         </Text>
-                    </Link>
+                    </a>
                     <div
                         sx={{
                             display: 'flex',
@@ -113,7 +110,7 @@ export const Header = ({
                     >
                         {accountId ? (
                             <div>
-                                <Link href={`/${base}/bids`}>{accountId}</Link>
+                                <a href={`/${base}/bids`}>{accountId}</a>
                             </div>
                         ) : (
                             <div>[blank]</div>
@@ -122,34 +119,5 @@ export const Header = ({
                 </div>
             </header>
         </div>
-    )
-}
-
-export default function HeaderContainer({
-    base,
-    accountId,
-    onSignIn,
-    onSignOut,
-    title,
-}: {
-    base: string
-    accountId?: string
-    onSignIn: () => void
-    onSignOut: () => void
-    title: string
-}) {
-    const alertMessage = useRecoilValue(alertMessageState)
-    const setAlertMessage = useSetRecoilState(alertMessageState)
-
-    return (
-        <Header
-            base={base}
-            accountId={accountId}
-            onSignIn={onSignIn}
-            onSignOut={onSignOut}
-            alertMessage={alertMessage}
-            setAlertMessage={setAlertMessage}
-            title={title}
-        />
     )
 }

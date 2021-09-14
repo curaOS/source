@@ -5,17 +5,16 @@ import { useState, useCallback } from 'react'
 import { Button, Flex, Box, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../components/Layout'
+import Layout from '../../../containers/Layout'
 import { CreatorShare } from '@cura/components'
-import Design from '../../../components/Design'
 import { Bidders } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { useMarketMethod } from 'hooks/useMarketContract'
 import { accountState } from 'state/account'
-import MediaImage from 'components/MediaImage'
 import Link from 'next/link'
+import { getFrameWidth } from 'utils/frame-width'
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
@@ -88,6 +87,8 @@ const MLProject = ({}) => {
         }
     }
 
+    const frameDimension = getFrameWidth()
+
     return (
         <Layout project={project}>
             <>
@@ -109,8 +110,9 @@ const MLProject = ({}) => {
                     }}
                 >
                     {media && (
-                        <MediaImage
-                            image={`https://arweave.net/${media.metadata.media}`}
+                        <img
+                            src={`https://arweave.net/${media.metadata.media}`}
+                            width={frameDimension}
                         />
                     )}
                 </div>

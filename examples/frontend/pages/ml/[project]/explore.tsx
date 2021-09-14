@@ -5,13 +5,13 @@ import { useState } from 'react'
 import { Button, Divider } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../components/Layout'
+import Layout from '../../../containers/Layout'
 import { BidCreate, Metadata, CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
-import MediaImage from 'components/MediaImage'
+import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
@@ -97,6 +97,8 @@ const Explore = ({}) => {
         }
     }
 
+    const frameDimension = getFrameWidth()
+
     return (
         <Layout project={project}>
             <>
@@ -118,9 +120,12 @@ const Explore = ({}) => {
                         flexDirection: 'column',
                     }}
                 >
-                    <MediaImage
-                        image={`https://arweave.net/${randomDesign?.metadata.media}`}
-                    />
+                    {randomDesign?.metadata.media && (
+                        <img
+                            src={`https://arweave.net/${randomDesign?.metadata.media}`}
+                            width={frameDimension}
+                        />
+                    )}
                 </div>
                 <div
                     sx={{

@@ -5,6 +5,8 @@ import { Metadata } from './Metadata'
 import { RenderIframe } from './RenderIframe'
 import { Footer } from './Footer'
 import { BiddersBids } from './BiddersBids'
+import { Header } from './Header'
+import { Menu } from './Menu'
 
 export {
     Bidders,
@@ -14,4 +16,6 @@ export {
     RenderIframe,
     BiddersBids,
     Footer,
+    Header,
+    Menu,
 }
