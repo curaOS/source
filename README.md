@@ -6,13 +6,14 @@ description: >-
 
 # Introduction
 
-![](docs/.gitbook/assets/cura.png)
+> Before writing any code check [curaDAO tasks](https://gov.near.org/t/curadao-tasks/5611) \(you get some NEAR tokens\).
 
 ## Links
 
 * [Docs](https://docs.ysn.design)
 * [Components](https://60d9b2ac2cf86a00396f9b0f-hlbripxipy.chromatic.com)
 * [Testnet](https://test.ysn.design)
+* [Slides](https://www.figma.com/proto/ojREDfHiFmEPCh0rbq5Gmc/Slides?node-id=15%3A75&scaling=min-zoom&page-id=3%3A3792)
 
 ## Concepts
 
