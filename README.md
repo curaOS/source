@@ -27,5 +27,8 @@ The long-term goal is to have an ecosystem of media projects forked from here an
 
 ## Plans
 
-![](docs/.gitbook/assets/second.png)
+* [ ] @cura/commands
+* [ ] @cura/contracts
+* [ ] @cura/hooks
+* [ ] @cura/compoments
 
