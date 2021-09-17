@@ -6,4 +6,7 @@ packages/contracts/asneardev/
 packages/components/dist/
 packages/components/storybook-static/
 
+
+packages/hooks/dist/
+
 packages/commands/build/release
