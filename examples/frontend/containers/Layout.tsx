@@ -11,15 +11,18 @@ import { utils } from 'near-api-js'
 import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'
 import { useRecoilValue } from 'recoil'
-import { Near } from 'containers/index'
 import { useFTMethod } from 'hooks/useFTContract'
+import { useNearHooksContainer } from '@cura/hooks'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
 export default function Layout({ children, project = 'share' }) {
     const indexLoader = useRecoilValue(indexLoaderState)
 
-    const { accountId } = useRecoilValue(accountState)
-    const { signIn, signOut } = Near.useContainer()
+    const router = useRouter()
+
+    const { signIn, signOut, accountId } = useNearHooksContainer()
 
     const { data: ftBalance, loading: loadingFTBalance } = useFTMethod(
         'ft_balance_of',
@@ -28,18 +31,50 @@ export default function Layout({ children, project = 'share' }) {
         }
     )
 
+    const switchProject = () => {
+        const currentProject = mapPathToProject(router.asPath)
+        const signedProject = localStorage.getItem('contractAddress')
+
+        if (
+            signedProject &&
+            currentProject &&
+            currentProject != signedProject
+        ) {
+            preSignOut()
+        }
+    }
+
+    const preSignIn = () => {
+        const project = mapPathToProject(router.asPath)
+        localStorage.setItem('contractAddress', project)
+
+        signIn(
+            project,
+            window.location.origin + router.asPath,
+            window.location.origin + router.asPath
+        )
+    }
+
+    const preSignOut = () => {
+        localStorage.removeItem('contractAddress')
+        signOut()
+        router.reload(window.location.origin + router.asPath)
+    }
+
+    useEffect(switchProject, [router.asPath])
+
     return (
         <>
             <Head>
-                <title>YSN</title>
+                <title>CURA</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div style={{ minHeight: '100vh' }}>
                 <Header
                     base={project}
                     accountId={accountId}
-                    onSignIn={signIn}
-                    onSignOut={signOut}
+                    onSignIn={preSignIn}
+                    onSignOut={preSignOut}
                     title={project.toUpperCase()}
                 />
                 <div
