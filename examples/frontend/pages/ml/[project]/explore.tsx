@@ -12,6 +12,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
 import { getFrameWidth } from 'utils/frame-width'
+import { useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
@@ -28,7 +29,7 @@ const Explore = ({}) => {
 
     const project = `ml/${router.query.project}`
 
-    const { accountId } = useRecoilValue(accountState)
+    const { accountId } = useNearHooksContainer()
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
