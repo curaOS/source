@@ -10,7 +10,7 @@ import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { useMarketMethod } from 'hooks/useMarketContract'
-import { mapPathToProject } from 'containers/near'
+import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas

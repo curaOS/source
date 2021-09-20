@@ -12,7 +12,7 @@ import useNFTContract from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
 import { omit } from 'ramda'
 import { useRouter } from 'next/router'
-import { mapPathToProject } from 'containers/near'
+import { mapPathToProject } from 'utils/path-to-project'
 import { useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas

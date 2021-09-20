@@ -16,7 +16,7 @@ import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
-import { mapPathToProject } from 'containers/near'
+import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
 import { useNearHooksContainer } from '@cura/hooks'
 
