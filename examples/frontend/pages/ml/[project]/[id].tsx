@@ -29,8 +29,6 @@ const MLProject = ({}) => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const { accountId } = useRecoilValue(accountState)
-
     const project = `ml/${router.query.project}`
     const { contract } = useNFTContract(
         `ml${router.query.project}.ysn-1_0_0.ysn.testnet`
