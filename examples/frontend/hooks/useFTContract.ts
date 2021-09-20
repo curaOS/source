@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
 import { getContractMethods } from 'utils/near-utils'
-import Near from 'containers/near'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { accountState } from 'state/account'
 import useSWR from 'swr'
 import { alertMessageState } from 'state/recoil'
+import { useNearHooksContainer } from '@cura/hooks'
 
 const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
 
 export default function useFTContract() {
     const [contract, setContract] = useState({ account: null })
-    const { getContract } = Near.useContainer()
-    const { accountId } = useRecoilValue(accountState)
+    const { getContract, accountId } = useNearHooksContainer()
 
     const setupContract = () => {
         const newContract = getContract(
