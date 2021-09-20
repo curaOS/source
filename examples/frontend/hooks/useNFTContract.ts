@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
 import { getContractMethods } from 'utils/near-utils'
-import Near from 'containers/near'
 import { useRecoilValue } from 'recoil'
 import { accountState } from 'state/account'
 import useSWR from 'swr'
 import { useSetRecoilState } from 'recoil'
 import { indexLoaderState, alertMessageState } from '../state/recoil'
+import { useNearHooksContainer } from '@cura/hooks'
 
 export default function useNFTContract(
     contractAddress: string = '0.share-nft.testnet'
 ) {
     const [contract, setContract] = useState({ account: null })
-    const { getContract } = Near.useContainer()
-    const { accountId } = useRecoilValue(accountState)
+    const { getContract, accountId } = useNearHooksContainer()
 
     const setupContract = () => {
         if (contractAddress.includes('undefined')) {
