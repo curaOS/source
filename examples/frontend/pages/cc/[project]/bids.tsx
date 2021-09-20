@@ -13,6 +13,7 @@ import { accountState } from 'state/account'
 import { omit } from 'ramda'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'containers/near'
+import { useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 
@@ -23,7 +24,8 @@ const Bids = () => {
 
     const project = `cc/${router.query.project}`
 
-    const { accountId } = useRecoilValue(accountState)
+    const { accountId } = useNearHooksContainer()
+
     const [removeBidLoader, setRemoveBidLoader] = useState(false)
 
     const { data: biddersBids, mutate: mutateBiddersBids } = useMarketMethod(

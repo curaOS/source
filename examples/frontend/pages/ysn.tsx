@@ -5,9 +5,8 @@ import { Box, Paragraph } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
 import { utils, Contract } from 'near-api-js'
 import Layout from 'containers/Layout'
-import { useRecoilValue } from 'recoil'
-import { accountState } from 'state/account'
 import { useFTMethod } from 'hooks/useFTContract'
+import { useNearHooksContainer } from '@cura/hooks'
 
 const GradientText = ({ text }: { text: string }) => {
     return (
@@ -35,7 +34,7 @@ const formatBalance = (data, loading) => {
 }
 
 const Ysn = () => {
-    const { accountId } = useRecoilValue(accountState)
+    const { accountId } = useNearHooksContainer()
 
     const { data: ftBalance, loading: loadingFTBalance } = useFTMethod(
         'ft_balance_of',

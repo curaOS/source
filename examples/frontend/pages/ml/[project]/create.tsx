@@ -71,8 +71,6 @@ const MLProjectCreate = ({}) => {
 
     const [media, setMedia] = useState('')
 
-    const { accountId } = useRecoilValue(accountState)
-
     const hostedModel = {
         ...modelProps[router.query.project],
     }

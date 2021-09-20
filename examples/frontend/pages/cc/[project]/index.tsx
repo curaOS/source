@@ -11,13 +11,14 @@ import Link from 'next/link'
 import { mapPathToProject } from 'containers/near'
 import { RenderIframe } from '@cura/components'
 import { getFrameWidth } from 'utils/frame-width'
+import { useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
 const CCProject = ({}) => {
     const router = useRouter()
 
-    const { accountId } = useRecoilValue(accountState)
+    const { accountId } = useNearHooksContainer()
 
     const project = `cc/${router.query.project}`
 

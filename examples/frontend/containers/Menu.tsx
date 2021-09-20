@@ -2,11 +2,11 @@
 /** @jsxImportSource theme-ui */
 
 import { useRecoilValue } from 'recoil'
-import { accountState } from 'state/account'
+import { useNearHooksContainer } from '@cura/hooks'
 import { Menu } from '@cura/components'
 
 export default function MenuContainer({ base }: { base: string }) {
-    const { accountId } = useRecoilValue(accountState)
+    const { accountId } = useNearHooksContainer()
 
     return <Menu accountId={accountId} base={base} />
 }
