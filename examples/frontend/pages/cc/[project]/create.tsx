@@ -13,7 +13,7 @@ import useNFTContract from 'hooks/useNFTContract'
 import { useState } from 'react'
 import axios from 'axios'
 import { combineHTML } from 'utils/combine-html'
-import { mapPathToProject } from 'containers/near'
+import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas

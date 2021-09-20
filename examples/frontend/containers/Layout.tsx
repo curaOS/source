@@ -13,8 +13,7 @@ import { indexLoaderState } from '../state/recoil'
 import { useRecoilValue } from 'recoil'
 import { Near } from 'containers/index'
 import { useFTMethod } from 'hooks/useFTContract'
-
-import { accountState } from '../state/account'
+import { mapPathToProject } from 'utils/path-to-project'
 
 export default function Layout({ children, project = 'share' }) {
     const indexLoader = useRecoilValue(indexLoaderState)
