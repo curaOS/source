@@ -2418,6 +2418,18 @@
     theme-ui "^0.10.0"
     tslib "^2.3.1"
 
+"@cura/hooks@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@cura/hooks/-/hooks-0.0.2.tgz#400fbc687e063c1be05b20762350f5a21bc1406d"
+  integrity sha512-npk9VnXlX29+C1lmYyGmcTcGZwXTDxzyYEL2dPV78YKg288eJRrdslTf5MfTOqDqwf6O/V/1QENPTFRWine93A==
+  dependencies:
+    near-api-js "^0.42.0"
+    react "^17.0.1"
+    react-dom "^17.0.1"
+    swr "^0.5.6"
+    tslib "^2.3.1"
+    unstated-next "^1.1.0"
+
 "@discoveryjs/json-ext@^0.5.3":
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz#9283c9ce5b289a3c4f61c12757469e59377f81f3"
