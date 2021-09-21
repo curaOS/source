@@ -14,11 +14,14 @@ import {
 } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import useNFTContract, { useNFTMethod } from 'hooks/useNFTContract'
+import {
+    useNFTContract,
+    useNFTMethod,
+    useNearHooksContainer,
+} from '@cura/hooks'
 import { accountState } from 'state/account'
 import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
-import { useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas

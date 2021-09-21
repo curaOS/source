@@ -9,11 +9,10 @@ import Layout from '../../../containers/Layout'
 import { indexLoaderState } from '../../../state/recoil'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { useMarketMethod } from 'hooks/useMarketContract'
-import useNFTContract from 'hooks/useNFTContract'
 import { accountState } from 'state/account'
 import { omit } from 'ramda'
 import { useRouter } from 'next/router'
-import { useNearHooksContainer } from '@cura/hooks'
+import { useNFTContract, useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 
