@@ -1,6 +1,6 @@
 {
     "name": "@cura/hooks",
-    "version": "0.0.0",
+    "version": "0.0.2",
     "description": "Hooks for front-ends on NEAR blockchain",
     "source": "src/index.ts",
     "main": "dist/index.js",
@@ -17,10 +17,10 @@
     "license": "MIT",
     "dependencies": {
         "near-api-js": "^0.42.0",
-        "swr": "^0.5.6",
-        "tslib": "^2.3.1",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
+        "swr": "^0.5.6",
+        "tslib": "^2.3.1",
         "unstated-next": "^1.1.0"
     },
     "devDependencies": {
