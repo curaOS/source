@@ -5,13 +5,12 @@ import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
 import { useRecoilValue } from 'recoil'
-import { useNFTMethod } from 'hooks/useNFTContract'
+import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import { accountState } from 'state/account'
 import Link from 'next/link'
 import { mapPathToProject } from 'utils/path-to-project'
 import { RenderIframe } from '@cura/components'
 import { getFrameWidth } from 'utils/frame-width'
-import { useNearHooksContainer } from '@cura/hooks'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
