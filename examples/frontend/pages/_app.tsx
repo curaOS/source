@@ -3,16 +3,16 @@ import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'theme-ui'
 import { theme } from '../theme'
 import { RecoilRoot } from 'recoil'
-import NearProvider from '@containers/index'
+import { NearHooksProvider } from '@cura/hooks'
 
 function App({ Component, pageProps }: AppProps) {
     return (
         // @ts-ignore: Unreachable code error
         <ThemeProvider theme={theme}>
             <RecoilRoot>
-                <NearProvider>
+                <NearHooksProvider>
                     <Component {...pageProps} />
-                </NearProvider>
+                </NearHooksProvider>
             </RecoilRoot>
         </ThemeProvider>
     )
