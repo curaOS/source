@@ -9,10 +9,9 @@ import { Bidders } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
-import { useMarketMethod } from 'hooks/useMarketContract'
 import { RenderIframe } from '@cura/components'
 import { getFrameWidth } from 'utils/frame-width'
-import { useNearHooksContainer } from '@cura/hooks'
+import { useNearHooksContainer, useMarketMethod } from '@cura/hooks'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
