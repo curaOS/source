@@ -11,8 +11,7 @@ import { utils } from 'near-api-js'
 import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'
 import { useRecoilValue } from 'recoil'
-import { useFTMethod } from 'hooks/useFTContract'
-import { useNearHooksContainer } from '@cura/hooks'
+import { useFTMethod, useNearHooksContainer } from '@cura/hooks'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
@@ -25,6 +24,7 @@ export default function Layout({ children, project = 'share' }) {
     const { signIn, signOut, accountId } = useNearHooksContainer()
 
     const { data: ftBalance, loading: loadingFTBalance } = useFTMethod(
+        'ysn-1_0_0.ysn.testnet',
         'ft_balance_of',
         {
             account_id: accountId,
