@@ -1,21 +1,23 @@
+// @ts-nocheck
 import { useEffect, useState } from 'react'
-import { getContractMethods } from 'utils/near-utils'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { accountState } from 'state/account'
+import { getContractMethods } from './near-utils'
 import useSWR from 'swr'
-import { alertMessageState } from 'state/recoil'
 import { useNearHooksContainer } from '@cura/hooks'
 
-const FT_CONTRACT_NAME = process.env.YSN_ADDRESS
-
-export default function useFTContract() {
+export default function useFTContract(
+    contractAddress: string = 'ysn-1_0_0.ysn.testnet'
+) {
     const [contract, setContract] = useState({ account: null })
     const { getContract, accountId } = useNearHooksContainer()
 
     const setupContract = () => {
+        if (contractAddress.includes('undefined')) {
+            return
+        }
+
         const newContract = getContract(
-            FT_CONTRACT_NAME,
-            getContractMethods(FT_CONTRACT_NAME)
+            contractAddress,
+            getContractMethods('ft')
         )
 
         setContract(newContract)
@@ -27,14 +29,17 @@ export default function useFTContract() {
     return { contract }
 }
 
-export const useFTMethod = (methodName, params, gas) => {
-    const setAlertMessage = useSetRecoilState(alertMessageState)
-
-    const { contract } = useFTContract()
+export const useFTMethod = (
+    contractAddress: string,
+    methodName: string,
+    params: {},
+    gas: number
+) => {
+    const { contract } = useFTContract(contractAddress)
 
     const validParams = contract?.account?.accountId
 
-    const fetcher = (methodName, serializedParams) => {
+    const fetcher = (methodName: string, serializedParams: string) => {
         const params = JSON.parse(serializedParams)
         return contract[methodName]({ ...params }, gas).then((res) => {
             return res
@@ -45,10 +50,6 @@ export const useFTMethod = (methodName, params, gas) => {
         validParams ? [methodName, JSON.stringify(params)] : null,
         fetcher
     )
-
-    if (error) {
-        setAlertMessage(error.toString())
-    }
 
     return {
         data: data,
