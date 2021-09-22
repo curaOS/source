@@ -5,8 +5,7 @@ import { Box, Paragraph } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
 import { utils, Contract } from 'near-api-js'
 import Layout from 'containers/Layout'
-import { useFTMethod } from 'hooks/useFTContract'
-import { useNearHooksContainer } from '@cura/hooks'
+import { useNearHooksContainer, useFTMethod } from '@cura/hooks'
 
 const GradientText = ({ text }: { text: string }) => {
     return (
@@ -37,6 +36,7 @@ const Ysn = () => {
     const { accountId } = useNearHooksContainer()
 
     const { data: ftBalance, loading: loadingFTBalance } = useFTMethod(
+        'ysn-1_0_0.ysn.testnet',
         'ft_balance_of',
         {
             account_id: accountId,
@@ -44,11 +44,13 @@ const Ysn = () => {
     )
 
     const { data: ftSupply, loading: loadingFTSupply } = useFTMethod(
+        'ysn-1_0_0.ysn.testnet',
         'ft_total_supply',
         {}
     )
 
     const { data: treasury, loading: loadingTreasury } = useFTMethod(
+        'ysn-1_0_0.ysn.testnet',
         'get_treasury',
         {}
     )
