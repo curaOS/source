@@ -1,11 +1,8 @@
+// @ts-nocheck
 import { useEffect, useState } from 'react'
-import { getContractMethods } from 'utils/near-utils'
-import { useRecoilValue } from 'recoil'
-import { accountState } from 'state/account'
 import useSWR from 'swr'
-import { useSetRecoilState } from 'recoil'
-import { indexLoaderState, alertMessageState } from '../state/recoil'
-import { useNearHooksContainer } from '@cura/hooks'
+import { useNearHooksContainer } from './near'
+import { getContractMethods } from './near-utils'
 
 export default function useMarketContract(
     contractAddress: string = 'market.share.ysn-1_0_0.ysn.testnet'
@@ -32,15 +29,17 @@ export default function useMarketContract(
     return { contract }
 }
 
-export const useMarketMethod = (contractAddress, methodName, params, gas) => {
-    const setAlertMessage = useSetRecoilState(alertMessageState)
-    const setIndexLoader = useSetRecoilState(indexLoaderState)
-
+export const useMarketMethod = (
+    contractAddress: string,
+    methodName: string,
+    params: {},
+    gas: number
+) => {
     const { contract } = useMarketContract(contractAddress)
 
     const validParams = params?.token_id || params?.account_id
 
-    const fetcher = (methodName, serializedParams) => {
+    const fetcher = (methodName: string, serializedParams: string) => {
         const params = JSON.parse(serializedParams)
         return contract[methodName]({ ...params }, gas).then((res) => {
             return res
@@ -48,24 +47,11 @@ export const useMarketMethod = (contractAddress, methodName, params, gas) => {
     }
 
     const { data, error, mutate } = useSWR(
-        contract.account && validParams
+        contract?.account?.accountId && validParams
             ? [methodName, JSON.stringify(params)]
             : null,
         fetcher
     )
-
-    if (!error && !data && validParams) {
-        setIndexLoader(true)
-    }
-
-    if (error) {
-        setAlertMessage(error.toString())
-        setIndexLoader(false)
-    }
-
-    if (data) {
-        setIndexLoader(false)
-    }
 
     return {
         data: data,
