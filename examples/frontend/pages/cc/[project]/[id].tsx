@@ -8,10 +8,9 @@ import Layout from '../../../containers/Layout'
 import { Bidders, RenderIframe, CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
-import { useMarketMethod } from 'hooks/useMarketContract'
 import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
-import { useNFTContract, useNFTMethod } from '@cura/hooks'
+import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas

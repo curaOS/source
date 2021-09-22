@@ -7,10 +7,13 @@ import { utils } from 'near-api-js'
 import { BiddersBids } from '@cura/components'
 import Layout from '../../containers/Layout'
 import { useRecoilValue } from 'recoil'
-import { useMarketMethod } from 'hooks/useMarketContract'
 import { accountState } from 'state/account'
 import { omit } from 'ramda'
-import { useNFTContract, useNearHooksContainer } from '@cura/hooks'
+import {
+    useNFTContract,
+    useNearHooksContainer,
+    useMarketMethod,
+} from '@cura/hooks'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 
@@ -28,6 +31,8 @@ const Bids = () => {
             account_id: accountId,
         }
     )
+
+    console.log(biddersBids)
 
     async function removeBid(token_id: string, bidder: string) {
         setRemoveBidLoader(true)
