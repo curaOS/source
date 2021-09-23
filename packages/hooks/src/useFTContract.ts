@@ -33,7 +33,8 @@ export const useFTMethod = (
     contractAddress: string,
     methodName: string,
     params: {},
-    gas: number
+    gas: number,
+    updateStatus: () => void
 ) => {
     const { contract } = useFTContract(contractAddress)
 
@@ -50,6 +51,8 @@ export const useFTMethod = (
         validParams ? [methodName, JSON.stringify(params)] : null,
         fetcher
     )
+
+    updateStatus && updateStatus(error, data, validParams)
 
     return {
         data: data,

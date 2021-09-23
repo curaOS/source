@@ -33,7 +33,8 @@ export const useMarketMethod = (
     contractAddress: string,
     methodName: string,
     params: {},
-    gas: number
+    gas: number,
+    updateStatus: () => void
 ) => {
     const { contract } = useMarketContract(contractAddress)
 
@@ -52,6 +53,8 @@ export const useMarketMethod = (
             : null,
         fetcher
     )
+
+    updateStatus && updateStatus(error, data, validParams)
 
     return {
         data: data,
