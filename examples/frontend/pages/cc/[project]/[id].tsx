@@ -11,6 +11,7 @@ import { useSetRecoilState } from 'recoil'
 import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
+import { useStatusUpdate } from 'utils/hooks-helpers'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
@@ -22,6 +23,8 @@ const HARDCODED_ROYALTY_SHARE = '2500'
 
 const CCProjectID = ({}) => {
     const router = useRouter()
+
+    const { updateStatus } = useStatusUpdate()
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
@@ -36,7 +39,8 @@ const CCProjectID = ({}) => {
             token_id: router.query.id,
             limit: 2,
         },
-        CONTRACT_VIEW_GAS
+        CONTRACT_VIEW_GAS,
+        updateStatus
     )
 
     const { data: bids } = useMarketMethod(
@@ -129,15 +133,17 @@ const CCProjectID = ({}) => {
                         </Text>
                     </a>
                 </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <Bidders bidders={bids} onAcceptBid={acceptBid} />
-                </div>
+                {bids && (
+                    <div
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: 3,
+                        }}
+                    >
+                        <Bidders bidders={bids} onAcceptBid={acceptBid} />
+                    </div>
+                )}
                 <div
                     sx={{
                         display: 'flex',

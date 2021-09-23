@@ -12,6 +12,7 @@ import { useNFTMethod, useNFTContract } from '@cura/hooks'
 import { RenderIframe } from '@cura/components'
 import { getFrameWidth } from 'utils/frame-width'
 import { useNearHooksContainer, useMarketMethod } from '@cura/hooks'
+import { useStatusUpdate } from 'utils/hooks-helpers'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
@@ -24,6 +25,8 @@ const HARDCODED_ROYALTY_SHARE = '2500'
 const View = ({}) => {
     const { contract } = useNFTContract()
 
+    const { updateStatus } = useStatusUpdate()
+
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
@@ -35,7 +38,8 @@ const View = ({}) => {
         {
             account_id: accountId,
         },
-        CONTRACT_VIEW_GAS
+        CONTRACT_VIEW_GAS,
+        updateStatus
     )
 
     const { data: bids } = useMarketMethod(
@@ -106,15 +110,18 @@ const View = ({}) => {
                         />
                     )}
                 </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <Bidders bidders={bids} onAcceptBid={acceptBid} />
-                </div>
+                {bids && (
+                    <div
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: 3,
+                        }}
+                    >
+                        <Bidders bidders={bids} onAcceptBid={acceptBid} />
+                    </div>
+                )}
+
                 <div
                     sx={{
                         display: 'flex',

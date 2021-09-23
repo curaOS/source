@@ -13,13 +13,12 @@ import {
     RenderIframe,
 } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import {
     useNFTContract,
     useNFTMethod,
     useNearHooksContainer,
 } from '@cura/hooks'
-import { accountState } from 'state/account'
 import { mapPathToProject } from 'utils/path-to-project'
 import { getFrameWidth } from 'utils/frame-width'
 

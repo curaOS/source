@@ -1,16 +1,13 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
-import { alertMessageState, indexLoaderState } from '../../../state/recoil'
-import { useRecoilValue } from 'recoil'
 import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
-import { accountState } from 'state/account'
 import Link from 'next/link'
 import { getFrameWidth } from 'utils/frame-width'
+import { useStatusUpdate } from 'utils/hooks-helpers'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
@@ -18,6 +15,8 @@ const MLProject = ({}) => {
     const router = useRouter()
 
     const { accountId } = useNearHooksContainer()
+
+    const { updateStatus } = useStatusUpdate()
 
     const project = `ml/${router.query.project}`
 
@@ -27,7 +26,8 @@ const MLProject = ({}) => {
         {
             account_id: accountId,
         },
-        CONTRACT_VIEW_GAS
+        CONTRACT_VIEW_GAS,
+        updateStatus
     )
 
     const frameDimension = getFrameWidth(true)

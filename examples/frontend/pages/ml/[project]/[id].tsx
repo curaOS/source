@@ -12,8 +12,8 @@ import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 import { accountState } from 'state/account'
-import Link from 'next/link'
 import { getFrameWidth } from 'utils/frame-width'
+import { useStatusUpdate } from 'utils/hooks-helpers'
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
@@ -24,6 +24,8 @@ const HARDCODED_ROYALTY_SHARE = '2500'
 
 const MLProject = ({}) => {
     const router = useRouter()
+
+    const { updateStatus } = useStatusUpdate()
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
@@ -40,7 +42,8 @@ const MLProject = ({}) => {
             token_id: router.query.id,
             limit: 2,
         },
-        CONTRACT_VIEW_GAS
+        CONTRACT_VIEW_GAS,
+        updateStatus
     )
 
     const { data: bids } = useMarketMethod(
@@ -133,15 +136,17 @@ const MLProject = ({}) => {
                         </Text>
                     </a>
                 </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <Bidders bidders={bids} onAcceptBid={acceptBid} />
-                </div>
+                {bids && (
+                    <div
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mt: 3,
+                        }}
+                    >
+                        <Bidders bidders={bids} onAcceptBid={acceptBid} />
+                    </div>
+                )}
                 <div
                     sx={{
                         display: 'flex',
