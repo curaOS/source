@@ -1,6 +1,11 @@
 const path = require('path')
 
-const resolve = (p) => path.join(process.cwd(), p)
+const findWorkspaceRoot = require('find-yarn-workspace-root')
+
+const resolve = (_path) => {
+    console.log(findWorkspaceRoot(), _path)
+    return path.join(findWorkspaceRoot(), _path)
+}
 
 module.exports = {
     stories: [
@@ -11,9 +16,9 @@ module.exports = {
     webpackFinal(config) {
         config.resolve.alias = {
             ...config.resolve.alias,
-            // '@emotion/core': resolve('node_modules/@emotion/react'),
-            // '@emotion/styled': resolve('node_modules/@emotion/styled'),
-            // 'emotion-theming': resolve('node_modules/@emotion/react'),
+            '@emotion/core': resolve('node_modules/@emotion/react'),
+            '@emotion/styled': resolve('node_modules/@emotion/styled'),
+            'emotion-theming': resolve('node_modules/@emotion/react'),
         }
         return config
     },
