@@ -14,10 +14,6 @@ export const parameters = {
 export const decorators = [
     (Story) => (
         <ThemeProvider theme={theme}>
-            <link
-                rel="stylesheet"
-                href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap"
-            />
             <div
                 sx={{
                     backgroundColor: 'gray.2',
