@@ -8,12 +8,16 @@ export function ProjectCard({
     image,
     share,
     tags,
+    onCreateClick,
+    onExploreClick,
 }: {
     title?: string
     description?: string
     image?: string
     share?: string
     tags?: Array
+    onCreateClick?: () => void
+    onExploreClick?: () => void
 }) {
     return (
         <Box
@@ -83,10 +87,10 @@ export function ProjectCard({
                             mt: 0,
                         }}
                     >
-                        <Button onClick={null} variant="due">
+                        <Button onClick={onCreateClick} variant="due">
                             Create
                         </Button>
-                        <Button onClick={null} variant="uno">
+                        <Button onClick={onExploreClick} variant="uno">
                             Explore
                         </Button>
                     </div>
