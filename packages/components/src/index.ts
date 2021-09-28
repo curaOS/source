@@ -6,6 +6,7 @@ import { RenderIframe } from './RenderIframe'
 import { Footer } from './Footer'
 import { BiddersBids } from './BiddersBids'
 import { Header } from './Header'
+import { ProjectCard } from './ProjectCard'
 import { Menu } from './Menu'
 
 export {
@@ -18,4 +19,5 @@ export {
     Footer,
     Header,
     Menu,
+    ProjectCard,
 }
