@@ -40,7 +40,11 @@ export function ProjectCard({
                     justifyContent: 'center',
                 }}
             >
-                <Image src={image} width={300} />
+                <Image
+                    src={image}
+                    width={300}
+                    sx={{ borderTopRightRadius: 2, borderTopLeftRadius: 2 }}
+                />
                 <div
                     sx={{
                         mx: 3,
