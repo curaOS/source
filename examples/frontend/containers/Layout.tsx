@@ -85,7 +85,7 @@ export default function Layout({ children, project = 'share' }) {
                         textAlign: 'center',
                     }}
                 >
-                    <Link href="/ysn">
+                    <Link href="/">
                         <NavLink href="#!">
                             <span
                                 sx={{
@@ -94,21 +94,21 @@ export default function Layout({ children, project = 'share' }) {
                                     backgroundImage: (t) => `
                                         linear-gradient(
                                             to right,
-                                            ${alpha('secondary', 1)(t)},
-                                            ${alpha('text', 0.2)(t)}
+                                            ${alpha('gray.4', 1)(t)},
+                                            ${alpha('gray.5', 1)(t)}
                                         )
                                     `,
                                     backgroundClip: 'text',
                                     textFillColor: 'transparent',
                                 }}
                             >
-                                {loadingFTBalance
+                                PROJECTS
+                                {/* {loadingFTBalance
                                     ? '-'
                                     : utils.format.formatNearAmount(
                                           ftBalance,
                                           5
-                                      )}{' '}
-                                YSN
+                                      )}{' '} */}
                             </span>
                         </NavLink>
                     </Link>
