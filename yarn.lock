@@ -3669,7 +3669,7 @@ bluebird@^3.3.5, bluebird@^3.5.5:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
-bn.js@5.2.0, bn.js@^5.0.0, bn.js@^5.1.1:
+bn.js@5.2.0, bn.js@^5.0.0, bn.js@^5.1.1, bn.js@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.0.tgz#358860674396c6997771a9d051fcc1b57d4ae002"
   integrity sha512-D7iWRBvnZE8ecXiLj/9wbxH7Tk79fAh8IHaTNq1RWRixsS02W+5qS+iE9yq6RYl0asXx5tw0bLhmT5pIfbSquw==
@@ -3707,6 +3707,15 @@ borsh@^0.4.0:
   dependencies:
     "@types/bn.js" "^4.11.5"
     bn.js "^5.0.0"
+    bs58 "^4.0.0"
+    text-encoding-utf-8 "^1.0.2"
+
+borsh@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/borsh/-/borsh-0.6.0.tgz#a7c9eeca6a31ca9e0607cb49f329cb659eb791e1"
+  integrity sha512-sl5k89ViqsThXQpYa9XDtz1sBl3l1lI313cFUY1HKr+wvMILnb+58xpkqTNrYbelh99dY7K8usxoCusQmqix9Q==
+  dependencies:
+    bn.js "^5.2.0"
     bs58 "^4.0.0"
     text-encoding-utf-8 "^1.0.2"
 
@@ -5077,6 +5086,15 @@ error-polyfill@^0.1.2:
     capability "^0.2.5"
     o3 "^1.0.3"
     u3 "^0.1.0"
+
+error-polyfill@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/error-polyfill/-/error-polyfill-0.1.3.tgz#df848b61ad8834f7a5db69a70b9913df86721d15"
+  integrity sha512-XHJk60ufE+TG/ydwp4lilOog549iiQF2OAPhkk9DdiYWMrltz5yhDz/xnKuenNwP7gy3dsibssO5QpVhkrSzzg==
+  dependencies:
+    capability "^0.2.5"
+    o3 "^1.0.3"
+    u3 "^0.1.1"
 
 error-stack-parser@^2.0.6:
   version "2.0.6"
@@ -7731,6 +7749,23 @@ near-api-js@^0.42.0:
     text-encoding-utf-8 "^1.0.2"
     tweetnacl "^1.0.1"
 
+near-api-js@^0.43.1:
+  version "0.43.1"
+  resolved "https://registry.yarnpkg.com/near-api-js/-/near-api-js-0.43.1.tgz#aa3f1669afae9eb37f65b02dca3f28472ebe4bb7"
+  integrity sha512-bgFuboD/a3eintaWqWMN9oWcGHkxbrKiJhxkJwHmwJrYx49y9QvWwEtoxeHSjKskJHUVXGKvaYRsc9XirrJ5JQ==
+  dependencies:
+    bn.js "5.2.0"
+    borsh "^0.6.0"
+    bs58 "^4.0.0"
+    depd "^2.0.0"
+    error-polyfill "^0.1.3"
+    http-errors "^1.7.2"
+    js-sha256 "^0.9.0"
+    mustache "^4.0.0"
+    node-fetch "^2.6.1"
+    text-encoding-utf-8 "^1.0.2"
+    tweetnacl "^1.0.1"
+
 near-mock-vm@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/near-mock-vm/-/near-mock-vm-3.2.2.tgz#1476c4253c77ad50d3a63add098343757a720062"
@@ -10368,6 +10403,11 @@ u3@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/u3/-/u3-0.1.0.tgz#0060927663b68353c539cda99e9511d6687edd9d"
   integrity sha1-AGCSdmO2g1PFOc2pnpUR1mh+3Z0=
+
+u3@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/u3/-/u3-0.1.1.tgz#5f52044f42ee76cd8de33148829e14528494b73b"
+  integrity sha512-+J5D5ir763y+Am/QY6hXNRlwljIeRMZMGs0cT6qqZVVzzT3X3nFPXVyPOFRMOR4kupB0T8JnCdpWdp6Q/iXn3w==
 
 unbox-primitive@^1.0.1:
   version "1.0.1"
