@@ -34,10 +34,6 @@ export function ft_balance_of(account_id: string): string {
     }
 }
 
-export function ft_metadata(): FTContractMetadata {
-    return new FTContractMetadata()
-}
-
 export function ft_mine_to(account_id: string, amount: u128): string {
     assert(whitelist.includes(context.predecessor), 'Caller not whitelisted')
 
@@ -62,11 +58,30 @@ export function ft_mine_to(account_id: string, amount: u128): string {
 
 /** INIT */
 
-export function init(): void {
+export const METADATA_KEY = 'contract_metadata'
+
+export function init(contract_metadata: FTContractMetadata): void {
     assert(storage.get<string>('init') == null, 'Already initialized')
 
     storage.set(SUPPLY_KEY, ZERO_NEAR)
     storage.set(TREASURY_KEY, ZERO_NEAR)
 
+    storage.set(
+        METADATA_KEY,
+        new FTContractMetadata(
+            contract_metadata.spec,
+            contract_metadata.name,
+            contract_metadata.symbol,
+            contract_metadata.icon,
+            contract_metadata.reference,
+            contract_metadata.reference_hash,
+            contract_metadata.decimals
+        )
+    )
+
     storage.set('init', 'done')
+}
+
+export function ft_metadata(): FTContractMetadata {
+    return storage.getSome<FTContractMetadata>(METADATA_KEY)
 }

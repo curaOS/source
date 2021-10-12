@@ -1,5 +1,5 @@
-import { storage, u128 } from 'near-sdk-as'
-import { VMContext, VM } from 'near-mock-vm'
+import { storage } from 'near-sdk-as'
+import { VMContext } from 'near-mock-vm'
 import {
     ft_balance_of,
     ft_metadata,
@@ -8,6 +8,7 @@ import {
     init,
     SUPPLY_KEY,
 } from '../index'
+import { FTContractMetadata } from '../model'
 import { SHARE_ADDRESS } from '../../../accounts'
 
 const whitelistedAddress = SHARE_ADDRESS
@@ -17,8 +18,18 @@ import { toYocto } from '../../../utils'
 const condo = 'condo'
 const keith = 'keith'
 
+const initialize = (): void => {
+    const ftContractMetadata = new FTContractMetadata(
+        'ft-1.0.0',
+        'ftExample',
+        'FTEXAMPLE'
+    )
+    init(ftContractMetadata)
+}
+
 describe('- CONTRACT -', () => {
     beforeEach(() => {
+        initialize()
         VMContext.setSigner_account_id(condo)
     })
 
@@ -26,8 +37,8 @@ describe('- CONTRACT -', () => {
         const contractMetadata = ft_metadata()
 
         expect(contractMetadata.spec).toBe('ft-1.0.0')
-        expect(contractMetadata.name).toBe('Ysn')
-        expect(contractMetadata.symbol).toBe('YSN')
+        expect(contractMetadata.name).toBe('ftExample')
+        expect(contractMetadata.symbol).toBe('FTEXAMPLE')
     })
 
     it('xxx returns zero supply', () => {
@@ -35,17 +46,14 @@ describe('- CONTRACT -', () => {
     })
 
     it('xxx inits', () => {
-        init()
-
         expect(storage.hasKey(SUPPLY_KEY)).toBe(true)
     })
 })
 
 describe('- HODLER -', () => {
     beforeEach(() => {
+        initialize()
         VMContext.setSigner_account_id(condo)
-
-        init()
     })
 
     it('xxx returns zero balance', () => {
