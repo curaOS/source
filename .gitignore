@@ -1,6 +1,6 @@
 **/node_modules
 
-packages/contracts/as/build/
+packages/contracts/build/
 packages/contracts/asneardev/
 
 packages/components/dist/
