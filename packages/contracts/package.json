@@ -7,7 +7,6 @@
         "curasc": "index.js"
     },
     "scripts": {
-        "build-share": "asb -d ./as/SHARE",
         "build-ft": "asb -d ./as/FT",
         "build-market": "asb -d ./as/Market",
         "build-nft": "asb -d ./as/NFT",
