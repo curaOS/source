@@ -27,16 +27,8 @@ import { assert_deposit_attached } from './asserts'
 import { AccountId } from '../../utils'
 import { xcc_generator_generate } from './xcc_generator'
 
-const XCC_FT_MINE_TO_GAS = 25000000000000
-
-const ONE_YSN = u128.from('1000000000000000000000000')
-
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
 const OWNER_PERCENTAGE: u16 = 7500 // 75%
-
-const YSN_FOR_DESIGN = u128.div(ONE_YSN, u128.from(10)) // 0.1 YSN
-const YSN_FOR_CLAIM = u128.div(ONE_YSN, u128.from(1)) // 1 YSN
-const YSN_FOR_EXPLORE = u128.div(ONE_YSN, u128.from(20)) // 0.05 YSN
 
 export function claim_media(tokenMetadata: TokenMetadata): Media {
     assert_deposit_attached(DESIGN_PRICE)
@@ -176,37 +168,6 @@ export function nft_transfer(token_id: string, bidder: string): void {
 
     accountMedia.delete(token_id)
     account_media.set(design.prev_owner, accountMedia)
-}
-
-/* XCC ft_mine_to */
-
-@nearBindgen
-class FTMineToArgs {
-    account_id: string
-    amount: u128
-}
-
-function xcc_ft_mine_to_and_transfer(
-    account_id: string,
-    amount: u128,
-    near_amount_to_deposit: u128 = u128.Zero
-): void {
-    const remoteMethod = 'ft_mine_to'
-
-    let remoteMethodArgs: FTMineToArgs = {
-        account_id: account_id,
-        amount: amount,
-    }
-
-    const promise = ContractPromise.create(
-        FT_CONTRACT,
-        remoteMethod,
-        remoteMethodArgs,
-        XCC_FT_MINE_TO_GAS,
-        near_amount_to_deposit
-    )
-
-    promise.returnAsResult()
 }
 
 /* Market */
