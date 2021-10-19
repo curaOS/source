@@ -120,7 +120,7 @@ const Create = ({}) => {
                     sx={{
                         alignSelf: 'center',
                         alignItems: 'center',
-                        background: 'var(--theme-ui-colors-gray-3)',
+                        bg: 'gray.3',
                         display: 'flex',
                         height: frameDimension,
                         justifyContent: 'center',
