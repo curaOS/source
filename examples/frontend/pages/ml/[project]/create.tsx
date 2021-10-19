@@ -57,7 +57,7 @@ const modelProps = {
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
-const MLProjectCreate = ({ }) => {
+const MLProjectCreate = ({}) => {
     const router = useRouter()
     const project = `ml/${router.query.project}`
     const { contract } = useNFTContract(
@@ -163,7 +163,7 @@ const MLProjectCreate = ({ }) => {
                     sx={{
                         alignSelf: 'center',
                         alignItems: 'center',
-                        background: 'var(--theme-ui-colors-gray-3)',
+                        bg: 'gray.3',
                         display: 'flex',
                         height: frameDimension,
                         justifyContent: 'center',
