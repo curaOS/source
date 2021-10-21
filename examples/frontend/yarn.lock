@@ -2406,10 +2406,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cura/components@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.9.tgz#e6a6c52744a3bdd582fb6fc8440323d748e3d004"
-  integrity sha512-2FHoey476Gmj6vIwXJRRMZn8HHvfc1tQTDVx95Su91uy4MKvvkdMZwaos/AlCkgpzmwhis9HfTtYQsx3szSj6A==
+"@cura/components@0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.12.tgz#aab3001c6eb5deff9b9551319015c4fff5fff916"
+  integrity sha512-/SqmF1L5Ft4XdUwRUIaO/690QcCOC3G49ofA3NN3ElKd2mjC4Ie8QbYZMKdLpLBROsP1wtg44Pqg1NHJiCT3FQ==
   dependencies:
     "@theme-ui/presets" "^0.6.0"
     near-api-js "^0.42.0"
