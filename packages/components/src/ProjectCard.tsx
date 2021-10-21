@@ -43,7 +43,8 @@ export function ProjectCard({
                 <Image
                     src={image}
                     width={300}
-                    sx={{ borderTopRightRadius: 2, borderTopLeftRadius: 2 }}
+                    height={300}
+                    sx={{ borderTopRightRadius: 2, borderTopLeftRadius: 2, bg: 'gray.3' }}
                 />
                 <div
                     sx={{
