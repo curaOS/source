@@ -1,7 +1,7 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { IconButton } from 'theme-ui'
+import { IconButton, useThemeUI } from 'theme-ui'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ProjectCard } from '@cura/components'
 import { useState } from 'react'
@@ -73,6 +73,8 @@ const Index = () => {
     const router = useRouter()
     const [[page, direction], setPage] = useState([0, 0])
 
+    const { theme } = useThemeUI()
+
     const slidify = (newDirection: number) => {
         if (page == slideDetails.length - 1 && newDirection == 1) {
             setPage([0, newDirection])
@@ -88,8 +90,7 @@ const Index = () => {
             sx={{
                 overflow: 'hidden',
                 bg: 'gray.3',
-                backgroundImage:
-                    'radial-gradient(circle, #d7d7dd, #e1e1e5, #ebebee, #f5f5f6, #ffffff)',
+                backgroundImage: `radial-gradient(circle, ${theme.colors.gray[3]} 10%, ${theme.colors.gray[2]} 44%, ${theme.colors.gray[5]} 100%)`,
             }}
         >
             <motion.div
