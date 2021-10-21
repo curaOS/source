@@ -72,10 +72,14 @@ const slideVariants = {
 const Index = () => {
     const router = useRouter()
     const [[page, direction], setPage] = useState([0, 0])
+    const [pauseSlider, setPauseSlider] = useState(0)
 
     const { theme } = useThemeUI()
 
     const slidify = (newDirection: number) => {
+        if (pauseSlider) return
+        setPauseSlider(1)
+        setTimeout(() => setPauseSlider(0), 300)
         if (page == slideDetails.length - 1 && newDirection == 1) {
             setPage([0, newDirection])
         } else if (page == 0 && newDirection < 0) {
