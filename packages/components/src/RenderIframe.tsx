@@ -1,6 +1,9 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
+import { useState, useEffect } from 'react'
+import { Placeholder } from './Placeholder'
+
 export function RenderIframe({
     mediaURI,
     code,
@@ -10,27 +13,28 @@ export function RenderIframe({
     code?: string
     width?: number
 }) {
-    if (code) {
-        return (
+    const [isLoading, setIsLoading] = useState(true)
+
+    return (
+        <>
+            {isLoading && (
+                <Placeholder width={width} height={width} style={{ my: 0 }} />
+            )}
             <iframe
-                srcDoc={code}
+                sx={{
+                    position: isLoading && 'absolute',
+                    top: isLoading && '-10000px',
+                }}
+                src={mediaURI ? mediaURI : null}
+                srcDoc={code ? code : null}
                 width={width}
                 height={width}
                 frameBorder="0"
+                scrolling="no"
+                onLoad={() => {
+                    setIsLoading(false)
+                }}
             ></iframe>
-        )
-    }
-
-    if (mediaURI) {
-        return (
-            <iframe
-                src={mediaURI}
-                width={width}
-                height={width}
-                frameBorder="0"
-            ></iframe>
-        )
-    }
-
-    return null
+        </>
+    )
 }
