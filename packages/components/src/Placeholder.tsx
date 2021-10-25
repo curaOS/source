@@ -17,15 +17,15 @@ export function Placeholder({
     width = 160,
     style
 }: {
-    height?: number
-    width?: number
+    height: number
+    width: number
     style?: object
 }) {
     return (
         <div
             sx={{
                 height: height + 'px',
-                width: width + 'px',
+                width: width,
                 bg: 'gray.3',
                 borderRadius: 3,
                 my: 2,
