@@ -1,8 +1,9 @@
 // @ts-nocheck
 import { useEffect, useState } from 'react'
 import { useNearHooksContainer } from './near'
-import { getContractMethods } from './near-utils'
+import { getContractMethods, networkId, nodeUrl } from './near-utils'
 import useSWR from 'swr'
+import { connect, Contract } from 'near-api-js'
 
 export default function useNFTContract(
     contractAddress: string = '0.share-nft.testnet'
@@ -53,6 +54,54 @@ export const useNFTMethod = (
     )
 
     updateStatus && updateStatus(error, data, validParams)
+
+    return {
+        data: data,
+        loading: !error && !data,
+        error: error,
+    }
+}
+
+export const useViewNFTMethod = (
+    contractAddress: string,
+    methodName: string,
+    params: {}
+) => {
+    const config = { networkId, nodeUrl }
+
+    const fetcher = async (methodName: string, serializedParams: string) => {
+        const near = await connect({
+            networkId,
+            nodeUrl,
+            deps: {
+                keyStore: null,
+            },
+        })
+        const account = await near.account(null)
+
+        const contract = await new Contract(account, contractAddress, {
+            viewMethods: [
+                'nft_token',
+                'nft_total_supply',
+                'nft_tokens',
+                'nft_supply_for_owner',
+                'nft_tokens_for_owner',
+                'nft_metadata',
+            ],
+            changeMethods: [''],
+        })
+
+        const params = JSON.parse(serializedParams)
+
+        return await contract[methodName]({ ...params }).then((res) => {
+            return res
+        })
+    }
+
+    const { data, error } = useSWR(
+        [methodName, JSON.stringify(params)],
+        fetcher
+    )
 
     return {
         data: data,

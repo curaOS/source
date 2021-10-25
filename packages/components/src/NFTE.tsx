@@ -6,59 +6,7 @@ import { RenderIframe } from './RenderIframe'
 import { Placeholder } from './Placeholder'
 
 import { useEffect, useState } from 'react'
-import { connect, Contract } from 'near-api-js'
-
-async function getNFT(
-    contractAddress: string,
-    tokenId: string
-) {
-    const config = {
-        networkId: 'testnet',
-        nodeUrl: 'https://rpc.testnet.near.org',
-    }
-
-    const loadNfts = async () => {
-        try {
-            const near = await connect({ ...config, deps: { keyStore: null } })
-            const account = await near.account(null)
-
-            const contract = await new Contract(account, contractAddress, {
-                viewMethods: ['nft_token'],
-                changeMethods: [''],
-            })
-
-            const res = await contract.nft_token({ token_id: tokenId })
-            return res
-        } catch (e) {
-            throw e
-        }
-    }
-
-    const data = await loadNfts()
-
-    return data
-}
-
-const tempNft = {
-    id: '',
-    owner_id: '',
-    creator: '',
-    prev_owner: '',
-    metadata: {
-        title: '',
-        issued_at: '',
-        copies: 0,
-        media: '',
-        extra: '',
-        description: '',
-        media_hash: '',
-        expires_at: '',
-        starts_at: '',
-        updated_at: '',
-        reference: '',
-        reference_hash: '',
-    },
-}
+import { useViewNFTMethod } from '@cura/hooks'
 
 export function NFTE({
     contract,
@@ -69,17 +17,18 @@ export function NFTE({
     tokenId?: string
     isDark?: boolean
 }) {
-    const [NFTData, setNFTData] = useState(tempNft)
-    const [loading, setLoading] = useState(true)
+    const [NFTData, setNFTData] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
 
     const width = 400
 
+    const { loading, data } = useViewNFTMethod(contract, 'nft_token', {
+        token_id: tokenId,
+    })
     useEffect(() => {
-        getNFT(contract, tokenId).then((data) => {
-            setNFTData(data)
-            setLoading(false)
-        })
-    }, [])
+        setNFTData(data)
+        setIsLoading(loading)
+    }, [contract, tokenId, data])
 
     return (
         <Box
@@ -96,7 +45,7 @@ export function NFTE({
             {!loading && NFTData?.metadata?.media ? (
                 <RenderIframe
                     loading={loading}
-                    mediaURI={`https://arweave.net/${NFTData.metadata.media}`}
+                    mediaURI={`https://arweave.net/${NFTData?.metadata?.media}`}
                     width={width}
                     height={width}
                     sx={{
@@ -109,11 +58,11 @@ export function NFTE({
                 <Placeholder width={width} height={width} style={{ my: 0 }} />
             )}
 
-        <Metadata
-                title={NFTData.metadata.title}
-                description={NFTData.metadata.description}
-                creator={NFTData.creator}
-                owner={NFTData.owner_id}
+            <Metadata
+                title={NFTData?.metadata?.title}
+                description={NFTData?.metadata?.description}
+                creator={NFTData?.creator}
+                owner={NFTData?.owner_id}
                 width={width}
                 loading={loading}
             />
