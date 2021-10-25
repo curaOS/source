@@ -42,25 +42,24 @@ export function MediaObject({
     mediaURI?: string
     autoPlay: boolean
 }) {
+    const [mediaType, setMediaType] = useState()
+    const { contentType } = useNFTContentType(mediaURI)
 
-    const [contentType, setContentType] = useState()
-    const { data } = useNFTContentType(mediaURI)
+    useEffect(() => {
+        setMediaType(contentType)
+    }, [mediaURI, contentType])
 
-    useEffect(()=>{
-        setContentType(data)
-    }, [mediaURI, something])
-
-    switch (contentType) {
+    switch (mediaType) {
         case 'image':
             return <Image media={mediaURI} />
-        
+
         case 'video':
             return <Video media={mediaURI} autoPlay={autoPlay} />
-        
+
         case 'audio':
             return <Audio media={mediaURI} />
 
-        case 'text': 
+        case 'text':
             return <Text media={mediaURI} />
 
         case 'html' || 'other':
