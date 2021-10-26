@@ -4,12 +4,10 @@
 import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../containers/Layout'
-import { CreatorShare } from '@cura/components'
-import { Bidders } from '@cura/components'
+import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
-import { RenderIframe } from '@cura/components'
 import { getFrameWidth } from 'utils/frame-width'
 import { useNearHooksContainer, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
@@ -104,7 +102,7 @@ const View = ({}) => {
                     }}
                 >
                     {media?.[0]?.metadata?.media && (
-                        <RenderIframe
+                        <MediaObject
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
                             width={mediaDimension}
                         />
