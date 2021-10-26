@@ -6,7 +6,7 @@ import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
 
-import { CreatorShare, RenderIframe } from '@cura/components'
+import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
@@ -136,10 +136,13 @@ const MLProjectCreate = ({}) => {
                     }}
                 >
                     {creativeCode && (
-                        <RenderIframe
-                            code={creativeCode}
+                        <iframe
+                            srcDoc={creativeCode}
                             width={frameDimension}
-                        ></RenderIframe>
+                            height={frameDimension}
+                            frameBorder="0"
+                            scrolling="no"
+                        ></iframe>
                     )}
                 </div>
                 <div

@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 import { Box } from 'theme-ui'
 import { Metadata } from './Metadata'
-import { RenderIframe } from './RenderIframe'
+import { MediaObject } from './MediaObject'
 import { Placeholder } from './Placeholder'
 
 import { useEffect, useState } from 'react'
@@ -43,16 +43,9 @@ export function NFTE({
             }}
         >
             {!loading && NFTData?.metadata?.media ? (
-                <RenderIframe
-                    loading={loading}
+                <MediaObject
                     mediaURI={`https://arweave.net/${NFTData?.metadata?.media}`}
                     width={width}
-                    height={width}
-                    sx={{
-                        borderTopRightRadius: 2,
-                        borderTopLeftRadius: 2,
-                        bg: 'gray.3',
-                    }}
                 />
             ) : (
                 <Placeholder width={width} height={width} style={{ my: 0 }} />

@@ -6,8 +6,7 @@ import { Button, Flex, Box, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
-import { CreatorShare } from '@cura/components'
-import { Bidders } from '@cura/components'
+import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
@@ -110,8 +109,8 @@ const MLProject = ({}) => {
                     }}
                 >
                     {media && (
-                        <img
-                            src={`https://arweave.net/${media.metadata.media}`}
+                        <MediaObject
+                            mediaURI={`https://arweave.net/${media.metadata.media}`}
                             width={frameDimension}
                         />
                     )}
