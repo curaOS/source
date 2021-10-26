@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { useNFTContentType } from '@cura/hooks'
+import { Placeholder } from './Placeholder'
 
 type mediaObjectProps = {
     mediaURI: string
@@ -70,12 +71,21 @@ function Iframe({ mediaURI, width, height }: mediaObjectProps) {
 
 export function MediaObject(props: mediaObjectProps) {
     const [mediaType, setMediaType] = useState()
-    const { contentType } = useNFTContentType(props.mediaURI)
+    const { loading, contentType } = useNFTContentType(props.mediaURI)
 
     useEffect(() => {
         setMediaType(contentType)
     }, [props.mediaURI, contentType])
 
+    if (loading || props.loading) {
+        return (
+            <Placeholder
+                width={props.width}
+                height={props.height || props.width}
+                style={{ my: 0 }}
+            />
+        )
+    }
     switch (contentType) {
         case 'image':
             return <Image {...props} />
