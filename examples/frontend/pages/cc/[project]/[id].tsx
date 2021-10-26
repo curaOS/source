@@ -5,7 +5,7 @@ import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
-import { Bidders, RenderIframe, CreatorShare } from '@cura/components'
+import { Bidders, CreatorShare, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { mapPathToProject } from 'utils/path-to-project'
@@ -107,7 +107,7 @@ const CCProjectID = ({}) => {
                     }}
                 >
                     {media && (
-                        <RenderIframe
+                        <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
                             width={frameDimension}
                         />
