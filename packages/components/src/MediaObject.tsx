@@ -4,11 +4,18 @@
 import { useState, useEffect } from 'react'
 import { useNFTContentType } from '@cura/hooks'
 
-function Text({ media, width, height }) {
+type mediaObjectProps = {
+    mediaURI: string
+    width?: number
+    height?: number
+    autoPlay?: boolean
+}
+
+function Text({ mediaURI, width, height }: mediaObjectProps) {
     const [content, setContent] = useState('')
 
     useEffect(() => {
-        fetch(media)
+        fetch(mediaURI)
             .then((r) => r.text())
             .then((r) => setContent(r))
     }, [])
@@ -17,7 +24,7 @@ function Text({ media, width, height }) {
         <div
             sx={{
                 width: width,
-                height: height,
+                height: height || width,
             }}
         >
             {content}
@@ -25,90 +32,65 @@ function Text({ media, width, height }) {
     )
 }
 
-function Video({ media, width, height, autoPlay }) {
+function Video({ mediaURI, width, height, autoPlay }: mediaObjectProps) {
     return (
-        <video width={width} height={height} muted autoPlay={autoPlay} controls={!autoPlay} loop playsInline>
-            <source src={media} />
+        <video
+            width={width}
+            height={height || width}
+            muted
+            autoPlay={autoPlay}
+            controls={!autoPlay}
+            loop
+            playsInline
+        >
+            <source src={mediaURI} />
         </video>
     )
 }
 
-function Audio({ media, width, height, }) {
-    return <audio controls src={media}></audio>
+function Audio({ mediaURI, width, height }: mediaObjectProps) {
+    return <audio controls src={mediaURI}></audio>
 }
 
-function Image({ media, width, height, }) {
-    return <img width={width} height={height} src={media} />
+function Image({ mediaURI, width, height }: mediaObjectProps) {
+    return <img width={width} height={height || width} src={mediaURI} />
 }
 
-function Iframe({ media, width, height, }) {
-    return <iframe width={width} height={height} src={media} frameBorder="0" scrolling="no"></iframe>
+function Iframe({ mediaURI, width, height }: mediaObjectProps) {
+    return (
+        <iframe
+            width={width}
+            height={height || width}
+            src={mediaURI}
+            frameBorder="0"
+            scrolling="no"
+        ></iframe>
+    )
 }
 
-export function MediaObject({
-    mediaURI,
-    width,
-    height,
-    autoPlay = false,
-}: {
-    mediaURI?: string
-    width?: number
-    height?: number
-    autoPlay: boolean
-}) {
+export function MediaObject(props: mediaObjectProps) {
     const [mediaType, setMediaType] = useState()
-    const { contentType } = useNFTContentType(mediaURI)
+    const { contentType } = useNFTContentType(props.mediaURI)
 
     useEffect(() => {
         setMediaType(contentType)
-    }, [mediaURI, contentType])
+    }, [props.mediaURI, contentType])
 
-    switch (mediaType) {
+    switch (contentType) {
         case 'image':
-            return (
-                <Image
-                    media={mediaURI}
-                    width={width}
-                    height={height ? height : width}
-                />
-            )
+            return <Image {...props} />
 
         case 'video':
-            return (
-                <Video
-                    media={mediaURI}
-                    width={width}
-                    height={height ? height : width}
-                    autoPlay={autoPlay}
-                />
-            )
+            return <Video {...props} />
 
         case 'audio':
-            return (
-                <Audio
-                    media={mediaURI}
-                    width={width}
-                    height={height ? height : width}
-                />
-            )
+            return <Audio {...props} />
 
         case 'text':
-            return (
-                <Text
-                    media={mediaURI}
-                    width={width}
-                    height={height ? height : width}
-                />
-            )
+            return <Text {...props} />
 
         case 'html' || 'other':
-            return (
-                <Iframe
-                    media={mediaURI}
-                    width={width}
-                    height={height ? height : width}
-                />
-            )
+            return <Iframe {...props} />
 
         default:
             return <></>
