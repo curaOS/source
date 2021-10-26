@@ -5,6 +5,13 @@ import { getContractMethods, networkId, nodeUrl } from './near-utils'
 import useSWR from 'swr'
 import { connect, Contract } from 'near-api-js'
 
+/**
+ * Hook to retrieve an NFT contract
+ *
+ * @param {string} contractAddress - contract adress
+ * @returns {object} { contract }
+ */
+
 export default function useNFTContract(
     contractAddress: string = '0.share-nft.testnet'
 ) {
@@ -29,6 +36,16 @@ export default function useNFTContract(
 
     return { contract }
 }
+
+/**
+ * Hook to execute an NFT contract method
+ *
+ * @param {string} contractAddress - contract adress
+ * @param {string} methodName - the view method to execute
+ * @param {object} params - method parameters
+ * @param {number} gas - gas limit
+ * @returns {object} { error, loading, data }
+ */
 
 export const useNFTMethod = (
     contractAddress: string,
@@ -61,6 +78,15 @@ export const useNFTMethod = (
         error: error,
     }
 }
+
+/**
+ * Hook to execute an NFT contract view method without an account
+ *
+ * @param {string} contractAddress - contract adress
+ * @param {string} methodName - the view method to execute
+ * @param {object} params - method parameters
+ * @returns {object} { error, loading, data }
+ */
 
 export const useViewNFTMethod = (
     contractAddress: string,
