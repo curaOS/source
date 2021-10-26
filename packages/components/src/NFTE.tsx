@@ -3,7 +3,6 @@
 import { Box } from 'theme-ui'
 import { Metadata } from './Metadata'
 import { MediaObject } from './MediaObject'
-import { Placeholder } from './Placeholder'
 
 import { useEffect, useState } from 'react'
 import { useViewNFTMethod } from '@cura/hooks'
@@ -42,14 +41,11 @@ export function NFTE({
                 color: isDark ? 'white' : 'gray.9',
             }}
         >
-            {!loading && NFTData?.metadata?.media ? (
-                <MediaObject
-                    mediaURI={`https://arweave.net/${NFTData?.metadata?.media}`}
-                    width={width}
-                />
-            ) : (
-                <Placeholder width={width} height={width} style={{ my: 0 }} />
-            )}
+            <MediaObject
+                mediaURI={`https://arweave.net/${NFTData?.metadata?.media}`}
+                width={width}
+                loading={loading}
+            />
 
             <Metadata
                 title={NFTData?.metadata?.title}
