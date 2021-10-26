@@ -13,9 +13,9 @@ export function NFTE({
     tokenId,
     isDark = true,
 }: {
-    contract?: string
-    tokenId?: string
-    isDark?: boolean
+    contract: string
+    tokenId: string
+    isDark: boolean
 }) {
     const [NFTData, setNFTData] = useState({})
     const [isLoading, setIsLoading] = useState(true)

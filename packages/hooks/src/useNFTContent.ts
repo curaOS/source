@@ -4,9 +4,9 @@ import useSWR from 'swr'
 type NFTContentType = 'image' | 'video' | 'audio' | 'text' | 'html' | 'other'
 
 type useNFTContentType = {
-    error: string | undefined
-    loading: boolean | undefined
-    contentType: NFTContentType | undefined
+    error?: string
+    loading?: boolean
+    contentType?: NFTContentType
 }
 
 /**
