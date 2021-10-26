@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../containers/Layout'
-import { CreatorShare, RenderIframe } from '@cura/components'
+import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
@@ -128,10 +128,13 @@ const Create = ({}) => {
                     }}
                 >
                     {creativeCode && (
-                        <RenderIframe
-                            code={creativeCode}
+                        <iframe
+                            srcDoc={creativeCode}
                             width={frameDimension}
-                        ></RenderIframe>
+                            height={frameDimension}
+                            frameBorder="0"
+                            scrolling="no"
+                        ></iframe>
                     )}
                 </div>
                 <div

@@ -7,7 +7,7 @@ import Layout from '../../../containers/Layout'
 import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import Link from 'next/link'
 import { mapPathToProject } from 'utils/path-to-project'
-import { RenderIframe } from '@cura/components'
+import { MediaObject } from '@cura/components'
 import { getFrameWidth } from 'utils/frame-width'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
@@ -77,7 +77,7 @@ const CCProject = ({}) => {
                                             }}
                                         >
                                             {metadata?.media && (
-                                                <RenderIframe
+                                                <MediaObject
                                                     mediaURI={`https://arweave.net/${metadata.media}`}
                                                     width={frameDimension}
                                                 />
