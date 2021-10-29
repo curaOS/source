@@ -112,6 +112,7 @@ const MLProject = ({}) => {
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
                             width={frameDimension}
+                            height={frameDimension}
                         />
                     )}
                 </div>

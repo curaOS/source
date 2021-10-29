@@ -124,6 +124,7 @@ const Explore = ({}) => {
                         <MediaObject
                             mediaURI={`https://arweave.net/${randomDesign.metadata.media}`}
                             width={designDimension}
+                            height={designDimension}
                         />
                     )}
                 </div>
@@ -134,10 +135,7 @@ const Explore = ({}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Metadata
-                        title={randomDesign?.metadata.title}
-                        creator={randomDesign?.owner_id}
-                    />
+                    <Metadata data={randomDesign} loading={false} />
                 </div>
                 <div
                     sx={{
