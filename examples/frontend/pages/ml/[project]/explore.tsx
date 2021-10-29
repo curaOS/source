@@ -6,7 +6,12 @@ import { Button, Divider } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
-import { BidCreate, Metadata, CreatorShare, MediaObject } from '@cura/components'
+import {
+    BidCreate,
+    Metadata,
+    CreatorShare,
+    MediaObject,
+} from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import {
@@ -128,6 +133,7 @@ const Explore = ({}) => {
                         <MediaObject
                             mediaURI={`https://arweave.net/${randomDesign?.metadata.media}`}
                             width={frameDimension}
+                            height={frameDimension}
                         />
                     )}
                 </div>
@@ -138,10 +144,7 @@ const Explore = ({}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Metadata
-                        title={randomDesign?.id}
-                        creator={randomDesign?.owner_id}
-                    />
+                    <Metadata data={randomDesign} loading={false} />
                 </div>
                 <div
                     sx={{

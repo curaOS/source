@@ -105,6 +105,7 @@ const View = ({}) => {
                         <MediaObject
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
                             width={mediaDimension}
+                            height={mediaDimension}
                         />
                     )}
                 </div>
