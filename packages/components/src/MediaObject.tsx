@@ -49,7 +49,7 @@ function Video({ mediaURI, width, height, autoPlay }: mediaObjectProps) {
     )
 }
 
-function Audio({ mediaURI, width, height }: mediaObjectProps) {
+function Audio({ mediaURI }: mediaObjectProps) {
     return <audio controls src={mediaURI}></audio>
 }
 
