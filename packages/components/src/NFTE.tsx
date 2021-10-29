@@ -3,6 +3,7 @@
 import { useNFT, useNFTContractMetadata, useNFTReference } from '@cura/hooks'
 
 import { Container } from 'theme-ui'
+import { useBreakpointIndex } from '@theme-ui/match-media'
 import { Metadata } from './Metadata'
 import { MediaObject } from './MediaObject'
 
@@ -15,7 +16,9 @@ export function NFTE({
     tokenId: string
     isDark: boolean
 }) {
-    const width = 400
+    const canvasSizes = [300, 400]
+    const BreakpointIndex = useBreakpointIndex()
+    const canvasSize = canvasSizes[BreakpointIndex]
 
     // Get NFT contract metadata
     const {
@@ -40,7 +43,7 @@ export function NFTE({
         error: NFTReferenceError,
         loading: NFTReferenceLoading,
         data: NFTReference,
-    } = useNFTReference(referenceURI)
+    } = referenceURI ? useNFTReference(referenceURI) : {}
 
     // replace null values from NFTMetadata with values from the NFTReference
     const finalNFTMetadata = {
@@ -65,25 +68,29 @@ export function NFTE({
 
     let error =
         NFTContractMetadataError || NFTError || NFTReferenceError || false
-    if (error) throw new Error(error)
+    // if (error) throw new Error(error)
 
     return (
         <Container
             sx={{
                 pb: 12,
                 border: '2px solid',
-                maxWidth: '80vw',
-                width: width + 4,
+                width: canvasSize + 4,
                 borderRadius: 4,
                 borderColor: isDark ? 'gray.4' : 'muted',
                 backgroundColor: isDark ? 'gray.9' : 'white',
                 color: isDark ? 'white' : 'gray.9',
             }}
         >
-            <MediaObject mediaURI={mediaUri} width={'100%'} loading={loading} />
+            <MediaObject
+                mediaURI={mediaUri || ''}
+                width={canvasSize}
+                height={canvasSize}
+                loading={loading}
+            />
             <Metadata
                 data={finalNFTMetadata}
-                width={'100%'}
+                width={canvasSize}
                 loading={loading}
             />
         </Container>
@@ -91,8 +98,8 @@ export function NFTE({
 }
 
 function validateURI(uri = '', base_uri = '') {
-    if (!uri) return
+    if (!uri) return false
     if (uri?.includes('http')) return uri
 
-    return base_uri + '/' + uri.replace(/^\//, '')
+    return base_uri.replace(/\/$/, '') + '/' + uri.replace(/^\//, '')
 }
