@@ -9,17 +9,9 @@ export default {
     },
 } as ComponentMeta<typeof NFTE>
 
-const Template: ComponentStory<typeof NFTE> = (args) => (
-    <NFTE {...args} />
-)
+const Template: ComponentStory<typeof NFTE> = (args) => <NFTE {...args} />
 
-export const Light = Template.bind({})
-Light.args = {
-    contract: '0.share-nft.testnet',
-    tokenId: 'sekaiking-67849861',
-    isDark: false,
-}
-
+// Hooks that are used currently only support one Network at time
 
 export const Dark = Template.bind({})
 Dark.args = {
@@ -33,7 +25,6 @@ export const Ml1c = Template.bind({})
 Ml1c.args = {
     contract: 'ml1c.ysn-1_0_0.ysn.testnet',
     tokenId: 'ysn-63057373',
-    isDark: false,
 }
 
 export const Ml1w = Template.bind({})
@@ -41,7 +32,6 @@ export const Ml1w = Template.bind({})
 Ml1w.args = {
     contract: 'ml1w.ysn-1_0_0.ysn.testnet',
     tokenId: 'ghostfrnvpr-62641894',
-    isDark: false,
 }
 
 export const Aprts = Template.bind({})
@@ -49,7 +39,6 @@ export const Aprts = Template.bind({})
 Aprts.args = {
     contract: 'apparitions.art-blocks.testnet',
     tokenId: 'ysn-58907469',
-    isDark: false,
 }
 
 export const Sqgl = Template.bind({})
@@ -57,6 +46,18 @@ export const Sqgl = Template.bind({})
 Sqgl.args = {
     contract: 'squiggle.art-blocks.testnet',
     tokenId: 'ysn-62113954',
-    isDark: false,
 }
 
+export const Parasid = Template.bind({})
+
+Parasid.args = {
+    contract: 'x.paras.near',
+    tokenId: '10002:1',
+}
+
+export const Mintbase = Template.bind({})
+
+Mintbase.args = {
+    contract: 'hellovirtualworld.mintbase1.near',
+    tokenId: '2',
+}
