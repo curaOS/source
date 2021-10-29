@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import { keyframes } from '@emotion/react'
@@ -13,18 +12,18 @@ to {
 `
 
 export function Placeholder({
-    height = 20,
-    width = 160,
-    style
+    height = '20px',
+    width = '160px',
+    style,
 }: {
-    height: number
-    width: number
+    height?: number | string
+    width?: number | string
     style?: object
 }) {
     return (
         <div
             sx={{
-                height: height + 'px',
+                height: height,
                 width: width,
                 bg: 'gray.3',
                 borderRadius: 3,
