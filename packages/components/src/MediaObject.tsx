@@ -1,4 +1,3 @@
-// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
 import { useState, useEffect } from 'react'
@@ -7,8 +6,9 @@ import { Placeholder } from './Placeholder'
 
 type mediaObjectProps = {
     mediaURI: string
-    width?: number
-    height?: number
+    width?: number | string
+    height?: number | string
+    loading?: boolean
     autoPlay?: boolean
 }
 
@@ -25,7 +25,7 @@ function Text({ mediaURI, width, height }: mediaObjectProps) {
         <div
             sx={{
                 width: width,
-                height: height || width,
+                height: height,
             }}
         >
             {content}
@@ -37,7 +37,7 @@ function Video({ mediaURI, width, height, autoPlay }: mediaObjectProps) {
     return (
         <video
             width={width}
-            height={height || width}
+            height={height}
             muted
             autoPlay={autoPlay}
             controls={!autoPlay}
@@ -54,39 +54,40 @@ function Audio({ mediaURI, width, height }: mediaObjectProps) {
 }
 
 function Image({ mediaURI, width, height }: mediaObjectProps) {
-    return <img width={width} height={height || width} src={mediaURI} />
+    return (
+        <img
+            sx={{ width: width, height: height, bg: 'gray.3' }}
+            src={mediaURI}
+        />
+    )
 }
 
 function Iframe({ mediaURI, width, height }: mediaObjectProps) {
     return (
         <iframe
             width={width}
-            height={height || width}
+            height={height}
             src={mediaURI}
             frameBorder="0"
             scrolling="no"
+            sx={{ bg: 'gray.3' }}
         ></iframe>
     )
 }
 
 export function MediaObject(props: mediaObjectProps) {
-    const [mediaType, setMediaType] = useState()
-    const { loading, contentType } = useNFTContentType(props.mediaURI)
+    const { loading, data } = useNFTContentType(props.mediaURI)
 
-    useEffect(() => {
-        setMediaType(contentType)
-    }, [props.mediaURI, contentType])
-
-    if (loading || props.loading) {
+    if (props.loading || loading) {
         return (
             <Placeholder
                 width={props.width}
-                height={props.height || props.width}
+                height={props.height || '400px'}
                 style={{ my: 0 }}
             />
         )
     }
-    switch (contentType) {
+    switch (data) {
         case 'image':
             return <Image {...props} />
 
