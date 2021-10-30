@@ -19,16 +19,23 @@ describe('useNFTReference', () => {
             )
         )
 
-        // loading true, no errors, data is undefined
+        // loading true, errors undefined, data undefined
         expect(result.current.loading).toBe(true)
         expect(result.current.error).toBeUndefined()
         expect(result.current.data).toBeUndefined()
 
         await waitForNextUpdate()
 
-        // loading complete, no errors, data should be object
+        // loading false, no errors, data should be object
         expect(result.current.loading).toBe(false)
         expect(result.current.error).toBeUndefined()
         expect(typeof result.current.data).toEqual('object')
+    })
+    test('should return an error', async () => {
+        const { result } = renderHook(() => useNFTReference(''))
+        // loading false, error exist, data undefined
+        expect(result.current.loading).toBe(false)
+        expect(typeof result.current.error).toEqual('string')
+        expect(result.current.data).toBeUndefined()
     })
 })
