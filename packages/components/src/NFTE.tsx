@@ -16,9 +16,9 @@ export function NFTE({
     tokenId: string
     isDark: boolean
 }) {
-    const canvasSizes = [300, 400]
-    const BreakpointIndex = useBreakpointIndex()
-    const canvasSize = canvasSizes[BreakpointIndex]
+    const canvasSizes = [290, 300, 400, 400, 400]
+    const breakpointIndex = useBreakpointIndex()
+    const canvasSize = canvasSizes[breakpointIndex]
 
     // Get NFT contract metadata
     const {
@@ -43,7 +43,7 @@ export function NFTE({
         error: NFTReferenceError,
         loading: NFTReferenceLoading,
         data: NFTReference,
-    } = referenceURI ? useNFTReference(referenceURI) : {}
+    } = useNFTReference(referenceURI)
 
     // replace null values from NFTMetadata with values from the NFTReference
     const finalNFTMetadata = {
@@ -58,17 +58,22 @@ export function NFTE({
         creator_id:
             NFTMetadata?.creator_id?.Account ||
             NFTMetadata?.creator_id ||
+            NFTMetadata?.creator ||
             NFTReference?.creator_id,
     }
 
     const mediaUri = validateURI(finalNFTMetadata?.metadata?.media, baseURI)
 
-    let loading =
-        NFTContractMetadataLoading || NFTLoading || NFTReferenceLoading || false
-
     let error =
-        NFTContractMetadataError || NFTError || NFTReferenceError || false
-    // if (error) throw new Error(error)
+        NFTContractMetadataError ||
+        NFTError ||
+        (!NFTMetadata && { type: 'invalid NFTMetadata' })
+
+    let loading =
+        NFTContractMetadataLoading || NFTLoading || NFTReferenceLoading
+    loading = loading && error
+
+    error && !loading && console.error(error)
 
     return (
         <Container
@@ -82,23 +87,29 @@ export function NFTE({
                 color: isDark ? 'white' : 'gray.9',
             }}
         >
-            <MediaObject
-                mediaURI={mediaUri || ''}
-                width={canvasSize}
-                height={canvasSize}
-                loading={loading}
-            />
-            <Metadata
-                data={finalNFTMetadata}
-                width={canvasSize}
-                loading={loading}
-            />
+            {error && !loading ? (
+                <p sx={{ color: 'red.6' }}> ❌ Error: {error.type}</p>
+            ) : (
+                <>
+                    <MediaObject
+                        mediaURI={mediaUri || ''}
+                        width={canvasSize}
+                        height={canvasSize}
+                        loading={loading}
+                    />
+                    <Metadata
+                        data={finalNFTMetadata}
+                        width={canvasSize}
+                        loading={loading}
+                    />
+                </>
+            )}
         </Container>
     )
 }
 
 function validateURI(uri = '', base_uri = '') {
-    if (!uri) return false
+    if (!uri) return
     if (uri?.includes('http')) return uri
 
     return base_uri.replace(/\/$/, '') + '/' + uri.replace(/^\//, '')

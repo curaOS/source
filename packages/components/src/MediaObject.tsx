@@ -56,7 +56,13 @@ function Audio({ mediaURI }: mediaObjectProps) {
 function Image({ mediaURI, width, height }: mediaObjectProps) {
     return (
         <img
-            sx={{ width: width, height: height, bg: 'gray.3' }}
+            sx={{
+                width: width,
+                minHeight: height,
+                maxHeight: '70vh',
+                objectFit: 'cover',
+                bg: 'gray.3',
+            }}
             src={mediaURI}
         />
     )
@@ -70,7 +76,6 @@ function Iframe({ mediaURI, width, height }: mediaObjectProps) {
             src={mediaURI}
             frameBorder="0"
             scrolling="no"
-            sx={{ bg: 'gray.3' }}
         ></iframe>
     )
 }
