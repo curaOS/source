@@ -21,8 +21,9 @@ const fetchNFTReference = async (URI: string) => {
  */
 
 export function useNFTReference(uri: string): useNFTReferenceType {
-    const { data, error } = useSWR([uri], fetchNFTReference)
-
+    let { data, error } = useSWR(uri ? [uri] : null, fetchNFTReference)
+    error =
+        error || (!uri && 'provided reference URI is not valid') || undefined
     return {
         error: error,
         loading: !error && !data,
