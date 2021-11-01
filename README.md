@@ -29,7 +29,11 @@ We're starting with front-end hooks, themed components, and composable smart con
 
 ## Plans
 
-* [ ] @cura/commands
-* [ ] @cura/contracts
-* [ ] @cura/hooks
-* [ ] @cura/compoments
+* [x] @cura/commands v0.1
+* [x] @cura/contracts v0.1
+* [x] @cura/hooks v0.1
+* [x] @cura/components v0.1
+* [ ] New components style
+* [ ] NFT Gallery into new repository
+* [ ] Smart contract testing and improvement
+* [ ] GitHub and packages DevOps
