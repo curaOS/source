@@ -1,19 +1,19 @@
 ---
 description: >-
-  A full-stack of tools for creators to be market makers and build a community
-  around their content.
+  A full-stack of tools for web3 creators to be market makers and build a
+  community around their content.
 ---
 
 # Introduction
 
-> Before writing any code check [curaDAO tasks](https://gov.near.org/t/curadao-tasks/5611) \(you get some NEAR tokens\).
+> Before writing any code check [curaDAO tasks](https://gov.near.org/t/curadao-tasks/5611) (you get some NEAR tokens).
 
 ## Links
 
 * [Docs](https://docs.ysn.design)
 * [Components](https://60d9b2ac2cf86a00396f9b0f-xzwyvygops.chromatic.com)
 * [Testnet](https://test.ysn.design)
-* [Slides](https://www.figma.com/proto/ojREDfHiFmEPCh0rbq5Gmc/Slides?node-id=15%3A75&scaling=min-zoom&page-id=3%3A3792)
+* [Slides](https://www.figma.com/proto/ojREDfHiFmEPCh0rbq5Gmc/Slides?node-id=15%3A75\&scaling=min-zoom\&page-id=3%3A3792)
 
 ## Concepts
 
@@ -31,4 +31,3 @@ The long-term goal is to have an ecosystem of media projects forked from here an
 * [ ] @cura/contracts
 * [ ] @cura/hooks
 * [ ] @cura/compoments
-
