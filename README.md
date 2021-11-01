@@ -6,7 +6,7 @@ description: >-
 
 # Introduction
 
-> Before writing any code check [curaDAO tasks](https://gov.near.org/t/curadao-tasks/5611) (you get some NEAR tokens).
+> Check [curaDAO tasks](https://gov.near.org/t/curadao-tasks/5611) if you are interested in supporting, in different ways.
 
 ## Links
 
@@ -17,13 +17,15 @@ description: >-
 
 ## Concepts
 
-**Cura** is an experimental project on the [NEAR sharded blockchain](https://near.org) that puts together non-fungible tokens, fungible-tokens as social tokens. This token is then the base for a decentralized organization.
+**Cura** is an experimental project on the [NEAR sharded blockchain](https://near.org) that explores the use of non-fungible tokens as creative tools. On top of ownership and provenance, the goal is to explore this new expression of `Media` , built on smart contracts, as not only a pointer to art, but as the art itself.
 
-A palette for building an open web on NEAR. The contracts are currently geared towards generative art as a great way to create communities, but the idea is that any type of media primitives, from text to music, can be integrated.
+A canvas for building an open web on NEAR; The initial version is geared towards generative art as a great way to gather around projects and build communities.
 
-The goal of this repo is to allow any creator to be able to come and have a set of tools to bring value in for what they make. This means front-end hooks, themed components, and composable smart contracts that respect standards but give room for creativity and options. It's still not there but the fundamentals are in place.
+The current goal of this repository is to remove the overhead and allow any code artist to be able to come and experiment, iterate and deploy.
 
-The long-term goal is to have an ecosystem of media projects forked from here and that come together through their tokens and DAOs with value flowing in from [_media_](https://cryptomedia.wtf).
+The long-term goal is to have an ecosystem of media projects forked or born here that come together through their tokens and DAOs with value flowing in from [_media_](https://cryptomedia.wtf).
+
+We're starting with front-end hooks, themed components, and composable smart contracts that respect [NEAR standards](https://nomicon.io/Standards/NonFungibleToken/README.html) but give room for creativity and customization.
 
 ## Plans
 
