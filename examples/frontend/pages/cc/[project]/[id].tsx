@@ -13,7 +13,6 @@ import { getFrameWidth } from 'utils/frame-width'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
-const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
@@ -39,7 +38,7 @@ const CCProjectID = ({}) => {
             token_id: router.query.id,
             limit: 2,
         },
-        CONTRACT_VIEW_GAS,
+        undefined,
         updateStatus
     )
 
