@@ -1,6 +1,8 @@
+// @ts-nocheck
 import useSWR from 'swr'
 import { networkId, nodeUrl } from '../near-utils'
 import { connect, Contract } from 'near-api-js'
+import { getContractMethods } from '../near-utils'
 
 export type useNFTViewMethodType = {
     error?: string
@@ -17,27 +19,18 @@ const fetchNFTView = async (
         networkId,
         nodeUrl,
         deps: {
-            //@ts-ignore
             keyStore: undefined,
         },
     })
-    //@ts-ignore
     const account = await near.account(null)
 
-    const contract = await new Contract(account, contractAddress, {
-        viewMethods: [
-            'nft_token',
-            'nft_total_supply',
-            'nft_tokens',
-            'nft_supply_for_owner',
-            'nft_tokens_for_owner',
-            'nft_metadata',
-        ],
-        changeMethods: [''],
-    })
+    const contract = await new Contract(
+        account,
+        contractAddress,
+        getContractMethods('nft')
+    )
 
     const params = JSON.parse(serializedParams)
-    //@ts-ignore
     return await contract[methodName]({ ...params }).then((res) => {
         return res
     })
