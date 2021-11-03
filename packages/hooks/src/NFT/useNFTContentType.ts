@@ -12,27 +12,32 @@ export type useNFTContentTypeType = {
     error?: string
     loading: boolean
     data?: ContentType
+    content?: string
 }
 
 const fetchContentType = async (URI: string) => {
-    const response = await fetch(URI, { method: 'HEAD' })
-    const mimeType = response.headers.get('Content-type')
+    const response = await fetch(URI)
+    const mimeType = await response.headers.get('Content-type')
 
-    let contentType: ContentType = 'other'
+    let contentType: ContentType = 'other',
+        content: string = ''
+
     if (mimeType?.includes('image')) contentType = 'image'
     if (mimeType?.includes('video')) contentType = 'video'
     if (mimeType?.includes('audio')) contentType = 'audio'
     if (mimeType?.includes('plain')) contentType = 'text'
     if (mimeType?.includes('html')) contentType = 'html'
 
-    return contentType
+    if (contentType == 'text') content = await response.text()
+
+    return { contentType, content }
 }
 
 /**
- * Hook to fetch NFT content type from uri
- *
+ * Hook to fetch NFT content type from URI,
+ * and returns the content if contentType='text'
  * @param {string} mediaURI - URI of the NFT media
- * @returns {useNFTContentTypeType} { error, loading, contentType }
+ * @returns {useNFTContentTypeType} { error, loading, data, content }
  */
 
 export function useNFTContentType(mediaURI: string): useNFTContentTypeType {
@@ -41,6 +46,7 @@ export function useNFTContentType(mediaURI: string): useNFTContentTypeType {
     return {
         error: error,
         loading: !error && !data,
-        data: data,
+        data: data?.contentType,
+        content: data?.content,
     }
 }
