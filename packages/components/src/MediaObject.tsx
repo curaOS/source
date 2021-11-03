@@ -1,6 +1,6 @@
+// @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useState, useEffect } from 'react'
 import { useNFTContentType } from '@cura/hooks'
 import { Placeholder } from './Placeholder'
 
@@ -12,24 +12,16 @@ type mediaObjectProps = {
     autoPlay?: boolean
 }
 
-function Text({ mediaURI, width, height }: mediaObjectProps) {
-    const [content, setContent] = useState('')
-
-    useEffect(() => {
-        fetch(mediaURI)
-            .then((r) => r.text())
-            .then((r) => setContent(r))
-    }, [])
-
+function Text({ width, height, content }) {
     return (
-        <div
+        <pre
             sx={{
                 width: width,
                 height: height,
             }}
         >
             {content}
-        </div>
+        </pre>
     )
 }
 
@@ -81,13 +73,13 @@ function Iframe({ mediaURI, width, height }: mediaObjectProps) {
 }
 
 export function MediaObject(props: mediaObjectProps) {
-    const { loading, data } = useNFTContentType(props.mediaURI)
+    const { loading, data, content } = useNFTContentType(props.mediaURI)
 
     if (props.loading || loading) {
         return (
             <Placeholder
                 width={props.width}
-                height={props.height || '400px'}
+                height={props.height || props.width}
                 style={{ my: 0 }}
             />
         )
@@ -103,7 +95,7 @@ export function MediaObject(props: mediaObjectProps) {
             return <Audio {...props} />
 
         case 'text':
-            return <Text {...props} />
+            return <Text {...props} content={content} />
 
         case 'html' || 'other':
             return <Iframe {...props} />
