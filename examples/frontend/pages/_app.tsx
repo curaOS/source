@@ -4,6 +4,7 @@ import { ThemeProvider } from 'theme-ui'
 import { theme } from '../theme'
 import { RecoilRoot } from 'recoil'
 import { NearHooksProvider } from '@cura/hooks'
+import '../public/fonts/style.css'
 
 function App({ Component, pageProps }: AppProps) {
     return (
