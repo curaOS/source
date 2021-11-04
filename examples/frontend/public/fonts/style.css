@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'Acumin Pro';
+    src: local('Acumin Pro Light'), local('AcuminPro-Light'),
+        url('AcuminPro-Light.woff2') format('woff2'),
+        url('AcuminPro-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Acumin Pro';
+    src: local('Acumin Pro'), local('AcuminPro-Regular'),
+        url('AcuminPro-Regular.woff2') format('woff2'),
+        url('AcuminPro-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Acumin Pro';
+    src: local('Acumin Pro Medium'), local('AcuminPro-Medium'),
+        url('AcuminPro-Medium.woff2') format('woff2'),
+        url('AcuminPro-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Acumin Pro';
+    src: local('Acumin Pro Bold'), local('AcuminPro-Bold'),
+        url('AcuminPro-Bold.woff2') format('woff2'),
+        url('AcuminPro-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: local('Neue Machina Light'), local('NeueMachina-Light'),
+        url('NeueMachina-Light.woff2') format('woff2'),
+        url('NeueMachina-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: local('Neue Machina Regular'), local('NeueMachina-Regular'),
+        url('NeueMachina-Regular.woff2') format('woff2'),
+        url('NeueMachina-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: local('Neue Machina Ultrabold'), local('NeueMachina-Ultrabold'),
+        url('NeueMachina-Ultrabold.woff2') format('woff2'),
+        url('NeueMachina-Ultrabold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
