@@ -9,7 +9,7 @@ function getConfig() {
     return config
 }
 
-export const { networkId, nodeUrl, walletUrl } = getConfig()
+export const { nodeUrl, networkId, walletUrl } = getConfig()
 
 export function getContractMethods(contractName: string) {
     switch (contractName) {
@@ -32,12 +32,10 @@ export function getContractMethods(contractName: string) {
                     'claim_media',
                     'burn_design',
                     'view_media',
-                    'nft_metadata',
-                    'nft_token',
                     'nft_tokens',
                     'nft_tokens_for_owner',
                 ],
-                viewMethods: ['nft_total_supply'],
+                viewMethods: ['nft_total_supply', 'nft_metadata', 'nft_token'],
             }
         case 'market':
             return {

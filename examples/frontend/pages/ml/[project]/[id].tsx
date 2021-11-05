@@ -6,15 +6,13 @@ import { Button, Flex, Box, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
-import { CreatorShare } from '@cura/components'
-import { Bidders } from '@cura/components'
+import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 import { accountState } from 'state/account'
 import { getFrameWidth } from 'utils/frame-width'
 import { useStatusUpdate } from 'utils/hooks-helpers'
-const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
 const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
@@ -42,7 +40,7 @@ const MLProject = ({}) => {
             token_id: router.query.id,
             limit: 2,
         },
-        CONTRACT_VIEW_GAS,
+        null,
         updateStatus
     )
 
@@ -110,9 +108,10 @@ const MLProject = ({}) => {
                     }}
                 >
                     {media && (
-                        <img
-                            src={`https://arweave.net/${media.metadata.media}`}
+                        <MediaObject
+                            mediaURI={`https://arweave.net/${media.metadata.media}`}
                             width={frameDimension}
+                            height={frameDimension}
                         />
                     )}
                 </div>

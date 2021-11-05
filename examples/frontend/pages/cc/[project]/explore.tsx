@@ -10,7 +10,7 @@ import {
     BidCreate,
     Metadata,
     CreatorShare,
-    RenderIframe,
+    MediaObject,
 } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
@@ -128,9 +128,10 @@ const Explore = ({}) => {
                     }}
                 >
                     {randomDesign?.metadata?.media && (
-                        <RenderIframe
+                        <MediaObject
                             mediaURI={`https://arweave.net/${randomDesign?.metadata.media}`}
                             width={frameDimension}
+                            height={frameDimension}
                         />
                     )}
                 </div>
@@ -141,10 +142,7 @@ const Explore = ({}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Metadata
-                        title={randomDesign?.id}
-                        creator={randomDesign?.owner_id}
-                    />
+                    <Metadata data={randomDesign} loading={false} />
                 </div>
                 <div
                     sx={{

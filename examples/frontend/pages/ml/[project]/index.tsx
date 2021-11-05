@@ -8,6 +8,7 @@ import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import Link from 'next/link'
 import { getFrameWidth } from 'utils/frame-width'
 import { useStatusUpdate } from 'utils/hooks-helpers'
+import { MediaObject } from '@cura/components'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
@@ -56,9 +57,10 @@ const MLProject = ({}) => {
                                         },
                                     }}
                                 >
-                                    <img
-                                        src={`https://arweave.net/${metadata.media}`}
+                                    <MediaObject
+                                        mediaURI={`https://arweave.net/${metadata.media}`}
                                         width={frameDimension}
+                                        height={frameDimension}
                                     />
                                 </div>
                             </Link>

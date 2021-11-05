@@ -6,7 +6,7 @@ import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import Layout from '../../../containers/Layout'
 import { HostedModel } from '@runwayml/hosted-models'
-import { CreatorShare } from '@cura/components'
+import { CreatorShare, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
@@ -170,7 +170,7 @@ const MLProjectCreate = ({}) => {
                         width: frameDimension,
                     }}
                 >
-                    <img src={media} width={frameDimension} />
+                    <MediaObject mediaURI={media} width={frameDimension} />
                 </div>
                 <div
                     sx={{
