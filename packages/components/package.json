@@ -18,7 +18,7 @@
     "author": "Yassine",
     "license": "MIT",
     "dependencies": {
-        "@cura/hooks": "file:.yalc/@cura/hooks",
+        "@cura/hooks": "0.0.6",
         "@theme-ui/match-media": "^0.12.0",
         "@theme-ui/presets": "^0.6.0",
         "near-api-js": "^0.42.0",
