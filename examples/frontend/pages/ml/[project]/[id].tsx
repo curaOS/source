@@ -40,7 +40,7 @@ const MLProject = ({}) => {
             token_id: router.query.id,
             limit: 2,
         },
-        undefined,
+        null,
         updateStatus
     )
 
