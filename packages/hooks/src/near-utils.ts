@@ -9,7 +9,7 @@ function getConfig() {
     return config
 }
 
-export const { networkId, nodeUrl, walletUrl } = getConfig()
+export const { nodeUrl, networkId, walletUrl } = getConfig()
 
 export function getContractMethods(contractName: string) {
     switch (contractName) {
