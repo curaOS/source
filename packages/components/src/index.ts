@@ -8,6 +8,7 @@ import { BiddersBids } from './BiddersBids'
 import { Header } from './Header'
 import { ProjectCard } from './ProjectCard'
 import { Menu } from './Menu'
+import { Link } from "./Link"
 
 export {
     Bidders,
@@ -20,4 +21,5 @@ export {
     Header,
     Menu,
     ProjectCard,
+    Link
 }
