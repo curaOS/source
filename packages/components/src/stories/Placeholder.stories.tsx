@@ -33,7 +33,7 @@ CustomStyles.args = {
     },
 }
 
-export const ParagraphTemplate: ComponentStory<typeof Box> = (args) => (
+export const ParagraphTemplate: ComponentStory<typeof Box> = () => (
     <Box sx={{ width: 300, maxWidth: '90vw' }}>
         <Placeholder width={'80%'} />
         <Placeholder width={'40%'} />
