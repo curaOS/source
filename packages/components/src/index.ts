@@ -21,7 +21,7 @@ export {
     Header,
     Menu,
     ProjectCard,
-    Link
+    Link,
     MediaObject,
     NFTE,
 }
