@@ -19,6 +19,11 @@ const Template: ComponentStory<typeof Button> = (args) => (
     <Button {...args}>Button</Button>
 )
 
+export const Navigation = Template.bind({})
+Navigation.args = {
+    variant: 'navigation',
+}
+
 export const Uno = Template.bind({})
 Uno.args = {
     variant: 'uno',
