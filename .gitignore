@@ -10,3 +10,11 @@ packages/components/storybook-static/
 packages/hooks/dist/
 
 packages/commands/build/release
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
