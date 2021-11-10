@@ -6,7 +6,7 @@ export default {
     component: Button,
     argTypes: {
         variant: {
-            options: ['uno', 'due', 'orange', 'red'],
+            options: ['primary', 'secondary', 'borderless'],
             control: { type: 'select' },
         },
     },
@@ -19,22 +19,17 @@ const Template: ComponentStory<typeof Button> = (args) => (
     <Button {...args}>Button</Button>
 )
 
-export const Uno = Template.bind({})
-Uno.args = {
-    variant: 'uno',
+export const Primary = Template.bind({})
+Primary.args = {
+    variant: 'primary',
 }
 
-export const Due = Template.bind({})
-Due.args = {
-    variant: 'due',
+export const Secondary = Template.bind({})
+Secondary.args = {
+    variant: 'secondary',
 }
 
-export const Orange = Template.bind({})
-Orange.args = {
-    variant: 'orange',
-}
-
-export const Red = Template.bind({})
-Red.args = {
-    variant: 'red',
+export const Borderless = Template.bind({})
+Borderless.args = {
+    variant: 'borderless',
 }

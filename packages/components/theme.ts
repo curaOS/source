@@ -8,49 +8,32 @@ export const theme = {
         heading: 'IBM Plex Sans, sans-serif',
     },
     buttons: {
-        uno: {
+        primary: {
             cursor: 'pointer',
-            bg: 'gray.3',
-            color: 'gray.8',
-            borderRadius: 'sm',
+            bg: 'rgba(16, 16, 16, 1)',
+            color: '#fff',
+            borderRadius: '36px',
+            paddingTop: '2px',
+            paddingBottom: '2px',
             px: 4,
-            ':hover': {
-                bg: 'gray.7',
-                color: 'gray.3',
-            },
         },
-        due: {
+        secondary: {
             cursor: 'pointer',
-            bg: 'gray.8',
-            color: 'gray.3',
-            borderRadius: 'sm',
+            bg: '#fff',
+            color: 'rgba(16, 16, 16, 1)',
+            border: '1px solid rgba(16, 16, 16, 1)',
+            borderRadius: '36px',
+            paddingTop: '2px',
+            paddingBottom: '2px',
             px: 4,
-            ':hover': {
-                bg: 'gray.2',
-                color: 'gray.8',
-            },
         },
-        red: {
+        borderless: {
             cursor: 'pointer',
-            bg: 'red.4',
-            color: 'red.1',
-            borderRadius: 'sm',
-            px: 5,
-            ':hover': {
-                bg: 'red.8',
-                color: 'red.5',
-            },
-        },
-        orange: {
-            cursor: 'pointer',
-            bg: 'orange.4',
-            color: 'orange.1',
-            borderRadius: 'sm',
-            px: 5,
-            ':hover': {
-                bg: 'orange.5',
-                color: 'orange.2',
-            },
+            bg: '#fff',
+            color: 'rgba(16, 16, 16, 1)',
+            paddingTop: '2px',
+            paddingBottom: '2px',
+            px: 4,
         },
     },
 }
