@@ -1,9 +1,9 @@
 {
     "name": "@cura/hooks",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "description": "Hooks for front-ends on NEAR blockchain",
-    "source": "./src/index.ts",
-    "browser": "./dist/index.js",
+    "source": "src/index.ts",
+    "main": "dist/index.js",
     "files": [
         "dist"
     ],
