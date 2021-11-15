@@ -1401,6 +1401,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@cura/hooks@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@cura/hooks/-/hooks-0.0.9.tgz#094444f8fe53eae5d2c24caa6151b185240ff3d9"
+  integrity sha512-/zDOAnHKy6jxeB5GARiZhHl3F1545AVXBJqw+p30b5dg1LJ4kqyNcgzKjpow1DO4/h8xbTVt26+jH0z4KtH2SA==
+  dependencies:
+    near-api-js "^0.42.0"
+    react "^17.0.1"
+    react-dom "^17.0.1"
+    swr "^0.5.6"
+    tslib "^2.3.1"
+    unstated-next "^1.1.0"
+
 "@emotion/babel-plugin@^11.3.0":
   version "11.3.0"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.3.0.tgz#3a16850ba04d8d9651f07f3fb674b3436a4fb9d7"
