@@ -42,12 +42,6 @@ const typography = {
             fontWeight: `body`,
             fontSize: [1, 2],
         },
-        navigation: {
-            fontFamily: `monospace`,
-            fontWeight: `normal`,
-            fontSize: 2,
-            textTransform: `lowercase`,
-        },
         buttons: {
             0: {
                 fontFamily: `monospace`,
@@ -55,6 +49,12 @@ const typography = {
                 fontSize: 0,
             },
             1: {
+                fontFamily: `monospace`,
+                fontWeight: `normal`,
+                fontSize: 2,
+                textTransform: `lowercase`,
+            },
+            2: {
                 fontFamily: `monospace`,
                 fontWeight: `extrabold`,
                 fontSize: 2,
@@ -78,7 +78,7 @@ const typography = {
 const elements = {
     buttons: {
         navigation: {
-            variant: `text.navigation`,
+            variant: `text.buttons.1`,
             cursor: `pointer`,
             bg: `bg`,
             color: `text`,
@@ -89,7 +89,7 @@ const elements = {
             borderLeft: 0,
             flex: 1,
             py: 12,
-            transitionDuration: `0.1s`,
+            transitionDuration: `0.2s`,
             ':last-child': {
                 borderRight: 0,
             },
@@ -98,48 +98,58 @@ const elements = {
                 color: `bg`,
             },
         },
-        uno: {
+        primary: {
+            variant: `text.buttons.1`,
             cursor: `pointer`,
-            bg: `gray.3`,
-            color: `gray.8`,
-            borderRadius: `sm`,
-            px: 4,
+            bg: `text`,
+            color: `white`,
+            border: 1,
+            borderRadius: 36,
+            px: 3,
+            py: 1,
+            transitionDuration: `0.2s`,
             ':hover': {
-                bg: `gray.7`,
-                color: `gray.3`,
+                opacity: 0.9,
             },
         },
-        due: {
+        outline: {
+            variant: `text.buttons.1`,
             cursor: `pointer`,
-            bg: `gray.8`,
-            color: `gray.3`,
-            borderRadius: `sm`,
-            px: 4,
+            bg: `transparent`,
+            color: `text`,
+            border: `1px solid`,
+            borderColor: `text`,
+            borderRadius: 36,
+            px: 3,
+            py: 1,
+            transitionDuration: `0.2s`,
             ':hover': {
                 bg: `gray.2`,
-                color: `gray.8`,
             },
         },
-        red: {
+        borderless: {
+            variant: `text.buttons.2`,
             cursor: `pointer`,
-            bg: `red.4`,
-            color: `red.1`,
-            borderRadius: `sm`,
-            px: 5,
+            bg: `transparent`,
+            color: `text`,
+            p: 1,
+            transitionDuration: `0.2s`,
+            textDecoration: `underline transparent`,
             ':hover': {
-                bg: `red.8`,
-                color: `red.5`,
+                textDecorationColor: `text`,
             },
         },
-        orange: {
+        icon: {
+            variant: `text.buttons.1`,
             cursor: `pointer`,
-            bg: `orange.4`,
-            color: `orange.1`,
-            borderRadius: `sm`,
-            px: 5,
+            border: `1px solid`,
+            borderColor: `text`,
+            width: `3rem`,
+            height: `3rem`,
+            borderRadius: 50,
+            transitionDuration: `0.2s`,
             ':hover': {
-                bg: `orange.5`,
-                color: `orange.2`,
+                bg: `gray.2`,
             },
         },
     },
