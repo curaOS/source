@@ -6,7 +6,7 @@ type AccountId = string
 export const FT_CONTRACT: string = YSN_ADDRESS
 
 @nearBindgen
-export class Royalty {
+export class Payout {
     split_between: Map<AccountId, u32> = new Map()
     percentage: u32 = 0
     constructor() {

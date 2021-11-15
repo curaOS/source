@@ -6,7 +6,7 @@ import {
 } from 'near-sdk-as'
 import { YSN_ADDRESS } from '../../accounts'
 import { TokenMetadata } from './metadata'
-import { Royalty } from './royalties'
+import { Payout } from './royalties'
 
 type AccountId = string
 type MediaId = string
@@ -25,13 +25,13 @@ export class Media {
     creator: string
     prev_owner: string
     metadata: TokenMetadata
-    royalty: Royalty
+    payout: Payout
     constructor(media: string, extra: string) {
         this.owner_id = context.sender
         this.prev_owner = context.sender
         this.creator = ROYALTY_ADDRESS
 
-        this.royalty = new Royalty()
+        this.payout = new Payout()
 
         const title = context.sender.substring(
             0,
