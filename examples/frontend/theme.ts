@@ -1,4 +1,5 @@
 import { tailwind, baseColors } from '@theme-ui/preset-tailwind'
+const logo = `/logo.svg`
 
 //  Default Styles
 const styles = {
@@ -37,7 +38,7 @@ const typography = {
         heading: `inherit`,
         monospace: `"Neue Machina",Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
     },
-    fontSizes: [17, 19, 21, 26, 30, 52],
+    fontSizes: [17, 19, 21, 26, 30, 40, 52],
     fontWeights: {
         body: 400,
         normal: 400,
@@ -53,7 +54,7 @@ const typography = {
             fontFamily: `body`,
             lineHeight: `body`,
             fontWeight: `body`,
-            fontSize: [1, 2],
+            fontSize: [0, 1],
         },
         buttons: {
             0: {
@@ -65,13 +66,11 @@ const typography = {
                 fontFamily: `monospace`,
                 fontWeight: `normal`,
                 fontSize: 2,
-                textTransform: `lowercase`,
             },
             2: {
                 fontFamily: `monospace`,
                 fontWeight: `extrabold`,
                 fontSize: 2,
-                textTransform: `uppercase`,
             },
         },
         currency: {
@@ -83,6 +82,16 @@ const typography = {
             fontFamily: `heading`,
             fontWeight: `bold`,
             fontSize: [3, 4],
+        },
+        h5: {
+            fontFamily: `heading`,
+            fontWeight: `bold`,
+            fontSize: [1, 2],
+        },
+        title: {
+            fontFamily: `heading`,
+            fontWeight: `bold`,
+            fontSize: [5, 6],
         },
     },
 }
@@ -96,9 +105,7 @@ const elements = {
             bg: `bg`,
             color: `text`,
             borderRadius: 0,
-            borderWidth: 1,
-            borderColor: `text`,
-            borderStyle: `solid`,
+            border: 1,
             borderLeft: 0,
             flex: 1,
             py: 12,
@@ -130,8 +137,7 @@ const elements = {
             cursor: `pointer`,
             bg: `transparent`,
             color: `text`,
-            border: `1px solid`,
-            borderColor: `text`,
+            border: 1,
             borderRadius: 36,
             px: 3,
             py: 1,
@@ -155,8 +161,7 @@ const elements = {
         icon: {
             variant: `text.buttons.1`,
             cursor: `pointer`,
-            border: `1px solid`,
-            borderColor: `text`,
+            border: 1,
             width: `3rem`,
             height: `3rem`,
             borderRadius: 50,
@@ -176,6 +181,47 @@ const elements = {
             py: 1,
         },
     },
+    images: {
+        navLogo: {
+            width: `48px`,
+            height: `48px`,
+            backgroundImage: `url(${logo})`,
+            backgroundSize: `contain`,
+        },
+    },
+    links: {
+        navigation: {
+            variant: `buttons.navigation`,
+            borderTop: 0,
+            borderBottom: 0,
+            ':last-child': {
+                borderRight: 1,
+            },
+            ':first-child': {
+                borderLeft: 1,
+            },
+        },
+    },
+}
+
+// Layout containers
+const layout = {
+    container: {
+        px: [2, 3, 4],
+        maxWidth: 1024,
+    },
+    wide: {
+        px: [2, 3, 4],
+        maxWidth: 1536,
+    },
+}
+
+// Misc variants
+const misc = {
+    borders: {
+        0: 0,
+        1: `1px solid ${colors.colors.text}`,
+    },
 }
 
 export const theme = {
@@ -183,5 +229,7 @@ export const theme = {
     ...colors,
     ...typography,
     ...elements,
+    ...layout,
+    ...misc,
     ...styles,
 }
