@@ -8,7 +8,7 @@ const styles = {
             bg: `bg`,
         },
         a: {
-            variant: `text.navigation`,
+            variant: `text.buttons.1`,
         },
     },
 }
