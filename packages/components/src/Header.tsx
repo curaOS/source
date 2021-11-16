@@ -155,9 +155,21 @@ export const Header = ({
                                     flexDirection: 'column',
                                 }}
                             >
-                                <Button onClick={onSignIn} variant="mobileMenu">
-                                    connect NEAR
-                                </Button>
+                                {accountId ? (
+                                    <Button
+                                        onClick={onSignOut}
+                                        variant="mobileMenu"
+                                    >
+                                        disconnect
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        onClick={onSignIn}
+                                        variant="mobileMenu"
+                                    >
+                                        connect NEAR
+                                    </Button>
+                                )}
                                 <Button
                                     as="a"
                                     href="https://twitter.com/CuraNear"
