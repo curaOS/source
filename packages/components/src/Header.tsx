@@ -2,7 +2,15 @@
 /** @jsxImportSource theme-ui */
 
 import { useState } from 'react'
-import { Text, Alert, Button, Close, Box, Container } from 'theme-ui'
+import {
+    Text,
+    Alert,
+    Button,
+    IconButton,
+    Close,
+    Box,
+    Container,
+} from 'theme-ui'
 
 export const Header = ({
     base,
@@ -22,6 +30,7 @@ export const Header = ({
     title: string
 }) => {
     const [isButtonHovered, setIsButtonHovered] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
     const titleArray = title.split(/(?<=\/)/)
 
     const UserButton = () => {
@@ -81,6 +90,8 @@ export const Header = ({
                         flex: 1,
                         textAlign: 'left',
                         borderBottom: [1, 0],
+                        display: 'flex',
+                        justifyContent: 'space-between',
                     }}
                 >
                     <a
@@ -90,6 +101,74 @@ export const Header = ({
                             display: 'block',
                         }}
                     ></a>
+                    <Box
+                        sx={{
+                            display: ['block', 'none'],
+                        }}
+                    >
+                        <IconButton
+                            sx={{
+                                position: 'relative',
+                                zIndex: 11,
+                                borderColor: isMenuOpen ? 'white' : 'initial',
+                                transitionDuration: '0.3s',
+                                transform: isMenuOpen
+                                    ? 'rotate(135deg)'
+                                    : 'rotate(0deg)',
+                                ':hover': {
+                                    bg: 'transparent',
+                                },
+                            }}
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        >
+                            <svg
+                                width="25"
+                                height="25"
+                                viewBox="0 0 25 25"
+                                fill="none"
+                                sx={{
+                                    fill: isMenuOpen ? 'white' : 'text',
+                                    stroke: isMenuOpen ? 'white' : 'text',
+                                    height: '100%',
+                                }}
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M0 12L25 12M12.0001 0V12.5L12.0001 25"
+                                    strokeWidth="1.3"
+                                />
+                            </svg>
+                        </IconButton>
+                        {isMenuOpen && (
+                            <Box
+                                sx={{
+                                    position: 'fixed',
+                                    zIndex: 10,
+                                    top: 0,
+                                    left: 0,
+                                    bottom: 0,
+                                    right: 0,
+                                    bg: 'primary',
+                                    py: 100,
+                                    px: 3,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <Button onClick={onSignIn} variant="mobileMenu">
+                                    connect NEAR
+                                </Button>
+                                <Button
+                                    as="a"
+                                    href="https://twitter.com/CuraNear"
+                                    target="_blank"
+                                    variant="mobileMenu"
+                                >
+                                    twitter ↗
+                                </Button>
+                            </Box>
+                        )}
+                    </Box>
                 </Box>
                 <a
                     href={`/${base}/bids`}
@@ -102,8 +181,10 @@ export const Header = ({
                     }}
                 >
                     <Text
+                        variant="monospace"
                         sx={{
                             display: ['block', 'none'],
+                            pb: '8px',
                         }}
                     >
                         {accountId ? accountId : 'blank'}
@@ -126,7 +207,7 @@ export const Header = ({
                         {titleArray[1] ? titleArray[1] : titleArray[0]}
                     </Text>
                     <Text
-                        variant="body"
+                        variant="monospace"
                         m={[0, 2]}
                         sx={{
                             display: 'inline-block',

@@ -38,7 +38,7 @@ const typography = {
         heading: `inherit`,
         monospace: `"Neue Machina",Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
     },
-    fontSizes: [17, 19, 21, 26, 30, 40, 52],
+    fontSizes: [17, 19, 21, 26, 30, 36, 52],
     fontWeights: {
         body: 400,
         normal: 400,
@@ -52,6 +52,12 @@ const typography = {
     text: {
         body: {
             fontFamily: `body`,
+            lineHeight: `body`,
+            fontWeight: `body`,
+            fontSize: [0, 1],
+        },
+        monospace: {
+            fontFamily: `monospace`,
             lineHeight: `body`,
             fontWeight: `body`,
             fontSize: [0, 1],
@@ -71,6 +77,11 @@ const typography = {
                 fontFamily: `monospace`,
                 fontWeight: `extrabold`,
                 fontSize: 2,
+            },
+            3: {
+                fontFamily: `monospace`,
+                fontWeight: `normal`,
+                fontSize: 5,
             },
         },
         currency: {
@@ -157,6 +168,16 @@ const elements = {
             ':hover': {
                 textDecorationColor: `text`,
             },
+        },
+        mobileMenu: {
+            variant: `text.buttons.3`,
+            cursor: `pointer`,
+            borderRadius: 100,
+            border: 1,
+            borderColor: `white`,
+            color: `white`,
+            px: 1,
+            py: `30px`,
         },
         icon: {
             variant: `text.buttons.1`,
