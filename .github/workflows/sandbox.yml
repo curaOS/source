@@ -28,4 +28,3 @@ jobs:
               working-directory: ./packages/contracts
               run: |
                   node tests/nft-token-owners.js
-                  node tests/nft-metadata.js
