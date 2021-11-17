@@ -6,14 +6,14 @@ jobs:
         steps:
             - uses: actions/checkout@master
               with:
-                repository: near/nearcore
+                  repository: near/nearcore
             - name: 'Building near'
               working-directory: ./
               run: |
-                make sandbox
-                rm -rf /tmp/near-sandbox
-                target/debug/near-sandbox --home /tmp/near-sandbox init
-                target/debug/near-sandbox --home /tmp/near-sandbox run &
+                  make sandbox
+                  rm -rf /tmp/near-sandbox
+                  target/debug/near-sandbox --home /tmp/near-sandbox init
+                  target/debug/near-sandbox --home /tmp/near-sandbox run &
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v2
               with:
@@ -21,10 +21,11 @@ jobs:
             - name: 'Building contracts'
               working-directory: ./packages/contracts
               run: |
-                yarn install
-                yarn build-market
-                yarn build-nft
+                  yarn install
+                  yarn build-market
+                  yarn build-nft
             - name: 'Testing contracts'
               working-directory: ./packages/contracts
               run: |
-                node tests/nft-token-owners.js
+                  node tests/nft-token-owners.js
+                  node tests/nft-metadata.js
