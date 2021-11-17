@@ -1,5 +1,8 @@
 name: Sandbox
-on: [push]
+on:
+  push:
+    paths:
+      - '/packages/contracts'
 jobs:
     test-sandbox:
         runs-on: ubuntu-latest
