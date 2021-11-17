@@ -48,7 +48,7 @@ describe('- MEDIA -', () => {
         const newDesign = claim_media(tokenMetadata)
 
         expect(newDesign).not.toBeNull()
-        expect(newDesign.payout).not.toBeNull()
+        expect(newDesign.royalty).not.toBeNull()
         expect(newDesign.metadata).not.toBeNull()
 
         expect(newDesign.metadata.title).toStrictEqual('condo')
