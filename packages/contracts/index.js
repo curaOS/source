@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 #test
 #test 2
+#test 3
 
 const chalk = require('chalk')
 const { exec } = require('child_process')
