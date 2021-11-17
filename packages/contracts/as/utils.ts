@@ -8,6 +8,7 @@ import { u128, Context, ContractPromise } from 'near-sdk-as'
  * Account IDs in NEAR are just strings.
  */
 export type AccountId = string
+export type TokenId = string
 
 /**
  * Gas is u64
