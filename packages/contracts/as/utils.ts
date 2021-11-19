@@ -103,3 +103,17 @@ export function split_share(percentage: u16, amount: u128): u128 {
         u128.from(ONE_HUNDRED_PERCENT)
     )
 }
+
+/**
+ * Royalty payout
+ */
+
+export function royalty_to_payout(
+    royalty_percentage: u32,
+    amount_to_pay: Balance
+): u128 {
+    return u128.div(
+        u128.mul(amount_to_pay, u128.from(royalty_percentage)),
+        u128.from(ONE_HUNDRED_PERCENT)
+    )
+}
