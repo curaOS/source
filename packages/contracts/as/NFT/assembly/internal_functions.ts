@@ -18,7 +18,7 @@ export function refund_approved_account(account_id: string): void {
     ContractPromiseBatch.create(context.sender).transfer(u128.mul(storage_byte_cost(), storage_released))
 }
 
-export function refund_approved_accounts(approvals: PersistentUnorderedMap<string, number>): void {
+export function refund_approved_accounts(approvals: Map<string, number>): void {
     var storage_total: u64 = 0
     const keys = approvals.keys()           
     for (let i = 0; i < keys.length; i++) { //for some reason map or forEach don't work

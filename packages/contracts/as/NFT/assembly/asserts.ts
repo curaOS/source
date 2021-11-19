@@ -9,5 +9,5 @@ export function assert_one_yocto(): void {
 }
 
 export function assert_at_least_one_yocto(): void {
-    assert(context.attachedDeposit >= u128.from('1'), 'Deposit is at least one yoctoNEAR.')
+    assert(u128.ge(context.attachedDeposit, u128.from('1')), 'Deposit is at least one yoctoNEAR.')
 }
