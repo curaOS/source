@@ -6,6 +6,7 @@ import { useSetRecoilState } from 'recoil'
 import { useRouter } from 'next/router'
 import { utils } from 'near-api-js'
 import { Button, Box, Link, Spinner } from 'theme-ui'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
 import { MediaObject } from '@cura/components'
@@ -39,12 +40,7 @@ const Explore = () => {
         NFT_PER_PAGE
     )
 
-    // load next page
     function loadMore() {
-        // if all NFTs are loaded or we are already loading more then do nothing
-        if (totalSupply <= items.length || loading) {
-            return
-        }
         try {
             nextPage()
         } catch (error) {
@@ -53,31 +49,22 @@ const Explore = () => {
         }
     }
 
-    // If user scroll to bottom, show next page
-    const handleScroll = () => {
-        if (
-            window.innerHeight + window.scrollY >= document.body.offsetHeight ||
-            window.innerHeight + window.pageYOffset >=
-                document.body.scrollHeight - 10
-        ) {
-            loadMore()
-        }
-    }
-
-    // Watch for user scroll
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.addEventListener('scroll', handleScroll)
-        }
-        return () => window.removeEventListener('scroll', handleScroll)
-    })
     const designDimension = getFrameWidth(true)
 
     return (
         <Layout project={project}>
             <Box sx={{ textAlign: 'center' }}>
-                {items &&
-                    items.map((item, index) => {
+                <InfiniteScroll
+                    dataLength={items.length}
+                    next={loadMore}
+                    hasMore={totalSupply > items.length}
+                    loader={
+                        <Box width="100%" mt={2}>
+                            <Spinner />
+                        </Box>
+                    }
+                >
+                    {items.map((item, index) => {
                         return (
                             <Link
                                 key={index}
@@ -107,30 +94,7 @@ const Explore = () => {
                             </Link>
                         )
                     })}
-            </Box>
-            <Box
-                mt={4}
-                mb={2}
-                sx={{
-                    textAlign: 'center',
-                }}
-            >
-                {totalSupply <= items.length ? undefined : loading ? (
-                    <Spinner />
-                ) : (
-                    <Button
-                        onClick={() => {
-                            loadMore()
-                        }}
-                        variant="primary"
-                        m="auto"
-                        sx={{
-                            cursor: 'pointer',
-                        }}
-                    >
-                        Load more
-                    </Button>
-                )}
+                </InfiniteScroll>
             </Box>
         </Layout>
     )
