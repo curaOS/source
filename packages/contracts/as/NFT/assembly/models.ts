@@ -27,7 +27,7 @@ export class Media {
     prev_owner: string
     metadata: TokenMetadata
     royalty: Royalty
-    approvals: PersistentUnorderedMap<string, number>
+    approvals: Map<string, number>
     next_approval_id: number
     constructor(media: string, extra: string) {
         this.owner_id = context.sender
@@ -53,7 +53,7 @@ export class Media {
             media,
             extra
         )
-        this.approvals = new PersistentUnorderedMap<string, number>('aprvls')
+        this.approvals = new Map()
         this.next_approval_id = 1
     }
 }

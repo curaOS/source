@@ -186,7 +186,7 @@ export function nft_approve(token_id: string, account_id: string, msg: string|nu
     assert(design.owner_id == context.sender, 'Only owner can approve.')
     const approval_id = design.next_approval_id;
 
-    const approvals = design.approvals.getSome(account_id);
+    const approvals = design.approvals.has(account_id);
     const new_approval = approvals ? false: true;
 
     design.approvals.set(account_id, approval_id)
@@ -217,13 +217,15 @@ export function nft_approve(token_id: string, account_id: string, msg: string|nu
     }
 }
 
-export function nft_is_approved(token_id: string, approved_account_id: string, approval_id: number = NaN): boolean {
+export function nft_is_approved(token_id: string, approved_account_id: string, approval_id: string|null=null): boolean {
     const design = designs.getSome(token_id)
     assert(design != null, 'No design to test approval.')
-    const approval = design.approvals.getSome(approved_account_id)
+    const approval = design.approvals.has(approved_account_id)
     if (approval) {
-        if (approval_id != NaN) {
-            return approval == approval_id
+        const approval = design.approvals.has(approved_account_id)
+        if (approval_id) {
+            const approval = design.approvals.get(approved_account_id)
+            return approval == parseInt(approval_id)
         }
         return true
     }
@@ -235,7 +237,7 @@ export function nft_revoke(token_id: string, account_id: string): void {
     const design = designs.getSome(token_id);
     assert(design != null, 'No design to revoke.')
     assert(design.owner_id == context.sender, 'Only owner can revoke.')
-    if (design.approvals.getSome(account_id)) {
+    if (design.approvals.get(account_id)) {
         refund_approved_account(account_id)
         design.approvals.delete(account_id)
         designs.set(token_id, design)
