@@ -12,6 +12,8 @@ import { useNFTContract } from '@cura/hooks'
 import { combineHTML } from '../../utils/combine-html'
 import axios from 'axios'
 import { getFrameWidth } from 'utils/frame-width'
+import { useRouter } from 'next/router'
+import { mapPathToProject } from 'utils/path-to-project'
 
 const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -25,7 +27,10 @@ const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 const SCHEMA_SIZE = 5
 
 const Create = ({}) => {
-    const { contract } = useNFTContract()
+    const router = useRouter()
+    const contractAdress = router && mapPathToProject(router.asPath)
+
+    const { contract } = useNFTContract(contractAdress)
 
     const [seed, setSeed] = useState()
 
