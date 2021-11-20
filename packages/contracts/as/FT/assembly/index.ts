@@ -6,8 +6,6 @@ import { SHARE_ADDRESS } from '../../accounts'
 export const SUPPLY_KEY = 'minted_supply'
 export const TREASURY_KEY = 'treasury'
 
-export const ZERO_NEAR: u128 = u128.Zero
-
 const whitelist: Array<AccountId> = [SHARE_ADDRESS]
 
 export function get_treasury(): string {
@@ -60,11 +58,15 @@ export function ft_mine_to(account_id: string, amount: u128): string {
 
 export const METADATA_KEY = 'contract_metadata'
 
-export function init(contract_metadata: FTContractMetadata): void {
+export function init(
+    contract_metadata: FTContractMetadata,
+    supply: u128,
+    treasury: u128
+): void {
     assert(storage.get<string>('init') == null, 'Already initialized')
 
-    storage.set(SUPPLY_KEY, ZERO_NEAR)
-    storage.set(TREASURY_KEY, ZERO_NEAR)
+    storage.set(SUPPLY_KEY, supply)
+    storage.set(TREASURY_KEY, treasury)
 
     storage.set(
         METADATA_KEY,

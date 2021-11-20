@@ -1,4 +1,4 @@
-import { storage } from 'near-sdk-as'
+import { storage, u128 } from 'near-sdk-as'
 import { VMContext } from 'near-mock-vm'
 import {
     ft_balance_of,
@@ -18,13 +18,15 @@ import { toYocto } from '../../../utils'
 const condo = 'condo'
 const keith = 'keith'
 
+const ZERO_NEAR: u128 = u128.Zero
+
 const initialize = (): void => {
     const ftContractMetadata = new FTContractMetadata(
         'ft-1.0.0',
         'ftExample',
         'FTEXAMPLE'
     )
-    init(ftContractMetadata)
+    init(ftContractMetadata, ZERO_NEAR, ZERO_NEAR)
 }
 
 describe('- CONTRACT -', () => {
