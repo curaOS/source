@@ -3,6 +3,7 @@ import {
     context,
     u128,
     ContractPromise,
+    ContractPromiseBatch,
     PersistentSet,
     MapEntry,
     storage,
@@ -13,7 +14,11 @@ import {
     owners,
     account_media,
     DESIGN_PRICE,
+    StorageBalance,
+    StorageBalanceBounds,
+    accounts,
     FT_CONTRACT,
+    storage_usage,
 } from './models'
 import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
@@ -23,7 +28,7 @@ import {
     xcc_market_accept_bid,
     xcc_market_burn,
 } from './xcc_market'
-import { assert_deposit_attached } from './asserts'
+import { assert_deposit_attached, assert_one_yocto } from './asserts'
 import { AccountId } from '../../utils'
 import { xcc_generator_generate } from './xcc_generator'
 
@@ -168,6 +173,79 @@ export function nft_transfer(token_id: string, bidder: string): void {
 
     accountMedia.delete(token_id)
     account_media.set(design.prev_owner, accountMedia)
+}
+
+/* Storage management */
+
+
+function internal_storage_balance_of(account_id: string): StorageBalance {
+    return <StorageBalance>{total: storage_balance_bounds().min, available: '0'}
+}
+
+function storage_byte_cost(): u128 {
+    const num = u128.from(10000000000000000000)
+    return num
+}
+
+export function storage_deposit(account_id: string|null, registration_only: Boolean|null=null): StorageBalance {
+    const amount = context.attachedDeposit
+    if (account_id == null)
+        account_id = context.sender
+    account_id = account_id as string
+    if (accounts.contains(account_id)) {
+        logging.log('Account already registered')
+        if (u128.gt(amount, u128.from('0'))) {
+            ContractPromiseBatch.create(account_id).transfer(amount)
+        }
+    } else {
+        const minBalance = u128.from(storage_balance_bounds().min)
+        assert(amount >= minBalance, 'Attached deposit less than minimum required')
+        accounts.set(account_id, u128.from('0'))
+        const refund = u128.sub(amount, minBalance)
+        if (u128.gt(refund, u128.from('0'))) {
+            ContractPromiseBatch.create(account_id).transfer(refund)
+        }
+    }
+    return internal_storage_balance_of(account_id)
+}
+
+export function storage_withdraw(amount: string|null): StorageBalance  {
+    assert_one_yocto()
+    const account_id = context.sender
+    const account = accounts.getSome(account_id)
+    assert (account, 'Account not registered')
+    const balance = internal_storage_balance_of(account_id)
+
+    if (amount)
+        assert(u128.gt(u128.from(amount as string), u128.from('0')), 'The amount is greater than available storage balance')
+
+    return balance;
+}
+
+export function storage_unregister(force: Boolean|null=null): boolean {
+    assert_one_yocto()
+    const account_id = context.sender
+    const account = accounts.getSome(account_id)
+    if (account) {
+        const balance = accounts.getSome(account_id)
+        if (u128.eq(balance, u128.from('0')) || force) {
+            accounts.delete(account_id)
+            ContractPromiseBatch.create(account_id).transfer(u128.add(u128.from(storage_balance_bounds().min), u128.from(1)))
+            return true
+        } else {
+            assert(false, 'Account balance is not zero')
+        }
+    } 
+    return false;
+}
+
+export function storage_balance_bounds(): StorageBalanceBounds {
+    const cost = u128.mul(storage_usage, storage_byte_cost())
+    return <StorageBalanceBounds>{min: cost.toString(), max: cost.toString()}
+}
+
+export function storage_balance_of(account_id: string): StorageBalance|null {
+    return internal_storage_balance_of(account_id);
 }
 
 /* Market */
