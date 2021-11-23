@@ -6,7 +6,7 @@ import {
 } from 'near-sdk-as'
 
 function storage_byte_cost(): u128 {
-    return u128.from("10000000000000000000")
+    return u128.from('10000000000000000000')
 }
 
 function bytes_for_approved_account_id(account_id: string): u64 {
@@ -14,17 +14,24 @@ function bytes_for_approved_account_id(account_id: string): u64 {
 }
 
 export function refund_approved_account(account_id: string): void {
-    const storage_released: u128 = u128.from(bytes_for_approved_account_id(account_id));
-    ContractPromiseBatch.create(context.sender).transfer(u128.mul(storage_byte_cost(), storage_released))
+    const storage_released: u128 = u128.from(
+        bytes_for_approved_account_id(account_id)
+    )
+    ContractPromiseBatch.create(context.sender).transfer(
+        u128.mul(storage_byte_cost(), storage_released)
+    )
 }
 
 export function refund_approved_accounts(approvals: Map<string, number>): void {
     var storage_total: u64 = 0
-    const keys = approvals.keys()           
-    for (let i = 0; i < keys.length; i++) { //for some reason map or forEach don't work
+    const keys = approvals.keys()
+    for (let i = 0; i < keys.length; i++) {
+        //for some reason map or forEach don't work
         storage_total += bytes_for_approved_account_id(keys[i])
     }
-    ContractPromiseBatch.create(context.sender).transfer(u128.mul(storage_byte_cost(), u128.from(storage_total)))
+    ContractPromiseBatch.create(context.sender).transfer(
+        u128.mul(storage_byte_cost(), u128.from(storage_total))
+    )
 }
 
 export function refund_deposit(storage_used: u128): void {
