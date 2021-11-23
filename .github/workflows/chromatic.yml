@@ -7,7 +7,7 @@ jobs:
             - uses: actions/checkout@v1
             - name: Install dependencies
               working-directory: packages/components
-              run: yarn
+              run: yarn install --focus
             - name: Publish to Chromatic
               uses: chromaui/action@v1
               with:
