@@ -20,7 +20,6 @@ import {
     accounts,
     StorageBalance,
     StorageBalanceBounds,
-    storage_usage,
 } from './models'
 import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
@@ -330,8 +329,12 @@ export function nft_revoke_all(token_id: string): void {
 
 /* Storage management */
 
-function internal_storage_balance_of(account_id: string): StorageBalance {
-    return <StorageBalance>{total: storage_balance_bounds().min, available: '0'}
+function internal_storage_balance_of(account_id: string): StorageBalance|null {
+    if (accounts.get(account_id)) {
+        return <StorageBalance>{total: storage_balance_bounds().min, available: '0'}
+    } else {
+        return null
+    }
 }
 
 export function storage_deposit(account_id: string|null, registration_only: Boolean|null=null): StorageBalance {
@@ -353,7 +356,7 @@ export function storage_deposit(account_id: string|null, registration_only: Bool
             ContractPromiseBatch.create(account_id).transfer(refund)
         }
     }
-    return internal_storage_balance_of(account_id)
+    return internal_storage_balance_of(account_id) as StorageBalance
 }
 
 export function storage_withdraw(amount: string|null): StorageBalance  {
@@ -366,7 +369,7 @@ export function storage_withdraw(amount: string|null): StorageBalance  {
     if (amount)
         assert(u128.gt(u128.from(amount as string), u128.from('0')), 'The amount is greater than available storage balance')
 
-    return balance;
+    return balance as StorageBalance;
 }
 
 export function storage_unregister(force: Boolean|null=null): boolean {
@@ -387,8 +390,9 @@ export function storage_unregister(force: Boolean|null=null): boolean {
 }
 
 export function storage_balance_bounds(): StorageBalanceBounds {
+    const storage_usage =  storage.getSome<u128>(STORAGE_USAGE_KEY)
     const cost = u128.mul(storage_usage, storage_byte_cost())
-    return <StorageBalanceBounds>{min: cost.toString(), max: cost.toString()}
+    return  <StorageBalanceBounds> {min: cost.toString(), max: cost.toString()}
 }
 
 export function storage_balance_of(account_id: string): StorageBalance|null {
@@ -453,6 +457,7 @@ export function dangerous_wipe_designs(): void {
 export const MARKET_CONTRACT_KEY = 'market_contract'
 export const GENERATOR_CONTRACT_KEY = 'generator_contract'
 export const METADATA_KEY = 'contract_metadata'
+export const STORAGE_USAGE_KEY = 'storage_usage'
 
 export function init(
     contract_metadata: NFTContractMetadata,
@@ -481,6 +486,14 @@ export function init(
             contract_metadata.parameters
         )
     )
+
+    // find storage usage of a single account
+    const account_id = 'a'.repeat(64)
+    const initial_storage: u128 = u128.from(context.storageUsage)
+    accounts.set(account_id, u128.from('0'))
+    const final_storage: u128 = u128.from(context.storageUsage)
+    accounts.delete(account_id)
+    storage.set(STORAGE_USAGE_KEY, u128.sub(final_storage, initial_storage))
 
     storage.set('init', 'done')
 }

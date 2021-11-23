@@ -58,6 +58,7 @@ export class Media {
     }
 }
 
+@nearBindgen
 export class NFTOnApprovedArgs {
     token_id: string
     owner_id: string
@@ -65,29 +66,21 @@ export class NFTOnApprovedArgs {
     msg: string
 }
 
+@nearBindgen
 export class StorageBalance {
     total: string;
     available: string;
 }
  
+@nearBindgen
 export class StorageBalanceBounds {
-     min: string;
-     max: string|null;
-}
-
-function measure_account_storage (): u128 {
-    const account_id = 'a'.repeat(64)
-    const initial_storage: u128 = u128.from(context.storageUsage)
-    accounts.set(account_id, u128.from('0'))
-    const final_storage: u128 = u128.from(context.storageUsage)
-    accounts.delete(account_id)
-    return u128.sub(final_storage, initial_storage)
+    min: string;
+    max: string;
 }
 
 export const designs = new PersistentUnorderedMap<AccountId, Media>('md')
 export const owners = new PersistentSet<AccountId>('onrs')
 export const accounts = new PersistentUnorderedMap<AccountId, u128>('accs')
-export const storage_usage: u128 = measure_account_storage()
 
 export const account_media = new PersistentUnorderedMap<
     AccountId,

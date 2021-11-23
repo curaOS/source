@@ -30,6 +30,8 @@ const contractMethods = {
         'nft_payout',
         'nft_tokens_for_owner',
         'nft_is_approved',
+        'storage_balance_bounds',
+        'storage_balance_of',
     ],
     changeMethods: [
         'init',
@@ -37,6 +39,9 @@ const contractMethods = {
         'nft_approve',
         'nft_revoke',
         'nft_revoke_all',
+        'storage_deposit',
+        'storage_withdraw',
+        'storage_unregister',
     ],
 }
 let config
@@ -134,10 +139,11 @@ async function test() {
         },
     })
     const example_nft_metadata = await aliceUseContract.nft_metadata({
-        args: {},
+        args: {  },
     })
 
-    // creating sample NFTs
+     // creating sample NFTs
+
     for (var i = 0; i < NUMBER_OF_NFT; i++) {
         console.log('Creating NFT: ' + (i + 1) + '/' + NUMBER_OF_NFT)
         await aliceUseContract.claim_media({
@@ -208,6 +214,23 @@ async function test() {
 
     console.log('Finish approval tests')
 
+    // storage management
+    
+    const empty_storage_balance = await aliceUseContract.storage_balance_of({
+        account_id: 'alice.test.near'
+    })
+
+    await aliceUseContract.storage_deposit({
+        args: { account_id: 'alice.test.near' },
+        gas: CONTRACT_CLAIM_GAS,
+        amount: CONTRACT_CLAIM_PRICE,
+    })
+
+    const storage_bounds = await aliceUseContract.storage_balance_bounds()
+    const bounds_of = await aliceUseContract.storage_balance_of({
+        account_id: 'alice.test.near'
+    })
+
     assert.equal(parseInt(total_supply), NUMBER_OF_NFT)
     assert.equal(token_owners.length, NUMBER_OF_NFT)
     assert.equal(example_nft_metadata.spec, 'nft-1.0.0')
@@ -216,6 +239,11 @@ async function test() {
     assert.equal(before_approve, false)
     assert.equal(before_revoke, true)
     assert.equal(after_revoke, false)
+    assert.equal(empty_storage_balance, null)
+    assert.equal(storage_bounds.min, '3130000000000000000000')
+    assert.equal(storage_bounds.max, '3130000000000000000000')
+    assert.equal(bounds_of.total, '3130000000000000000000')
+    assert.equal(bounds_of.available, '0')
 }
 
 test()
