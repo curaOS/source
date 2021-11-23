@@ -27,6 +27,7 @@ const contractMethods = {
         'nft_total_supply',
         'nft_metadata',
         'nft_token',
+        'nft_payout',
         'nft_tokens_for_owner',
         'nft_is_approved',
     ],
@@ -160,6 +161,15 @@ async function test() {
         gas: CONTRACT_CLAIM_GAS,
         amount: CONTRACT_CLAIM_PRICE,
     })
+
+    // royalty
+
+    const media_payout = await aliceUseContract.nft_payout({
+        token_id: media.id,
+        balance: nearAPI.utils.format.parseNearAmount('1'),
+    })
+
+    console.log('Media Payout: ', media_payout)
 
     // approval tests
 
