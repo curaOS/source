@@ -14,11 +14,16 @@ import {
     useNearHooksContainer,
     useMarketMethod,
 } from '@cura/hooks'
+import { useRouter } from 'next/router'
+import { mapPathToProject } from 'utils/path-to-project'
 
 const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
 
 const Bids = () => {
-    const { contract } = useNFTContract()
+    const router = useRouter()
+    const contractAdress = router && mapPathToProject(router.asPath)
+
+    const { contract } = useNFTContract(contractAdress)
 
     const { accountId } = useNearHooksContainer()
 

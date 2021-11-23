@@ -13,6 +13,7 @@ type MediaId = string
 
 const ONE_NEAR = u128.from('1000000000000000000000000')
 
+export const GAS_FOR_NFT_APPROVE = 10000000000000
 export const DESIGN_PRICE = ONE_NEAR
 export const ROYALTY_MAX_PERCENTAGE: u32 = 5000 // 50%
 export const FT_CONTRACT: string = YSN_ADDRESS
@@ -26,6 +27,8 @@ export class Media {
     prev_owner: string
     metadata: TokenMetadata
     royalty: Royalty
+    approvals: Map<string, number>
+    next_approval_id: number
     constructor(media: string, extra: string) {
         this.owner_id = context.sender
         this.prev_owner = context.sender
@@ -50,7 +53,16 @@ export class Media {
             media,
             extra
         )
+        this.approvals = new Map()
+        this.next_approval_id = 1
     }
+}
+
+export class NFTOnApprovedArgs {
+    token_id: string
+    owner_id: string
+    approval_id: number
+    msg: string
 }
 
 export const designs = new PersistentUnorderedMap<AccountId, Media>('md')

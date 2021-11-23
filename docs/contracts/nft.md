@@ -70,30 +70,16 @@ export class Royalty {
 
 ## Methods
 
-{% api-method method="post" host="\[nft-contract\]" path=".claim\_media\(media\)" %}
-{% api-method-summary %}
-Claim Media
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".claim_media(media)" method="post" summary="Claim Media" %}
+{% swagger-description %}
 Mint Media for user.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="media" type="string" required=true %}
+{% swagger-parameter in="body" name="media" type="string" %}
 Identifier of media on decentralized storage.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Return Media created.
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="Return Media created." %}
 ```
 {
   "id": "mmmmm",
@@ -122,67 +108,35 @@ Return Media created.
   }
 }
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="delete" host="\[nft-contract\]" path=".burn\_design\(token\_id\)" %}
-{% api-method-summary %}
-Burn Design
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".burn_design(token_id)" method="delete" summary="Burn Design" %}
+{% swagger-description %}
 Removes Media.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="token\_id" type="string" required=true %}
+{% swagger-parameter in="body" name="token_id" type="string" %}
 Token to remove.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 void
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".nft\_token\(token\_id\)" %}
-{% api-method-summary %}
-NFT Token
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".nft_token(token_id)" method="get" summary="NFT Token" %}
+{% swagger-description %}
 Retrieve a specific token.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="token\_id" type="string" required=true %}
+{% swagger-parameter in="body" name="token_id" type="string" %}
 Token to retrieve.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 {
   "id": "ysn57031827",
@@ -211,75 +165,41 @@ Token to retrieve.
   }
 }
 ```
-{% endapi-method-response-example %}
+{% endswagger-response %}
 
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="404" description="" %}
 ```
 null
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".nft\_total\_supply\(\)" %}
-{% api-method-summary %}
-NFT Total Supply
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".nft_total_supply()" method="get" summary="NFT Total Supply" %}
+{% swagger-description %}
 Returns number of tokens.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 "5"
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="\[nft-contract\]." path="nft\_tokens\(from\_index, limit\)" %}
-{% api-method-summary %}
-NFT Tokens
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]." path="nft_tokens(from_index, limit)" method="get" summary="NFT Tokens" %}
+{% swagger-description %}
 An array of tokens from index to limit.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="from\_index" type="string" required=false %}
+{% swagger-parameter in="body" name="from_index" type="string" %}
 Start index.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="limit" type="integer" required=false %}
+{% swagger-parameter in="body" name="limit" type="integer" %}
 The number of tokens.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 [
   {
@@ -332,75 +252,43 @@ The number of tokens.
   }
 ]
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".nft\_supply\_for\_owner\(account\_id\)" %}
-{% api-method-summary %}
-NFT Supply For Owner
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".nft_supply_for_owner(account_id)" method="get" summary="NFT Supply For Owner" %}
+{% swagger-description %}
 A number of tokens are owned by the account.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="account\_id" type="string" required=true %}
+{% swagger-parameter in="path" name="account_id" type="string" %}
 Account to retrieve.
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 "1"
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".nft\_tokens\_for\_owner\(account\_id, from\_index, limit\)" %}
-{% api-method-summary %}
-NFT Tokens For Owner
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".nft_tokens_for_owner(account_id, from_index, limit)" method="get" summary="NFT Tokens For Owner" %}
+{% swagger-description %}
 An array of tokens owned by account.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="account\_id" type="string" required=true %}
+{% swagger-parameter in="body" name="account_id" type="string" %}
 Account to retrieve.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="from\_index" type="string" required=false %}
+{% swagger-parameter in="body" name="from_index" type="string" %}
 Start index.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="limit" type="integer" required=false %}
+{% swagger-parameter in="body" name="limit" type="integer" %}
 The number of tokens.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 [
   {
@@ -429,65 +317,35 @@ The number of tokens.
   }
 ]
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="patch" host="\[nft-contract\]" path=".nft\_transfer\(token\_id, bidder\)" %}
-{% api-method-summary %}
-NFT Transfer
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".nft_transfer(token_id, bidder)" method="patch" summary="NFT Transfer" %}
+{% swagger-description %}
 Transfer token to the new owner.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="token\_id" type="string" required=false %}
+{% swagger-parameter in="body" name="token_id" type="string" %}
 Token to transfer.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="bidder" type="string" required=false %}
+{% swagger-parameter in="body" name="bidder" type="string" %}
 The receiver of the token.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 void
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="get" host="\[nft-contract\]" path=".nft\_metadata\(\)" %}
-{% api-method-summary %}
-NFT Metadata
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".nft_metadata()" method="get" summary="NFT Metadata" %}
+{% swagger-description %}
 Return contract metadata.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 {
   "spec": "nft-1.0.0",
@@ -499,44 +357,25 @@ Return contract metadata.
   "reference_hash": null
 }
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
+{% endswagger-response %}
+{% endswagger %}
 
-{% api-method method="post" host="\[nft-contract\]" path=".init\(contract\_metadata, market\_contract\)" %}
-{% api-method-summary %}
-init
-{% endapi-method-summary %}
-
-{% api-method-description %}
+{% swagger baseUrl="[nft-contract]" path=".init(contract_metadata, market_contract)" method="post" summary="init" %}
+{% swagger-description %}
 Initialize new contract.
-{% endapi-method-description %}
+{% endswagger-description %}
 
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-body-parameters %}
-{% api-method-parameter name="contract\_metadata" type="object" required=true %}
+{% swagger-parameter in="body" name="contract_metadata" type="object" %}
 Metadata list.
-{% endapi-method-parameter %}
+{% endswagger-parameter %}
 
-{% api-method-parameter name="market\_contracta" type="string" required=true %}
+{% swagger-parameter in="body" name="market_contracta" type="string" %}
 Address of the Market contract.
-{% endapi-method-parameter %}
-{% endapi-method-body-parameters %}
-{% endapi-method-request %}
+{% endswagger-parameter %}
 
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
+{% swagger-response status="200" description="" %}
 ```
 void
 ```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
+{% endswagger-response %}
+{% endswagger %}

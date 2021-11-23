@@ -10,9 +10,7 @@ import { getContractMethods } from '../near-utils'
  * @returns {object} { contract }
  */
 
-export function useNFTContract(
-    contractAddress: string = '0.share-nft.testnet'
-) {
+export function useNFTContract(contractAddress: string) {
     const [contract, setContract] = useState({ account: null })
     const { getContract, accountId } = useNearHooksContainer()
 

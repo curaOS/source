@@ -4,9 +4,7 @@ import useSWR from 'swr'
 import { useNearHooksContainer } from './near'
 import { getContractMethods } from './near-utils'
 
-export default function useMarketContract(
-    contractAddress: string = 'market.share.ysn-1_0_0.ysn.testnet'
-) {
+export default function useMarketContract(contractAddress: string) {
     const [contract, setContract] = useState({ account: null })
     const { getContract, accountId } = useNearHooksContainer()
 

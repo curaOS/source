@@ -14,6 +14,8 @@ import {
     account_media,
     DESIGN_PRICE,
     FT_CONTRACT,
+    GAS_FOR_NFT_APPROVE,
+    NFTOnApprovedArgs,
 } from './models'
 import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
@@ -23,9 +25,18 @@ import {
     xcc_market_accept_bid,
     xcc_market_burn,
 } from './xcc_market'
-import { assert_deposit_attached } from './asserts'
+import {
+    assert_deposit_attached,
+    assert_one_yocto,
+    assert_at_least_one_yocto,
+} from './asserts'
 import { AccountId, royalty_to_payout } from '../../utils'
 import { xcc_generator_generate } from './xcc_generator'
+import {
+    refund_deposit,
+    refund_approved_account,
+    refund_approved_accounts,
+} from './internal_functions'
 
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
 const OWNER_PERCENTAGE: u16 = 7500 // 75%
@@ -218,6 +229,97 @@ export function nft_transfer(token_id: string, bidder: string): void {
 
     accountMedia.delete(token_id)
     account_media.set(design.prev_owner, accountMedia)
+}
+
+/* Approval system */
+
+export function nft_approve(
+    token_id: string,
+    account_id: string,
+    msg: string | null = null
+): void {
+    assert_at_least_one_yocto()
+    const design = designs.getSome(token_id)
+    assert(design != null, 'No design to approve.')
+    assert(design.owner_id == context.sender, 'Only owner can approve.')
+    const approval_id = design.next_approval_id
+
+    const approvals = design.approvals.has(account_id)
+    const new_approval = approvals ? false : true
+
+    design.approvals.set(account_id, approval_id)
+
+    const storage: u128 = u128.from(
+        new_approval ? account_id.length + 4 + 8 : 0
+    )
+    design.next_approval_id += 1
+    designs.set(token_id, design)
+
+    refund_deposit(storage)
+
+    if (msg) {
+        const promiseArgs: NFTOnApprovedArgs = {
+            token_id: token_id,
+            owner_id: design.owner_id,
+            approval_id: approval_id,
+            msg: msg,
+        }
+
+        const promise = ContractPromise.create(
+            token_id,
+            'nft_on_approve',
+            promiseArgs,
+            context.prepaidGas - GAS_FOR_NFT_APPROVE,
+            u128.Zero
+        )
+
+        promise.returnAsResult()
+    }
+}
+
+export function nft_is_approved(
+    token_id: string,
+    approved_account_id: string,
+    approval_id: string | null = null
+): boolean {
+    const design = designs.getSome(token_id)
+    assert(design != null, 'No design to test approval.')
+    const approval = design.approvals.has(approved_account_id)
+    if (approval) {
+        const approval = design.approvals.has(approved_account_id)
+        if (approval_id) {
+            const approval = design.approvals.get(approved_account_id)
+            return approval == parseInt(approval_id)
+        }
+        return true
+    }
+    return false
+}
+
+export function nft_revoke(token_id: string, account_id: string): void {
+    assert_one_yocto()
+    const design = designs.getSome(token_id)
+    assert(design != null, 'No design to revoke.')
+    assert(design.owner_id == context.sender, 'Only owner can revoke.')
+    if (design.approvals.get(account_id)) {
+        refund_approved_account(account_id)
+        design.approvals.delete(account_id)
+        designs.set(token_id, design)
+    }
+}
+
+export function nft_revoke_all(token_id: string): void {
+    assert_one_yocto()
+    const design = designs.getSome(token_id)
+    assert(design != null, 'No design to revoke.')
+    const sender = context.sender
+    assert(design.owner_id == sender, 'Only owner can revoke.')
+
+    if (design.approvals) {
+        refund_approved_accounts(design.approvals)
+        design.approvals.clear()
+        designs.set(token_id, design)
+    }
 }
 
 /* Market */
