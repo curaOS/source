@@ -30,7 +30,7 @@ import {
     assert_one_yocto,
     assert_at_least_one_yocto,
 } from './asserts'
-import { AccountId } from '../../utils'
+import { AccountId, royalty_to_payout } from '../../utils'
 import { xcc_generator_generate } from './xcc_generator'
 import {
     refund_deposit,
@@ -40,6 +40,8 @@ import {
 
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
 const OWNER_PERCENTAGE: u16 = 7500 // 75%
+
+type Payout = Map<AccountId, u128>
 
 export function claim_media(tokenMetadata: TokenMetadata): Media {
     assert_deposit_attached(DESIGN_PRICE)
@@ -149,6 +151,54 @@ export function nft_tokens_for_owner(
     }
 
     return tokens
+}
+
+/* Payouts */
+
+export function nft_payout(
+    token_id: string,
+    balance: u128
+    // max_len_payout: u32
+): Payout {
+    let token = designs.getSome(token_id)
+    let owner_id = token.owner_id
+    let total_perpetual = 0
+    let payout: Payout = new Map()
+    let royalty = token.royalty
+
+    let royalty_sb_keys = token.royalty.split_between.keys()
+    let royalty_sb_size = token.royalty.split_between.size
+
+    // TODO assert gas is limited
+
+    //go through each key and value in the royalty object
+
+    for (let i = 0; i < royalty_sb_size; i++) {
+        let key = royalty_sb_keys[i]
+        if (key != owner_id) {
+            let split = royalty.split_between.get(royalty_sb_keys[i])
+            payout.set(key, royalty_to_payout(split, balance))
+            total_perpetual += split
+        }
+    }
+
+    payout.set(owner_id, royalty_to_payout(10000 - total_perpetual, balance))
+
+    //return the payout object
+    return payout
+}
+
+export function nft_transfer_payout(
+    receiver_id: AccountId,
+    token_id: string,
+    approval_id: u64,
+    balance: u128
+    // max_len_payout: u32
+): Payout {
+    // assert_one_yocto()
+    let payout = nft_payout(token_id, balance)
+    nft_transfer(token_id, receiver_id) //TODO add approval_id
+    return payout
 }
 
 /* nft_transfer */
