@@ -76,6 +76,9 @@ export default function Layout({ children, project = 'share' }) {
                     onSignIn={preSignIn}
                     onSignOut={preSignOut}
                     title={project.toUpperCase()}
+                    nextLinkWrapper={(href, children) => (
+                        <Link href={href}>{children}</Link>
+                    )}
                 />
                 <div
                     sx={{
@@ -122,7 +125,12 @@ export default function Layout({ children, project = 'share' }) {
                         minHeight: '70vh',
                     }}
                 >
-                    <Menu base={project} />
+                    <Menu
+                        base={project}
+                        nextLinkWrapper={(href, children) => (
+                            <Link href={href}>{children}</Link>
+                        )}
+                    />
                     {indexLoader ? (
                         <div
                             sx={{
