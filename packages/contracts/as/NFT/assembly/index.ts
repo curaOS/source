@@ -18,12 +18,9 @@ import {
     StorageBalanceBounds,
     accounts,
     FT_CONTRACT,
-<<<<<<< HEAD
     GAS_FOR_NFT_APPROVE,
     NFTOnApprovedArgs,
-=======
     storage_usage,
->>>>>>> Storage management initial code
 } from './models'
 import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
@@ -33,15 +30,11 @@ import {
     xcc_market_accept_bid,
     xcc_market_burn,
 } from './xcc_market'
-<<<<<<< HEAD
 import {
     assert_deposit_attached,
     assert_one_yocto,
     assert_at_least_one_yocto,
 } from './asserts'
-=======
-import { assert_deposit_attached, assert_one_yocto } from './asserts'
->>>>>>> Storage management initial code
 import { AccountId } from '../../utils'
 import { xcc_generator_generate } from './xcc_generator'
 import {
