@@ -11,6 +11,7 @@ export const Header = ({
     alertMessage,
     setAlertMessage,
     title,
+    nextLinkWrapper,
 }: {
     base: string
     accountId?: string
@@ -19,6 +20,7 @@ export const Header = ({
     alertMessage: string
     setAlertMessage: () => void
     title: string
+    nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
 }) => {
     return (
         <div>
@@ -82,7 +84,8 @@ export const Header = ({
                             )}
                         </>
                     </div>
-                    <a href="/">
+                    {nextLinkWrapper(
+                        '/',
                         <Text
                             sx={{
                                 flex: 'none',
@@ -96,7 +99,7 @@ export const Header = ({
                         >
                             {title}
                         </Text>
-                    </a>
+                    )}
                     <div
                         sx={{
                             display: 'flex',
@@ -110,7 +113,10 @@ export const Header = ({
                     >
                         {accountId ? (
                             <div>
-                                <a href={`/${base}/bids`}>{accountId}</a>
+                                {nextLinkWrapper(
+                                    `/${base}/bids`,
+                                    <a href={`/${base}/bids`}>{accountId}</a>
+                                )}
                             </div>
                         ) : (
                             <div>[blank]</div>
