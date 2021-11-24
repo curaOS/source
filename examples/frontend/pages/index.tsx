@@ -4,7 +4,7 @@
 import { IconButton, useThemeUI } from 'theme-ui'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ProjectCard } from '@cura/components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const slideDetails = [
@@ -88,6 +88,10 @@ const Index = () => {
             setPage([page + newDirection, newDirection])
         }
     }
+
+    useEffect(() => {
+        setPage([Math.floor(Math.random() * slideDetails.length), 0])
+    }, [])
 
     return (
         <div
