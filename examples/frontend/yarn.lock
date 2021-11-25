@@ -2406,11 +2406,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cura/components@0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.12.tgz#aab3001c6eb5deff9b9551319015c4fff5fff916"
-  integrity sha512-/SqmF1L5Ft4XdUwRUIaO/690QcCOC3G49ofA3NN3ElKd2mjC4Ie8QbYZMKdLpLBROsP1wtg44Pqg1NHJiCT3FQ==
+"@cura/components@0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.15.tgz#3f1dbc177064349b9b66260949b6b635f8e3dca4"
+  integrity sha512-xLApZOETpMoi6E/DS1zf7rFvHra36g1ZKxuL2KJS23lJIOabNMY7AyZWrNUfU+YvGKOjsDBu3O8vLuZOabj+aQ==
   dependencies:
+    "@cura/hooks" "0.0.9"
+    "@theme-ui/match-media" "^0.12.0"
     "@theme-ui/presets" "^0.6.0"
     near-api-js "^0.42.0"
     react "^17.0.1"
@@ -2418,10 +2420,10 @@
     theme-ui "^0.10.0"
     tslib "^2.3.1"
 
-"@cura/hooks@0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@cura/hooks/-/hooks-0.0.4.tgz#d56f418d3df519a47fb2a60815b2d8f77db518bb"
-  integrity sha512-sda/fy04g+ITDDFupW6DpPwIu75FYts3Bb6alpp4Ok+b2Tr5IkoTQyitXH9u7PKfsZzPjWe/aJcq9jUwwqZahg==
+"@cura/hooks@0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@cura/hooks/-/hooks-0.0.9.tgz#094444f8fe53eae5d2c24caa6151b185240ff3d9"
+  integrity sha512-/zDOAnHKy6jxeB5GARiZhHl3F1545AVXBJqw+p30b5dg1LJ4kqyNcgzKjpow1DO4/h8xbTVt26+jH0z4KtH2SA==
   dependencies:
     near-api-js "^0.42.0"
     react "^17.0.1"
@@ -3559,6 +3561,11 @@
   dependencies:
     "@emotion/react" "^11.1.1"
     csstype "^3.0.5"
+
+"@theme-ui/match-media@^0.12.0":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@theme-ui/match-media/-/match-media-0.12.1.tgz#9714b3fdbfe9aa78f3c84553cc872b53cb62dc0a"
+  integrity sha512-nPV5eXV+7wrfTY66lRUud5+VMmKi1d/4tMwHfjCqOtfV1P0UAPIWDcXXwIsU2/IMCoOd8E0nDA8dg0LYq9pJSg==
 
 "@theme-ui/match-media@^0.6.0":
   version "0.6.2"
@@ -10768,6 +10775,13 @@ react-helmet-async@^1.0.7:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
+react-infinite-scroll-component@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-6.1.0.tgz#7e511e7aa0f728ac3e51f64a38a6079ac522407f"
+  integrity sha512-SQu5nCqy8DxQWpnUVLx7V7b7LcA37aM7tvoWjTLZp1dk6EJibM5/4EJKzOnl07/BsM1Y40sKLuqjCwwH/xV0TQ==
+  dependencies:
+    throttle-debounce "^2.1.0"
+
 react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz"
@@ -12275,6 +12289,11 @@ theme-ui@^0.6.0:
     "@theme-ui/css" "^0.6.2"
     "@theme-ui/mdx" "^0.6.2"
     "@theme-ui/theme-provider" "^0.6.2"
+
+throttle-debounce@^2.1.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.3.0.tgz#fd31865e66502071e411817e241465b3e9c372e2"
+  integrity sha512-H7oLPV0P7+jgvrk+6mwwwBDmxTaxnu9HMXmloNLXwnNO0ZxZ31Orah2n8lU1eMPvsaowP2CX+USCgyovXfdOFQ==
 
 throttle-debounce@^3.0.1:
   version "3.0.1"
