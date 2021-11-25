@@ -329,18 +329,25 @@ export function nft_revoke_all(token_id: string): void {
 
 /* Storage management */
 
-function internal_storage_balance_of(account_id: string): StorageBalance|null {
+function internal_storage_balance_of(
+    account_id: string
+): StorageBalance | null {
     if (accounts.get(account_id)) {
-        return <StorageBalance>{total: storage_balance_bounds().min, available: '0'}
+        return <StorageBalance>{
+            total: storage_balance_bounds().min,
+            available: '0',
+        }
     } else {
         return null
     }
 }
 
-export function storage_deposit(account_id: string|null, registration_only: Boolean|null=null): StorageBalance {
+export function storage_deposit(
+    account_id: string | null,
+    registration_only: Boolean | null = null
+): StorageBalance {
     const amount = context.attachedDeposit
-    if (account_id == null)
-        account_id = context.sender
+    if (account_id == null) account_id = context.sender
     account_id = account_id as string
     if (accounts.contains(account_id)) {
         logging.log('Account already registered')
@@ -349,7 +356,10 @@ export function storage_deposit(account_id: string|null, registration_only: Bool
         }
     } else {
         const minBalance = u128.from(storage_balance_bounds().min)
-        assert(amount >= minBalance, 'Attached deposit less than minimum required')
+        assert(
+            amount >= minBalance,
+            'Attached deposit less than minimum required'
+        )
         accounts.set(account_id, u128.from('0'))
         const refund = u128.sub(amount, minBalance)
         if (u128.gt(refund, u128.from('0'))) {
@@ -359,20 +369,23 @@ export function storage_deposit(account_id: string|null, registration_only: Bool
     return internal_storage_balance_of(account_id) as StorageBalance
 }
 
-export function storage_withdraw(amount: string|null): StorageBalance  {
+export function storage_withdraw(amount: string | null): StorageBalance {
     assert_one_yocto()
     const account_id = context.sender
     const account = accounts.getSome(account_id)
-    assert (account, 'Account not registered')
+    assert(account, 'Account not registered')
     const balance = internal_storage_balance_of(account_id)
 
     if (amount)
-        assert(u128.gt(u128.from(amount as string), u128.from('0')), 'The amount is greater than available storage balance')
+        assert(
+            u128.gt(u128.from(amount as string), u128.from('0')),
+            'The amount is greater than available storage balance'
+        )
 
-    return balance as StorageBalance;
+    return balance as StorageBalance
 }
 
-export function storage_unregister(force: Boolean|null=null): boolean {
+export function storage_unregister(force: Boolean | null = null): boolean {
     assert_one_yocto()
     const account_id = context.sender
     const account = accounts.getSome(account_id)
@@ -380,23 +393,25 @@ export function storage_unregister(force: Boolean|null=null): boolean {
         const balance = accounts.getSome(account_id)
         if (u128.eq(balance, u128.from('0')) || force) {
             accounts.delete(account_id)
-            ContractPromiseBatch.create(account_id).transfer(u128.add(u128.from(storage_balance_bounds().min), u128.from(1)))
+            ContractPromiseBatch.create(account_id).transfer(
+                u128.add(u128.from(storage_balance_bounds().min), u128.from(1))
+            )
             return true
         } else {
             assert(false, 'Account balance is not zero')
         }
-    } 
-    return false;
+    }
+    return false
 }
 
 export function storage_balance_bounds(): StorageBalanceBounds {
-    const storage_usage =  storage.getSome<u128>(STORAGE_USAGE_KEY)
+    const storage_usage = storage.getSome<u128>(STORAGE_USAGE_KEY)
     const cost = u128.mul(storage_usage, storage_byte_cost())
-    return  <StorageBalanceBounds> {min: cost.toString(), max: cost.toString()}
+    return <StorageBalanceBounds>{ min: cost.toString(), max: cost.toString() }
 }
 
-export function storage_balance_of(account_id: string): StorageBalance|null {
-    return internal_storage_balance_of(account_id);
+export function storage_balance_of(account_id: string): StorageBalance | null {
+    return internal_storage_balance_of(account_id)
 }
 
 /* Market */
