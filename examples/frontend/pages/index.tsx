@@ -4,7 +4,7 @@
 import { IconButton, useThemeUI } from 'theme-ui'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ProjectCard } from '@cura/components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 const slideDetails = [
@@ -73,6 +73,7 @@ const Index = () => {
     const router = useRouter()
     const [[page, direction], setPage] = useState([0, 0])
     const [pauseSlider, setPauseSlider] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     const { theme } = useThemeUI()
 
@@ -88,6 +89,11 @@ const Index = () => {
             setPage([page + newDirection, newDirection])
         }
     }
+
+    useEffect(() => {
+        setPage([Math.floor(Math.random() * slideDetails.length), 0])
+        setLoading(false)
+    }, [])
 
     return (
         <div
@@ -114,40 +120,48 @@ const Index = () => {
                     }
                 }}
             >
-                <AnimatePresence initial={false} custom={direction}>
-                    <motion.div
-                        key={page}
-                        custom={direction}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                            x: { type: 'spring', stiffness: 200, damping: 20 },
-                            opacity: { duration: 0.2 },
-                        }}
-                        sx={{
-                            position: 'absolute',
-                            left: '50%',
-                            top: '50%',
-                        }}
-                    >
-                        <ProjectCard
-                            title={slideDetails[page].title}
-                            image={slideDetails[page].image}
-                            description={slideDetails[page].description}
-                            tags={slideDetails[page].tags}
-                            onCreateClick={() =>
-                                router.push(slideDetails[page].path + '/create')
-                            }
-                            onExploreClick={() =>
-                                router.push(
-                                    slideDetails[page].path + '/explore'
-                                )
-                            }
-                        />
-                    </motion.div>
-                </AnimatePresence>
+                {!loading && (
+                    <AnimatePresence initial={false} custom={direction}>
+                        <motion.div
+                            key={page}
+                            custom={direction}
+                            variants={slideVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{
+                                x: {
+                                    type: 'spring',
+                                    stiffness: 200,
+                                    damping: 20,
+                                },
+                                opacity: { duration: 0.2 },
+                            }}
+                            sx={{
+                                position: 'absolute',
+                                left: '50%',
+                                top: '50%',
+                            }}
+                        >
+                            <ProjectCard
+                                title={slideDetails[page].title}
+                                image={slideDetails[page].image}
+                                description={slideDetails[page].description}
+                                tags={slideDetails[page].tags}
+                                onCreateClick={() =>
+                                    router.push(
+                                        slideDetails[page].path + '/create'
+                                    )
+                                }
+                                onExploreClick={() =>
+                                    router.push(
+                                        slideDetails[page].path + '/explore'
+                                    )
+                                }
+                            />
+                        </motion.div>
+                    </AnimatePresence>
+                )}
             </motion.div>
             <IconButton
                 aria-label="Previous slide"

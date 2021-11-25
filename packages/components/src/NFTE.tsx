@@ -1,6 +1,6 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useNFT, useNFTContractMetadata, useNFTReference } from '@cura/hooks'
+import { useNFT, useNFTContractMetadata, useNFTReference, useNFTContentType } from '@cura/hooks'
 
 import { Container } from 'theme-ui'
 import { useBreakpointIndex } from '@theme-ui/match-media'
@@ -64,6 +64,12 @@ export function NFTE({
 
     const mediaUri = validateURI(finalNFTMetadata?.metadata?.media, baseURI)
 
+    // Determine media type
+    const {
+        loading: mediaTypeLoading,
+        data: mediaType,
+    } = useNFTContentType(mediaUri || '')
+
     let error =
         NFTContractMetadataError ||
         NFTError ||
@@ -93,9 +99,10 @@ export function NFTE({
                 <>
                     <MediaObject
                         mediaURI={mediaUri || ''}
+                        type={mediaType}
                         width={canvasSize}
                         height={canvasSize}
-                        loading={loading}
+                        loading={loading && mediaTypeLoading}
                     />
                     <Metadata
                         data={finalNFTMetadata}
