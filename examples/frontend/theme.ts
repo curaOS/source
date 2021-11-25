@@ -1,5 +1,7 @@
 import { tailwind, baseColors } from '@theme-ui/preset-tailwind'
 const logo = `/logo.svg`
+const gradientLarge = `/gradientLarge.jpg`
+const gradientSmall = `/gradientSmall.jpg`
 
 //  Default Styles
 const styles = {
@@ -208,6 +210,10 @@ const elements = {
             height: `48px`,
             backgroundImage: `url(${logo})`,
             backgroundSize: `contain`,
+        },
+        gradient: {
+            backgroundImage: [`url(${gradientSmall})`, `url(${gradientLarge})`],
+            backgroundSize: `cover`,
         },
     },
     links: {
