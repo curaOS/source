@@ -12,4 +12,5 @@ export const Zero = Template.bind({})
 Zero.args = {
     base: 'cc',
     accountId: 'ys24.testnet',
+    nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
