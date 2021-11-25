@@ -68,14 +68,14 @@ export class NFTOnApprovedArgs {
 
 @nearBindgen
 export class StorageBalance {
-    total: string;
-    available: string;
+    total: string
+    available: string
 }
- 
+
 @nearBindgen
 export class StorageBalanceBounds {
-    min: string;
-    max: string;
+    min: string
+    max: string
 }
 
 export const designs = new PersistentUnorderedMap<AccountId, Media>('md')
