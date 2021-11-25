@@ -18,7 +18,7 @@ export default {
 const Template: ComponentStory<typeof Button> = (args) => (
     <Button {...args}>Button</Button>
 )
-const IconTemplate: ComponentStory<typeof Button> = (args) => (
+const IconTemplate: ComponentStory<typeof Button> = () => (
     <IconButton>
         <svg
             width="26"

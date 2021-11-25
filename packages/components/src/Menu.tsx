@@ -1,30 +1,52 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Text, Divider, Flex, NavLink } from 'theme-ui'
+import { Text, Box, Container, Button } from 'theme-ui'
 
 export function Menu({ accountId, base }: { accountId: string; base: string }) {
-    return (
-        <div>
-            <Divider />
-            <Flex as="nav" sx={{ justifyContent: 'space-around' }}>
-                {accountId ? (
-                    <>
-                        <a href={`/${base}/create`}>
-                            <NavLink>Create</NavLink>
-                        </a>
-                        <a href={`/${base}`}>
-                            <NavLink>View</NavLink>
-                        </a>
-                        <a href={`/${base}/explore`}>
-                            <NavLink>Explore</NavLink>
-                        </a>
-                    </>
-                ) : (
-                    <Text>Please connect to use dapp.</Text>
-                )}
-            </Flex>
-            <Divider />
-        </div>
+    const Btn = ({ href, content }) => (
+        <Button
+            as="a"
+            variant="navigation"
+            sx={{ borderTop: 0, borderBottom: 0 }}
+            href={`/${base}/${href}`}
+        >
+            {content}
+        </Button>
     )
+    if (accountId) {
+        return (
+            <Box
+                sx={{ width: '100%', bg: 'bg', borderTop: 1, borderBottom: 1 }}
+            >
+                <Container
+                    as="nav"
+                    variant="wide"
+                    px={[0, 0, 0]}
+                    sx={{ display: 'flex' }}
+                >
+                    <Btn href={`/create`} content="create" />
+                    <Btn href={`/`} content="view" />
+                    <Btn href={`/explore`} content="explore" />
+                </Container>
+            </Box>
+        )
+    } else {
+        return (
+            <Box
+                sx={{
+                    width: '100%',
+                    height: '100%',
+                    minHeight: 'inherit',
+                    maxHeight: 'inherit',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
+                variant="images.gradient"
+            >
+                <Text variant="buttons.1">Please connect to use dapp</Text>
+            </Box>
+        )
+    }
 }
