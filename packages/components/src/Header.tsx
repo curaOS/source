@@ -20,6 +20,7 @@ export const Header = ({
     alertMessage,
     setAlertMessage,
     title,
+    nextLinkWrapper,
 }: {
     base: string
     accountId?: string
@@ -28,6 +29,7 @@ export const Header = ({
     alertMessage: string
     setAlertMessage: () => void
     title: string
+    nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const titleArray = title.split(/(?<=\/)/)
@@ -63,13 +65,15 @@ export const Header = ({
                         justifyContent: 'space-between',
                     }}
                 >
-                    <a
-                        href="/"
-                        sx={{
-                            variant: 'images.navLogo',
-                            display: 'block',
-                        }}
-                    ></a>
+                    {nextLinkWrapper(
+                        `/`,
+                        <a
+                            sx={{
+                                variant: 'images.navLogo',
+                                display: 'block',
+                            }}
+                        ></a>
+                    )}
                     <Box
                         sx={{
                             display: ['block', 'none'],
@@ -125,13 +129,12 @@ export const Header = ({
                                 }}
                             >
                                 {accountId ? (
-                                    <Button
-                                        as="a"
-                                        href={`/${base}/bids`}
-                                        variant="mobileMenu"
-                                    >
-                                        bids
-                                    </Button>
+                                    nextLinkWrapper(
+                                        `/${base}/bids`,
+                                        <Button variant="mobileMenu">
+                                            bids
+                                        </Button>
+                                    )
                                 ) : (
                                     <Button
                                         onClick={onSignIn}
@@ -215,13 +218,10 @@ export const Header = ({
                 >
                     {accountId ? (
                         <>
-                            <Button
-                                as="a"
-                                href={`/${base}/bids`}
-                                variant="outline"
-                            >
-                                {accountId}
-                            </Button>
+                            {nextLinkWrapper(
+                                `/${base}/bids`,
+                                <Button variant="outline">{accountId}</Button>
+                            )}
                             <IconButton
                                 onClick={onSignOut}
                                 p={0}

@@ -4,9 +4,7 @@ import { getContractMethods } from './near-utils'
 import useSWR from 'swr'
 import { useNearHooksContainer } from '@cura/hooks'
 
-export default function useFTContract(
-    contractAddress: string = 'ysn-1_0_0.ysn.testnet'
-) {
+export default function useFTContract(contractAddress: string) {
     const [contract, setContract] = useState({ account: null })
     const { getContract, accountId } = useNearHooksContainer()
 

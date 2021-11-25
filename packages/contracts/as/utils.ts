@@ -8,6 +8,7 @@ import { u128, Context, ContractPromise } from 'near-sdk-as'
  * Account IDs in NEAR are just strings.
  */
 export type AccountId = string
+export type TokenId = string
 
 /**
  * Gas is u64
@@ -99,6 +100,20 @@ export function assert_single_promise_success(): void {
 export function split_share(percentage: u16, amount: u128): u128 {
     return u128.div(
         u128.mul(amount, u128.from(percentage)),
+        u128.from(ONE_HUNDRED_PERCENT)
+    )
+}
+
+/**
+ * Royalty payout
+ */
+
+export function royalty_to_payout(
+    royalty_percentage: u32,
+    amount_to_pay: Balance
+): u128 {
+    return u128.div(
+        u128.mul(amount_to_pay, u128.from(royalty_percentage)),
         u128.from(ONE_HUNDRED_PERCENT)
     )
 }

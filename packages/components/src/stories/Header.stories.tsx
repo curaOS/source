@@ -15,9 +15,11 @@ export const Connected = Template.bind({})
 Connected.args = {
     title: 'CC/ML',
     accountId: 'yassine.testnet',
+    nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
 
 export const Disconnected = Template.bind({})
 Disconnected.args = {
     title: 'SHARE',
+    nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }

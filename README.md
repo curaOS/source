@@ -13,6 +13,7 @@ description: >-
 * [Docs](https://docs.ysn.design)
 * [Components](https://master--60d9b2ac2cf86a00396f9b0f.chromatic.com)
 * [Testnet](https://test.ysn.design)
+* [Wiki](https://www.notion.so/cura-wiki/CURA-fab91c6e42c34b3e9883c72f20178267)
 * [Slides](https://www.figma.com/proto/ojREDfHiFmEPCh0rbq5Gmc/Slides?node-id=15%3A75\&scaling=min-zoom\&page-id=3%3A3792)
 
 ## Concepts

@@ -21,6 +21,7 @@ export const Connected = Template.bind({})
 Connected.args = {
     base: 'cc',
     accountId: 'ys24.testnet',
+    nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
 
 export const Disconnected = Template.bind({})

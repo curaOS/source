@@ -3,17 +3,27 @@
 
 import { Text, Box, Container, Button } from 'theme-ui'
 
-export function Menu({ accountId, base }: { accountId: string; base: string }) {
-    const Btn = ({ href, content }) => (
-        <Button
-            as="a"
-            variant="navigation"
-            sx={{ borderTop: 0, borderBottom: 0 }}
-            href={`/${base}/${href}`}
-        >
-            {content}
-        </Button>
-    )
+export function Menu({
+    accountId,
+    base,
+    nextLinkWrapper,
+}: {
+    accountId: string
+    base: string
+    nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
+}) {
+    const Btn = ({ href, content }) => {
+        return nextLinkWrapper(
+            `/${base}/${href}`,
+            <Button
+                variant="navigation"
+                sx={{ borderTop: 0, borderBottom: 0, width: '100%' }}
+            >
+                {content}
+            </Button>
+        )
+    }
+
     if (accountId) {
         return (
             <Box
@@ -23,11 +33,11 @@ export function Menu({ accountId, base }: { accountId: string; base: string }) {
                     as="nav"
                     variant="wide"
                     px={[0, 0, 0]}
-                    sx={{ display: 'flex' }}
+                    sx={{ display: 'flex', '>*': { flex: 1 } }}
                 >
-                    <Btn href={`/create`} content="create" />
-                    <Btn href={`/`} content="view" />
-                    <Btn href={`/explore`} content="explore" />
+                    <Btn href={`create`} content="create" />
+                    <Btn href={``} content="view" />
+                    <Btn href={`explore`} content="explore" />
                 </Container>
             </Box>
         )

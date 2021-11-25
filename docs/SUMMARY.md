@@ -31,7 +31,3 @@
 ## Old
 
 * [deploy + accounts](old/scripts.md)
-
-## OKR
-
-* ['21 - Q4](okr/21-q4.md)

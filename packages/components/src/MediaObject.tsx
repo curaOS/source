@@ -1,18 +1,20 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useNFTContentType } from '@cura/hooks'
 import { Placeholder } from './Placeholder'
+
+type ContentType = 'image' | 'video' | 'audio' | 'text' | undefined
 
 type mediaObjectProps = {
     mediaURI: string
+    type: ContentType
     width?: number | string
     height?: number | string
     loading?: boolean
     autoPlay?: boolean
 }
 
-function Text({ width, height, content }) {
+function Text({ mediaURI, width, height }) {
     return (
         <pre
             sx={{
@@ -20,7 +22,7 @@ function Text({ width, height, content }) {
                 height: height,
             }}
         >
-            {content}
+            {mediaURI}
         </pre>
     )
 }
@@ -72,10 +74,15 @@ function Iframe({ mediaURI, width, height }: mediaObjectProps) {
     )
 }
 
+/**
+ * MediaObject
+ *
+ * @param {string} mediaURI - URI to the media or Raw text if type == text
+ * @param {ContentType} type - image | video | audio | text | undefined
+ *
+ */
 export function MediaObject(props: mediaObjectProps) {
-    const { loading, data, content } = useNFTContentType(props.mediaURI)
-
-    if (props.loading || loading) {
+    if (props.loading) {
         return (
             <Placeholder
                 width={props.width}
@@ -84,7 +91,7 @@ export function MediaObject(props: mediaObjectProps) {
             />
         )
     }
-    switch (data) {
+    switch (props.type) {
         case 'image':
             return <Image {...props} />
 
@@ -95,12 +102,9 @@ export function MediaObject(props: mediaObjectProps) {
             return <Audio {...props} />
 
         case 'text':
-            return <Text {...props} content={content} />
-
-        case 'html' || 'other':
-            return <Iframe {...props} />
+            return <Text {...props} />
 
         default:
-            return <></>
+            return <Iframe {...props} />
     }
 }
