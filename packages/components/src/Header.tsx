@@ -29,40 +29,9 @@ export const Header = ({
     setAlertMessage: () => void
     title: string
 }) => {
-    const [isButtonHovered, setIsButtonHovered] = useState(false)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const titleArray = title.split(/(?<=\/)/)
 
-    const UserButton = () => {
-        if (!accountId) {
-            return (
-                <Button onClick={onSignIn} variant="primary">
-                    Connect NEAR
-                </Button>
-            )
-        }
-
-        if (isButtonHovered) {
-            return (
-                <Button
-                    onClick={onSignOut}
-                    onMouseLeave={() => setIsButtonHovered(false)}
-                    variant="outline"
-                >
-                    Disconnect
-                </Button>
-            )
-        }
-
-        return (
-            <Button
-                onMouseEnter={() => setIsButtonHovered(true)}
-                variant="outline"
-            >
-                {accountId}
-            </Button>
-        )
-    }
     return (
         <Box
             sx={{
@@ -157,10 +126,11 @@ export const Header = ({
                             >
                                 {accountId ? (
                                     <Button
-                                        onClick={onSignOut}
+                                        as="a"
+                                        href={`/${base}/bids`}
                                         variant="mobileMenu"
                                     >
-                                        disconnect
+                                        bids
                                     </Button>
                                 ) : (
                                     <Button
@@ -178,12 +148,20 @@ export const Header = ({
                                 >
                                     twitter ↗
                                 </Button>
+                                {accountId && (
+                                    <Button
+                                        onClick={onSignOut}
+                                        variant="mobileMenu"
+                                    >
+                                        disconnect
+                                    </Button>
+                                )}
                             </Box>
                         )}
                     </Box>
                 </Box>
                 <a
-                    href={`/${base}/bids`}
+                    href="#nothing"
                     sx={{
                         p: 3,
                         flex: 1,
@@ -235,10 +213,48 @@ export const Header = ({
                         display: ['none', 'block'],
                     }}
                 >
-                    <UserButton />
+                    {accountId ? (
+                        <>
+                            <Button
+                                as="a"
+                                href={`/${base}/bids`}
+                                variant="outline"
+                            >
+                                {accountId}
+                            </Button>
+                            <IconButton
+                                onClick={onSignOut}
+                                p={0}
+                                ml={2}
+                                sx={{
+                                    width: 31,
+                                    height: 31,
+                                }}
+                            >
+                                <svg
+                                    width="14"
+                                    height="16"
+                                    viewBox="0 0 14 16"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    sx={{
+                                        stroke: 'text',
+                                    }}
+                                >
+                                    <path d="M2 1H13V15H2" strokeWidth="1.3" />
+                                    <path d="M0 8H8" strokeWidth="1.3" />
+                                    <path d="M4 4L8 8L4 12" strokeWidth="1.3" />
+                                </svg>
+                            </IconButton>
+                        </>
+                    ) : (
+                        <Button onClick={onSignIn} variant="primary">
+                            Connect NEAR
+                        </Button>
+                    )}
                 </Box>
                 {alertMessage && (
-                    <Alert mt={2}>
+                    <Alert sx={{ width: '100%' }} mt={3}>
                         <Text>{alertMessage.substring(0, 80)} ...</Text>
                         <Close
                             ml="auto"
