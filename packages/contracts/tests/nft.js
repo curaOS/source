@@ -23,8 +23,21 @@ function getConfig(env) {
 }
 
 const contractMethods = {
-    viewMethods: ['nft_total_supply', 'nft_metadata', 'nft_token', 'nft_tokens_for_owner'],
-    changeMethods: ['init', 'claim_media'],
+    viewMethods: [
+        'nft_total_supply',
+        'nft_metadata',
+        'nft_token',
+        'nft_payout',
+        'nft_tokens_for_owner',
+        'nft_is_approved',
+    ],
+    changeMethods: [
+        'init',
+        'claim_media',
+        'nft_approve',
+        'nft_revoke',
+        'nft_revoke_all',
+    ],
 }
 let config
 let masterAccount
@@ -102,7 +115,6 @@ async function initTest() {
         contractMethods
     )
 
-
     console.log('Finish deploy contracts and create test accounts')
     return { aliceUseContract }
 }
@@ -126,11 +138,13 @@ async function test() {
     })
 
     // creating sample NFTs
-    for (var i=0; i<NUMBER_OF_NFT; i++)
-    {
-        console.log((i+1) + "/" + NUMBER_OF_NFT)
-        await aliceUseContract.claim_media( {args: {tokenMetadata: {media: ('NFT-' + i)}},
-  gas: CONTRACT_CLAIM_GAS, amount: CONTRACT_CLAIM_PRICE })
+    for (var i = 0; i < NUMBER_OF_NFT; i++) {
+        console.log('Creating NFT: ' + (i + 1) + '/' + NUMBER_OF_NFT)
+        await aliceUseContract.claim_media({
+            args: { tokenMetadata: { media: 'NFT-' + i } },
+            gas: CONTRACT_CLAIM_GAS,
+            amount: CONTRACT_CLAIM_PRICE,
+        })
     }
 
     console.log('Finish create sample NFTs')
@@ -138,13 +152,70 @@ async function test() {
     const total_supply = await aliceUseContract.nft_total_supply({
         args: {},
     })
-    const token_owners = await aliceUseContract.nft_tokens_for_owner({account_id: 'alice.test.near'})
+    const token_owners = await aliceUseContract.nft_tokens_for_owner({
+        account_id: 'alice.test.near',
+    })
+
+    const media = await aliceUseContract.claim_media({
+        args: { tokenMetadata: { media: 'abc' } },
+        gas: CONTRACT_CLAIM_GAS,
+        amount: CONTRACT_CLAIM_PRICE,
+    })
+
+    // royalty
+
+    const media_payout = await aliceUseContract.nft_payout({
+        token_id: media.id,
+        balance: nearAPI.utils.format.parseNearAmount('1'),
+    })
+
+    console.log('Media Payout: ', media_payout)
+
+    // approval tests
+
+    const before_approve = await aliceUseContract.nft_is_approved({
+        token_id: media.id,
+        approved_account_id: 'market.test.near',
+    })
+
+    await aliceUseContract.nft_approve({
+        args: { token_id: media.id, account_id: 'market.test.near' },
+        gas: CONTRACT_CLAIM_GAS,
+        amount: CONTRACT_CLAIM_PRICE,
+    })
+
+    const before_revoke = await aliceUseContract.nft_is_approved({
+        token_id: media.id,
+        approved_account_id: 'market.test.near',
+    })
+
+    const media_with_approval = await aliceUseContract.nft_token({
+        token_id: media.id,
+    })
+
+    console.log('Media approvals:', media_with_approval.approvals)
+    console.log('Media next approval: ', media_with_approval.next_approval_id)
+
+    await aliceUseContract.nft_revoke_all({
+        args: { token_id: media.id },
+        gas: CONTRACT_CLAIM_GAS,
+        amount: 1,
+    })
+    const after_revoke = await aliceUseContract.nft_is_approved({
+        token_id: media.id,
+        approved_account_id: 'market.test.near',
+    })
+
+    console.log('Finish approval tests')
 
     assert.equal(parseInt(total_supply), NUMBER_OF_NFT)
     assert.equal(token_owners.length, NUMBER_OF_NFT)
     assert.equal(example_nft_metadata.spec, 'nft-1.0.0')
     assert.equal(example_nft_metadata.name, 'nftExample')
     assert.equal(example_nft_metadata.symbol, 'NFTEXAMPLE')
+    assert.equal(before_approve, false)
+    assert.equal(before_revoke, true)
+    assert.equal(after_revoke, false)
 }
 
 test()

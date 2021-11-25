@@ -11,12 +11,14 @@ export default function HeaderContainer({
     onSignIn,
     onSignOut,
     title,
+    nextLinkWrapper,
 }: {
     base: string
     accountId?: string
     onSignIn: () => void
     onSignOut: () => void
     title: string
+    nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
 }) {
     const alertMessage = useRecoilValue(alertMessageState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
@@ -30,6 +32,7 @@ export default function HeaderContainer({
             alertMessage={alertMessage}
             setAlertMessage={setAlertMessage}
             title={title}
+            nextLinkWrapper={nextLinkWrapper}
         />
     )
 }
