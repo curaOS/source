@@ -139,10 +139,10 @@ async function test() {
         },
     })
     const example_nft_metadata = await aliceUseContract.nft_metadata({
-        args: {  },
+        args: {},
     })
 
-     // creating sample NFTs
+    // creating sample NFTs
 
     for (var i = 0; i < NUMBER_OF_NFT; i++) {
         console.log('Creating NFT: ' + (i + 1) + '/' + NUMBER_OF_NFT)
@@ -215,9 +215,9 @@ async function test() {
     console.log('Finish approval tests')
 
     // storage management
-    
+
     const empty_storage_balance = await aliceUseContract.storage_balance_of({
-        account_id: 'alice.test.near'
+        account_id: 'alice.test.near',
     })
 
     await aliceUseContract.storage_deposit({
@@ -228,7 +228,7 @@ async function test() {
 
     const storage_bounds = await aliceUseContract.storage_balance_bounds()
     const bounds_of = await aliceUseContract.storage_balance_of({
-        account_id: 'alice.test.near'
+        account_id: 'alice.test.near',
     })
 
     assert.equal(parseInt(total_supply), NUMBER_OF_NFT)
