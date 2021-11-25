@@ -161,7 +161,7 @@ export const Header = ({
                     </Box>
                 </Box>
                 <a
-                    href="/"
+                    href="#nothing"
                     sx={{
                         p: 3,
                         flex: 1,
