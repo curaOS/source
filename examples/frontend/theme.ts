@@ -1,7 +1,7 @@
 import { tailwind, baseColors } from '@theme-ui/preset-tailwind'
 const logo = `/logo.svg`
-const gradientLarge = `/gradientLarge.jpg`
-const gradientSmall = `/gradientSmall.jpg`
+const gradientLarge = `/gradientLarge.webp`
+const gradientSmall = `/gradientSmall.webp`
 
 //  Default Styles
 const styles = {
