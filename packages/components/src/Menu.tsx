@@ -37,6 +37,8 @@ export function Menu({ accountId, base }: { accountId: string; base: string }) {
                 sx={{
                     width: '100%',
                     height: '100%',
+                    minHeight: 'inherit',
+                    maxHeight: 'inherit',
                     justifyContent: 'center',
                     display: 'flex',
                     alignItems: 'center',
