@@ -19,6 +19,7 @@ const styles = {
 // Theme variants specific to this frontend that override curaTheme
 const variants = {
     images: {
+        ...curaTheme.images,
         gradient: {
             backgroundImage: [`url(${gradientSmall})`, `url(${gradientLarge})`],
             backgroundPosition: `center`,
