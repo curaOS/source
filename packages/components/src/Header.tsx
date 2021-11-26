@@ -20,6 +20,7 @@ export const Header = ({
     alertMessage,
     setAlertMessage,
     title,
+    logo,
     nextLinkWrapper,
 }: {
     base: string
@@ -29,6 +30,7 @@ export const Header = ({
     alertMessage: string
     setAlertMessage: () => void
     title: string
+    logo: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -71,6 +73,7 @@ export const Header = ({
                             sx={{
                                 variant: 'images.navLogo',
                                 display: 'block',
+                                backgroundImage: `url(${logo})`,
                             }}
                         ></a>
                     )}

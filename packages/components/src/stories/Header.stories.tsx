@@ -11,9 +11,13 @@ export default {
 
 const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />
 
+const logo =
+    'https://raw.githubusercontent.com/curaOS/source/master/.gitbook/assets/cura.png'
+
 export const Connected = Template.bind({})
 Connected.args = {
     title: 'CC/ML',
+    logo: logo,
     accountId: 'yassine.testnet',
     nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
@@ -21,5 +25,6 @@ Connected.args = {
 export const Disconnected = Template.bind({})
 Disconnected.args = {
     title: 'SHARE',
+    logo: logo,
     nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }

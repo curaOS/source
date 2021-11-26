@@ -1,6 +1,4 @@
 import { tailwind, baseColors } from '@theme-ui/preset-tailwind'
-// @ts-ignore
-import logo from './src/public/img/logo.svg'
 
 // Theme colors + Tailwand base colors
 const colors = {
@@ -201,7 +199,8 @@ const elements = {
         navLogo: {
             width: `48px`,
             height: `48px`,
-            backgroundImage: `url(${logo})`,
+            backgroundRepeat: `no-repeat`,
+            backgroundPosition: `center`,
             backgroundSize: `contain`,
         },
         gradient: {
