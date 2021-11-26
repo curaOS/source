@@ -1,6 +1,6 @@
 import { ThemeProvider } from 'theme-ui'
 import { theme } from '../theme'
-import '../src/public/fonts/style.css'
+import '../src/assets/fonts/style.css'
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },

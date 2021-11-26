@@ -1,10 +1,10 @@
 import { tailwind, baseColors } from '@theme-ui/preset-tailwind'
 // @ts-ignore
-import logo from './src/public/img/logo.svg'
+import logo from './src/assets/img/logo.svg'
 // @ts-ignore
-import gradientLarge from './src/public/img/gradientLarge.webp'
+import gradientLarge from './src/assets/img/gradientLarge.webp'
 // @ts-ignore
-import gradientSmall from './src/public/img/gradientSmall.webp'
+import gradientSmall from './src/assets/img/gradientSmall.webp'
 
 // Theme colors + Tailwand base colors
 const colors = {
