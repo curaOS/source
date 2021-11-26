@@ -1,10 +1,6 @@
 import { tailwind, baseColors } from '@theme-ui/preset-tailwind'
 // @ts-ignore
-import logo from './assets/img/logo.svg'
-// @ts-ignore
-import gradientLarge from './assets/img/gradientLarge.webp'
-// @ts-ignore
-import gradientSmall from './assets/img/gradientSmall.webp'
+import logo from './src/public/img/logo.svg'
 
 // Theme colors + Tailwand base colors
 const colors = {
@@ -21,6 +17,13 @@ const colors = {
             },
         },
     },
+}
+
+const gradients = {
+    primary: [
+        `linear-gradient(192deg, rgba(60,55,233,1) 3%, rgba(213,168,235,1) 57%, rgba(233,180,234,1) 100%)`,
+        `linear-gradient(45deg, rgba(60,55,233,1) 0%, rgba(213,168,235,1) 50%, rgba(233,180,234,1) 100%)`,
+    ],
 }
 
 // typography
@@ -202,9 +205,10 @@ const elements = {
             backgroundSize: `contain`,
         },
         gradient: {
-            backgroundImage: [`url(${gradientSmall})`, `url(${gradientLarge})`],
+            backgroundImage: gradients.primary,
+            backgroundColor: `bg`,
             backgroundSize: `cover`,
-        }
+        },
     },
     links: {
         navigation: {
