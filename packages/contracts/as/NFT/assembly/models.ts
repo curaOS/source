@@ -19,8 +19,21 @@ export const ROYALTY_MAX_PERCENTAGE: u32 = 5000 // 50%
 export const FT_CONTRACT: string = YSN_ADDRESS
 const ROYALTY_ADDRESS: string = YSN_ADDRESS // social token
 
+// interface Media_Interface {
+//     id: string
+//     owner_id: string
+//     creator: string
+//     prev_owner: string
+//     metadata: TokenMetadata
+//     royalty: Royalty
+//     approvals: Map<string, number>
+//     next_approval_id: number
+// }
+
 @nearBindgen
-export class Media {
+export class Media 
+// implements Media_Interface 
+{
     id: string
     owner_id: string
     creator: string
@@ -80,7 +93,7 @@ export class StorageBalanceBounds {
 
 export const designs = new PersistentUnorderedMap<AccountId, Media>('md')
 export const owners = new PersistentSet<AccountId>('onrs')
-export const accounts = new PersistentUnorderedMap<AccountId, u128>('accs')
+export const accounts = new PersistentUnorderedMap<AccountId, StorageBalance>('accs')
 
 export const account_media = new PersistentUnorderedMap<
     AccountId,
