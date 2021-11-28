@@ -43,16 +43,29 @@ import {
     storage_byte_cost,
 } from './internal_functions'
 
+export * from './storage_management'
+import {
+    storage_balance_bounds
+} from './storage_management'
+
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
 const OWNER_PERCENTAGE: u16 = 7500 // 75%
 
 type Payout = Map<AccountId, u128>
 
+
 export function claim_media(tokenMetadata: TokenMetadata): Media {
     assert_deposit_attached(DESIGN_PRICE)
 
     /** Assert uniqueId is actually unique */
+    
+    let account = accounts.get(context.sender) as StorageBalance
+    assert(u128.ge(u128.from(account.available),
+        u128.from(storage_balance_bounds().min)), 
+        "The available storage is less than the required storage")
 
+    const initial_storage: u128 = u128.from(context.storageUsage)
+    
     let design = new Media(tokenMetadata.media, tokenMetadata.extra)
 
     owners.add(context.sender)
@@ -66,9 +79,17 @@ export function claim_media(tokenMetadata: TokenMetadata): Media {
     accountMedia.add(design.id)
     account_media.set(context.sender, accountMedia)
 
-    // FT
-    // xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE)
-    // Market
+    const final_storage: u128 = u128.from(context.storageUsage)
+    const final_storage_byte_cost = u128.mul(u128.sub(final_storage, initial_storage),
+        storage_byte_cost())
+    const account_balance = accounts.get(context.sender) as StorageBalance
+    let storage_deposit = u128.sub(u128.from(account_balance.available),
+        final_storage_byte_cost) 
+    let storageBalance = accounts.get(context.sender) as StorageBalance
+    storageBalance.available = storage_deposit.toString()
+
+    accounts.set(context.sender, storageBalance)
+
     xcc_market_set_bid_shares(
         design.id,
         0,
@@ -86,6 +107,9 @@ export function burn_design(token_id: string): void {
     if (!accountMedia) {
         return
     }
+
+    const initial_storage: u128 = u128.from(context.storageUsage)
+
     accountMedia.delete(token_id)
     account_media.set(context.sender, accountMedia)
 
@@ -96,6 +120,19 @@ export function burn_design(token_id: string): void {
     designs.delete(token_id)
 
     xcc_market_burn(token_id)
+
+
+    const final_storage: u128 = u128.from(context.storageUsage)
+
+    const final_storage_byte_cost = u128.mul((u128.sub(final_storage, initial_storage)),
+        storage_byte_cost())
+    const account_balance = accounts.get(context.sender) as StorageBalance
+    let storage_deposit = u128.add(u128.from(account_balance.available), 
+        final_storage_byte_cost) 
+    let storageBalance = accounts.get(context.sender) as StorageBalance
+    storageBalance.available = storage_deposit.toString()
+
+    accounts.set(context.sender, storageBalance)
 }
 
 export function nft_token(token_id: string): Media | null {
@@ -327,92 +364,6 @@ export function nft_revoke_all(token_id: string): void {
     }
 }
 
-/* Storage management */
-
-function internal_storage_balance_of(
-    account_id: string
-): StorageBalance | null {
-    if (accounts.get(account_id)) {
-        return <StorageBalance>{
-            total: storage_balance_bounds().min,
-            available: '0',
-        }
-    } else {
-        return null
-    }
-}
-
-export function storage_deposit(
-    account_id: string | null,
-    registration_only: Boolean | null = null
-): StorageBalance {
-    const amount = context.attachedDeposit
-    if (account_id == null) account_id = context.sender
-    account_id = account_id as string
-    if (accounts.contains(account_id)) {
-        logging.log('Account already registered')
-        if (u128.gt(amount, u128.from('0'))) {
-            ContractPromiseBatch.create(account_id).transfer(amount)
-        }
-    } else {
-        const minBalance = u128.from(storage_balance_bounds().min)
-        assert(
-            amount >= minBalance,
-            'Attached deposit less than minimum required'
-        )
-        accounts.set(account_id, u128.from('0'))
-        const refund = u128.sub(amount, minBalance)
-        if (u128.gt(refund, u128.from('0'))) {
-            ContractPromiseBatch.create(account_id).transfer(refund)
-        }
-    }
-    return internal_storage_balance_of(account_id) as StorageBalance
-}
-
-export function storage_withdraw(amount: string | null): StorageBalance {
-    assert_one_yocto()
-    const account_id = context.sender
-    const account = accounts.getSome(account_id)
-    assert(account, 'Account not registered')
-    const balance = internal_storage_balance_of(account_id)
-
-    if (amount)
-        assert(
-            u128.gt(u128.from(amount as string), u128.from('0')),
-            'The amount is greater than available storage balance'
-        )
-
-    return balance as StorageBalance
-}
-
-export function storage_unregister(force: Boolean | null = null): boolean {
-    assert_one_yocto()
-    const account_id = context.sender
-    const account = accounts.getSome(account_id)
-    if (account) {
-        const balance = accounts.getSome(account_id)
-        if (u128.eq(balance, u128.from('0')) || force) {
-            accounts.delete(account_id)
-            ContractPromiseBatch.create(account_id).transfer(
-                u128.add(u128.from(storage_balance_bounds().min), u128.from(1))
-            )
-            return true
-        } else {
-            assert(false, 'Account balance is not zero')
-        }
-    }
-    return false
-}
-
-export function storage_balance_bounds(): StorageBalanceBounds {
-    const storage_usage = storage.getSome<u128>(STORAGE_USAGE_KEY)
-    const cost = u128.mul(storage_usage, storage_byte_cost())
-    return <StorageBalanceBounds>{ min: cost.toString(), max: cost.toString() }
-}
-
-export function storage_balance_of(account_id: string): StorageBalance | null {
-    return internal_storage_balance_of(account_id)
-}
 
 /* Market */
 
@@ -503,11 +454,18 @@ export function init(
     )
 
     // find storage usage of a single account
-    const account_id = 'a'.repeat(64)
+    const media_string = ' '.repeat(64)
     const initial_storage: u128 = u128.from(context.storageUsage)
-    accounts.set(account_id, u128.from('0'))
+    owners.add(context.sender)
+    const media = new Media(media_string, media_string);
+    let storageBalance = new StorageBalance
+    storageBalance.total = media_string
+    storageBalance.available = media_string
+    accounts.set(media_string, new StorageBalance)
+    designs.set(media.id, media)
+
     const final_storage: u128 = u128.from(context.storageUsage)
-    accounts.delete(account_id)
+    accounts.delete(media_string)
     storage.set(STORAGE_USAGE_KEY, u128.sub(final_storage, initial_storage))
 
     storage.set('init', 'done')
