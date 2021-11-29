@@ -158,6 +158,7 @@ async function test() {
     const total_supply = await aliceUseContract.nft_total_supply({
         args: {},
     })
+    console.log("total ssuppply" + total_supply)
     const token_owners = await aliceUseContract.nft_tokens_for_owner({
         account_id: 'alice.test.near',
     })
@@ -240,10 +241,10 @@ async function test() {
     assert.equal(before_revoke, true)
     assert.equal(after_revoke, false)
     assert.equal(empty_storage_balance, null)
-    assert.equal(storage_bounds.min, '3130000000000000000000')
-    assert.equal(storage_bounds.max, '3130000000000000000000')
-    assert.equal(bounds_of.total, '3130000000000000000000')
-    assert.equal(bounds_of.available, '0')
+    assert.equal(storage_bounds.min, '14060000000000000000000')
+    assert.equal(storage_bounds.max, '')
+    assert.equal(bounds_of.total, '1000000000000000000000000')
+    assert.equal(bounds_of.available, '985940000000000000000000')
 }
 
 test()
