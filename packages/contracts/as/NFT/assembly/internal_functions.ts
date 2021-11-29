@@ -6,7 +6,7 @@ import {
 } from 'near-sdk-as'
 
 export function storage_byte_cost(): u128 {
-    return u128.from(10000000000000000000)
+    return u128.from('10000000000000000000')
 }
 
 function bytes_for_approved_account_id(account_id: string): u64 {

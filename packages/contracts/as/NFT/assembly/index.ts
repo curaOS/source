@@ -17,7 +17,7 @@ import {
     FT_CONTRACT,
     GAS_FOR_NFT_APPROVE,
     NFTOnApprovedArgs,
-    accounts,
+    accounts_storage,
     StorageBalance,
     StorageBalanceBounds,
 } from './models'
@@ -43,9 +43,12 @@ import {
     storage_byte_cost,
 } from './internal_functions'
 
-export * from './storage_management'
 import {
-    storage_balance_bounds
+    internal_storage_balance_bounds,
+    internal_storage_balance_of,
+    internal_storage_deposit,
+    internal_storage_unregister,
+    internal_storage_withdraw
 } from './storage_management'
 
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
@@ -53,19 +56,11 @@ const OWNER_PERCENTAGE: u16 = 7500 // 75%
 
 type Payout = Map<AccountId, u128>
 
-
 export function claim_media(tokenMetadata: TokenMetadata): Media {
     assert_deposit_attached(DESIGN_PRICE)
 
     /** Assert uniqueId is actually unique */
-    
-    let account = accounts.get(context.sender) as StorageBalance
-    assert(u128.ge(u128.from(account.available),
-        u128.from(storage_balance_bounds().min)), 
-        "The available storage is less than the required storage")
 
-    const initial_storage: u128 = u128.from(context.storageUsage)
-    
     let design = new Media(tokenMetadata.media, tokenMetadata.extra)
 
     owners.add(context.sender)
@@ -79,17 +74,9 @@ export function claim_media(tokenMetadata: TokenMetadata): Media {
     accountMedia.add(design.id)
     account_media.set(context.sender, accountMedia)
 
-    const final_storage: u128 = u128.from(context.storageUsage)
-    const final_storage_byte_cost = u128.mul(u128.sub(final_storage, initial_storage),
-        storage_byte_cost())
-    const account_balance = accounts.get(context.sender) as StorageBalance
-    let storage_deposit = u128.sub(u128.from(account_balance.available),
-        final_storage_byte_cost) 
-    let storageBalance = accounts.get(context.sender) as StorageBalance
-    storageBalance.available = storage_deposit.toString()
-
-    accounts.set(context.sender, storageBalance)
-
+    // FT
+    // xcc_ft_mine_to_and_transfer(context.sender, YSN_FOR_CLAIM, DESIGN_PRICE)
+    // Market
     xcc_market_set_bid_shares(
         design.id,
         0,
@@ -107,9 +94,6 @@ export function burn_design(token_id: string): void {
     if (!accountMedia) {
         return
     }
-
-    const initial_storage: u128 = u128.from(context.storageUsage)
-
     accountMedia.delete(token_id)
     account_media.set(context.sender, accountMedia)
 
@@ -120,19 +104,6 @@ export function burn_design(token_id: string): void {
     designs.delete(token_id)
 
     xcc_market_burn(token_id)
-
-
-    const final_storage: u128 = u128.from(context.storageUsage)
-
-    const final_storage_byte_cost = u128.mul((u128.sub(final_storage, initial_storage)),
-        storage_byte_cost())
-    const account_balance = accounts.get(context.sender) as StorageBalance
-    let storage_deposit = u128.add(u128.from(account_balance.available), 
-        final_storage_byte_cost) 
-    let storageBalance = accounts.get(context.sender) as StorageBalance
-    storageBalance.available = storage_deposit.toString()
-
-    accounts.set(context.sender, storageBalance)
 }
 
 export function nft_token(token_id: string): Media | null {
@@ -272,6 +243,31 @@ export function nft_transfer(token_id: string, bidder: string): void {
     accountMedia.delete(token_id)
     account_media.set(design.prev_owner, accountMedia)
 }
+
+/* Storage management */
+
+export function storage_deposit(
+    account_id: string | null,
+    registration_only: Boolean | null = null
+): StorageBalance {
+   return internal_storage_deposit(account_id, registration_only)
+}
+
+export function storage_withdraw(amount: string | null): StorageBalance {
+    return internal_storage_withdraw(amount)
+}
+
+export function storage_unregister(force: Boolean | null = null): boolean {
+    return internal_storage_unregister(force)
+}
+
+export function storage_balance_bounds(): StorageBalanceBounds {
+     return internal_storage_balance_bounds()
+}
+
+export function storage_balance_of(account_id: string): StorageBalance | null {
+    return internal_storage_balance_of(account_id)
+ }
 
 /* Approval system */
 
@@ -453,20 +449,21 @@ export function init(
         )
     )
 
-    // find storage usage of a single account
-    const media_string = ' '.repeat(64)
+    // find storage usage of a single NFT
+    const max_len_string = ' '.repeat(64)
     const initial_storage: u128 = u128.from(context.storageUsage)
     owners.add(context.sender)
-    const media = new Media(media_string, media_string);
+    const media = new Media(max_len_string, max_len_string);
     let storageBalance = new StorageBalance
-    storageBalance.total = media_string
-    storageBalance.available = media_string
-    accounts.set(media_string, new StorageBalance)
+    storageBalance.total = max_len_string
+    storageBalance.available = max_len_string
+    accounts_storage.set(max_len_string, new StorageBalance)
     designs.set(media.id, media)
-
     const final_storage: u128 = u128.from(context.storageUsage)
-    accounts.delete(media_string)
-    storage.set(STORAGE_USAGE_KEY, u128.sub(final_storage, initial_storage))
+    accounts_storage.delete(max_len_string)
+    designs.delete(media.id)
+    storage.set(STORAGE_USAGE_KEY, u128.sub(final_storage,
+        initial_storage))
 
     storage.set('init', 'done')
 }
