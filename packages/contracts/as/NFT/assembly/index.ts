@@ -43,12 +43,12 @@ import {
     storage_byte_cost,
 } from './internal_functions'
 
-import {
-    internal_storage_balance_bounds,
-    internal_storage_balance_of,
-    internal_storage_deposit,
-    internal_storage_unregister,
-    internal_storage_withdraw
+export {
+    storage_deposit,
+    storage_withdraw,
+    storage_balance_bounds,
+    storage_balance_of,
+    storage_unregister
 } from './storage_management'
 
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
@@ -243,31 +243,6 @@ export function nft_transfer(token_id: string, bidder: string): void {
     accountMedia.delete(token_id)
     account_media.set(design.prev_owner, accountMedia)
 }
-
-/* Storage management */
-
-export function storage_deposit(
-    account_id: string | null,
-    registration_only: Boolean | null = null
-): StorageBalance {
-   return internal_storage_deposit(account_id, registration_only)
-}
-
-export function storage_withdraw(amount: string | null): StorageBalance {
-    return internal_storage_withdraw(amount)
-}
-
-export function storage_unregister(force: Boolean | null = null): boolean {
-    return internal_storage_unregister(force)
-}
-
-export function storage_balance_bounds(): StorageBalanceBounds {
-     return internal_storage_balance_bounds()
-}
-
-export function storage_balance_of(account_id: string): StorageBalance | null {
-    return internal_storage_balance_of(account_id)
- }
 
 /* Approval system */
 
