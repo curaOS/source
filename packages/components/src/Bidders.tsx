@@ -20,17 +20,14 @@ export function Bidders({
     return (
         <Box
             sx={{
-                width: 300,
-                pb: 12,
-                pt: 1,
-                px: 20,
-                borderWidth: 2,
-                borderStyle: 'solid',
-                borderColor: 'muted',
-                borderRadius: 4,
+                width: [300, 360, 400],
+                bg: 'bg',
+                p: 3,
             }}
         >
-            <Text sx={{ color: 'secondary', fontSize: 12 }}>BIDS</Text>
+            <Heading sx={{ color: 'white', mb: 2 }} variant="body">
+                BIDS
+            </Heading>
             {!Object.entries(bidders).length && (
                 <div>
                     <Heading as="h5" sx={{ color: 'text' }}>
@@ -38,44 +35,65 @@ export function Bidders({
                     </Heading>
                 </div>
             )}
-            {Object.entries(bidders).map(([bidder, bid]) => {
-                return (
-                    <div
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            mt: 2,
-                        }}
-                    >
-                        <div>
-                            <Heading as="h5" sx={{ color: 'text' }}>
-                                {bid.bidder}
-                            </Heading>
-                        </div>
+            <div
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 50,
+                }}
+            >
+                {Object.entries(bidders).map(([bidder, bid]) => {
+                    return (
                         <div
                             sx={{
                                 display: 'flex',
-                                flexDirection: 'column',
-                                textAlign: 'right',
+                                justifyContent: 'space-between',
                             }}
                         >
-                            <Heading as="h5" sx={{ color: 'text' }}>
-                                {utils.format.formatNearAmount(bid.amount, 5)}Ⓝ
-                            </Heading>
-                            <Text sx={{ fontSize: 12 }}>
-                                Resale Fee <b>{bid.sell_on_share / 100}%</b>
-                            </Text>
-                            <Button
-                                sx={{ pt: 0, pb: 0, fontSize: 12 }}
-                                onClick={() => onAcceptBid(bidder)}
+                            <div>
+                                <Heading as="h4" variant="body" mb={2}>
+                                    {bid.bidder}
+                                </Heading>
+                                <Button
+                                    sx={{ fontSize: 13 }}
+                                    onClick={() => onAcceptBid(bidder)}
+                                >
+                                    accept
+                                </Button>
+                            </div>
+                            <div
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    textAlign: 'left',
+                                    minWidth: 120,
+                                }}
                             >
-                                Accept
-                            </Button>
+                                <div
+                                    sx={{
+                                        lineHeight: 1,
+                                    }}
+                                >
+                                    <Text
+                                        mr="2"
+                                        variant="monospace"
+                                        sx={{ fontWeight: 'bold' }}
+                                    >
+                                        {utils.format.formatNearAmount(
+                                            bid.amount,
+                                            5
+                                        )}
+                                    </Text>
+                                    <Text variant="currency">Ⓝ</Text>
+                                </div>
+                                <Text sx={{ fontSize: 0 }} mt="2">
+                                    Resale Fee {bid.sell_on_share / 100}%
+                                </Text>
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
         </Box>
     )
 }
