@@ -20,7 +20,8 @@ import {
 
 export const STORAGE_USAGE_KEY = 'storage_usage'
 
-export function internal_storage_deposit(
+@nearBindgen
+export function storage_deposit(
     account_id: string | null,
     registration_only: Boolean | null = null
 ): StorageBalance {
@@ -33,7 +34,7 @@ export function internal_storage_deposit(
             ContractPromiseBatch.create(account_id).transfer(amount)
         }
     } else {
-        const minBalance = u128.from(internal_storage_balance_bounds().min)
+        const minBalance = u128.from(storage_balance_bounds().min)
         assert(
             amount >= minBalance,
             'Attached deposit less than minimum required'
@@ -45,7 +46,8 @@ export function internal_storage_deposit(
     return accounts_storage.get(account_id) as StorageBalance
 }
 
-export function internal_storage_withdraw(amount: string | null): StorageBalance {
+@nearBindgen
+export function storage_withdraw(amount: string | null): StorageBalance {
     assert_one_yocto()
     const account_id = context.sender
     const amount_available = accounts_storage.getSome(account_id).available
@@ -63,7 +65,8 @@ export function internal_storage_withdraw(amount: string | null): StorageBalance
     return balance as StorageBalance
 }
 
-export function internal_storage_unregister(force: Boolean | null = null): boolean {
+@nearBindgen
+export function storage_unregister(force: Boolean | null = null): boolean {
     assert_one_yocto()
     const account_id = context.sender
     const account = accounts_storage.getSome(account_id)
@@ -72,7 +75,7 @@ export function internal_storage_unregister(force: Boolean | null = null): boole
         if (u128.eq(u128.from(balance), u128.from('0')) || force) {
             accounts_storage.delete(account_id)
             ContractPromiseBatch.create(account_id).transfer(
-                u128.add(u128.from(internal_storage_balance_bounds().min), u128.from(1))
+                u128.add(u128.from(storage_balance_bounds().min), u128.from(1))
             )
             return true
         } else {
@@ -82,12 +85,14 @@ export function internal_storage_unregister(force: Boolean | null = null): boole
     return false
 }
 
-export function internal_storage_balance_bounds(): StorageBalanceBounds {
+@nearBindgen
+export function storage_balance_bounds(): StorageBalanceBounds {
     const storage_usage = storage.getSome<u128>(STORAGE_USAGE_KEY)
     const cost = u128.mul(storage_usage, storage_byte_cost())
     return <StorageBalanceBounds>{ min: cost.toString(), max: '' }
 }
 
-export function internal_storage_balance_of(account_id: string): StorageBalance | null {
+@nearBindgen
+export function storage_balance_of(account_id: string): StorageBalance | null {
     return accounts_storage.get(account_id)
 }

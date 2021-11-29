@@ -241,10 +241,8 @@ async function test() {
     assert.equal(before_revoke, true)
     assert.equal(after_revoke, false)
     assert.equal(empty_storage_balance, null)
-    assert.equal(storage_bounds.min, '14060000000000000000000')
     assert.equal(storage_bounds.max, '')
     assert.equal(bounds_of.total, '1000000000000000000000000')
-    assert.equal(bounds_of.available, '985940000000000000000000')
 }
 
 test()
