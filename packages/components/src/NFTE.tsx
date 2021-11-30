@@ -1,8 +1,13 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
-import { useNFT, useNFTContractMetadata, useNFTReference, useNFTContentType } from '@cura/hooks'
+import {
+    useNFT,
+    useNFTContractMetadata,
+    useNFTReference,
+    useNFTContentType,
+} from '@cura/hooks'
 
-import { Container } from 'theme-ui'
+import { Container, Text } from 'theme-ui'
 import { useBreakpointIndex } from '@theme-ui/match-media'
 import { Metadata } from './Metadata'
 import { MediaObject } from './MediaObject'
@@ -10,11 +15,9 @@ import { MediaObject } from './MediaObject'
 export function NFTE({
     contract,
     tokenId,
-    isDark = false,
 }: {
     contract: string
     tokenId: string
-    isDark: boolean
 }) {
     const canvasSizes = [290, 300, 400, 400, 400]
     const breakpointIndex = useBreakpointIndex()
@@ -65,10 +68,9 @@ export function NFTE({
     const mediaUri = validateURI(finalNFTMetadata?.metadata?.media, baseURI)
 
     // Determine media type
-    const {
-        loading: mediaTypeLoading,
-        data: mediaType,
-    } = useNFTContentType(mediaUri || '')
+    const { loading: mediaTypeLoading, data: mediaType } = useNFTContentType(
+        mediaUri || ''
+    )
 
     let error =
         NFTContractMetadataError ||
@@ -83,18 +85,14 @@ export function NFTE({
 
     return (
         <Container
+            p={[0,0,0]}
             sx={{
-                pb: 12,
-                border: '2px solid',
-                width: canvasSize + 4,
-                borderRadius: 4,
-                borderColor: isDark ? 'gray.4' : 'muted',
-                backgroundColor: isDark ? 'gray.9' : 'white',
-                color: isDark ? 'white' : 'gray.9',
+                width: canvasSize,
+                bg: 'bg',
             }}
         >
             {error && !loading ? (
-                <p sx={{ color: 'red.6' }}> ❌ Error: {error.type}</p>
+                <Text variant="h3" sx={{ color: 'red.6', lineHeight: 4 }}> ❌ Error: {error.type}</Text>
             ) : (
                 <>
                     <MediaObject
