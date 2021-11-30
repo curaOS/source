@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex, Heading, Text, Link } from 'theme-ui'
 import { Placeholder } from './Placeholder'
 
 type NFTMetadataType = {
@@ -19,7 +19,7 @@ type NFTMetadataType = {
 export function Metadata({
     data,
     loading = true,
-    width = 400,
+    width,
 }: {
     data: NFTMetadataType
     loading: boolean
@@ -28,10 +28,10 @@ export function Metadata({
     return (
         <Box
             sx={{
-                width: width,
+                width: width || [360, 360, 400],
                 maxWidth: '90vw',
-                px: 20,
-                fontFamily: 'inherit',
+                bg: 'bg',
+                p: 20,
             }}
         >
             {loading ? <MetadataLoading /> : <MetadataLoaded {...data} />}
@@ -46,87 +46,43 @@ function MetadataLoaded({
     return (
         <>
             {title && (
-                <p
-                    sx={{
-                        mt: 2,
-                        mb: 1,
-                        fontWeight: 700,
-                        fontSize: 20,
-                    }}
-                >
+                <Heading my={3} variant="h2">
                     {title}
-                </p>
+                </Heading>
             )}
 
-            {description && (
-                <p
-                    sx={{
-                        fontSize: 16,
-                        opacity: 0.8,
-                        my: 0,
-                    }}
-                >
-                    {description}
-                </p>
-            )}
-            <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
+            {description && <Text variant="body">{description}</Text>}
+            <Flex
+                mt={40}
+                sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+            >
                 {creator && (
-                    <Box mt={3}>
-                        <p
-                            sx={{
-                                fontSize: 14,
-                                fontWeight: 500,
-                                my: 0,
-                            }}
-                        >
-                            Created by
-                        </p>
-                        <a
+                    <Box>
+                        <Heading variant="h3" mb={2}>
+                            CREATED BY
+                        </Heading>
+                        <Link
                             href={`https://explorer.testnet.near.org/accounts/${creator}`}
                             target="_blank"
-                            sx={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                my: 0,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    opacity: 0.8,
-                                },
-                            }}
+                            variant="explorer"
                         >
                             {creator}
-                        </a>
+                        </Link>
                     </Box>
                 )}
 
                 {owner && (
-                    <Box mt={3}>
-                        <p
-                            sx={{
-                                fontSize: 14,
-                                fontWeight: 500,
-                                my: 0,
-                            }}
-                        >
-                            Owned by
-                        </p>
-                        <a
+                    <Box>
+                        <Heading variant="h3" mb={2}>
+                            OWNED BY
+                        </Heading>
+                        <Link
                             href={`https://explorer.testnet.near.org/accounts/${owner}`}
                             target="_blank"
-                            sx={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                my: 0,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    opacity: 0.8,
-                                },
-                            }}
+                            variant="explorer"
                         >
                             {owner}
-                        </a>
+                        </Link>
                     </Box>
                 )}
             </Flex>
@@ -136,36 +92,27 @@ function MetadataLoaded({
 function MetadataLoading() {
     return (
         <>
-            <Placeholder width="40%" style={{ mt: 3 }} />
+            <Placeholder height={6} width="40%" style={{ mt: 3 }} />
             <Box mt={3}>
-                <Placeholder width="70%" />
-                <Placeholder width="50%" style={{ mb: 0 }} />
+                <Placeholder height={4} width="70%" />
+                <Placeholder height={4} width="50%" style={{ mb: 0 }} />
             </Box>
-            <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                <Box mt={3}>
-                    <p
-                        sx={{
-                            fontSize: 14,
-                            fontWeight: 500,
-                            my: 0,
-                        }}
-                    >
-                        Created by
-                    </p>
-                    <Placeholder width="120%" />
+            <Flex
+                mt={40}
+                sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+            >
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        CREATED BY
+                    </Heading>
+                    <Placeholder height={4} width={120} />
                 </Box>
 
-                <Box mt={3}>
-                    <p
-                        sx={{
-                            fontSize: 14,
-                            fontWeight: 500,
-                            my: 0,
-                        }}
-                    >
-                        Owned by
-                    </p>
-                    <Placeholder width="120%" />
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        OWNED BY
+                    </Heading>
+                    <Placeholder height={4} width={120} />
                 </Box>
             </Flex>
         </>

@@ -225,6 +225,16 @@ const elements = {
                 borderLeft: 1,
             },
         },
+        explorer: {
+            variant: `text.body`,
+            fontSize: 0,
+            fontWeight: 'extrabold',
+            color: 'text',
+            textDecoration: 'none',
+            '&:hover': {
+                opacity: 0.9,
+            },
+        },
     },
     forms: {
         primary: {
