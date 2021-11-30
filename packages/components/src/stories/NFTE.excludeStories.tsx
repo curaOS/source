@@ -11,15 +11,6 @@ export default {
 
 const Template: ComponentStory<typeof NFTE> = (args) => <NFTE {...args} />
 
-// Hooks that are used currently only support one Network at time
-
-export const Dark = Template.bind({})
-Dark.args = {
-    contract: '0.share-nft.testnet',
-    tokenId: 'afaithraf-68324557',
-    isDark: true,
-}
-
 export const Ml1c = Template.bind({})
 
 Ml1c.args = {
