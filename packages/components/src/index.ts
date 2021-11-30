@@ -10,6 +10,8 @@ import { Menu } from './Menu'
 import { MediaObject } from './MediaObject'
 import { NFTE } from './NFTE'
 
+import { theme } from './theme'
+
 export {
     Bidders,
     BidCreate,
@@ -22,4 +24,5 @@ export {
     ProjectCard,
     MediaObject,
     NFTE,
+    theme,
 }

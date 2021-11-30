@@ -11,6 +11,7 @@ export default function HeaderContainer({
     onSignIn,
     onSignOut,
     title,
+    logo,
     nextLinkWrapper,
 }: {
     base: string
@@ -18,6 +19,7 @@ export default function HeaderContainer({
     onSignIn: () => void
     onSignOut: () => void
     title: string
+    logo: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
 }) {
     const alertMessage = useRecoilValue(alertMessageState)
@@ -32,6 +34,7 @@ export default function HeaderContainer({
             alertMessage={alertMessage}
             setAlertMessage={setAlertMessage}
             title={title}
+            logo={logo}
             nextLinkWrapper={nextLinkWrapper}
         />
     )
