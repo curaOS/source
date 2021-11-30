@@ -78,14 +78,21 @@ const typography = {
             },
         },
         currency: {
-            fontFamily: `monospace`,
+            fontFamily: `sans-serif`,
             fontWeight: `extrabold`,
-            fontSize: 3,
+            fontSize: 1,
         },
         h2: {
             fontFamily: `heading`,
             fontWeight: `bold`,
             fontSize: [3, 4],
+        },
+        h3: {
+            fontFamily: `body`,
+            lineHeight: `body`,
+            fontWeight: `body`,
+            fontSize: [0, 1],
+            color: `white`,
         },
         h5: {
             fontFamily: `heading`,
@@ -219,6 +226,64 @@ const elements = {
             },
             ':first-child': {
                 borderLeft: 1,
+            },
+        },
+        explorer: {
+            variant: `text.body`,
+            fontSize: 0,
+            fontWeight: 'extrabold',
+            color: 'text',
+            textDecoration: 'none',
+            '&:hover': {
+                opacity: 0.9,
+            },
+        },
+    },
+    forms: {
+        primary: {
+            width: ['100%', 300],
+            bg: 'bg',
+            py: 20,
+            row: {
+                borderTop: 1,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                ':last-of-type': {
+                    borderBottom: 1,
+                },
+            },
+            label: {
+                variant: 'text.monospace',
+                width: 'auto',
+            },
+            input: {
+                variant: 'text.monospace',
+                flex: 1,
+                textAlign: 'right',
+                outline: 'none',
+                border: 0,
+                ml: 1,
+                '&[type=number]::-webkit-inner-spin-button': {
+                    ml: 1,
+                },
+                '&:focus': {
+                    bg: 'gray.4',
+                },
+            },
+            selectParent: {
+                flex: 1,
+            },
+            select: {
+                bg: 'bg',
+                border: 0,
+                cursor: 'pointer',
+                outline: 'none',
+                variant: 'text.monospace',
+                fontWeight: 'extrabold',
+                ':focus': {
+                    bg: 'gray.4',
+                },
             },
         },
     },
