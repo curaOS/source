@@ -25,17 +25,15 @@ export function Bidders({
                 p: 3,
             }}
         >
-            <Heading sx={{ color: 'white', mb: 2 }} variant="body">
+            <Heading mb={3} variant="h3">
                 BIDS
             </Heading>
             {!Object.entries(bidders).length && (
-                <div>
-                    <Heading as="h5" sx={{ color: 'text' }}>
-                        -
-                    </Heading>
-                </div>
+                <Box>
+                    <Heading as="h5">-</Heading>
+                </Box>
             )}
-            <div
+            <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -44,13 +42,13 @@ export function Bidders({
             >
                 {Object.entries(bidders).map(([bidder, bid]) => {
                     return (
-                        <div
+                        <Box
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
                             }}
                         >
-                            <div>
+                            <Box>
                                 <Heading as="h4" variant="body" mb={2}>
                                     {bid.bidder}
                                 </Heading>
@@ -60,8 +58,8 @@ export function Bidders({
                                 >
                                     accept
                                 </Button>
-                            </div>
-                            <div
+                            </Box>
+                            <Box
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -69,7 +67,7 @@ export function Bidders({
                                     minWidth: 120,
                                 }}
                             >
-                                <div
+                                <Box
                                     sx={{
                                         lineHeight: 1,
                                     }}
@@ -85,15 +83,16 @@ export function Bidders({
                                         )}
                                     </Text>
                                     <Text variant="currency">Ⓝ</Text>
-                                </div>
+                                </Box>
                                 <Text sx={{ fontSize: 0 }} mt="2">
-                                    Resale Fee {bid.sell_on_share / 100}%
+                                    Resale Fee{' '}
+                                    {parseInt(bid.sell_on_share) / 100}%
                                 </Text>
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
                     )
                 })}
-            </div>
+            </Box>
         </Box>
     )
 }
