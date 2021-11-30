@@ -46,18 +46,15 @@ function MetadataLoaded({
     return (
         <>
             {title && (
-                <Heading my={3} variant="h2">
+                <Heading mb={3} variant="h2">
                     {title}
                 </Heading>
             )}
 
             {description && <Text variant="body">{description}</Text>}
-            <Flex
-                mt={40}
-                sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
-            >
+            <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
                 {creator && (
-                    <Box>
+                    <Box mt={30}>
                         <Heading variant="h3" mb={2}>
                             CREATED BY
                         </Heading>
@@ -72,7 +69,7 @@ function MetadataLoaded({
                 )}
 
                 {owner && (
-                    <Box>
+                    <Box mt={30}>
                         <Heading variant="h3" mb={2}>
                             OWNED BY
                         </Heading>
