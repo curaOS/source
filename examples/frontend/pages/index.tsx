@@ -99,8 +99,6 @@ const Index = () => {
         <div
             sx={{
                 overflow: 'hidden',
-                bg: 'gray.3',
-                backgroundImage: `radial-gradient(circle, ${theme.colors.gray[3]} 10%, ${theme.colors.gray[2]} 44%, ${theme.colors.gray[5]} 100%)`,
             }}
         >
             <motion.div
@@ -170,18 +168,13 @@ const Index = () => {
                     position: 'absolute',
                     top: [null, '50%'],
                     left: ['7%', null, null, '20%', '30%'],
-                    bottom: ['-1%', null],
+                    bottom: ['3%', null],
                     transform: [null, 'translate(0, -50%)'],
-                    height: ['6rem', '8rem'],
-                    cursor: 'pointer',
-                    ':hover': {
-                        opacity: '0.8',
-                    },
                 }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 22 20"
                     width="31"
                     height="31"
                     fill="currentcolor"
@@ -196,18 +189,13 @@ const Index = () => {
                     position: 'absolute',
                     top: [null, '50%'],
                     right: ['7%', null, null, '20%', '30%'],
-                    bottom: ['-1%', null],
+                    bottom: ['3%', null],
                     transform: [null, 'translate(0, -50%)'],
-                    height: ['6rem', '8rem'],
-                    cursor: 'pointer',
-                    ':hover': {
-                        opacity: '0.8',
-                    },
                 }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 22 20"
                     width="31"
                     height="31"
                     fill="currentcolor"
