@@ -1,7 +1,6 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Footer } from '@cura/components'
 import Header from './Header'
 import Link from 'next/link'
 import { NavLink, Spinner } from 'theme-ui'
@@ -146,7 +145,6 @@ export default function Layout({ children, project = 'share' }) {
                         children
                     ) : null}
                 </div>
-                <Footer />
             </div>
         </>
     )
