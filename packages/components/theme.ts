@@ -86,6 +86,13 @@ const typography = {
             fontWeight: `bold`,
             fontSize: [3, 4],
         },
+        h3: {
+            fontFamily: `body`,
+            lineHeight: `body`,
+            fontWeight: `body`,
+            fontSize: [0, 1],
+            color: `white`,
+        },
         h5: {
             fontFamily: `heading`,
             fontWeight: `bold`,
