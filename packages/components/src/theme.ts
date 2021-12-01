@@ -163,10 +163,10 @@ const elements = {
             bg: `transparent`,
             color: `text`,
             p: 1,
+            pl: 0,
             transitionDuration: `0.2s`,
-            textDecoration: `underline transparent`,
             ':hover': {
-                textDecorationColor: `text`,
+                textDecoration: `underline`,
             },
         },
         mobileMenu: {
@@ -291,13 +291,19 @@ const elements = {
 
 // Layout containers
 const layout = {
-    container: {
-        px: [2, 3, 4],
-        maxWidth: 1024,
-    },
-    wide: {
-        px: [2, 3, 4],
-        maxWidth: 1536,
+    layout: {
+        container: {
+            px: [2, 3, 4],
+            maxWidth: 1024,
+        },
+        medium: {
+            px: [2, 3, 4],
+            maxWidth: 1324,
+        },
+        wide: {
+            px: [2, 3, 4],
+            maxWidth: 1536,
+        },
     },
 }
 

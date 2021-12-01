@@ -90,7 +90,7 @@ export default function Layout({ children, project = 'share' }) {
                             <Link href={href}>{children}</Link>
                         )}
                     />
-                    <Container>
+                    <Container variant="medium">
                         {indexLoader ? (
                             <Box
                                 sx={{
