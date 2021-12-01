@@ -1,10 +1,9 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Box, Divider } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../containers/Layout'
+import ExploreViewLayout from '../../../../containers/Layouts/ExploreView'
 import {
     CreatorShare,
     Metadata,
@@ -73,42 +72,44 @@ const ExploreToken = () => {
 
     const designDimension = getFrameWidth()
     return (
-        <Layout project={project}>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 12,
-                }}
-            >
-                {media && (
-                    <MediaObject
-                        mediaURI={`https://arweave.net/${media?.metadata?.media}`}
-                        width={designDimension}
-                        height={designDimension}
-                    />
-                )}
-                {media && (
-                    <Metadata
-                        data={media}
-                        loading={false}
-                        width={designDimension}
-                    />
-                )}
-                <Divider sx={{ width: 300 }} />
+        <ExploreViewLayout
+            project={project}
+            frameComponent={
+                <>
+                    {media && (
+                        <MediaObject
+                            mediaURI={`https://arweave.net/${media?.metadata?.media}`}
+                            width={designDimension}
+                            height={designDimension}
+                        />
+                    )}
+                </>
+            }
+            metaComponent={
+                <>
+                    {media && (
+                        <Metadata
+                            data={media}
+                            loading={false}
+                            width={designDimension}
+                        />
+                    )}
+                </>
+            }
+            royaltiesComponent={
                 <CreatorShare
                     address={HARDCODED_ROYALTY_ADDRESS}
                     share={HARDCODED_ROYALTY_SHARE}
                 />
-                <Divider sx={{ width: 300 }} />
+            }
+            bidCreateComponent={
                 <BidCreate
                     title={media?.metadata.title}
                     creator={media?.owner_id}
                     onBid={setBid}
                 />
-            </Box>
-        </Layout>
+            }
+        />
     )
 }
 
