@@ -2,16 +2,14 @@
 /** @jsxImportSource theme-ui */
 
 import { useState } from 'react'
-import { Button, AspectRatio } from 'theme-ui'
 import { utils } from 'near-api-js'
-import Layout from '../../containers/Layout'
+import CreateLayout from '../../containers/Layouts/Create'
 import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
 import { combineHTML } from '../../utils/combine-html'
 import axios from 'axios'
-import { getFrameWidth } from 'utils/frame-width'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
@@ -29,6 +27,7 @@ const SCHEMA_SIZE = 5
 const Create = () => {
     const router = useRouter()
     const contractAdress = router && mapPathToProject(router.asPath)
+    const project = `share`
 
     const { contract } = useNFTContract(contractAdress)
 
@@ -97,84 +96,32 @@ const Create = () => {
             })
     }
 
-    const frameDimension = getFrameWidth()
 
     return (
-        <Layout>
-            <div
-                sx={{
-                    my: [44, 44, 44, 66],
-                }}
-            >
-                <div
-                    sx={{
-                        display: 'inline-block',
-                        width: ['100%', '100%', '100%', '50%'],
-                        maxWidth: '90vh',
-                        mr: [0, 0, 0, 4],
-                        mb: [4, 4, 4, 0],
-                    }}
-                >
-                    <AspectRatio
-                        ratio={1}
-                        sx={{
-                            bg: 'gray.3',
-                            alignItems: 'center',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            mb: 36,
-                            width: '100%',
-                            height: '100%',
-                        }}
-                    >
-                        {creativeCode && (
-                            <iframe
-                                srcDoc={creativeCode}
-                                width={'100%'}
-                                height={'100%'}
-                                frameBorder="0"
-                                scrolling="no"
-                            ></iframe>
-                        )}
-                    </AspectRatio>
-                </div>
-                <div
-                    sx={{
-                        ml: 3,
-                        mt: 3,
-                        display: 'inline-block',
-                        verticalAlign: 'top',
-                        float: 'right',
-                        width: ['100%', '100%', '100%', '40%'],
-                    }}
-                >
-                    <div
-                        sx={{
-                            display: 'flex',
-                            flexDirection: ['row', 'row', 'row', 'column'],
-                            alignItems: 'start',
-                            rowGap: 18,
-                            mb: [30, 30, 40, 60],
-                        }}
-                    >
-                        <Button
-                            onClick={retrieveData}
-                            variant="borderless"
-                            mr={3}
-                        >
-                            DESIGN
-                        </Button>
-                        <Button onClick={claimDesign} variant="borderless">
-                            CLAIM
-                        </Button>
-                    </div>
-                    <CreatorShare
-                        address={HARDCODED_ROYALTY_ADDRESS}
-                        share={HARDCODED_ROYALTY_SHARE}
-                    />
-                </div>
-            </div>
-        </Layout>
+        <CreateLayout
+            project={project}
+            frameComponent={
+                <>
+                    {creativeCode && (
+                        <iframe
+                            srcDoc={creativeCode}
+                            width={'100%'}
+                            height={'100%'}
+                            frameBorder="0"
+                            scrolling="no"
+                        ></iframe>
+                    )}
+                </>
+            }
+            royaltiesComponent={
+                <CreatorShare
+                    address={HARDCODED_ROYALTY_ADDRESS}
+                    share={HARDCODED_ROYALTY_SHARE}
+                />
+            }
+            retrieveData={retrieveData}
+            claimDesign={claimDesign}
+        />
     )
 }
 
