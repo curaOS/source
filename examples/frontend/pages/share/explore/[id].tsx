@@ -3,7 +3,7 @@
 
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import ExploreViewLayout from '../../../../containers/Layouts/ExploreView'
+import ExploreViewLayout from '../../../containers/Layouts/ExploreView'
 import {
     CreatorShare,
     Metadata,
