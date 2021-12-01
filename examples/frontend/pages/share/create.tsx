@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 
 import { useState } from 'react'
-import { Button, Text } from 'theme-ui'
+import { Button, AspectRatio } from 'theme-ui'
 import { utils } from 'near-api-js'
 import Layout from '../../containers/Layout'
 import { CreatorShare } from '@cura/components'
@@ -26,7 +26,7 @@ const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const SCHEMA_SIZE = 5
 
-const Create = ({}) => {
+const Create = () => {
     const router = useRouter()
     const contractAdress = router && mapPathToProject(router.asPath)
 
@@ -103,37 +103,49 @@ const Create = ({}) => {
         <Layout>
             <div
                 sx={{
-                    display: 'flex',
-                    flexDirection: ['column', 'column', 'column', 'row'],
-                    alignItems: ['center', 'center', 'center', 'start'],
-                    justifyContent: 'space-between',
-                    mt: 60,
+                    my: [44, 44, 44, 66],
                 }}
             >
                 <div
                     sx={{
-                        bg: 'gray.3',
-                        display: 'flex',
-                        height: frameDimension,
-                        justifyContent: 'center',
-                        width: frameDimension,
-                        mb: 36,
+                        display: 'inline-block',
+                        width: ['100%', '100%', '100%', '50%'],
+                        maxWidth: '90vh',
+                        mr: [0, 0, 0, 4],
+                        mb: [4, 4, 4, 0],
                     }}
                 >
-                    {creativeCode && (
-                        <iframe
-                            srcDoc={creativeCode}
-                            width={frameDimension}
-                            height={frameDimension}
-                            frameBorder="0"
-                            scrolling="no"
-                        ></iframe>
-                    )}
+                    <AspectRatio
+                        ratio={1}
+                        sx={{
+                            bg: 'gray.3',
+                            alignItems: 'center',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mb: 36,
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    >
+                        {creativeCode && (
+                            <iframe
+                                srcDoc={creativeCode}
+                                width={'100%'}
+                                height={'100%'}
+                                frameBorder="0"
+                                scrolling="no"
+                            ></iframe>
+                        )}
+                    </AspectRatio>
                 </div>
                 <div
                     sx={{
                         ml: 3,
                         mt: 3,
+                        display: 'inline-block',
+                        verticalAlign: 'top',
+                        float: 'right',
+                        width: ['100%', '100%', '100%', '40%'],
                     }}
                 >
                     <div
