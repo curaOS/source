@@ -7,7 +7,6 @@ import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
-import { getFrameWidth } from 'utils/frame-width'
 import { useNearHooksContainer, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 import { useRouter } from 'next/router'
@@ -83,7 +82,6 @@ const View = ({}) => {
         }
     }
 
-    const mediaDimension = getFrameWidth()
 
     return (
         <ViewLayout
@@ -93,8 +91,8 @@ const View = ({}) => {
                     {media?.[0]?.metadata?.media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
-                            width={mediaDimension}
-                            height={mediaDimension}
+                            width={"100%"}
+                            height={"100%"}
                         />
                     )}
                 </>

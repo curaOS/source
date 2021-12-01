@@ -13,7 +13,6 @@ import { useNFTContract } from '@cura/hooks'
 import { accountState } from 'state/account'
 import { useState } from 'react'
 import axios from 'axios'
-import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
@@ -135,13 +134,11 @@ const MLProjectCreate = ({}) => {
             })
     }
 
-    const frameDimension = getFrameWidth()
-
     return (
         <CreateLayout
             project={project}
             frameComponent={
-                <MediaObject mediaURI={media} width={frameDimension} />
+                <MediaObject mediaURI={media} type="image" width={"100%"} />
             }
             royaltiesComponent={
                 <CreatorShare

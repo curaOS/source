@@ -13,7 +13,6 @@ import { useState } from 'react'
 import axios from 'axios'
 import { combineHTML } from 'utils/combine-html'
 import { mapPathToProject } from 'utils/path-to-project'
-import { getFrameWidth } from 'utils/frame-width'
 
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
@@ -99,7 +98,6 @@ const MLProjectCreate = ({}) => {
             })
     }
 
-    const frameDimension = getFrameWidth()
 
     return (
         <CreateLayout
@@ -109,8 +107,8 @@ const MLProjectCreate = ({}) => {
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
-                            width={frameDimension}
-                            height={frameDimension}
+                            width={"100%"}
+                            height={"100%"}
                             frameBorder="0"
                             scrolling="no"
                         ></iframe>

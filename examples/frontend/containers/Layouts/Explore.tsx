@@ -6,11 +6,19 @@ import { Box, Link, Spinner, AspectRatio } from 'theme-ui'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { MediaObject } from '@cura/components'
 
-const ExploreLayout = ({ project, items, loadMore, totalSupply, baseUrl }) => {
-
+const ExploreLayout = ({
+    project,
+    items,
+    loadMore,
+    totalSupply,
+    baseUrl,
+    type = 'html',
+}) => {
     return (
         <Layout project={project}>
-            <Box sx={{ textAlign: 'center', my: 30, mx: 'auto', maxWidth: 900 }}>
+            <Box
+                sx={{ textAlign: 'center', my: 30, mx: 'auto', maxWidth: 900 }}
+            >
                 <InfiniteScroll
                     dataLength={items.length}
                     next={loadMore}
@@ -61,6 +69,7 @@ const ExploreLayout = ({ project, items, loadMore, totalSupply, baseUrl }) => {
                                         mediaURI={`https://arweave.net/${item.metadata.media}`}
                                         width={'100%'}
                                         height={'100%'}
+                                        type={type}
                                     />
                                 </AspectRatio>
                             </Link>
