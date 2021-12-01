@@ -2,8 +2,7 @@
 /** @jsxImportSource theme-ui */
 
 import Layout from '../Layout'
-import { Button } from 'theme-ui'
-import { getFrameWidth } from 'utils/frame-width'
+import { Box, Button, AspectRatio } from 'theme-ui'
 
 const CreateLayout = ({
     project,
@@ -12,53 +11,70 @@ const CreateLayout = ({
     retrieveData,
     claimDesign,
 }) => {
-    const frameDimension = getFrameWidth()
-
     return (
         <Layout project={project}>
-            <div
+            <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
+                    my: [44, 44, 44, 66],
                 }}
             >
-                <div
+                <Box
                     sx={{
-                        textAlign: 'center',
-                        mb: 3,
+                        display: 'inline-block',
+                        width: ['100%', '100%', '100%', '50%'],
+                        maxWidth: '90vh',
+                        mr: [0, 0, 0, 4],
+                        mb: [4, 4, 4, 0],
                     }}
                 >
-                    <Button mx="2" mt="1" onClick={retrieveData} variant="uno">
-                        Design
-                    </Button>
-                    <Button mx="2" mt="1" onClick={claimDesign} variant="due">
-                        Claim
-                    </Button>
-                </div>
-                <div
+                    <AspectRatio
+                        ratio={1}
+                        sx={{
+                            bg: 'gray.3',
+                            alignItems: 'center',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mb: 36,
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    >
+                        {frameComponent}
+                    </AspectRatio>
+                </Box>
+                <Box
                     sx={{
-                        alignSelf: 'center',
-                        alignItems: 'center',
-                        bg: 'gray.3',
-                        display: 'flex',
-                        height: frameDimension,
-                        justifyContent: 'center',
-                        width: frameDimension,
-                    }}
-                >
-                    {frameComponent}
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        ml: 3,
                         mt: 3,
+                        display: 'inline-block',
+                        verticalAlign: 'top',
+                        float: 'right',
+                        width: ['100%', '100%', '100%', '40%'],
                     }}
                 >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: ['row', 'row', 'row', 'column'],
+                            alignItems: 'start',
+                            rowGap: 18,
+                            mb: [30, 30, 40, 60],
+                        }}
+                    >
+                        <Button
+                            onClick={retrieveData}
+                            variant="borderless"
+                            mr={3}
+                        >
+                            DESIGN
+                        </Button>
+                        <Button onClick={claimDesign} variant="borderless">
+                            CLAIM
+                        </Button>
+                    </Box>
                     {royaltiesComponent}
-                </div>
-            </div>
+                </Box>
+            </Box>
         </Layout>
     )
 }
