@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Spinner } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { BiddersBids } from '@cura/components'
-import Layout from '../../../containers/Layout'
+import BidsLayout from '../../../containers/Layouts/Bids'
 import { useRecoilValue } from 'recoil'
 import { accountState } from 'state/account'
 import { omit } from 'ramda'
@@ -59,14 +59,8 @@ const Bids = () => {
     }
 
     return (
-        <Layout project={project}>
-            <div
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    mt: 3,
-                }}
-            >
+        <BidsLayout>
+            <>
                 {removeBidLoader && (
                     <div
                         sx={{
@@ -84,8 +78,8 @@ const Bids = () => {
                         onRemoveBid={removeBid}
                     />
                 )}
-            </div>
-        </Layout>
+            </>
+        </BidsLayout>
     )
 }
 
