@@ -3,12 +3,9 @@
 
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../containers/Layout'
+import ExploreLayout from '../../../containers/Layouts/Explore'
 import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
-import Link from 'next/link'
-import { getFrameWidth } from 'utils/frame-width'
 import { useStatusUpdate } from 'utils/hooks-helpers'
-import { MediaObject } from '@cura/components'
 
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
 
@@ -31,43 +28,15 @@ const MLProject = ({}) => {
         updateStatus
     )
 
-    const frameDimension = getFrameWidth(true)
 
     return (
-        <Layout project={project}>
-            <>
-                <div
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        flexWrap: 'wrap',
-                    }}
-                >
-                    {media &&
-                        media.map(({ id, metadata }) => (
-                            <Link href={`/${project}/${id}`}>
-                                <div
-                                    sx={{
-                                        cursor: 'pointer',
-                                        mx: [1, 2, 3],
-                                        my: [1, 2, 3],
-                                        ':hover': {
-                                            opacity: '0.8',
-                                        },
-                                    }}
-                                >
-                                    <MediaObject
-                                        mediaURI={`https://arweave.net/${metadata.media}`}
-                                        width={frameDimension}
-                                        height={frameDimension}
-                                    />
-                                </div>
-                            </Link>
-                        ))}
-                </div>
-            </>
-        </Layout>
+        <ExploreLayout
+            project={project}
+            items={media || []}
+            loadMore={() => null}
+            totalSupply={media?.length || 0}
+            baseUrl={`/${project}/`}
+        />
     )
 }
 
