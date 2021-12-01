@@ -2,10 +2,9 @@
 /** @jsxImportSource theme-ui */
 
 import { useState, useCallback } from 'react'
-import { Button, Flex, Box, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../containers/Layout'
+import ViewLayout from '../../../containers/Layouts/View'
 import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
@@ -88,25 +87,10 @@ const MLProject = ({}) => {
     const frameDimension = getFrameWidth()
 
     return (
-        <Layout project={project}>
-            <>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <Button onClick={burnDesign} variant="red">
-                        Burn
-                    </Button>
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
+        <ViewLayout
+            project={project}
+            frameComponent={
+                <>
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
@@ -114,52 +98,21 @@ const MLProject = ({}) => {
                             height={frameDimension}
                         />
                     )}
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <a
-                        sx={{ textDecoration: 'none' }}
-                        href={`https://viewblock.io/arweave/tx/${media?.metadata.media}`}
-                    >
-                        <Text
-                            sx={{
-                                fontSize: 2,
-                            }}
-                        >
-                            Arweave ↗
-                        </Text>
-                    </a>
-                </div>
-                {bids && (
-                    <div
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            mt: 3,
-                        }}
-                    >
-                        <Bidders bidders={bids} onAcceptBid={acceptBid} />
-                    </div>
-                )}
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <CreatorShare
-                        address={HARDCODED_ROYALTY_ADDRESS}
-                        share={HARDCODED_ROYALTY_SHARE}
-                    />
-                </div>
-            </>
-        </Layout>
+                </>
+            }
+            biddersComponent={
+                <>
+                    {bids && <Bidders bidders={bids} onAcceptBid={acceptBid} />}
+                </>
+            }
+            royaltiesComponent={
+                <CreatorShare
+                    address={HARDCODED_ROYALTY_ADDRESS}
+                    share={HARDCODED_ROYALTY_SHARE}
+                />
+            }
+            burnDesign={burnDesign}
+        />
     )
 }
 
