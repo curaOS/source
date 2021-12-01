@@ -60,7 +60,7 @@ const Bids = () => {
     }
 
     return (
-        <BidsLayout>
+        <BidsLayout project={"share"}>
             <>
                 {removeBidLoader && (
                     <div
