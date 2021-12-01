@@ -133,7 +133,7 @@ const elements = {
             variant: `text.buttons.1`,
             cursor: `pointer`,
             bg: `text`,
-            color: `white`,
+            color: `bg`,
             border: 1,
             borderRadius: 36,
             px: 3,
@@ -154,7 +154,8 @@ const elements = {
             py: 1,
             transitionDuration: `0.2s`,
             ':hover': {
-                bg: `gray.2`,
+                borderColor: `primary`,
+                color: `primary`,
             },
         },
         borderless: {
@@ -188,7 +189,7 @@ const elements = {
             borderRadius: 50,
             transitionDuration: `0.2s`,
             ':hover': {
-                bg: `gray.2`,
+                borderColor: `primary`,
             },
         },
     },
@@ -311,7 +312,7 @@ const layout = {
 const misc = {
     borders: {
         0: 0,
-        1: `1px solid ${colors.colors.text}`,
+        1: `1px solid var(--theme-ui-colors-text)`, //getting color from css variable because border color doesn't get parsed
     },
 }
 
