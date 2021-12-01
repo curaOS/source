@@ -104,32 +104,20 @@ const Create = ({}) => {
             <div
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
+                    flexDirection: ['column', 'column', 'column', 'row'],
+                    alignItems: ['center', 'center', 'center', 'start'],
+                    justifyContent: 'space-between',
+                    mt: 60,
                 }}
             >
                 <div
                     sx={{
-                        textAlign: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <Button mx="2" mt="1" onClick={retrieveData} variant="uno">
-                        Design
-                    </Button>
-                    <Button mx="2" mt="1" onClick={claimDesign} variant="due">
-                        Claim
-                    </Button>
-                </div>
-                <div
-                    sx={{
-                        alignSelf: 'center',
-                        alignItems: 'center',
                         bg: 'gray.3',
                         display: 'flex',
                         height: frameDimension,
                         justifyContent: 'center',
                         width: frameDimension,
+                        mb: 36,
                     }}
                 >
                     {creativeCode && (
@@ -144,11 +132,30 @@ const Create = ({}) => {
                 </div>
                 <div
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        ml: 3,
                         mt: 3,
                     }}
                 >
+                    <div
+                        sx={{
+                            display: 'flex',
+                            flexDirection: ['row', 'row', 'row', 'column'],
+                            alignItems: 'start',
+                            rowGap: 18,
+                            mb: [30, 30, 40, 60],
+                        }}
+                    >
+                        <Button
+                            onClick={retrieveData}
+                            variant="borderless"
+                            mr={3}
+                        >
+                            DESIGN
+                        </Button>
+                        <Button onClick={claimDesign} variant="borderless">
+                            CLAIM
+                        </Button>
+                    </div>
                     <CreatorShare
                         address={HARDCODED_ROYALTY_ADDRESS}
                         share={HARDCODED_ROYALTY_SHARE}
