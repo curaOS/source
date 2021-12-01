@@ -1,10 +1,9 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../containers/Layout'
+import CreateLayout from '../../../containers/Layouts/Create'
 
 import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
@@ -103,38 +102,10 @@ const MLProjectCreate = ({}) => {
     const frameDimension = getFrameWidth()
 
     return (
-        <Layout project={project}>
-            <div
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                }}
-            >
-                <div
-                    sx={{
-                        textAlign: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <Button mx="2" mt="1" onClick={retrieveData} variant="uno">
-                        Design
-                    </Button>
-                    <Button mx="2" mt="1" onClick={claimDesign} variant="due">
-                        Claim
-                    </Button>
-                </div>
-                <div
-                    sx={{
-                        alignSelf: 'center',
-                        alignItems: 'center',
-                        bg: 'gray.3',
-                        display: 'flex',
-                        height: frameDimension,
-                        justifyContent: 'center',
-                        width: frameDimension,
-                    }}
-                >
+        <CreateLayout
+            project={project}
+            frameComponent={
+                <>
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
@@ -144,21 +115,17 @@ const MLProjectCreate = ({}) => {
                             scrolling="no"
                         ></iframe>
                     )}
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <CreatorShare
-                        address={HARDCODED_ROYALTY_ADDRESS}
-                        share={HARDCODED_ROYALTY_SHARE}
-                    />
-                </div>
-            </div>
-        </Layout>
+                </>
+            }
+            royaltiesComponent={
+                <CreatorShare
+                    address={HARDCODED_ROYALTY_ADDRESS}
+                    share={HARDCODED_ROYALTY_SHARE}
+                />
+            }
+            retrieveData={retrieveData}
+            claimDesign={claimDesign}
+        />
     )
 }
 
