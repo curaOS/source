@@ -23,7 +23,7 @@ export function Bidders({
             sx={{
                 width: [300, 360, 400],
                 bg: 'bg',
-                p: 3,
+                py: 3,
             }}
         >
             <Heading mb={3} variant="h3">
