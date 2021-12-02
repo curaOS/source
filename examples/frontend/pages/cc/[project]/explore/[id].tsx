@@ -92,6 +92,7 @@ const ExploreToken = () => {
                             data={media}
                             loading={false}
                             width={"100%"}
+                            variant={1}
                         />
                     )}
                 </>
