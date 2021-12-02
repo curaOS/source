@@ -103,6 +103,7 @@ function MetadataLoadedSecondary({
             sx={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
+                justifyContent: 'space-between',
                 gap: [24, 34],
             }}
         >

@@ -97,7 +97,7 @@ const typography = {
         h4: {
             fontFamily: `heading`,
             fontWeight: `normal`,
-            fontSize: [2, 3],
+            fontSize: [0, 3],
         },
         h5: {
             fontFamily: `heading`,
