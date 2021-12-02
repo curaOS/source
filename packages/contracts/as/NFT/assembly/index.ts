@@ -3,7 +3,6 @@ import {
     context,
     u128,
     ContractPromise,
-    ContractPromiseBatch,
     PersistentSet,
     MapEntry,
     storage,
@@ -14,12 +13,8 @@ import {
     owners,
     account_media,
     DESIGN_PRICE,
-    FT_CONTRACT,
     GAS_FOR_NFT_APPROVE,
     NFTOnApprovedArgs,
-    accounts_storage,
-    StorageBalance,
-    StorageBalanceBounds,
 } from './models'
 import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {
@@ -40,7 +35,6 @@ import {
     refund_deposit,
     refund_approved_account,
     refund_approved_accounts,
-    storage_byte_cost,
 } from './internal_functions'
 
 export {
