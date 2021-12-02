@@ -89,6 +89,7 @@ export default function Layout({ children, project = 'share' }) {
                         nextLinkWrapper={(href, children) => (
                             <Link href={href}>{children}</Link>
                         )}
+                        activeLink={router.pathname.split('/')[3] || ''}
                     />
                     <Container variant="medium">
                         {indexLoader ? (
