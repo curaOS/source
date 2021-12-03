@@ -99,12 +99,15 @@ const Index = () => {
         <div
             sx={{
                 overflow: 'hidden',
+                height: '100vh',
+                position: 'relative',
             }}
         >
             <motion.div
                 sx={{
                     transform: 'translate3d(0, 0, 0) scale(1, 1)',
-                    height: '100vh',
+                    height: '100%',
+                    width: '100%',
                 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
@@ -139,6 +142,7 @@ const Index = () => {
                                 position: 'absolute',
                                 left: '50%',
                                 top: '50%',
+                                width: ['100%', '100%', 'auto'],
                             }}
                         >
                             <ProjectCard
@@ -168,7 +172,7 @@ const Index = () => {
                     position: 'absolute',
                     top: [null, '50%'],
                     left: ['7%', null, null, '20%', '30%'],
-                    bottom: ['3%', null],
+                    bottom: ['2%', null],
                     transform: [null, 'translate(0, -50%)'],
                 }}
             >
@@ -189,7 +193,7 @@ const Index = () => {
                     position: 'absolute',
                     top: [null, '50%'],
                     right: ['7%', null, null, '20%', '30%'],
-                    bottom: ['3%', null],
+                    bottom: ['2%', null],
                     transform: [null, 'translate(0, -50%)'],
                 }}
             >

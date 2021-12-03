@@ -24,8 +24,7 @@ export function ProjectCard({
             bg="bg"
             p={3}
             sx={{
-                width: '90vw',
-                maxWidth: 470,
+                width: ['100%', '100%', 400],
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
