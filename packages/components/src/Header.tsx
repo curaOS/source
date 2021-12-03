@@ -74,6 +74,7 @@ export const Header = ({
                                 variant: 'images.navLogo',
                                 display: 'block',
                                 backgroundImage: `url(${logo})`,
+                                cursor: 'pointer',
                             }}
                         ></a>
                     )}
@@ -104,7 +105,7 @@ export const Header = ({
                                 fill="none"
                                 sx={{
                                     fill: isMenuOpen ? 'white' : 'text',
-                                    stroke: isMenuOpen ? 'white' : 'text',
+                                    stroke: isMenuOpen ? 'white' : 'inherit',
                                     height: '100%',
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -240,9 +241,6 @@ export const Header = ({
                                     viewBox="0 0 14 16"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    sx={{
-                                        stroke: 'text',
-                                    }}
                                 >
                                     <path d="M2 1H13V15H2" strokeWidth="1.3" />
                                     <path d="M0 8H8" strokeWidth="1.3" />

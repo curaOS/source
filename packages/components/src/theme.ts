@@ -193,8 +193,10 @@ const elements = {
             height: `3rem`,
             borderRadius: 50,
             transitionDuration: `0.2s`,
+            stroke: `text`,
             ':hover': {
                 borderColor: `primary`,
+                stroke: `primary`,
             },
         },
     },
