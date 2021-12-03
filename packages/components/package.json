@@ -1,6 +1,6 @@
 {
-    "name": "afaithrafcomponents",
-    "version": "0.0.25",
+    "name": "@cura/components",
+    "version": "0.0.15",
     "description": "Components for front-ends on NEAR blockchain",
     "source": "src/index.ts",
     "main": "dist/index.js",
@@ -12,7 +12,7 @@
         "prepack": "yarn clean && tsc && yarn copy-files",
         "build": "yarn run prepack",
         "copy-files": "copyfiles -u 1 src/assets/** dist/",
-        "clean": "rimraf ./dist",
+        "clean": "rm -rf ./dist",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook"
     },
