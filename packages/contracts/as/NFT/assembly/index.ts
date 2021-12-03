@@ -417,6 +417,21 @@ export function init(
         )
     )
 
+    // find storage usage of a single NFT
+    const max_len_string = ' '.repeat(64)
+    const initial_storage: u128 = u128.from(context.storageUsage)
+    owners.add(context.sender)
+    const media = new Media(max_len_string, max_len_string)
+    let storageBalance = new StorageBalance()
+    storageBalance.total = max_len_string
+    storageBalance.available = max_len_string
+    accounts_storage.set(max_len_string, new StorageBalance())
+    designs.set(media.id, media)
+    const final_storage: u128 = u128.from(context.storageUsage)
+    accounts_storage.delete(max_len_string)
+    designs.delete(media.id)
+    storage.set(STORAGE_USAGE_KEY, u128.sub(final_storage, initial_storage))
+
     storage.set('init', 'done')
 }
 
