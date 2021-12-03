@@ -60,6 +60,9 @@ export default function Layout({ children, project = 'share' }) {
 
     useEffect(switchProject, [router.asPath])
 
+    const lastPath = router.pathname.split('/').slice(-1)[0]
+    const activeLink =
+        lastPath === '[project]' || lastPath === project ? '' : lastPath
     return (
         <>
             <Head>
@@ -89,7 +92,7 @@ export default function Layout({ children, project = 'share' }) {
                         nextLinkWrapper={(href, children) => (
                             <Link href={href}>{children}</Link>
                         )}
-                        activeLink={router.pathname.split('/')[3] || ''}
+                        activeLink={activeLink}
                     />
                     <Container variant="medium">
                         {indexLoader ? (
