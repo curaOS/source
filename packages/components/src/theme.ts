@@ -247,7 +247,7 @@ const elements = {
     },
     forms: {
         primary: {
-            width: ['100%', 300],
+            width: ['100%', '100%', 400],
             bg: 'bg',
             py: 20,
             row: {

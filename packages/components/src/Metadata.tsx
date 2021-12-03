@@ -30,8 +30,7 @@ export function Metadata({
     return (
         <Box
             sx={{
-                width: width || [360, 360, 800],
-                maxWidth: '90vw',
+                width: width || ["100%", "100%", 400],
                 bg: 'bg',
             }}
         >

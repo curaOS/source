@@ -5,7 +5,7 @@ export default {
     title: 'Components/Bidders',
     component: Bidders,
     parameters: {
-        layout: 'centered',
+        layout: 'padded',
     },
 } as ComponentMeta<typeof Bidders>
 

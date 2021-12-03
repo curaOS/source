@@ -22,7 +22,6 @@ const ExploreViewLayout = ({
                     sx={{
                         display: 'inline-block',
                         width: ['100%', '100%', '100%', '50%'],
-                        maxWidth: '90vh',
                         mr: [0, 0, 0, 4],
                         mb: [4, 4, 4, 0],
                     }}
@@ -44,7 +43,7 @@ const ExploreViewLayout = ({
                 </Box>
                 <Box
                     sx={{
-                        ml: 3,
+                        ml: ['auto', 'auto', 'auto', 3],
                         display: 'inline-block',
                         verticalAlign: 'top',
                         float: 'right',
