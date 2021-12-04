@@ -4,6 +4,7 @@
 import { Header } from '@cura/components'
 import { alertMessageState } from '../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useColorMode } from 'theme-ui'
 
 export default function HeaderContainer({
     base,
@@ -25,6 +26,7 @@ export default function HeaderContainer({
     const alertMessage = useRecoilValue(alertMessageState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
 
+    const [mode, setMode] = useColorMode()
     return (
         <Header
             base={base}
@@ -34,8 +36,10 @@ export default function HeaderContainer({
             alertMessage={alertMessage}
             setAlertMessage={setAlertMessage}
             title={title}
-            logo={logo}
+            logo={mode == 'dark' ? '/logoWhite.svg' : '/logo.svg'}
             nextLinkWrapper={nextLinkWrapper}
+            mode={mode}
+            setMode={setMode}
         />
     )
 }

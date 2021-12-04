@@ -76,7 +76,6 @@ export default function Layout({ children, project = 'share' }) {
                     onSignIn={preSignIn}
                     onSignOut={preSignOut}
                     title={project.toUpperCase()}
-                    logo={`/logo.svg`}
                     nextLinkWrapper={(href, children) => (
                         <Link href={href}>{children}</Link>
                     )}
