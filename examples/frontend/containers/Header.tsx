@@ -36,7 +36,7 @@ export default function HeaderContainer({
             alertMessage={alertMessage}
             setAlertMessage={setAlertMessage}
             title={title}
-            logo={logo}
+            logo={mode == 'dark' ? '/logoWhite.svg' : '/logo.svg'}
             nextLinkWrapper={nextLinkWrapper}
             mode={mode}
             setMode={setMode}
