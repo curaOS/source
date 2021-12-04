@@ -23,6 +23,7 @@ const variants = {
         gradient: {
             backgroundImage: [`url(${gradientSmall})`, `url(${gradientLarge})`],
             backgroundPosition: `center`,
+            backgroundSize: `cover`,
         },
     },
 }

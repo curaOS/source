@@ -7,17 +7,25 @@ export function Menu({
     accountId,
     base,
     nextLinkWrapper,
+    activeLink,
 }: {
     accountId: string
     base: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
+    activeLink: string
 }) {
     const Btn = ({ href, content }) => {
         return nextLinkWrapper(
             `/${base}/${href}`,
             <Button
                 variant="navigation"
-                sx={{ borderTop: 0, borderBottom: 0, width: '100%' }}
+                sx={{
+                    borderTop: 0,
+                    borderBottom: 0,
+                    width: '100%',
+                    bg: href === activeLink && 'primary',
+                    color: href === activeLink && 'bg',
+                }}
             >
                 {content}
             </Button>

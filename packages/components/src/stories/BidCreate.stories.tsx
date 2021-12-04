@@ -5,7 +5,7 @@ export default {
     title: 'Components/Bid Create',
     component: BidCreate,
     parameters: {
-        layout: 'centered',
+        layout: 'padded',
     },
 } as ComponentMeta<typeof BidCreate>
 

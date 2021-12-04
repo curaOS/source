@@ -12,7 +12,7 @@ export function CreatorShare({
     return (
         <Box
             sx={{
-                width: [300, 360, 400],
+                width: ['100%', '100%', 400],
                 textAlign: 'left',
                 py: 20,
                 bg: 'bg',

@@ -94,6 +94,11 @@ const typography = {
             fontSize: [0, 1],
             color: `white`,
         },
+        h4: {
+            fontFamily: `heading`,
+            fontWeight: `normal`,
+            fontSize: [0, 3],
+        },
         h5: {
             fontFamily: `heading`,
             fontWeight: `bold`,
@@ -133,7 +138,7 @@ const elements = {
             variant: `text.buttons.1`,
             cursor: `pointer`,
             bg: `text`,
-            color: `white`,
+            color: `bg`,
             border: 1,
             borderRadius: 36,
             px: 3,
@@ -154,7 +159,8 @@ const elements = {
             py: 1,
             transitionDuration: `0.2s`,
             ':hover': {
-                bg: `gray.2`,
+                borderColor: `primary`,
+                color: `primary`,
             },
         },
         borderless: {
@@ -163,10 +169,10 @@ const elements = {
             bg: `transparent`,
             color: `text`,
             p: 1,
+            pl: 0,
             transitionDuration: `0.2s`,
-            textDecoration: `underline transparent`,
             ':hover': {
-                textDecorationColor: `text`,
+                textDecoration: `underline`,
             },
         },
         mobileMenu: {
@@ -187,8 +193,10 @@ const elements = {
             height: `3rem`,
             borderRadius: 50,
             transitionDuration: `0.2s`,
+            stroke: `text`,
             ':hover': {
-                bg: `gray.2`,
+                borderColor: `primary`,
+                stroke: `primary`,
             },
         },
     },
@@ -241,7 +249,7 @@ const elements = {
     },
     forms: {
         primary: {
-            width: ['100%', 300],
+            width: ['100%', '100%', 400],
             bg: 'bg',
             py: 20,
             row: {
@@ -291,13 +299,19 @@ const elements = {
 
 // Layout containers
 const layout = {
-    container: {
-        px: [2, 3, 4],
-        maxWidth: 1024,
-    },
-    wide: {
-        px: [2, 3, 4],
-        maxWidth: 1536,
+    layout: {
+        container: {
+            px: [2, 3, 4],
+            maxWidth: 1024,
+        },
+        medium: {
+            px: [2, 3, 4],
+            maxWidth: 1324,
+        },
+        wide: {
+            px: [2, 3, 4],
+            maxWidth: 1536,
+        },
     },
 }
 
@@ -305,7 +319,7 @@ const layout = {
 const misc = {
     borders: {
         0: 0,
-        1: `1px solid ${colors.colors.text}`,
+        1: `1px solid var(--theme-ui-colors-text)`, //getting color from css variable because border color doesn't get parsed
     },
 }
 

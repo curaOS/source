@@ -99,14 +99,15 @@ const Index = () => {
         <div
             sx={{
                 overflow: 'hidden',
-                bg: 'gray.3',
-                backgroundImage: `radial-gradient(circle, ${theme.colors.gray[3]} 10%, ${theme.colors.gray[2]} 44%, ${theme.colors.gray[5]} 100%)`,
+                height: '100vh',
+                position: 'relative',
             }}
         >
             <motion.div
                 sx={{
                     transform: 'translate3d(0, 0, 0) scale(1, 1)',
-                    height: '100vh',
+                    height: '100%',
+                    width: '100%',
                 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
@@ -141,6 +142,7 @@ const Index = () => {
                                 position: 'absolute',
                                 left: '50%',
                                 top: '50%',
+                                width: ['100%', '100%', 'auto'],
                             }}
                         >
                             <ProjectCard
@@ -170,18 +172,13 @@ const Index = () => {
                     position: 'absolute',
                     top: [null, '50%'],
                     left: ['7%', null, null, '20%', '30%'],
-                    bottom: ['-1%', null],
+                    bottom: ['2%', null],
                     transform: [null, 'translate(0, -50%)'],
-                    height: ['6rem', '8rem'],
-                    cursor: 'pointer',
-                    ':hover': {
-                        opacity: '0.8',
-                    },
                 }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 22 20"
                     width="31"
                     height="31"
                     fill="currentcolor"
@@ -196,18 +193,13 @@ const Index = () => {
                     position: 'absolute',
                     top: [null, '50%'],
                     right: ['7%', null, null, '20%', '30%'],
-                    bottom: ['-1%', null],
+                    bottom: ['2%', null],
                     transform: [null, 'translate(0, -50%)'],
-                    height: ['6rem', '8rem'],
-                    cursor: 'pointer',
-                    ':hover': {
-                        opacity: '0.8',
-                    },
                 }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
+                    viewBox="0 0 22 20"
                     width="31"
                     height="31"
                     fill="currentcolor"

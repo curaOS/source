@@ -79,7 +79,13 @@ export function BidCreate({
                     onChange={(e) => setResale(e.target.value)}
                 />
             </Box>
-            <Button disabled={!amount} mt={24}>
+            <Button
+                disabled={!amount}
+                mt={24}
+                sx={{
+                    width: ['100%', '100%', '100%', 'unset'],
+                }}
+            >
                 {amount ? (
                     <>
                         {amount} <Text variant="currency">Ⓝ</Text> + {resale}%

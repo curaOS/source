@@ -2,17 +2,23 @@
 /** @jsxImportSource theme-ui */
 
 import Layout from '../Layout'
-import { Box, Link, Spinner } from 'theme-ui'
+import { Box, Link, Spinner, AspectRatio } from 'theme-ui'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { MediaObject } from '@cura/components'
-import { getFrameWidth } from 'utils/frame-width'
 
-const ExploreLayout = ({ project, items, loadMore, totalSupply, baseUrl }) => {
-    const designDimension = getFrameWidth(true)
-
+const ExploreLayout = ({
+    project,
+    items,
+    loadMore,
+    totalSupply,
+    baseUrl,
+    type = 'html',
+}) => {
     return (
         <Layout project={project}>
-            <Box sx={{ textAlign: 'center' }}>
+            <Box
+                sx={{ textAlign: 'center', my: 30, mx: 'auto', maxWidth: 900 }}
+            >
                 <InfiniteScroll
                     dataLength={items.length}
                     next={loadMore}
@@ -28,28 +34,44 @@ const ExploreLayout = ({ project, items, loadMore, totalSupply, baseUrl }) => {
                             <Link
                                 key={index}
                                 href={`${baseUrl}${item.id}`}
-                                m={[1, 2, 3]}
+                                m={[21, 21, 21, 30]}
                                 sx={{
-                                    display: 'inline-flex',
+                                    display: 'inline-block',
+                                    width: [225, 340],
                                     position: 'relative',
                                     ':hover': {
                                         opacity: '0.8',
                                     },
                                 }}
                             >
-                                <div
+                                <AspectRatio
+                                    ratio={1}
                                     sx={{
-                                        position: 'absolute',
-                                        height: '100%',
+                                        bg: 'gray.3',
+                                        alignItems: 'center',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        mb: 36,
                                         width: '100%',
-                                        zIndex: 1,
+                                        height: '100%',
+                                        cursor: 'pointer',
                                     }}
-                                ></div>
-                                <MediaObject
-                                    mediaURI={`https://arweave.net/${item.metadata.media}`}
-                                    width={designDimension}
-                                    height={designDimension}
-                                />
+                                >
+                                    <div
+                                        sx={{
+                                            position: 'absolute',
+                                            height: '100%',
+                                            width: '100%',
+                                            zIndex: 1,
+                                        }}
+                                    ></div>
+                                    <MediaObject
+                                        mediaURI={`https://arweave.net/${item.metadata.media}`}
+                                        width={'100%'}
+                                        height={'100%'}
+                                        type={type}
+                                    />
+                                </AspectRatio>
                             </Link>
                         )
                     })}

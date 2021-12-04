@@ -36,6 +36,7 @@ const MLProject = ({}) => {
             loadMore={() => null}
             totalSupply={media?.length || 0}
             baseUrl={`/${project}/`}
+            type="image"
         />
     )
 }

@@ -49,6 +49,7 @@ const Explore = () => {
             loadMore={loadMore}
             totalSupply={totalSupply}
             baseUrl={`/${project}/explore/`}
+            type="image"
         />
     )
 }

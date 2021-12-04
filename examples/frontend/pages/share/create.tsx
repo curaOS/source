@@ -10,7 +10,6 @@ import { useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
 import { combineHTML } from '../../utils/combine-html'
 import axios from 'axios'
-import { getFrameWidth } from 'utils/frame-width'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
@@ -25,7 +24,7 @@ const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const SCHEMA_SIZE = 5
 
-const Create = ({}) => {
+const Create = () => {
     const router = useRouter()
     const contractAdress = router && mapPathToProject(router.asPath)
     const project = `share`
@@ -97,7 +96,6 @@ const Create = ({}) => {
             })
     }
 
-    const frameDimension = getFrameWidth()
 
     return (
         <CreateLayout
@@ -107,8 +105,8 @@ const Create = ({}) => {
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
-                            width={frameDimension}
-                            height={frameDimension}
+                            width={'100%'}
+                            height={'100%'}
                             frameBorder="0"
                             scrolling="no"
                         ></iframe>

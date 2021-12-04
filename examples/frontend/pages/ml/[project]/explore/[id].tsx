@@ -17,7 +17,6 @@ import {
     useNFTMethod,
     useNearHooksContainer,
 } from '@cura/hooks'
-import { getFrameWidth } from 'utils/frame-width'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 import { mapPathToProject } from 'utils/path-to-project'
 
@@ -72,7 +71,6 @@ const ExploreToken = () => {
         }
     }
 
-    const designDimension = getFrameWidth()
     return (
         <ExploreViewLayout
             project={project}
@@ -81,8 +79,9 @@ const ExploreToken = () => {
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media?.metadata?.media}`}
-                            width={designDimension}
-                            height={designDimension}
+                            type={`image`}
+                            width={"100%"}
+                            height={"100%"}
                         />
                     )}
                 </>
@@ -93,7 +92,8 @@ const ExploreToken = () => {
                         <Metadata
                             data={media}
                             loading={false}
-                            width={designDimension}
+                            width={"100%"}
+                            variant={1}
                         />
                     )}
                 </>

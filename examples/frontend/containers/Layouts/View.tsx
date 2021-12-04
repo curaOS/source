@@ -2,7 +2,7 @@
 /** @jsxImportSource theme-ui */
 
 import Layout from '../Layout'
-import { Button } from 'theme-ui'
+import { Button, Box, AspectRatio } from 'theme-ui'
 
 const ViewLayout = ({
     project,
@@ -11,49 +11,54 @@ const ViewLayout = ({
     royaltiesComponent,
     burnDesign,
 }) => {
-
     return (
         <Layout project={project}>
-            <>
-                <div
+            <Box
+                sx={{
+                    my: [44, 44, 44, 66],
+                }}
+            >
+                <Box
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mb: 3,
+                        display: 'inline-block',
+                        width: ['100%', '100%', '100%', '50%'],
+                        maxWidth: '90vh',
+                        mr: [0, 0, 0, 4],
+                        mb: [4, 4, 4, 0],
                     }}
                 >
-                    <Button onClick={burnDesign} variant="red">
-                        Burn
+                    <AspectRatio
+                        ratio={1}
+                        sx={{
+                            bg: 'gray.3',
+                            alignItems: 'center',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            mb: 36,
+                            width: '100%',
+                            height: '100%',
+                        }}
+                    >
+                        {frameComponent}
+                    </AspectRatio>
+                </Box>
+                <Box
+                    sx={{
+                        ml: 3,
+                        mt: 3,
+                        display: 'inline-block',
+                        verticalAlign: 'top',
+                        float: 'right',
+                        width: ['100%', '100%', '100%', '40%'],
+                    }}
+                >
+                    <Button onClick={burnDesign} variant="borderless">
+                        BURN
                     </Button>
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
-                    {frameComponent}
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
                     {biddersComponent}
-                </div>
-
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
                     {royaltiesComponent}
-                </div>
-            </>
+                </Box>
+            </Box>
         </Layout>
     )
 }

@@ -10,7 +10,6 @@ import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 import { accountState } from 'state/account'
-import { getFrameWidth } from 'utils/frame-width'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
@@ -84,8 +83,6 @@ const MLProject = ({}) => {
         }
     }
 
-    const frameDimension = getFrameWidth()
-
     return (
         <ViewLayout
             project={project}
@@ -94,8 +91,9 @@ const MLProject = ({}) => {
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
-                            width={frameDimension}
-                            height={frameDimension}
+                            type="image"
+                            width={'100%'}
+                            height={'100%'}
                         />
                     )}
                 </>

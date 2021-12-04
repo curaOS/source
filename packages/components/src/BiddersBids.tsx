@@ -21,9 +21,9 @@ export function BiddersBids({
     return (
         <Box
             sx={{
-                width: [300, 360, 400],
+                width: ['100%', '100%', 400],
                 bg: 'bg',
-                p: 3,
+                py: 3,
             }}
         >
             <Heading mb={3} variant="h3">

@@ -68,3 +68,18 @@ CustomWidth.args = {
         },
     },
 }
+
+export const SecondVariant = Template.bind({})
+SecondVariant.args = {
+    variant: 1,
+    loading: false,
+    data: {
+        creator_id: 'beast.near',
+        owner_id: 'doge.near',
+        metadata: {
+            title: 'dabuk',
+            description:
+                'Digital ceramic sculpted in VR and glazed procedurally David Porte Beckefeld® 2021',
+        },
+    },
+}
