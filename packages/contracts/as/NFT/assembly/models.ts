@@ -58,6 +58,7 @@ export class Media {
     }
 }
 
+@nearBindgen
 export class NFTOnApprovedArgs {
     token_id: string
     owner_id: string
@@ -65,8 +66,24 @@ export class NFTOnApprovedArgs {
     msg: string
 }
 
+@nearBindgen
+export class StorageBalance {
+    total: string
+    available: string
+}
+
+@nearBindgen
+export class StorageBalanceBounds {
+    min: string
+    max: string
+}
+
 export const designs = new PersistentUnorderedMap<AccountId, Media>('md')
 export const owners = new PersistentSet<AccountId>('onrs')
+export const accounts_storage = new PersistentUnorderedMap<
+    AccountId,
+    StorageBalance
+>('accs')
 
 export const account_media = new PersistentUnorderedMap<
     AccountId,

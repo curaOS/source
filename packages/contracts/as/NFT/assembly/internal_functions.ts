@@ -1,11 +1,6 @@
-import {
-    context,
-    u128,
-    ContractPromiseBatch,
-    PersistentUnorderedMap,
-} from 'near-sdk-as'
+import { context, u128, ContractPromiseBatch } from 'near-sdk-as'
 
-function storage_byte_cost(): u128 {
+export function storage_byte_cost(): u128 {
     return u128.from('10000000000000000000')
 }
 

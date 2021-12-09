@@ -13,7 +13,6 @@ import {
     owners,
     account_media,
     DESIGN_PRICE,
-    FT_CONTRACT,
     GAS_FOR_NFT_APPROVE,
     NFTOnApprovedArgs,
 } from './models'
@@ -37,6 +36,14 @@ import {
     refund_approved_account,
     refund_approved_accounts,
 } from './internal_functions'
+
+export {
+    storage_deposit,
+    storage_withdraw,
+    storage_balance_bounds,
+    storage_balance_of,
+    storage_unregister,
+} from './storage_management'
 
 export const ROYALTY_PERCENTAGE: u16 = 2500 // 25%
 const OWNER_PERCENTAGE: u16 = 7500 // 75%
@@ -380,6 +387,7 @@ export function dangerous_wipe_designs(): void {
 export const MARKET_CONTRACT_KEY = 'market_contract'
 export const GENERATOR_CONTRACT_KEY = 'generator_contract'
 export const METADATA_KEY = 'contract_metadata'
+export const STORAGE_USAGE_KEY = 'storage_usage'
 
 export function init(
     contract_metadata: NFTContractMetadata,
@@ -408,6 +416,21 @@ export function init(
             contract_metadata.parameters
         )
     )
+
+    // find storage usage of a single NFT
+    const max_len_string = ' '.repeat(64)
+    const initial_storage: u128 = u128.from(context.storageUsage)
+    owners.add(context.sender)
+    const media = new Media(max_len_string, max_len_string)
+    let storageBalance = new StorageBalance()
+    storageBalance.total = max_len_string
+    storageBalance.available = max_len_string
+    accounts_storage.set(max_len_string, new StorageBalance())
+    designs.set(media.id, media)
+    const final_storage: u128 = u128.from(context.storageUsage)
+    accounts_storage.delete(max_len_string)
+    designs.delete(media.id)
+    storage.set(STORAGE_USAGE_KEY, u128.sub(final_storage, initial_storage))
 
     storage.set('init', 'done')
 }
