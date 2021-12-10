@@ -3,7 +3,7 @@
 
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import ExploreLayout from '../../../containers/Layouts/Explore'
+import ExploreLayout from '../../../containers/layouts/Explore'
 import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 

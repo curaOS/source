@@ -3,7 +3,7 @@
 
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import CreateLayout from '../../../containers/Layouts/Create'
+import CreateLayout from '../../../containers/layouts/Create'
 
 import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'

@@ -3,7 +3,7 @@
 
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import ViewLayout from '../../../containers/Layouts/View'
+import ViewLayout from '../../../containers/layouts/View'
 import { Bidders, CreatorShare, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
