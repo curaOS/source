@@ -8,7 +8,7 @@
         "start": "next start"
     },
     "dependencies": {
-        "@cura/components": "0.0.16",
+        "@cura/components": "0.0.17",
         "@cura/hooks": "0.0.9",
         "@runwayml/hosted-models": "^0.3.0",
         "@theme-ui/color": "^0.8.4",
