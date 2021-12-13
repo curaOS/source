@@ -11,7 +11,7 @@
     "scripts": {
         "prepack": "yarn clean && tsc && yarn copy-files",
         "build": "yarn run prepack",
-        "copy-files": "copyfiles -u 1 src/assets/** dist/",
+        "copy-files": "copyfiles -u 1 \"src/assets/**\" dist/",
         "clean": "rm -rf ./dist",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook"
