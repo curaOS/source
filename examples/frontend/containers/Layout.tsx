@@ -60,9 +60,13 @@ export default function Layout({ children, project = 'share' }) {
 
     useEffect(switchProject, [router.asPath])
 
+    // get the last part of the path (e.g. create, view, explore)
     const lastPath = router.pathname.split('/').slice(-1)[0]
+
+    // if lastPath is a project's homepage (e.g. /share, /cc/squiggle...) set activeLink to an empty string
     const activeLink =
         lastPath === '[project]' || lastPath === project ? '' : lastPath
+        
     return (
         <>
             <Head>

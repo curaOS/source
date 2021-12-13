@@ -8,7 +8,7 @@ import { utils } from 'near-api-js'
 
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
 
-import ExploreLayout from '../../../containers/Layouts/Explore'
+import ExploreLayout from '../../../containers/layouts/Explore'
 import { mapPathToProject } from 'utils/path-to-project'
 import { alertMessageState } from '../../../state/recoil'
 

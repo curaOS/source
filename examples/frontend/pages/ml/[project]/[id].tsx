@@ -4,7 +4,7 @@
 import { useState, useCallback } from 'react'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import ViewLayout from '../../../containers/Layouts/View'
+import ViewLayout from '../../../containers/layouts/View'
 import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'

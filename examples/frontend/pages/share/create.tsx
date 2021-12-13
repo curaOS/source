@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 import { utils } from 'near-api-js'
-import CreateLayout from '../../containers/Layouts/Create'
+import CreateLayout from '../../containers/layouts/Create'
 import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
