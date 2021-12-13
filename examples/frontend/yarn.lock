@@ -2406,10 +2406,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cura/components@0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.17.tgz#4992a682ad92f8ced0ffd72f5b27122cd4139ad6"
-  integrity sha512-xc1hjIzit5YBCL3YlemdjNJCXl/g/IQb0RlX2zplaIv2hoKGzRcxnHyMX/i9+615t+YSsR28HyEVY34yVEEkhw==
+"@cura/components@0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.18.tgz#07765557d47ccbe543c5132ced27e913e5c53865"
+  integrity sha512-m1FL2dUjIcMF50iHrjJie2kXnWG/nLRDZYAO3bQKjAc0XfE0LlnSbR6p8R7VvJ+980bW02BvAvHmJfQkuSlXsQ==
   dependencies:
     "@cura/hooks" "0.0.9"
     "@theme-ui/color" "^0.12.1"
