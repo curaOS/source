@@ -4,6 +4,7 @@
 import { Header } from '@cura/components'
 import { alertMessageState } from '../state/recoil'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useColorMode } from 'theme-ui'
 
 export default function HeaderContainer({
     base,
@@ -11,6 +12,7 @@ export default function HeaderContainer({
     onSignIn,
     onSignOut,
     title,
+    logo,
     nextLinkWrapper,
 }: {
     base: string
@@ -18,11 +20,13 @@ export default function HeaderContainer({
     onSignIn: () => void
     onSignOut: () => void
     title: string
+    logo: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
 }) {
     const alertMessage = useRecoilValue(alertMessageState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
 
+    const [mode, setMode] = useColorMode()
     return (
         <Header
             base={base}
@@ -32,7 +36,10 @@ export default function HeaderContainer({
             alertMessage={alertMessage}
             setAlertMessage={setAlertMessage}
             title={title}
+            logo={mode == 'dark' ? '/logoWhite.svg' : '/logo.svg'}
             nextLinkWrapper={nextLinkWrapper}
+            mode={mode}
+            setMode={setMode}
         />
     )
 }

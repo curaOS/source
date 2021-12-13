@@ -5,14 +5,10 @@ import { useState, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { useRouter } from 'next/router'
 import { utils } from 'near-api-js'
-import { Box, Link, Spinner } from 'theme-ui'
-import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
-import { MediaObject } from '@cura/components'
 
-import Layout from '../../../containers/Layout'
-import { getFrameWidth } from 'utils/frame-width'
+import ExploreLayout from '../../../containers/layouts/Explore'
 import { mapPathToProject } from 'utils/path-to-project'
 import { alertMessageState } from '../../../state/recoil'
 
@@ -46,54 +42,14 @@ const Explore = () => {
         }
     }
 
-    const designDimension = getFrameWidth(true)
-
     return (
-        <Layout project={project}>
-            <Box sx={{ textAlign: 'center' }}>
-                <InfiniteScroll
-                    dataLength={items.length}
-                    next={loadMore}
-                    hasMore={totalSupply > items.length}
-                    loader={
-                        <Box width="100%" mt={2}>
-                            <Spinner />
-                        </Box>
-                    }
-                >
-                    {items.map((item, index) => {
-                        return (
-                            <Link
-                                key={index}
-                                href={`/${project}/explore/${item.id}`}
-                                m={[1, 2, 3]}
-                                sx={{
-                                    display: 'inline-flex',
-                                    position: 'relative',
-                                    ':hover': {
-                                        opacity: '0.8',
-                                    },
-                                }}
-                            >
-                                <div
-                                    sx={{
-                                        position: 'absolute',
-                                        height: '100%',
-                                        width: '100%',
-                                        zIndex: 1,
-                                    }}
-                                ></div>
-                                <MediaObject
-                                    mediaURI={`https://arweave.net/${item.metadata.media}`}
-                                    width={designDimension}
-                                    height={designDimension}
-                                />
-                            </Link>
-                        )
-                    })}
-                </InfiniteScroll>
-            </Box>
-        </Layout>
+        <ExploreLayout
+            project={project}
+            items={items}
+            loadMore={loadMore}
+            totalSupply={totalSupply}
+            baseUrl={`/${project}/explore/`}
+        />
     )
 }
 

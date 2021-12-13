@@ -1,14 +1,12 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Button } from 'theme-ui'
 import { utils } from 'near-api-js'
-import Layout from '../../containers/Layout'
+import ViewLayout from '../../containers/layouts/View'
 import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTMethod, useNFTContract } from '@cura/hooks'
-import { getFrameWidth } from 'utils/frame-width'
 import { useNearHooksContainer, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 import { useRouter } from 'next/router'
@@ -84,62 +82,33 @@ const View = ({}) => {
         }
     }
 
-    const mediaDimension = getFrameWidth()
-
     return (
-        <Layout>
-            <>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <Button onClick={burnDesign} variant="red">
-                        Burn
-                    </Button>
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
+        <ViewLayout
+            project="share"
+            frameComponent={
+                <>
                     {media?.[0]?.metadata?.media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
-                            width={mediaDimension}
-                            height={mediaDimension}
+                            width={'100%'}
+                            height={'100%'}
                         />
                     )}
-                </div>
-                {bids && (
-                    <div
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            mt: 3,
-                        }}
-                    >
-                        <Bidders bidders={bids} onAcceptBid={acceptBid} />
-                    </div>
-                )}
-
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <CreatorShare
-                        address={HARDCODED_ROYALTY_ADDRESS}
-                        share={HARDCODED_ROYALTY_SHARE}
-                    />
-                </div>
-            </>
-        </Layout>
+                </>
+            }
+            biddersComponent={
+                <>
+                    {bids && <Bidders bidders={bids} onAcceptBid={acceptBid} />}
+                </>
+            }
+            royaltiesComponent={
+                <CreatorShare
+                    address={HARDCODED_ROYALTY_ADDRESS}
+                    share={HARDCODED_ROYALTY_SHARE}
+                />
+            }
+            burnDesign={burnDesign}
+        />
     )
 }
 

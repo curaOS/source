@@ -2406,12 +2406,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cura/components@0.0.15":
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.15.tgz#3f1dbc177064349b9b66260949b6b635f8e3dca4"
-  integrity sha512-xLApZOETpMoi6E/DS1zf7rFvHra36g1ZKxuL2KJS23lJIOabNMY7AyZWrNUfU+YvGKOjsDBu3O8vLuZOabj+aQ==
+"@cura/components@0.0.17":
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/@cura/components/-/components-0.0.17.tgz#4992a682ad92f8ced0ffd72f5b27122cd4139ad6"
+  integrity sha512-xc1hjIzit5YBCL3YlemdjNJCXl/g/IQb0RlX2zplaIv2hoKGzRcxnHyMX/i9+615t+YSsR28HyEVY34yVEEkhw==
   dependencies:
     "@cura/hooks" "0.0.9"
+    "@theme-ui/color" "^0.12.1"
     "@theme-ui/match-media" "^0.12.0"
     "@theme-ui/presets" "^0.6.0"
     near-api-js "^0.42.0"
@@ -2475,6 +2476,17 @@
     "@emotion/utils" "^1.0.0"
     "@emotion/weak-memoize" "^0.2.5"
     stylis "^4.0.3"
+
+"@emotion/cache@^11.6.0":
+  version "11.6.0"
+  resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.6.0.tgz#65fbdbbe4382f1991d8b20853c38e63ecccec9a1"
+  integrity sha512-ElbsWY1KMwEowkv42vGo0UPuLgtPYfIs9BxxVrmvsaJVvktknsHYYlx5NQ5g6zLDcOTyamlDc7FkRg2TAcQDKQ==
+  dependencies:
+    "@emotion/memoize" "^0.7.4"
+    "@emotion/sheet" "^1.1.0"
+    "@emotion/utils" "^1.0.0"
+    "@emotion/weak-memoize" "^0.2.5"
+    stylis "^4.0.10"
 
 "@emotion/core@^10.0.0":
   version "10.0.34"
@@ -2551,6 +2563,19 @@
     "@emotion/weak-memoize" "^0.2.5"
     hoist-non-react-statics "^3.3.1"
 
+"@emotion/react@^11.6.0":
+  version "11.7.0"
+  resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.7.0.tgz#b179da970ac0e8415de3ac165deadf8d9c4bf89f"
+  integrity sha512-WL93hf9+/2s3cA1JVJlz8+Uy6p6QWukqQFOm2OZO5ki51hfucHMOmbSjiyC3t2Y4RI8XUmBoepoc/24ny/VBbA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@emotion/cache" "^11.6.0"
+    "@emotion/serialize" "^1.0.2"
+    "@emotion/sheet" "^1.1.0"
+    "@emotion/utils" "^1.0.0"
+    "@emotion/weak-memoize" "^0.2.5"
+    hoist-non-react-statics "^3.3.1"
+
 "@emotion/serialize@^0.11.15", "@emotion/serialize@^0.11.16":
   version "0.11.16"
   resolved "https://registry.yarnpkg.com/@emotion/serialize/-/serialize-0.11.16.tgz"
@@ -2582,6 +2607,11 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.0.1.tgz"
   integrity sha512-GbIvVMe4U+Zc+929N1V7nW6YYJtidj31lidSmdYcWozwoBIObXBnaJkKNDjZrLm9Nc0BR+ZyHNaRZxqNZbof5g==
+
+"@emotion/sheet@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.1.0.tgz#56d99c41f0a1cda2726a05aa6a20afd4c63e58d2"
+  integrity sha512-u0AX4aSo25sMAygCuQTzS+HsImZFuS8llY8O7b9MDRzbJM0kVJlAz6KNDqcG7pOuQZJmj/8X/rAW+66kMnMW+g==
 
 "@emotion/styled-base@^10.0.27":
   version "10.0.31"
@@ -3484,6 +3514,14 @@
     "@theme-ui/css" "^0.6.2"
     deepmerge "^4.2.2"
 
+"@theme-ui/color@^0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@theme-ui/color/-/color-0.12.1.tgz#c4af16448ada9cb1e0854ce332e91ae05d6764cf"
+  integrity sha512-2TyuydLabp3VQaDz/U7PsWHAEuOkKV4BMiDZ+C4Lu3pgX7tb9418JrbkakEFiAyWzsE872VkuUAIFQzb+Rw21g==
+  dependencies:
+    "@theme-ui/css" "0.12.1"
+    polished "^4.0.5"
+
 "@theme-ui/color@^0.8.4":
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/@theme-ui/color/-/color-0.8.4.tgz#8582720614b52b441a49a61909a2111a83b847d7"
@@ -3545,6 +3583,14 @@
   dependencies:
     "@emotion/react" "^11.1.1"
     csstype "^3.0.5"
+
+"@theme-ui/css@0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@theme-ui/css/-/css-0.12.1.tgz#575fafa92806d55f84aef39a58c11bb8aa8a3a56"
+  integrity sha512-/9mvYEjPubtk7u+2tx3wTVq4kTAUNi8hMpisHBJ9em7nJ+b0sdRhPp/RPFVkUxP2Q9RdsTgvfGkrN73UBvVUAQ==
+  dependencies:
+    "@emotion/react" "^11.6.0"
+    csstype "^3.0.10"
 
 "@theme-ui/css@0.8.4":
   version "0.8.4"
@@ -6113,6 +6159,11 @@ csstype@^2.5.7:
   version "2.6.13"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.13.tgz"
   integrity sha512-ul26pfSQTZW8dcOnD2iiJssfXw0gdNVX9IJDH/X3K5DGPfj+fUYe3kB+swUY6BF3oZDxaID3AJt+9/ojSAE05A==
+
+csstype@^3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.10.tgz#2ad3a7bed70f35b965707c092e5f30b327c290e5"
+  integrity sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==
 
 csstype@^3.0.2:
   version "3.0.2"
@@ -12067,6 +12118,11 @@ stylis@3.5.4:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-3.5.4.tgz"
   integrity sha512-8/3pSmthWM7lsPBKv7NXkzn2Uc9W7NotcwGNpJaa3k7WMM1XDCA4MgT5k/8BIexd5ydZdboXtU90XH9Ec4Bv/Q==
+
+stylis@^4.0.10:
+  version "4.0.11"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.11.tgz#405360034a86acd66241c00bbbc85415a071ed35"
+  integrity sha512-Q7gWFqMXrpDAnqhkFZdgBjXzybYc4WaJNtFdnQQSfww/cIiBUx/3sPGYMKFh3muXA47dhaWfYqc/HQkg8j7+ig==
 
 stylis@^4.0.3:
   version "4.0.10"

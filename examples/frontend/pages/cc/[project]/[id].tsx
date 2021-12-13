@@ -1,15 +1,13 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
-import Layout from '../../../containers/Layout'
+import ViewLayout from '../../../containers/layouts/View'
 import { Bidders, CreatorShare, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { mapPathToProject } from 'utils/path-to-project'
-import { getFrameWidth } from 'utils/frame-width'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
@@ -83,81 +81,33 @@ const CCProjectID = ({}) => {
         }
     }
 
-    const frameDimension = getFrameWidth()
-
     return (
-        <Layout project={project}>
-            <>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <Button onClick={burnDesign} variant="red">
-                        Burn
-                    </Button>
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
+        <ViewLayout
+            project={project}
+            frameComponent={
+                <>
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
-                            width={frameDimension}
-                            height={frameDimension}
+                            width={'100%'}
+                            height={'100%'}
                         />
                     )}
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <a
-                        sx={{ textDecoration: 'none' }}
-                        href={`https://viewblock.io/arweave/tx/${media?.metadata.media}`}
-                    >
-                        <Text
-                            sx={{
-                                fontSize: 2,
-                            }}
-                        >
-                            Arweave ↗
-                        </Text>
-                    </a>
-                </div>
-                {bids && (
-                    <div
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            mt: 3,
-                        }}
-                    >
-                        <Bidders bidders={bids} onAcceptBid={acceptBid} />
-                    </div>
-                )}
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <CreatorShare
-                        address={HARDCODED_ROYALTY_ADDRESS}
-                        share={HARDCODED_ROYALTY_SHARE}
-                    />
-                </div>
-            </>
-        </Layout>
+                </>
+            }
+            biddersComponent={
+                <>
+                    {bids && <Bidders bidders={bids} onAcceptBid={acceptBid} />}
+                </>
+            }
+            royaltiesComponent={
+                <CreatorShare
+                    address={HARDCODED_ROYALTY_ADDRESS}
+                    share={HARDCODED_ROYALTY_SHARE}
+                />
+            }
+            burnDesign={burnDesign}
+        />
     )
 }
 

@@ -5,7 +5,7 @@ export default {
     title: 'Components/Creator Share',
     component: CreatorShare,
     parameters: {
-        layout: 'centered',
+        layout: 'padded',
     },
 } as ComponentMeta<typeof CreatorShare>
 

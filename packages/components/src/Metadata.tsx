@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 
-import { Box, Flex } from 'theme-ui'
+import { Box, Flex, Heading, Text, Link } from 'theme-ui'
 import { Placeholder } from './Placeholder'
 
 type NFTMetadataType = {
@@ -19,22 +19,28 @@ type NFTMetadataType = {
 export function Metadata({
     data,
     loading = true,
-    width = 400,
+    width,
+    variant = 0,
 }: {
     data: NFTMetadataType
     loading: boolean
     width: number | string
+    variant: number
 }) {
     return (
         <Box
             sx={{
-                width: width,
-                maxWidth: '90vw',
-                px: 20,
-                fontFamily: 'inherit',
+                width: width || ['100%', '100%', 400],
+                bg: 'bg',
             }}
         >
-            {loading ? <MetadataLoading /> : <MetadataLoaded {...data} />}
+            {loading ? (
+                <MetadataLoading />
+            ) : variant == 0 ? (
+                <MetadataLoaded {...data} />
+            ) : (
+                <MetadataLoadedSecondary {...data} />
+            )}
         </Box>
     )
 }
@@ -44,130 +50,123 @@ function MetadataLoaded({
     owner_id: owner,
 }: NFTMetadataType) {
     return (
-        <>
+        <Box p={20}>
             {title && (
-                <p
-                    sx={{
-                        mt: 2,
-                        mb: 1,
-                        fontWeight: 700,
-                        fontSize: 20,
-                    }}
-                >
+                <Heading mb={3} variant="h2">
                     {title}
-                </p>
+                </Heading>
             )}
 
-            {description && (
-                <p
-                    sx={{
-                        fontSize: 16,
-                        opacity: 0.8,
-                        my: 0,
-                    }}
-                >
-                    {description}
-                </p>
-            )}
+            {description && <Text variant="body">{description}</Text>}
             <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
                 {creator && (
-                    <Box mt={3}>
-                        <p
-                            sx={{
-                                fontSize: 14,
-                                fontWeight: 500,
-                                my: 0,
-                            }}
-                        >
-                            Created by
-                        </p>
-                        <a
+                    <Box mt={30}>
+                        <Heading variant="h3" mb={2}>
+                            CREATED BY
+                        </Heading>
+                        <Link
                             href={`https://explorer.testnet.near.org/accounts/${creator}`}
                             target="_blank"
-                            sx={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                my: 0,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    opacity: 0.8,
-                                },
-                            }}
+                            variant="explorer"
                         >
                             {creator}
-                        </a>
+                        </Link>
                     </Box>
                 )}
 
                 {owner && (
-                    <Box mt={3}>
-                        <p
-                            sx={{
-                                fontSize: 14,
-                                fontWeight: 500,
-                                my: 0,
-                            }}
-                        >
-                            Owned by
-                        </p>
-                        <a
+                    <Box mt={30}>
+                        <Heading variant="h3" mb={2}>
+                            OWNED BY
+                        </Heading>
+                        <Link
                             href={`https://explorer.testnet.near.org/accounts/${owner}`}
                             target="_blank"
-                            sx={{
-                                fontSize: 16,
-                                fontWeight: 600,
-                                my: 0,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                '&:hover': {
-                                    opacity: 0.8,
-                                },
-                            }}
+                            variant="explorer"
                         >
                             {owner}
-                        </a>
+                        </Link>
                     </Box>
                 )}
             </Flex>
-        </>
+        </Box>
+    )
+}
+function MetadataLoadedSecondary({
+    metadata: { title, description },
+    creator_id: creator,
+    owner_id: owner,
+}: NFTMetadataType) {
+    return (
+        <Flex
+            sx={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                gap: [24, 34],
+            }}
+        >
+            {title && (
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        TITLE
+                    </Heading>
+                    <Heading variant="h4">{title}</Heading>
+                </Box>
+            )}
+            {description && (
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        DESCRIPTION
+                    </Heading>
+                    <Heading variant="h4">{description}</Heading>
+                </Box>
+            )}
+            {creator && (
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        CREATOR
+                    </Heading>
+                    <Heading variant="h4">{creator}</Heading>
+                </Box>
+            )}
+            {owner && (
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        OWNER
+                    </Heading>
+                    <Heading variant="h4">{owner}</Heading>
+                </Box>
+            )}
+        </Flex>
     )
 }
 function MetadataLoading() {
     return (
-        <>
-            <Placeholder width="40%" style={{ mt: 3 }} />
+        <Box p={20}>
+            <Placeholder height={6} width="40%" style={{ mt: 3 }} />
             <Box mt={3}>
-                <Placeholder width="70%" />
-                <Placeholder width="50%" style={{ mb: 0 }} />
+                <Placeholder height={4} width="70%" />
+                <Placeholder height={4} width="50%" style={{ mb: 0 }} />
             </Box>
-            <Flex sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}>
-                <Box mt={3}>
-                    <p
-                        sx={{
-                            fontSize: 14,
-                            fontWeight: 500,
-                            my: 0,
-                        }}
-                    >
-                        Created by
-                    </p>
-                    <Placeholder width="120%" />
+            <Flex
+                mt={40}
+                sx={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+            >
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        CREATED BY
+                    </Heading>
+                    <Placeholder height={4} width={120} />
                 </Box>
 
-                <Box mt={3}>
-                    <p
-                        sx={{
-                            fontSize: 14,
-                            fontWeight: 500,
-                            my: 0,
-                        }}
-                    >
-                        Owned by
-                    </p>
-                    <Placeholder width="120%" />
+                <Box>
+                    <Heading variant="h3" mb={2}>
+                        OWNED BY
+                    </Heading>
+                    <Placeholder height={4} width={120} />
                 </Box>
             </Flex>
-        </>
+        </Box>
     )
 }

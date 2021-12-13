@@ -2,16 +2,14 @@
 /** @jsxImportSource theme-ui */
 
 import { useState } from 'react'
-import { Button, Text } from 'theme-ui'
 import { utils } from 'near-api-js'
-import Layout from '../../containers/Layout'
+import CreateLayout from '../../containers/layouts/Create'
 import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
 import { combineHTML } from '../../utils/combine-html'
 import axios from 'axios'
-import { getFrameWidth } from 'utils/frame-width'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
@@ -26,9 +24,10 @@ const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
 const SCHEMA_SIZE = 5
 
-const Create = ({}) => {
+const Create = () => {
     const router = useRouter()
     const contractAdress = router && mapPathToProject(router.asPath)
+    const project = `share`
 
     const { contract } = useNFTContract(contractAdress)
 
@@ -97,65 +96,31 @@ const Create = ({}) => {
             })
     }
 
-    const frameDimension = getFrameWidth()
-
     return (
-        <Layout>
-            <div
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                }}
-            >
-                <div
-                    sx={{
-                        textAlign: 'center',
-                        mb: 3,
-                    }}
-                >
-                    <Button mx="2" mt="1" onClick={retrieveData} variant="uno">
-                        Design
-                    </Button>
-                    <Button mx="2" mt="1" onClick={claimDesign} variant="due">
-                        Claim
-                    </Button>
-                </div>
-                <div
-                    sx={{
-                        alignSelf: 'center',
-                        alignItems: 'center',
-                        bg: 'gray.3',
-                        display: 'flex',
-                        height: frameDimension,
-                        justifyContent: 'center',
-                        width: frameDimension,
-                    }}
-                >
+        <CreateLayout
+            project={project}
+            frameComponent={
+                <>
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
-                            width={frameDimension}
-                            height={frameDimension}
+                            width={'100%'}
+                            height={'100%'}
                             frameBorder="0"
                             scrolling="no"
                         ></iframe>
                     )}
-                </div>
-                <div
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        mt: 3,
-                    }}
-                >
-                    <CreatorShare
-                        address={HARDCODED_ROYALTY_ADDRESS}
-                        share={HARDCODED_ROYALTY_SHARE}
-                    />
-                </div>
-            </div>
-        </Layout>
+                </>
+            }
+            royaltiesComponent={
+                <CreatorShare
+                    address={HARDCODED_ROYALTY_ADDRESS}
+                    share={HARDCODED_ROYALTY_SHARE}
+                />
+            }
+            retrieveData={retrieveData}
+            claimDesign={claimDesign}
+        />
     )
 }
 

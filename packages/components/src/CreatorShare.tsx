@@ -12,32 +12,18 @@ export function CreatorShare({
     return (
         <Box
             sx={{
-                width: 300,
-                pb: 12,
-                pt: 1,
-                px: 20,
-                borderWidth: 2,
-                borderStyle: 'solid',
-                borderColor: 'muted',
-                borderRadius: 4,
+                width: ['100%', '100%', 400],
+                textAlign: 'left',
+                py: 20,
+                bg: 'bg',
             }}
         >
-            <Text sx={{ color: 'secondary', fontSize: 12 }}>ROYALTIES</Text>
-            <div
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    mt: 2,
-                }}
+            <Heading variant="h3" mb={2}>ROYALTIES</Heading>
+            <Text
+                variant="body"
             >
-                <Heading as="h5" sx={{ color: 'text' }}>
-                    {address}
-                </Heading>
-                <Heading as="h5" sx={{ color: 'text' }}>
-                    {parseInt(share) / 100}%
-                </Heading>
-            </div>
+                {address}  _________ {parseInt(share) / 100}%
+            </Text>
         </Box>
     )
 }
