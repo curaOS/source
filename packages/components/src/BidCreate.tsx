@@ -63,6 +63,7 @@ export function BidCreate({
                     name="amount"
                     id="amount"
                     value={amount}
+                    min={0}
                     autoComplete="off"
                     onChange={(e) => setAmount(e.target.value)}
                 />
@@ -75,6 +76,7 @@ export function BidCreate({
                     name="resale"
                     id="resale"
                     value={resale}
+                    min={0}
                     autoComplete="off"
                     onChange={(e) => setResale(e.target.value)}
                 />
