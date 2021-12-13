@@ -80,8 +80,8 @@ const ExploreToken = () => {
                         <MediaObject
                             mediaURI={`https://arweave.net/${media?.metadata?.media}`}
                             type={`image`}
-                            width={"100%"}
-                            height={"100%"}
+                            width={'100%'}
+                            height={'100%'}
                         />
                     )}
                 </>
@@ -92,7 +92,7 @@ const ExploreToken = () => {
                         <Metadata
                             data={media}
                             loading={false}
-                            width={"100%"}
+                            width={'100%'}
                             variant={1}
                         />
                     )}

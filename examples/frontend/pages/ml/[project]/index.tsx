@@ -28,7 +28,6 @@ const MLProject = ({}) => {
         updateStatus
     )
 
-
     return (
         <ExploreLayout
             project={project}

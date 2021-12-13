@@ -98,7 +98,6 @@ const MLProjectCreate = ({}) => {
             })
     }
 
-
     return (
         <CreateLayout
             project={project}
@@ -107,8 +106,8 @@ const MLProjectCreate = ({}) => {
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
-                            width={"100%"}
-                            height={"100%"}
+                            width={'100%'}
+                            height={'100%'}
                             frameBorder="0"
                             scrolling="no"
                         ></iframe>

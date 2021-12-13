@@ -81,7 +81,6 @@ const CCProjectID = ({}) => {
         }
     }
 
-
     return (
         <ViewLayout
             project={project}
@@ -90,8 +89,8 @@ const CCProjectID = ({}) => {
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
-                            width={"100%"}
-                            height={"100%"}
+                            width={'100%'}
+                            height={'100%'}
                         />
                     )}
                 </>

@@ -138,7 +138,7 @@ const MLProjectCreate = ({}) => {
         <CreateLayout
             project={project}
             frameComponent={
-                <MediaObject mediaURI={media} type="image" width={"100%"} />
+                <MediaObject mediaURI={media} type="image" width={'100%'} />
             }
             royaltiesComponent={
                 <CreatorShare
@@ -150,7 +150,6 @@ const MLProjectCreate = ({}) => {
             claimDesign={claimDesign}
         />
     )
-
 }
 
 export default MLProjectCreate

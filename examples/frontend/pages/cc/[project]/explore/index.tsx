@@ -45,7 +45,6 @@ const Explore = () => {
         }
     }
 
-
     return (
         <ExploreLayout
             project={project}

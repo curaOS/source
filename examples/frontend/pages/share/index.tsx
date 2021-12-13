@@ -82,7 +82,6 @@ const View = ({}) => {
         }
     }
 
-
     return (
         <ViewLayout
             project="share"
@@ -91,8 +90,8 @@ const View = ({}) => {
                     {media?.[0]?.metadata?.media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
-                            width={"100%"}
-                            height={"100%"}
+                            width={'100%'}
+                            height={'100%'}
                         />
                     )}
                 </>
