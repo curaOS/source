@@ -79,7 +79,7 @@ const Create = () => {
         setIndexLoader(true)
 
         try {
-            const liveResponse = axios.post(
+            const liveResponse = await axios.post(
                 arweaveLambda,
                 JSON.stringify({
                     contentType: 'text/html',
@@ -87,7 +87,7 @@ const Create = () => {
                 })
             )
 
-            const previewResponse = axios.post(
+            const previewResponse = await axios.post(
                 arweaveLambda,
                 JSON.stringify({
                     contentType: 'image/jpeg',

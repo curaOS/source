@@ -23,7 +23,7 @@ const HARDCODED_ROYALTY_SHARE = '2500'
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
-const MLProjectCreate = ({}) => {
+const MLProjectCreate = () => {
     const router = useRouter()
     const project = `cc/${router.query.project}`
     const { contract } = useNFTContract(`${mapPathToProject(router.asPath)}`)
@@ -78,7 +78,7 @@ const MLProjectCreate = ({}) => {
         setIndexLoader(true)
 
         try {
-            const liveResponse = axios.post(
+            const liveResponse = await axios.post(
                 arweaveLambda,
                 JSON.stringify({
                     contentType: 'text/html',
@@ -86,7 +86,7 @@ const MLProjectCreate = ({}) => {
                 })
             )
 
-            const previewResponse = axios.post(
+            const previewResponse = await axios.post(
                 arweaveLambda,
                 JSON.stringify({
                     contentType: 'image/jpeg',
