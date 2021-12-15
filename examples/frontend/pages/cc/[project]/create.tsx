@@ -9,10 +9,11 @@ import { CreatorShare } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { useNFTContract } from '@cura/hooks'
-import { useState } from 'react'
+import { useState, createRef } from 'react'
 import axios from 'axios'
 import { combineHTML } from 'utils/combine-html'
 import { mapPathToProject } from 'utils/path-to-project'
+import { htmlToImg } from 'utils/html-to-img'
 
 const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount(`0.00000000029`) // 300 Tgas
 const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`) // 1N
@@ -65,37 +66,57 @@ const MLProjectCreate = () => {
         }
     }
 
+    const iframeRef = createRef(null)
+    const generatePreview = async () => {
+        const iframeHtml = iframeRef.current.contentWindow.document.body
+        return await htmlToImg(iframeHtml)
+    }
+
     async function claimDesign() {
+        const preview = await generatePreview()
+
         setIndexLoader(true)
 
-        axios
-            .post(
+        try {
+            const liveResponse = await axios.post(
                 arweaveLambda,
                 JSON.stringify({
                     contentType: `text/html`,
                     data: creativeCode,
                 })
             )
-            .then(async function (response) {
-                await contract.claim_media(
-                    {
-                        tokenMetadata: {
-                            media: response.data.transaction.id,
-                            extra: Buffer.from(
-                                JSON.stringify({
-                                    seed: seed,
-                                })
-                            ).toString(`base64`),
-                        },
+
+            const previewResponse = await axios.post(
+                arweaveLambda,
+                JSON.stringify({
+                    contentType: `image/jpeg`,
+                    data: preview,
+                })
+            )
+
+            console.log(`live `, liveResponse.data.transaction.id)
+            console.log(`preview `, previewResponse.data.transaction.id)
+
+            await contract.claim_media(
+                {
+                    tokenMetadata: {
+                        media: previewResponse.data.transaction.id,
+                        media_animation: liveResponse.data.transaction.id,
+                        extra: Buffer.from(
+                            JSON.stringify({
+                                seed: seed,
+                            })
+                        ).toString(`base64`),
                     },
-                    CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE
-                )
-            })
-            .catch(function (error) {
-                setIndexLoader(false)
-                setAlertMessage(error.toString())
-            })
+                },
+                CONTRACT_CLAIM_GAS,
+                CONTRACT_CLAIM_PRICE
+            )
+        } catch (error) {
+            console.error(error)
+            setIndexLoader(false)
+            setAlertMessage(error.toString())
+        }
     }
 
     return (
@@ -105,6 +126,7 @@ const MLProjectCreate = () => {
                 <>
                     {creativeCode && (
                         <iframe
+                            ref={iframeRef}
                             srcDoc={creativeCode}
                             width={`100%`}
                             height={`100%`}
@@ -121,7 +143,7 @@ const MLProjectCreate = () => {
                 />
             }
             retrieveData={retrieveData}
-            claimDesign={claimDesign}
+            claimDesign={creativeCode == `` ? () => void 0 : claimDesign}
         />
     )
 }
