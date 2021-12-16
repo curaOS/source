@@ -1,14 +1,21 @@
 {
     "name": "@cura/monorepo",
     "private": true,
-    "workspaces": {
-        "packages": [
-            "packages/*"
-        ]
-    },
+    "workspaces": [
+        "packages/hooks",
+        "packages/components",
+        "packages/contracts",
+        "packages/commands",
+        "examples/frontend"
+    ],
     "scripts": {
-        "contracts:test": "yarn workspace @cura/contracts test",
-        "components:storybook": "yarn workspace @cura/components storybook"
+        "build:components": "yarn workspace @cura/components build",
+        "build:hooks": "yarn workspace @cura/hooks build",
+        "build:frontend": "yarn build:hooks && yarn build:components && yarn workspace frontend build",
+        
+        "dev:components": "yarn workspace @cura/components storybook",
+        "dev:frontend": "yarn build:hooks && yarn build:components && yarn workspace frontend dev",
+        "contracts:test": "yarn workspace @cura/contracts test"
     },
     "version": "0.0.0"
 }
