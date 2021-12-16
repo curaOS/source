@@ -1804,7 +1804,7 @@ __metadata:
     prettier: 2.5.1
     react: ^17.0.2
     react-dom: ^17.0.2
-    swr: 1.1.1
+    swr: 0.5.6
     ts-jest: ^27.1.1
     tslib: ^2.3.1
     typescript: ^4.5.4
@@ -7731,6 +7731,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dequal@npm:2.0.2":
+  version: 2.0.2
+  resolution: "dequal@npm:2.0.2"
+  checksum: 86c7a2c59f7b0797ed397c74b5fcdb744e48fc19440b70ad6ac59f57550a96b0faef3f1cfd5760ec5e6d3f7cb101f634f1f80db4e727b1dc8389bf62d977c0a0
+  languageName: node
+  linkType: hard
+
 "des.js@npm:^1.0.0":
   version: 1.0.1
   resolution: "des.js@npm:1.0.1"
@@ -9393,7 +9400,7 @@ __metadata:
     react-json-view: ^1.21.3
     react-table: ^7.7.0
     recoil: ^0.5.2
-    swr: 1.1.1
+    swr: 0.5.6
     theme-ui: ^0.12.1
     typescript: ^4.5.4
     unstated-next: ^1.1.0
@@ -16609,12 +16616,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:1.1.1":
-  version: 1.1.1
-  resolution: "swr@npm:1.1.1"
+"swr@npm:0.5.6":
+  version: 0.5.6
+  resolution: "swr@npm:0.5.6"
+  dependencies:
+    dequal: 2.0.2
   peerDependencies:
-    react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: 6ac1af4f7ad512c6de4dda2be4f18efe95f338dd2d0235c7de70e8c44df15c27a42ced48f2668dd2c3f6466d10eb51f3d8c21748d0f16a9a50683f6fa1db426d
+    react: ^16.11.0 || ^17.0.0
+  checksum: 3ce2242b2ef52424079ba46130350096a9ca613473751560b4cc939c616536dc317dd84ca7b376ca8574714131913b72506e18a07d3b3ccef7508fce463d4dab
   languageName: node
   linkType: hard
 
