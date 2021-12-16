@@ -9304,8 +9304,8 @@ __metadata:
   linkType: hard
 
 "framer-motion@npm:^5.5.3":
-  version: 5.5.3
-  resolution: "framer-motion@npm:5.5.3"
+  version: 5.5.4
+  resolution: "framer-motion@npm:5.5.4"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
@@ -9328,7 +9328,7 @@ __metadata:
       optional: true
     three:
       optional: true
-  checksum: 8edcb39e1bc9216b36ebc924e18e36f2ad105e2a0ecddce9bfd551e770cd81994811445061514dbb0cc320b2d020f226523869408c5dd505a027f41fa2dad843
+  checksum: 7d2eb75848edf1afba5b44ea70922503beb6a5233e7909039a897e0c1607519a875f5d5aabab5d1a9b06ef30293ea2cd47db82b5fac592cbd110d081337793e7
   languageName: node
   linkType: hard
 
@@ -17045,8 +17045,8 @@ __metadata:
   linkType: hard
 
 "ts-jest@npm:^27.1.1":
-  version: 27.1.1
-  resolution: "ts-jest@npm:27.1.1"
+  version: 27.1.2
+  resolution: "ts-jest@npm:27.1.2"
   dependencies:
     bs-logger: 0.x
     fast-json-stable-stringify: 2.x
@@ -17074,7 +17074,7 @@ __metadata:
       optional: true
   bin:
     ts-jest: cli.js
-  checksum: 3aea68083399c49e9079dbd1583ee5cce7da9648a6cdaef96c2b5f2f85de375c186227724336f359ecd2bc7871bff0911667d1f4867e0e275417b3e4887841d9
+  checksum: 2e7275f8a3545ec1340b37c458ace9244b5903e86861eb108beffff97d433f296c1254f76a41b573b1fe6245110b21bb62150bb88d55159f1dc7a929886535cb
   languageName: node
   linkType: hard
 
