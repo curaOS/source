@@ -7,7 +7,6 @@
     "files": [
         "dist"
     ],
-    "bin": {},
     "scripts": {
         "prepack": "yarn clean && tsc && yarn copy-files",
         "build": "yarn run prepack",
