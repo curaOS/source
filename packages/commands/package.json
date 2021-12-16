@@ -6,14 +6,14 @@
     "author": "Yassine",
     "license": "MIT",
     "devDependencies": {
-        "prettier": "2.3.0"
+        "prettier": "2.5.1"
     },
     "dependencies": {
-        "async": "^3.2.0",
-        "chalk": "^4.1.1",
-        "commander": "^7.2.0",
-        "inquirer": "^8.1.2",
-        "ora": "^5.4.0"
+        "async": "^3.2.2",
+        "chalk": "^5.0.0",
+        "commander": "^8.3.0",
+        "inquirer": "^8.2.0",
+        "ora": "^6.0.1"
     },
     "bin": {
         "curacli": "cli.js"
