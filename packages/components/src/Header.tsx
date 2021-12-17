@@ -38,7 +38,7 @@ export const Header = ({
     setMode: () => void
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const titleArray = title.split(/(?<=\/)/)
+    const titleArray = title.split('/')
 
     return (
         <Box
@@ -197,7 +197,7 @@ export const Header = ({
                             display: 'inline-block',
                         }}
                     >
-                        {titleArray[1] && titleArray[0]}
+                        {titleArray[1] && titleArray[0]}/
                     </Text>
                     <Text
                         variant="title"
