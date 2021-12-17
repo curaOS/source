@@ -38,3 +38,19 @@ We're starting with front-end hooks, themed components, and composable smart con
 * [ ] NFT Gallery into new repository
 * [ ] Smart contract testing and improvement
 * [ ] GitHub and packages DevOps
+
+## Install
+````
+yarn install
+````
+## Development
+````
+yarn dev:frontend
+yarn dev:components
+````
+## Build
+````
+yarn build:frontend
+yarn build:components
+yarn build:hooks
+````
