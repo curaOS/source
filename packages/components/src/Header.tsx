@@ -197,7 +197,7 @@ export const Header = ({
                             display: 'inline-block',
                         }}
                     >
-                        {titleArray[1] && titleArray[0]}/
+                        {titleArray[1] && (titleArray[0] + '/')}
                     </Text>
                     <Text
                         variant="title"
