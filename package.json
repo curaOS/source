@@ -14,7 +14,7 @@
         "build:storybook": "yarn workspace @cura/components build-storybook",
         "build:frontend": "yarn build:hooks && yarn build:components && yarn workspace frontend build",
         "dev:components": "yarn workspace @cura/components storybook",
-        "dev:frontend": "yarn build:hooks && yarn build:components && yarn workspace frontend dev",
+        "dev:frontend": "yarn workspace frontend dev",
         "test:hooks": "yarn workspace @cura/hooks test",
         "test:contracts": "yarn workspace @cura/contracts test"
     },

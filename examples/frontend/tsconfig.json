@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es2018",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -15,11 +15,12 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "@components/*": ["/components/*"],
-            "@containers/*": ["/containers/*"],
-            "@utils/*": ["/utils/*"],
-            "@hooks/*": ["/hooks/*"]
-        }
+            "@cura/components/*": ["../../packages/components/src/*"],
+            "@cura/components": ["../../packages/components/src/index"],
+            "@cura/hooks/*": ["../../packages/hooks/src/*"],
+            "@cura/hooks": ["../../packages/hooks/src/index"]
+        },
+        "incremental": true
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]

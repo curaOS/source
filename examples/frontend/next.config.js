@@ -4,4 +4,10 @@ module.exports = {
         SHARE_ADDRESS: 'share.ysn-1_0_0.ysn.testnet',
         SHARE_MARKET_ADDRESS: 'market.share.ysn-1_0_0.ysn.testnet',
     },
+    future: {
+        webpack5: true,
+    },
+    experimental: {
+        externalDir: true,
+    },
 }
