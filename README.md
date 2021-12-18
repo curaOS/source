@@ -40,16 +40,16 @@ We're starting with front-end hooks, themed components, and composable smart con
 * [ ] GitHub and packages DevOps
 
 ## Install
-````
+````ts
 yarn install
 ````
 ## Development
-````
-yarn dev:frontend
+````ts
+yarn dev:frontend // hot reloading of the local packages is enabled by default
 yarn dev:components
 ````
 ## Build
-````
+````ts
 yarn build:frontend
 yarn build:components
 yarn build:hooks
