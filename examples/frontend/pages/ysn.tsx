@@ -3,7 +3,7 @@
 
 import { Box, Paragraph } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
-import { utils, Contract } from 'near-api-js'
+import { utils } from 'near-api-js'
 import Layout from 'containers/Layout'
 import { useNearHooksContainer, useFTMethod } from '@cura/hooks'
 
@@ -15,12 +15,12 @@ const GradientText = ({ text }: { text: string }) => {
                 backgroundImage: (t) => `
         linear-gradient(
             to right,
-            ${alpha('secondary', 1)(t)},
-            ${alpha('text', 0.2)(t)}
+            ${alpha(`secondary`, 1)(t)},
+            ${alpha(`text`, 0.2)(t)}
         )
         `,
-                backgroundClip: 'text',
-                textFillColor: 'transparent',
+                backgroundClip: `text`,
+                textFillColor: `transparent`,
             }}
         >
             {text}
@@ -29,53 +29,53 @@ const GradientText = ({ text }: { text: string }) => {
 }
 
 const formatBalance = (data, loading) => {
-    return loading ? '-' : utils.format.formatNearAmount(data, 5)
+    return loading ? `-` : utils.format.formatNearAmount(data, 5)
 }
 
 const Ysn = () => {
     const { accountId } = useNearHooksContainer()
 
     const { data: ftBalance, loading: loadingFTBalance } = useFTMethod(
-        'ysn-1_0_0.ysn.testnet',
-        'ft_balance_of',
+        `ysn-1_0_0.ysn.testnet`,
+        `ft_balance_of`,
         {
             account_id: accountId,
         }
     )
 
     const { data: ftSupply, loading: loadingFTSupply } = useFTMethod(
-        'ysn-1_0_0.ysn.testnet',
-        'ft_total_supply',
+        `ysn-1_0_0.ysn.testnet`,
+        `ft_total_supply`,
         {}
     )
 
     const { data: treasury, loading: loadingTreasury } = useFTMethod(
-        'ysn-1_0_0.ysn.testnet',
-        'get_treasury',
+        `ysn-1_0_0.ysn.testnet`,
+        `get_treasury`,
         {}
     )
 
     return (
         <Layout>
             <>
-                <div style={{ minHeight: '100vh' }}>
+                <div style={{ minHeight: `100vh` }}>
                     <div
                         sx={{
                             marginBottom: `1.45rem`,
                             margin: `0 auto`,
                             maxWidth: 960,
                             padding: `0rem 2rem`,
-                            minHeight: '70vh',
+                            minHeight: `70vh`,
                         }}
                     >
                         <>
                             <div
                                 sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center',
+                                    display: `flex`,
+                                    flexDirection: `column`,
+                                    alignItems: `center`,
                                     mb: 3,
-                                    textAlign: 'center',
+                                    textAlign: `center`,
                                 }}
                             >
                                 <Paragraph
@@ -120,17 +120,17 @@ const Ysn = () => {
                                         mt: 2,
                                     }}
                                 >
-                                    There is{' '}
+                                    There is{` `}
                                     <GradientText
                                         text={`${formatBalance(
                                             treasury,
                                             loadingTreasury
                                         )} NEAR`}
-                                    />{' '}
+                                    />{` `}
                                     locked in the contract.
                                 </Paragraph>
                                 <Box
-                                    sx={{ borderTop: '1px solid black', mt: 5 }}
+                                    sx={{ borderTop: `1px solid black`, mt: 5 }}
                                 >
                                     <Paragraph
                                         sx={{
@@ -140,12 +140,12 @@ const Ysn = () => {
                                             pt: 5,
                                         }}
                                     >
-                                        At the moment,{' '}
+                                        At the moment,{` `}
                                         <GradientText text={`YSN `} />
-                                        is minted every time you interact with{' '}
-                                        <GradientText text={` SHARE`} />. The{' '}
+                                        is minted every time you interact with{` `}
+                                        <GradientText text={` SHARE`} />. The{` `}
                                         <GradientText text={`NEAR`} /> treasury
-                                        grows through{' '}
+                                        grows through{` `}
                                         <GradientText text={` SHARE`} /> sales
                                         and royalties.
                                     </Paragraph>

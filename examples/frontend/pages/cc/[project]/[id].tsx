@@ -11,14 +11,14 @@ import { mapPathToProject } from 'utils/path-to-project'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
-const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
-const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
-const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
+const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`) // 290 Tgas
+const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`) // 250 Tgas
+const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`)
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
-const HARDCODED_ROYALTY_SHARE = '2500'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
-const CCProjectID = ({}) => {
+const CCProjectID = () => {
     const router = useRouter()
 
     const { updateStatus } = useStatusUpdate()
@@ -31,7 +31,7 @@ const CCProjectID = ({}) => {
 
     const { data: media } = useNFTMethod(
         `${mapPathToProject(router.asPath)}`,
-        'nft_token',
+        `nft_token`,
         {
             token_id: router.query.id,
             limit: 2,
@@ -42,7 +42,7 @@ const CCProjectID = ({}) => {
 
     const { data: bids } = useMarketMethod(
         `market.${mapPathToProject(router.asPath)}`,
-        'get_bids',
+        `get_bids`,
         {
             token_id: media?.id,
         }
@@ -89,8 +89,8 @@ const CCProjectID = ({}) => {
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
-                            width={'100%'}
-                            height={'100%'}
+                            width={`100%`}
+                            height={`100%`}
                         />
                     )}
                 </>

@@ -1,7 +1,7 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { IconButton, useThemeUI } from 'theme-ui'
+import { IconButton } from 'theme-ui'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ProjectCard } from '@cura/components'
 import { useState, useEffect } from 'react'
@@ -9,60 +9,60 @@ import { useRouter } from 'next/router'
 
 const slideDetails = [
     {
-        title: 'SHARE',
-        image: '/share.png',
-        description: 'Emoji art saved on blockchain.',
-        tags: ['on-chain'],
-        path: '/share',
+        title: `SHARE`,
+        image: `/share.png`,
+        description: `Emoji art saved on blockchain.`,
+        tags: [`on-chain`],
+        path: `/share`,
     },
     {
-        title: 'ML/1W',
-        image: '/1w.png',
-        description: 'A series of not so watches.',
-        tags: ['ML'],
-        path: '/ml/1w',
+        title: `ML/1W`,
+        image: `/1w.png`,
+        description: `A series of not so watches.`,
+        tags: [`ML`],
+        path: `/ml/1w`,
     },
     {
-        title: 'ML/APRTS',
-        image: '/aprts.png',
-        description: 'Apparations example from Eth.',
-        tags: ['js', 'sample'],
-        path: '/cc/aprts',
+        title: `ML/APRTS`,
+        image: `/aprts.png`,
+        description: `Apparations example from Eth.`,
+        tags: [`js`, `sample`],
+        path: `/cc/aprts`,
     },
     {
-        title: 'ML/1C',
-        image: '/1c.png',
-        description: 'Generated clothing models.',
-        tags: ['ML'],
-        path: '/ml/1c',
+        title: `ML/1C`,
+        image: `/1c.png`,
+        description: `Generated clothing models.`,
+        tags: [`ML`],
+        path: `/ml/1c`,
     },
     {
-        title: 'CC/SQGL',
-        image: '/sqgl.png',
-        description: 'A sample of ArtBlocks Squiggles.',
-        tags: ['js', 'sample'],
-        path: '/cc/sqgl',
+        title: `CC/SQGL`,
+        image: `/sqgl.png`,
+        description: `A sample of ArtBlocks Squiggles.`,
+        tags: [`js`, `sample`],
+        path: `/cc/sqgl`,
     },
 ]
 
 const slideVariants = {
     enter: (direction: number) => {
         return {
-            y: '-50%',
+            y: `-50%`,
             x: direction > 0 ? 1000 : -1000,
             opacity: 0,
         }
     },
     center: {
         zIndex: 1,
-        x: '-50%',
-        y: '-50%',
+        x: `-50%`,
+        y: `-50%`,
         opacity: 1,
     },
     exit: (direction: number) => {
         return {
             zIndex: 0,
-            y: '-50%',
+            y: `-50%`,
             x: direction < 0 ? 1000 : -1000,
             opacity: 0,
         }
@@ -75,7 +75,6 @@ const Index = () => {
     const [pauseSlider, setPauseSlider] = useState(0)
     const [loading, setLoading] = useState(true)
 
-    const { theme } = useThemeUI()
 
     const slidify = (newDirection: number) => {
         if (pauseSlider) return
@@ -98,16 +97,16 @@ const Index = () => {
     return (
         <div
             sx={{
-                overflow: 'hidden',
-                height: '100vh',
-                position: 'relative',
+                overflow: `hidden`,
+                height: `100vh`,
+                position: `relative`,
             }}
         >
             <motion.div
                 sx={{
-                    transform: 'translate3d(0, 0, 0) scale(1, 1)',
-                    height: '100%',
-                    width: '100%',
+                    transform: `translate3d(0, 0, 0) scale(1, 1)`,
+                    height: `100%`,
+                    width: `100%`,
                 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
@@ -132,17 +131,17 @@ const Index = () => {
                             exit="exit"
                             transition={{
                                 x: {
-                                    type: 'spring',
+                                    type: `spring`,
                                     stiffness: 200,
                                     damping: 20,
                                 },
                                 opacity: { duration: 0.2 },
                             }}
                             sx={{
-                                position: 'absolute',
-                                left: '50%',
-                                top: '50%',
-                                width: ['100%', '100%', 'auto'],
+                                position: `absolute`,
+                                left: `50%`,
+                                top: `50%`,
+                                width: [`100%`, `100%`, `auto`],
                             }}
                         >
                             <ProjectCard
@@ -152,12 +151,12 @@ const Index = () => {
                                 tags={slideDetails[page].tags}
                                 onCreateClick={() =>
                                     router.push(
-                                        slideDetails[page].path + '/create'
+                                        slideDetails[page].path + `/create`
                                     )
                                 }
                                 onExploreClick={() =>
                                     router.push(
-                                        slideDetails[page].path + '/explore'
+                                        slideDetails[page].path + `/explore`
                                     )
                                 }
                             />
@@ -169,11 +168,11 @@ const Index = () => {
                 aria-label="Previous slide"
                 onClick={() => slidify(-1)}
                 sx={{
-                    position: 'absolute',
-                    top: [null, '50%'],
-                    left: ['7%', null, null, '20%', '30%'],
-                    bottom: ['2%', null],
-                    transform: [null, 'translate(0, -50%)'],
+                    position: `absolute`,
+                    top: [null, `50%`],
+                    left: [`7%`, null, null, `20%`, `30%`],
+                    bottom: [`2%`, null],
+                    transform: [null, `translate(0, -50%)`],
                 }}
             >
                 <svg
@@ -190,11 +189,11 @@ const Index = () => {
                 aria-label="Next slide"
                 onClick={() => slidify(1)}
                 sx={{
-                    position: 'absolute',
-                    top: [null, '50%'],
-                    right: ['7%', null, null, '20%', '30%'],
-                    bottom: ['2%', null],
-                    transform: [null, 'translate(0, -50%)'],
+                    position: `absolute`,
+                    top: [null, `50%`],
+                    right: [`7%`, null, null, `20%`, `30%`],
+                    bottom: [`2%`, null],
+                    transform: [null, `translate(0, -50%)`],
                 }}
             >
                 <svg

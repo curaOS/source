@@ -8,7 +8,6 @@ import '@cura/components/assets/fonts/index.css'
 
 function App({ Component, pageProps }: AppProps) {
     return (
-        // @ts-ignore: Unreachable code error
         <ThemeProvider theme={theme}>
             <RecoilRoot>
                 <NearHooksProvider>

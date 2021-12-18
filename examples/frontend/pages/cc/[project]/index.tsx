@@ -8,9 +8,9 @@ import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import { mapPathToProject } from 'utils/path-to-project'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
-const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
+const CONTRACT_VIEW_GAS = utils.format.parseNearAmount(`0.00000000010`) // 100 Tgas
 
-const CCProject = ({}) => {
+const CCProject = () => {
     const router = useRouter()
 
     const { updateStatus } = useStatusUpdate()
@@ -21,7 +21,7 @@ const CCProject = ({}) => {
 
     const { data: media } = useNFTMethod(
         `${mapPathToProject(router.asPath)}`,
-        'nft_tokens_for_owner',
+        `nft_tokens_for_owner`,
         {
             account_id: accountId,
         },

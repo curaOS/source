@@ -12,15 +12,15 @@ import { useStatusUpdate } from 'utils/hooks-helpers'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
-const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
-const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
-const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
-const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
+const CONTRACT_VIEW_GAS = utils.format.parseNearAmount(`0.00000000010`) // 100 Tgas
+const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`) // 290 Tgas
+const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`) // 250 Tgas
+const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`)
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
-const HARDCODED_ROYALTY_SHARE = '2500'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
-const View = ({}) => {
+const View = () => {
     const router = useRouter()
     const contractAdress = router && mapPathToProject(router.asPath)
 
@@ -35,7 +35,7 @@ const View = ({}) => {
 
     const { data: media } = useNFTMethod(
         `${contractAdress}`,
-        'nft_tokens_for_owner',
+        `nft_tokens_for_owner`,
         {
             account_id: accountId,
         },
@@ -44,8 +44,8 @@ const View = ({}) => {
     )
 
     const { data: bids } = useMarketMethod(
-        'market.share.ysn-1_0_0.ysn.testnet',
-        'get_bids',
+        `market.share.ysn-1_0_0.ysn.testnet`,
+        `get_bids`,
         {
             token_id: media?.[0]?.id,
         }
@@ -90,8 +90,8 @@ const View = ({}) => {
                     {media?.[0]?.metadata?.media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media[0].metadata.media}`}
-                            width={'100%'}
-                            height={'100%'}
+                            width={`100%`}
+                            height={`100%`}
                         />
                     )}
                 </>

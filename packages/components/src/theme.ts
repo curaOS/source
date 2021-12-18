@@ -239,9 +239,9 @@ const elements = {
         explorer: {
             variant: `text.body`,
             fontSize: 0,
-            fontWeight: 'extrabold',
-            color: 'text',
-            textDecoration: 'none',
+            fontWeight: `extrabold`,
+            color: `text`,
+            textDecoration: `none`,
             '&:hover': {
                 opacity: 0.9,
             },
@@ -249,48 +249,48 @@ const elements = {
     },
     forms: {
         primary: {
-            width: ['100%', '100%', 400],
-            bg: 'bg',
+            width: [`100%`, `100%`, 400],
+            bg: `bg`,
             py: 20,
             row: {
                 borderTop: 1,
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
+                display: `flex`,
+                justifyContent: `space-between`,
+                alignItems: `center`,
                 ':last-of-type': {
                     borderBottom: 1,
                 },
             },
             label: {
-                variant: 'text.monospace',
-                width: 'auto',
+                variant: `text.monospace`,
+                width: `auto`,
             },
             input: {
-                variant: 'text.monospace',
+                variant: `text.monospace`,
                 flex: 1,
-                textAlign: 'right',
-                outline: 'none',
+                textAlign: `right`,
+                outline: `none`,
                 border: 0,
                 ml: 1,
                 '&[type=number]::-webkit-inner-spin-button': {
                     ml: 1,
                 },
                 '&:focus': {
-                    bg: 'gray.4',
+                    bg: `gray.4`,
                 },
             },
             selectParent: {
                 flex: 1,
             },
             select: {
-                bg: 'bg',
+                bg: `bg`,
                 border: 0,
-                cursor: 'pointer',
-                outline: 'none',
-                variant: 'text.monospace',
-                fontWeight: 'extrabold',
+                cursor: `pointer`,
+                outline: `none`,
+                variant: `text.monospace`,
+                fontWeight: `extrabold`,
                 ':focus': {
-                    bg: 'gray.4',
+                    bg: `gray.4`,
                 },
             },
         },
@@ -319,7 +319,7 @@ const layout = {
 const misc = {
     borders: {
         0: 0,
-        1: `1px solid var(--theme-ui-colors-text)`, //getting color from css variable because border color doesn't get parsed
+        1: `1px solid var(--theme-ui-colors-text)`, //getting color from css variable because border color doesn`t get parsed
     },
 }
 

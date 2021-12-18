@@ -6,15 +6,16 @@ import { useEffect, useState, useMemo } from 'react'
 import { useTable, useFilters } from 'react-table'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+// eslint-disable-next-line no-restricted-imports
 import { Text, Input, Button, Divider } from 'theme-ui'
 import { reject, equals, omit } from 'ramda'
 
-const ReactJson = dynamic(import('react-json-view'), {
+const ReactJson = dynamic(import(`react-json-view`), {
     loading: () => <p>Loading...</p>,
     ssr: false,
 })
 
-const provider = new providers.JsonRpcProvider('https://rpc.testnet.near.org')
+const provider = new providers.JsonRpcProvider(`https://rpc.testnet.near.org`)
 
 function DefaultColumnFilter({
     column: { filterValue, preFilteredRows, setFilter },
@@ -23,7 +24,7 @@ function DefaultColumnFilter({
 
     return (
         <input
-            value={filterValue || ''}
+            value={filterValue || ``}
             onChange={(e) => {
                 setFilter(e.target.value || undefined)
             }}
@@ -36,13 +37,13 @@ const YSN_ADDRESS = process.env.YSN_ADDRESS
 const SHARE_ADDRESS = process.env.SHARE_ADDRESS
 const SHARE_MARKET_ADDRESS = process.env.SHARE_MARKET_ADDRESS
 
-function transcode(data, source = 'base64', target = 'utf8') {
+function transcode(data, source = `base64`, target = `utf8`) {
     const ENCODINGS = [
-        'ascii', // For 7 bit ASCII data only. This encoding method is very fast, and will strip the high bit if set.
-        'base64', // An efficient (power of 2) and safe (over the wire) encoding format used to move data around the interwebs
-        'binary', // A way of encoding raw binary data into strings by using only the first 8 bits of each character.
-        'ucs2', // 2-bytes, little endian encoded Unicode characters. It can encode only BMP(Basic Multilingual Plane, U+0000 - U+FFFF).
-        'utf8', // Multi byte encoded Unicode characters. Many web pages and other document formats use UTF-8.
+        `ascii`, // For 7 bit ASCII data only. This encoding method is very fast, and will strip the high bit if set.
+        `base64`, // An efficient (power of 2) and safe (over the wire) encoding format used to move data around the interwebs
+        `binary`, // A way of encoding raw binary data into strings by using only the first 8 bits of each character.
+        `ucs2`, // 2-bytes, little endian encoded Unicode characters. It can encode only BMP(Basic Multilingual Plane, U+0000 - U+FFFF).
+        `utf8`, // Multi byte encoded Unicode characters. Many web pages and other document formats use UTF-8.
     ]
 
     if (!ENCODINGS.includes(source) || !ENCODINGS.includes(target)) {
@@ -55,10 +56,12 @@ function transcode(data, source = 'base64', target = 'utf8') {
 function format(text) {
     try {
         return JSON.stringify(JSON.parse(text), null, 2)
-    } catch (error) {}
+    } catch (error) {
+        console.error(error);        
+    }
 }
 
-const Devs = ({}) => {
+const Devs = () => {
     const [contracts, setContracts] = useState([
         YSN_ADDRESS,
         SHARE_ADDRESS,
@@ -67,7 +70,7 @@ const Devs = ({}) => {
 
     const [contractsState, setContractsState] = useState({})
 
-    const [contractInput, setContractInput] = useState('')
+    const [contractInput, setContractInput] = useState(``)
 
     const addContract = () => {
         setContracts((contracts) => [contractInput, ...contracts])
@@ -92,20 +95,20 @@ const Devs = ({}) => {
                     {name}
                 </div>
             ),
-            Footer: 'Name',
+            Footer: `Name`,
             columns: [
                 {
-                    Header: 'Key',
-                    accessor: 'key', // accessor is the "key" in the data
+                    Header: `Key`,
+                    accessor: `key`, // accessor is the "key" in the data
                 },
                 {
-                    Header: 'Value',
-                    accessor: 'value',
+                    Header: `Value`,
+                    accessor: `value`,
                     Cell: (props) => {
                         try {
                             const jsonParse = JSON.parse(props.value)
                             // console.log(jsonParse)
-                            return typeof jsonParse === 'object' ? (
+                            return typeof jsonParse === `object` ? (
                                 <ReactJson
                                     src={jsonParse}
                                     collapseStringsAfterLength={30}
@@ -125,19 +128,19 @@ const Devs = ({}) => {
 
     function getState() {
         contracts.forEach(async (contract) => {
-            let rawResult = await provider.query({
-                request_type: 'view_state',
+            const rawResult = await provider.query({
+                request_type: `view_state`,
                 account_id: contract,
-                finality: 'final',
-                prefix_base64: '',
+                finality: `final`,
+                prefix_base64: ``,
             })
 
-            let data = []
+            const data = []
 
             for (const entry of rawResult.values) {
-                let row = {}
-                row['key'] = transcode(entry.key)
-                row['value'] = format(transcode(entry.value))
+                const row = {}
+                row[`key`] = transcode(entry.key)
+                row[`value`] = format(transcode(entry.value))
 
                 data.push(row)
             }
@@ -155,30 +158,30 @@ const Devs = ({}) => {
         <div>
             <div
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: `flex`,
+                    flexDirection: `column`,
+                    justifyContent: `center`,
+                    alignItems: `center`,
                     mt: [3, 0],
                 }}
             >
                 <Link href="/">
                     <Text
                         sx={{
-                            flex: 'none',
-                            color: 'black',
-                            textDecoration: 'none',
-                            fontFamily: 'IBM Plex Sans, sans-serif',
+                            flex: `none`,
+                            color: `black`,
+                            textDecoration: `none`,
+                            fontFamily: `IBM Plex Sans, sans-serif`,
                             fontWeight: 600,
-                            fontSize: '4rem',
-                            marginRight: '1rem',
-                            textAlign: 'center',
+                            fontSize: `4rem`,
+                            marginRight: `1rem`,
+                            textAlign: `center`,
                         }}
                     >
                         DEVS
                     </Text>
                 </Link>
-                <div sx={{ display: 'flex' }}>
+                <div sx={{ display: `flex` }}>
                     <Button mx="2" onClick={addContract}>
                         Add
                     </Button>
@@ -193,7 +196,7 @@ const Devs = ({}) => {
             </div>
 
             {Object.entries(contractsState).map(([key, value]) => (
-                <div sx={{ textAlign: 'center' }}>
+                <div key={key} sx={{ textAlign: `center` }}>
                     <Divider />
                     <Table columns={columns(key)} data={value} />
                 </div>
@@ -202,8 +205,8 @@ const Devs = ({}) => {
             <>
                 <div
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        display: `flex`,
+                        justifyContent: `center`,
                         mb: 3,
                     }}
                 ></div>
@@ -229,21 +232,22 @@ const Table = ({ columns, data }) => {
     } = useTable({ columns, data, defaultColumn }, useFilters)
 
     return (
-        <table {...getTableProps()} sx={{ px: 5, width: '100%' }}>
+        <table {...getTableProps()} sx={{ px: 5, width: `100%` }}>
             <thead>
-                {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map((column) => (
+                {headerGroups.map((key, headerGroup) => (
+                    <tr key={key} {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map((key, column) => (
                             <th
+                                key={key}
                                 {...column.getHeaderProps()}
                                 sx={{
-                                    border: '2px solid black',
+                                    border: `2px solid black`,
                                 }}
                             >
-                                {column.render('Header')}
+                                {column.render(`Header`)}
                                 <div>
                                     {column.canFilter
-                                        ? column.render('Filter')
+                                        ? column.render(`Filter`)
                                         : null}
                                 </div>
                             </th>
@@ -252,17 +256,18 @@ const Table = ({ columns, data }) => {
                 ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
+                {rows.map((key, row) => {
                     prepareRow(row)
                     return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map((cell) => {
+                        <tr key={key} {...row.getRowProps()}>
+                            {row.cells.map((key, cell) => {
                                 return (
                                     <td
+                                        key={key}
                                         {...cell.getCellProps()}
-                                        sx={{ border: '1px solid black' }}
+                                        sx={{ border: `1px solid black` }}
                                     >
-                                        {cell.render('Cell')}
+                                        {cell.render(`Cell`)}
                                     </td>
                                 )
                             })}

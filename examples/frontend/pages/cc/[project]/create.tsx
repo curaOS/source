@@ -14,15 +14,15 @@ import axios from 'axios'
 import { combineHTML } from 'utils/combine-html'
 import { mapPathToProject } from 'utils/path-to-project'
 
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
-const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount(`0.00000000029`) // 300 Tgas
+const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`) // 1N
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
-const HARDCODED_ROYALTY_SHARE = '2500'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
 
-const MLProjectCreate = ({}) => {
+const MLProjectCreate = () => {
     const router = useRouter()
     const project = `cc/${router.query.project}`
     const { contract } = useNFTContract(`${mapPathToProject(router.asPath)}`)
@@ -31,7 +31,7 @@ const MLProjectCreate = ({}) => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const [creativeCode, setCreativeCode] = useState('')
+    const [creativeCode, setCreativeCode] = useState(``)
 
     async function retrieveData() {
         setIndexLoader(true)
@@ -39,7 +39,7 @@ const MLProjectCreate = ({}) => {
         try {
             const newSeed = [...Array(64)]
                 .map(() => Math.floor(Math.random() * 16).toString(16))
-                .join('')
+                .join(``)
 
             setSeed(newSeed)
 
@@ -72,7 +72,7 @@ const MLProjectCreate = ({}) => {
             .post(
                 arweaveLambda,
                 JSON.stringify({
-                    contentType: 'text/html',
+                    contentType: `text/html`,
                     data: creativeCode,
                 })
             )
@@ -85,7 +85,7 @@ const MLProjectCreate = ({}) => {
                                 JSON.stringify({
                                     seed: seed,
                                 })
-                            ).toString('base64'),
+                            ).toString(`base64`),
                         },
                     },
                     CONTRACT_CLAIM_GAS,
@@ -106,8 +106,8 @@ const MLProjectCreate = ({}) => {
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
-                            width={'100%'}
-                            height={'100%'}
+                            width={`100%`}
+                            height={`100%`}
                             frameBorder="0"
                             scrolling="no"
                         ></iframe>
