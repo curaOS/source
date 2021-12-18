@@ -26,12 +26,6 @@ export {
     useNFTContract,
     useNFTContractMetadata,
     useNFTMethod,
-    // NFT hooks types,
-    useNFTViewMethodType,
-    useNFTType,
-    useNFTContentTypeType,
-    useNFTReferenceType,
-    useNFTContractMetadataType,
     // Market hooks
     useMarketContract,
     useMarketMethod,
@@ -41,4 +35,13 @@ export {
     // NEAR hooks
     NearHooksProvider,
     useNearHooksContainer,
+}
+
+export type {
+    // NFT hooks types,
+    useNFTViewMethodType,
+    useNFTType,
+    useNFTContentTypeType,
+    useNFTReferenceType,
+    useNFTContractMetadataType,
 }
