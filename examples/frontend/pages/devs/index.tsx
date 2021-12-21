@@ -10,10 +10,15 @@ import Link from 'next/link'
 import { Text, Input, Button, Divider } from 'theme-ui'
 import { reject, equals, omit } from 'ramda'
 
-const ReactJson = dynamic(import(`react-json-view`), {
-    loading: () => <p>Loading...</p>,
-    ssr: false,
-})
+// const ReactJson = dynamic(import(`react-json-view`), {
+//     loading: () => <p>Loading...</p>,
+//     ssr: false,
+// })
+
+const ReactJson = dynamic(
+  () => import('react-json-view'),
+  { loading: () => <p>Loading...</p>, ssr: false, }
+)
 
 const provider = new providers.JsonRpcProvider(`https://rpc.testnet.near.org`)
 
