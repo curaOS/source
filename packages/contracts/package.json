@@ -21,7 +21,7 @@
         "chalk": "^5.0.0",
         "commander": "^8.3.0",
         "inquirer": "^8.2.0",
-        "near-api-js": "^0.44.1",
+        "near-api-js": "^0.44.2",
         "ora": "^6.0.1"
     },
     "devDependencies": {

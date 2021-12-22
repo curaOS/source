@@ -16,10 +16,10 @@
     "author": "Yassine",
     "license": "MIT",
     "dependencies": {
-        "near-api-js": "^0.44.1",
+        "near-api-js": "^0.44.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
-        "swr": "0.5.6",
+        "swr": "0.5.7",
         "tslib": "^2.3.1",
         "unstated-next": "^1.1.0"
     },
@@ -31,7 +31,7 @@
         "jest": "^27.4.5",
         "jest-fetch-mock": "^3.0.3",
         "prettier": "2.5.1",
-        "ts-jest": "^27.1.1",
+        "ts-jest": "^27.1.2",
         "typescript": "^4.5.4"
     }
 }
