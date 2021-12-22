@@ -12,7 +12,7 @@ import ExploreLayout from '../../../../containers/layouts/Explore'
 import { mapPathToProject } from 'utils/path-to-project'
 import { alertMessageState } from '../../../../state/recoil'
 
-const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
 const NFT_PER_PAGE = 4
 
@@ -26,7 +26,7 @@ const Explore = () => {
     // get total supply, which we need to detect if all NFTs are loaded
     const { data: totalSupply } = useNFTMethod(
         `${contractAdress}`,
-        'nft_total_supply',
+        `nft_total_supply`,
         {}
     )
 
@@ -68,7 +68,7 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
     async function getData() {
         const newData = await contract.nft_tokens(
             {
-                from_index: from_index ? from_index.toString() : '0', // prevent toString() from converting 0 to NaN
+                from_index: from_index ? from_index.toString() : `0`, // prevent toString() from converting 0 to NaN
                 limit: limitPerPage,
             },
             CONTRACT_RANDOM_GAS
@@ -87,6 +87,7 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
             setIsLoading(true)
             getData()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contract, currentPage])
 
     return {

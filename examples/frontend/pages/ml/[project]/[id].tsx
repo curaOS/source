@@ -1,24 +1,22 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 
-import { useState, useCallback } from 'react'
 import { utils } from 'near-api-js'
 import { useRouter } from 'next/router'
 import ViewLayout from '../../../containers/layouts/View'
 import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useSetRecoilState } from 'recoil'
 import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
-import { accountState } from 'state/account'
 import { useStatusUpdate } from 'utils/hooks-helpers'
-const CONTRACT_BURN_GAS = utils.format.parseNearAmount('0.00000000029') // 290 Tgas
-const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount('0.00000000025') // 250 Tgas
-const YOCTO_NEAR = utils.format.parseNearAmount('0.000000000000000000000001')
+const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`) // 290 Tgas
+const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`) // 250 Tgas
+const YOCTO_NEAR = utils.format.parseNearAmount(`0.000000000000000000000001`)
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
-const HARDCODED_ROYALTY_SHARE = '2500'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
-const MLProject = ({}) => {
+const MLProject = () => {
     const router = useRouter()
 
     const { updateStatus } = useStatusUpdate()
@@ -33,7 +31,7 @@ const MLProject = ({}) => {
 
     const { data: media } = useNFTMethod(
         `ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
-        'nft_token',
+        `nft_token`,
         {
             token_id: router.query.id,
             limit: 2,
@@ -44,7 +42,7 @@ const MLProject = ({}) => {
 
     const { data: bids } = useMarketMethod(
         `market.ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
-        'get_bids',
+        `get_bids`,
         {
             token_id: media?.id,
         }
@@ -92,8 +90,8 @@ const MLProject = ({}) => {
                         <MediaObject
                             mediaURI={`https://arweave.net/${media.metadata.media}`}
                             type="image"
-                            width={'100%'}
-                            height={'100%'}
+                            width={`100%`}
+                            height={`100%`}
                         />
                     )}
                 </>

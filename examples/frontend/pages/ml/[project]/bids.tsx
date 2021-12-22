@@ -6,9 +6,6 @@ import { Spinner } from 'theme-ui'
 import { utils } from 'near-api-js'
 import { BiddersBids } from '@cura/components'
 import BidsLayout from '../../../containers/layouts/Bids'
-import { indexLoaderState } from '../../../state/recoil'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { accountState } from 'state/account'
 import { omit } from 'ramda'
 import { useRouter } from 'next/router'
 import {
@@ -17,7 +14,7 @@ import {
     useMarketMethod,
 } from '@cura/hooks'
 
-const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const CONTRACT_REMOVE_BID_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
 const Bids = () => {
     const router = useRouter()
@@ -34,7 +31,7 @@ const Bids = () => {
 
     const { data: biddersBids, mutate: mutateBiddersBids } = useMarketMethod(
         `market.ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
-        'get_bidders_bids',
+        `get_bidders_bids`,
         {
             account_id: accountId,
         }
@@ -66,8 +63,8 @@ const Bids = () => {
                 {removeBidLoader && (
                     <div
                         sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
+                            display: `flex`,
+                            justifyContent: `center`,
                             mb: 3,
                         }}
                     >

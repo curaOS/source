@@ -4,11 +4,10 @@ import { ThemeProvider } from 'theme-ui'
 import { theme } from '../theme'
 import { RecoilRoot } from 'recoil'
 import { NearHooksProvider } from '@cura/hooks'
-import '@cura/components/dist/assets/fonts/index.css'
+import '@cura/components/assets/fonts/index.css'
 
 function App({ Component, pageProps }: AppProps) {
     return (
-        // @ts-ignore: Unreachable code error
         <ThemeProvider theme={theme}>
             <RecoilRoot>
                 <NearHooksProvider>

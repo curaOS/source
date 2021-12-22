@@ -16,16 +16,16 @@
     "author": "Yassine",
     "license": "MIT",
     "dependencies": {
-        "async": "^3.2.0",
+        "async": "^3.2.2",
         "bn.js": "^5.2.0",
-        "chalk": "^4.1.1",
-        "commander": "^7.2.0",
-        "inquirer": "^8.1.2",
-        "near-api-js": "^0.43.1",
-        "ora": "^5.4.0"
+        "chalk": "^5.0.0",
+        "commander": "^8.3.0",
+        "inquirer": "^8.2.0",
+        "near-api-js": "^0.44.2",
+        "ora": "^6.0.1"
     },
     "devDependencies": {
-        "near-sdk-as": "^3.1.0",
-        "prettier": "2.3.0"
+        "near-sdk-as": "^3.2.3",
+        "prettier": "2.5.1"
     }
 }

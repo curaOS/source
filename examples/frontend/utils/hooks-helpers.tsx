@@ -5,7 +5,7 @@ export function useStatusUpdate() {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    let updateStatus = (error, data, validParams) => {
+    const updateStatus = (error, data, validParams) => {
         if (!error && !data && validParams) {
             setIndexLoader(true)
         }

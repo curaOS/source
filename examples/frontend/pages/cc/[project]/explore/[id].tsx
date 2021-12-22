@@ -20,10 +20,10 @@ import {
 import { useStatusUpdate } from 'utils/hooks-helpers'
 import { mapPathToProject } from 'utils/path-to-project'
 
-const MARKET_SET_BID_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
+const MARKET_SET_BID_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
-const HARDCODED_ROYALTY_SHARE = '2500'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
 const ExploreToken = () => {
     const router = useRouter()
@@ -39,7 +39,7 @@ const ExploreToken = () => {
 
     const { data: media } = useNFTMethod(
         `${contractAdress}`,
-        'nft_token',
+        `nft_token`,
         {
             token_id: router.query.id,
             limit: 2,
@@ -59,7 +59,7 @@ const ExploreToken = () => {
                     bidder: accountId,
                     recipient: media.owner_id,
                     sell_on_share: parseInt(resale) * 100,
-                    currency: 'near',
+                    currency: `near`,
                 },
                 MARKET_SET_BID_GAS,
                 utils.format.parseNearAmount(amount)
@@ -79,8 +79,8 @@ const ExploreToken = () => {
                     {media && (
                         <MediaObject
                             mediaURI={`https://arweave.net/${media?.metadata?.media}`}
-                            width={'100%'}
-                            height={'100%'}
+                            width={`100%`}
+                            height={`100%`}
                         />
                     )}
                 </>
@@ -91,7 +91,7 @@ const ExploreToken = () => {
                         <Metadata
                             data={media}
                             loading={false}
-                            width={'100%'}
+                            width={`100%`}
                             variant={1}
                         />
                     )}

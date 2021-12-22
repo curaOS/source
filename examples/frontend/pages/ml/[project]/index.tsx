@@ -7,9 +7,9 @@ import ExploreLayout from '../../../containers/layouts/Explore'
 import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
-const CONTRACT_VIEW_GAS = utils.format.parseNearAmount('0.00000000010') // 100 Tgas
+const CONTRACT_VIEW_GAS = utils.format.parseNearAmount(`0.00000000010`) // 100 Tgas
 
-const MLProject = ({}) => {
+const MLProject = () => {
     const router = useRouter()
 
     const { accountId } = useNearHooksContainer()
@@ -20,7 +20,7 @@ const MLProject = ({}) => {
 
     const { data: media } = useNFTMethod(
         `ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
-        'nft_tokens_for_owner',
+        `nft_tokens_for_owner`,
         {
             account_id: accountId,
         },

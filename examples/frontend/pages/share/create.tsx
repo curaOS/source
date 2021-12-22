@@ -13,16 +13,14 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
-const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount('0.00000000020') // 200 Tgas
-const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount('0.00000000029') // 300 Tgas
-const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount('1') // 1N
+const CONTRACT_DESIGN_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
+const CONTRACT_CLAIM_GAS = utils.format.parseNearAmount(`0.00000000029`) // 300 Tgas
+const CONTRACT_CLAIM_PRICE = utils.format.parseNearAmount(`1`) // 1N
 
 const HARDCODED_ROYALTY_ADDRESS = process.env.YSN_ADDRESS
-const HARDCODED_ROYALTY_SHARE = '2500'
+const HARDCODED_ROYALTY_SHARE = `2500`
 
 const arweaveLambda = process.env.NEXT_PUBLIC_ARWEAVE_LAMBDA
-
-const SCHEMA_SIZE = 5
 
 const Create = () => {
     const router = useRouter()
@@ -36,7 +34,7 @@ const Create = () => {
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
 
-    const [creativeCode, setCreativeCode] = useState('')
+    const [creativeCode, setCreativeCode] = useState(``)
 
     async function retrieveData() {
         setIndexLoader(true)
@@ -50,7 +48,7 @@ const Create = () => {
 
             const arweaveHTML = combineHTML(
                 `<script>let jsonParams = '${JSON.stringify({
-                    instructions: result?.instructions?.split(','),
+                    instructions: result?.instructions?.split(`,`),
                 })}'</script>`,
                 nftMetadata.packages_script,
                 nftMetadata.render_script,
@@ -72,7 +70,7 @@ const Create = () => {
         axios
             .post(
                 arweaveLambda,
-                JSON.stringify({ contentType: 'text/html', data: creativeCode })
+                JSON.stringify({ contentType: `text/html`, data: creativeCode })
             )
             .then(async function (response) {
                 await contract.claim_media(
@@ -83,7 +81,7 @@ const Create = () => {
                                 JSON.stringify({
                                     seed: seed,
                                 })
-                            ).toString('base64'),
+                            ).toString(`base64`),
                         },
                     },
                     CONTRACT_CLAIM_GAS,
@@ -104,8 +102,8 @@ const Create = () => {
                     {creativeCode && (
                         <iframe
                             srcDoc={creativeCode}
-                            width={'100%'}
-                            height={'100%'}
+                            width={`100%`}
+                            height={`100%`}
                             frameBorder="0"
                             scrolling="no"
                         ></iframe>
