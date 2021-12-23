@@ -1,5 +1,5 @@
 {
-    "name": "@cura/components",
+    "name": "dummydummycomponents",
     "version": "0.0.19",
     "description": "Components for front-ends on NEAR blockchain",
     "source": "src/index.ts",

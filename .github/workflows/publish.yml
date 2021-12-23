@@ -1,0 +1,28 @@
+name: Publish packages to npm
+# TODO: publish only on merge or push to master
+on: push
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+                  registry-url: https://registry.npmjs.org
+
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Build packages
+              run: yarn build:hooks
+              run: yarn build:components
+
+            - name: Release
+              run: npx semantic-release
+
+              env:
+                  # TODO: this is a dummy token for test and it should be replaced with ${{ secrets.NPM_TOKEN }}
+                  NPM_TOKEN: "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"

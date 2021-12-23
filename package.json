@@ -18,5 +18,9 @@
         "test:hooks": "yarn workspace @cura/hooks test",
         "test:contracts": "yarn workspace @cura/contracts test"
     },
-    "version": "0.0.0"
+    "version": "0.0.0",
+    "devDependencies": {
+        "semantic-release": "^18.0.1",
+        "semantic-release-monorepo": "^7.0.5"
+    }
 }

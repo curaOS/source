@@ -1,5 +1,5 @@
 {
-    "name": "@cura/hooks",
+    "name": "dummydummyhooks",
     "version": "0.0.9",
     "description": "Hooks for front-ends on NEAR blockchain",
     "source": "src/index.ts",
