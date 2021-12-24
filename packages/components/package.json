@@ -7,6 +7,9 @@
     "files": [
         "dist"
     ],
+    "publishConfig": {
+        "main": "dist/index.js"
+    },
     "scripts": {
         "prepack": "yarn clean && tsc && yarn copy-files",
         "build": "yarn run prepack",
@@ -18,7 +21,7 @@
     "author": "Yassine",
     "license": "MIT",
     "dependencies": {
-        "@cura/hooks": "0.0.9",
+        "@cura/hooks": "workspace:*",
         "@theme-ui/color": "^0.12.1",
         "@theme-ui/match-media": "^0.12.1",
         "@theme-ui/presets": "^0.12.1",
