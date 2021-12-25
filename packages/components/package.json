@@ -1,6 +1,6 @@
 {
     "name": "@cura/components",
-    "version": "0.0.19",
+    "version": "0.0.0-development",
     "description": "Components for front-ends on NEAR blockchain",
     "source": "src/index.ts",
     "main": "dist/index.js",
