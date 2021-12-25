@@ -1804,7 +1804,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cura/hooks@0.0.9, @cura/hooks@workspace:*, @cura/hooks@workspace:packages/hooks":
+"@cura/hooks@npm:0.0.9":
+  version: 0.0.9
+  resolution: "@cura/hooks@npm:0.0.9"
+  dependencies:
+    near-api-js: ^0.42.0
+    react: ^17.0.1
+    react-dom: ^17.0.1
+    swr: ^0.5.6
+    tslib: ^2.3.1
+    unstated-next: ^1.1.0
+  checksum: 47df26e06fa4b410d036569ad9773c4e3bd9978ef4cb9d11c9010c6f3f11676dd04f89130f0765902f3ad9baf0cf6f1ee0db4f083370042be356c4e4a28b8053
+  languageName: node
+  linkType: hard
+
+"@cura/hooks@workspace:*, @cura/hooks@workspace:packages/hooks":
   version: 0.0.0-use.local
   resolution: "@cura/hooks@workspace:packages/hooks"
   dependencies:
@@ -4818,6 +4832,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bn.js@npm:^4.11.5":
+  version: 4.11.6
+  resolution: "@types/bn.js@npm:4.11.6"
+  dependencies:
+    "@types/node": "*"
+  checksum: 7f66f2c7b7b9303b3205a57184261974b114495736b77853af5b18d857c0b33e82ce7146911e86e87a87837de8acae28986716fd381ac7c301fd6e8d8b6c811f
+  languageName: node
+  linkType: hard
+
 "@types/bn.js@npm:^5.1.0":
   version: 5.1.0
   resolution: "@types/bn.js@npm:5.1.0"
@@ -6757,6 +6780,18 @@ __metadata:
   version: 1.0.0
   resolution: "boolbase@npm:1.0.0"
   checksum: 3e25c80ef626c3a3487c73dbfc70ac322ec830666c9ad915d11b701142fab25ec1e63eff2c450c74347acfd2de854ccde865cd79ef4db1683f7c7b046ea43bb0
+  languageName: node
+  linkType: hard
+
+"borsh@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "borsh@npm:0.4.0"
+  dependencies:
+    "@types/bn.js": ^4.11.5
+    bn.js: ^5.0.0
+    bs58: ^4.0.0
+    text-encoding-utf-8: ^1.0.2
+  checksum: 75c836bac336d703395f9e8fb6b54a5c02c56cfc54fd597e387a97f13a6e4849a906f1f0cd05e0f9b889a2ed26f592d269c421c70a808ccc3a66ef857597bf1a
   languageName: node
   linkType: hard
 
@@ -9139,7 +9174,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"error-polyfill@npm:^0.1.3":
+"error-polyfill@npm:^0.1.2, error-polyfill@npm:^0.1.3":
   version: 0.1.3
   resolution: "error-polyfill@npm:0.1.3"
   dependencies:
@@ -14623,6 +14658,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"near-api-js@npm:^0.42.0":
+  version: 0.42.0
+  resolution: "near-api-js@npm:0.42.0"
+  dependencies:
+    bn.js: 5.2.0
+    borsh: ^0.4.0
+    bs58: ^4.0.0
+    depd: ^2.0.0
+    error-polyfill: ^0.1.2
+    http-errors: ^1.7.2
+    js-sha256: ^0.9.0
+    mustache: ^4.0.0
+    node-fetch: ^2.6.1
+    text-encoding-utf-8: ^1.0.2
+    tweetnacl: ^1.0.1
+  checksum: 18bf22298877b2b04951634c9ebaaf166f6beb47c4cccc13f2ec81fc811479570adff0cba8ac76ff7c1fa083824811b2fb4c01e668c8e573fd5fb134b6cc1ebf
+  languageName: node
+  linkType: hard
+
 "near-api-js@npm:^0.44.2":
   version: 0.44.2
   resolution: "near-api-js@npm:0.44.2"
@@ -16972,7 +17026,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.2":
+"react-dom@npm:^17.0.1, react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -17246,7 +17300,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^17.0.2":
+"react@npm:^17.0.1, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -19156,7 +19210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:0.5.7":
+"swr@npm:0.5.7, swr@npm:^0.5.6":
   version: 0.5.7
   resolution: "swr@npm:0.5.7"
   dependencies:
