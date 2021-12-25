@@ -16,7 +16,9 @@
         "dev:components": "yarn workspace @cura/components storybook",
         "dev:frontend": "yarn workspace frontend dev",
         "test:hooks": "yarn workspace @cura/hooks test",
-        "test:contracts": "yarn workspace @cura/contracts test"
+        "test:contracts": "yarn workspace @cura/contracts test",
+        "release:hooks": "yarn workspace @cura/hooks run semantic-release -e semantic-release-monorepo",
+        "release:components": "yarn workspace @cura/components run semantic-release -e semantic-release-monorepo"
     },
     "version": "0.0.0-development"
 }
