@@ -1,0 +1,22 @@
+name: Release packages
+
+on:
+    push:
+        branches:
+            - master
+
+env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '15'
+            - run: yarn install
+            - run: yarn release:hooks
+            - run: yarn release:components
