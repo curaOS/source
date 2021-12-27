@@ -140,7 +140,7 @@ const Index = () => {
                             sx={{
                                 position: `absolute`,
                                 left: `50%`,
-                                top: `50%`,
+                                top: `48%`,
                                 width: [`100%`, `100%`, `auto`],
                             }}
                         >
