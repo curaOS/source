@@ -51,8 +51,8 @@ export const Header = ({
             <Container
                 as="header"
                 variant="wide"
-                pt={[2, 60]}
-                pb={[0, 36]}
+                pt={[0, 25]}
+                pb={[0, 25]}
                 px={0}
                 sx={{
                     display: 'flex',
