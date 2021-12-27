@@ -35,13 +35,14 @@ export function Menu({
     if (accountId) {
         return (
             <Box
-                sx={{ width: '100%', bg: 'bg', borderTop: 1, borderBottom: 1 }}
+                px={[3,4]}
+                sx={{ width: '100%', bg: 'bg'}}
             >
                 <Container
                     as="nav"
                     variant="wide"
                     px={[0, 0, 0]}
-                    sx={{ display: 'flex', '>*': { flex: 1 } }}
+                    sx={{ display: 'flex', '>*': { flex: 1 },  borderTop: 1, borderBottom: 1  }}
                 >
                     <Btn href={`create`} content="create" />
                     <Btn href={``} content="view" />
