@@ -125,6 +125,9 @@ const elements = {
             borderLeft: 0,
             flex: 1,
             py: 12,
+            paddingTop:'0.75rem',
+            paddingBottom:'0.5rem',
+            lineHeight:'25px',
             transitionDuration: `0.2s`,
             ':last-child': {
                 borderRight: 0,
@@ -143,6 +146,7 @@ const elements = {
             borderRadius: 36,
             px: 3,
             py: 1,
+            paddingTop:'0.5rem',
             transitionDuration: `0.2s`,
             ':hover': {
                 opacity: 0.9,
@@ -157,6 +161,7 @@ const elements = {
             borderRadius: 36,
             px: 3,
             py: 1,
+            paddingTop:'0.5rem',
             transitionDuration: `0.2s`,
             ':hover': {
                 borderColor: `primary`,
@@ -170,6 +175,7 @@ const elements = {
             color: `text`,
             p: 1,
             pl: 0,
+            paddingTop:'0.75rem',
             transitionDuration: `0.2s`,
             ':hover': {
                 textDecoration: `underline`,
@@ -208,6 +214,9 @@ const elements = {
             borderRadius: `full`,
             px: 2,
             py: 1,
+            lineHeight:0,
+            paddingTop:`0.75rem`,
+            paddingBottom:`0.6rem`
         },
     },
     images: {
