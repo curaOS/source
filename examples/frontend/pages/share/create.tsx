@@ -87,6 +87,7 @@ const Create = () => {
                     CONTRACT_CLAIM_GAS,
                     CONTRACT_CLAIM_PRICE
                 )
+                router.push(`${project}`)
             })
             .catch(function (error) {
                 setIndexLoader(false)
