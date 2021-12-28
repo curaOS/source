@@ -92,6 +92,7 @@ const MLProjectCreate = () => {
                     CONTRACT_CLAIM_PRICE
                 )
                 router.push(`/${project}`)
+                console.log(project)
             })
             .catch(function (error) {
                 setIndexLoader(false)
