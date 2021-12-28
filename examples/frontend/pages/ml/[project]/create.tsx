@@ -57,7 +57,7 @@ const MLProjectCreate = () => {
         `ml${router.query.project}.ysn-1_0_0.ysn.testnet`
     )
 
-    console.log(contract)
+    console.log(project)
 
     const setAlertMessage = useSetRecoilState(alertMessageState)
     const setIndexLoader = useSetRecoilState(indexLoaderState)
@@ -119,9 +119,9 @@ const MLProjectCreate = () => {
                         media: response.data.transaction.id,
                     },
                     CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE
+                    CONTRACT_CLAIM_PRICE,
+                    `${window.location}/${project}`
                 )
-                router.push(`${project}`)
             })
             .catch(function (error) {
                 setIndexLoader(false)

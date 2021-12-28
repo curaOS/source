@@ -89,10 +89,9 @@ const MLProjectCreate = () => {
                         },
                     },
                     CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE
+                    CONTRACT_CLAIM_PRICE,
+                    `${window.location}/${project}`
                 )
-                router.push(`/${project}`)
-                console.log(project)
             })
             .catch(function (error) {
                 setIndexLoader(false)

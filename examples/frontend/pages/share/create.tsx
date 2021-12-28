@@ -85,9 +85,9 @@ const Create = () => {
                         },
                     },
                     CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE
+                    CONTRACT_CLAIM_PRICE,
+                    `${window.location}/${project}`
                 )
-                router.push(`${project}`)
             })
             .catch(function (error) {
                 setIndexLoader(false)
