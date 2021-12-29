@@ -87,7 +87,7 @@ export default function Layout({ children, project = 'share' }) {
                 <Box
                     sx={{
                         margin: `0 auto`,
-                        minHeight: '80.5vh',
+                        minHeight: ['80vh', '88vh'],
                     }}
                 >
                     <Menu
