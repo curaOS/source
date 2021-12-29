@@ -89,6 +89,8 @@ const MLProjectCreate = () => {
                         },
                     },
                     callbackUrl: 'https://google.com/',
+                    amount: CONTRACT_CLAIM_PRICE,
+                    gas: CONTRACT_CLAIM_GAS,
                 })
                 // await contract.claim_media(
                 //     {
