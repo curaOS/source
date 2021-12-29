@@ -62,16 +62,13 @@ export const Header = ({
                 }}
             >
                 <Box
+                    p={3}
                     sx={{
                         flex: 1,
                         textAlign: 'left',
                         borderBottom: [1, 0],
                         display: 'flex',
                         justifyContent: 'space-between',
-                        paddingBottom:2,
-                        paddingTop:2,
-                        paddingLeft:[2,0],
-                        paddingRight:2
                     }}
                 >
                     {nextLinkWrapper(
