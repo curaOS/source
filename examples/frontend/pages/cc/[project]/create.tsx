@@ -77,8 +77,8 @@ const MLProjectCreate = () => {
                 })
             )
             .then(async function (response) {
-                await contract.claim_media(
-                    {
+                await contract.claim_media({
+                    args: {
                         tokenMetadata: {
                             media: response.data.transaction.id,
                             extra: Buffer.from(
@@ -88,10 +88,22 @@ const MLProjectCreate = () => {
                             ).toString(`base64`),
                         },
                     },
-                    CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE,
-                    `${window.location}/${project}`
-                )
+                    callbackUrl: 'https://google.com/',
+                })
+                // await contract.claim_media(
+                //     {
+                //         tokenMetadata: {
+                //             media: response.data.transaction.id,
+                //             extra: Buffer.from(
+                //                 JSON.stringify({
+                //                     seed: seed,
+                //                 })
+                //             ).toString(`base64`),
+                //         },
+                //     },
+                //     CONTRACT_CLAIM_GAS,
+                //     CONTRACT_CLAIM_PRICE
+                // )
             })
             .catch(function (error) {
                 setIndexLoader(false)
