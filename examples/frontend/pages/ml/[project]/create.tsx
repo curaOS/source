@@ -114,14 +114,14 @@ const MLProjectCreate = () => {
                 })
             )
             .then(async function (response) {
-                await contract.claim_media(
-                    {
+                await contract.claim_media({
+                    args: {
                         media: response.data.transaction.id,
                     },
-                    CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE,
-                    `${window.location}/${project}`
-                )
+                    callbackUrl: `${window.location.origin}/${project}`,
+                    amount: CONTRACT_CLAIM_PRICE,
+                    gas: CONTRACT_CLAIM_GAS,
+                })
             })
             .catch(function (error) {
                 setIndexLoader(false)

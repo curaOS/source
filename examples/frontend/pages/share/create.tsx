@@ -73,8 +73,8 @@ const Create = () => {
                 JSON.stringify({ contentType: `text/html`, data: creativeCode })
             )
             .then(async function (response) {
-                await contract.claim_media(
-                    {
+                await contract.claim_media({
+                    args: {
                         tokenMetadata: {
                             media: response.data.transaction.id,
                             extra: Buffer.from(
@@ -84,10 +84,10 @@ const Create = () => {
                             ).toString(`base64`),
                         },
                     },
-                    CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE,
-                    `${window.location}/${project}`
-                )
+                    callbackUrl: `${window.location.origin}/${project}`,
+                    amount: CONTRACT_CLAIM_PRICE,
+                    gas: CONTRACT_CLAIM_GAS,
+                })
             })
             .catch(function (error) {
                 setIndexLoader(false)

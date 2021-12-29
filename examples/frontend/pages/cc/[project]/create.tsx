@@ -88,24 +88,10 @@ const MLProjectCreate = () => {
                             ).toString(`base64`),
                         },
                     },
-                    callbackUrl: 'https://google.com/',
+                    callbackUrl: `${window.location.origin}/${project}`,
                     amount: CONTRACT_CLAIM_PRICE,
                     gas: CONTRACT_CLAIM_GAS,
                 })
-                // await contract.claim_media(
-                //     {
-                //         tokenMetadata: {
-                //             media: response.data.transaction.id,
-                //             extra: Buffer.from(
-                //                 JSON.stringify({
-                //                     seed: seed,
-                //                 })
-                //             ).toString(`base64`),
-                //         },
-                //     },
-                //     CONTRACT_CLAIM_GAS,
-                //     CONTRACT_CLAIM_PRICE
-                // )
             })
             .catch(function (error) {
                 setIndexLoader(false)
