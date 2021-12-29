@@ -35,8 +35,10 @@ const CreateLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            width: '100%',
-                            height: '100%',
+                            width: ['100%', '70%'],
+                            height: ['100%', '70%'],
+                            marginLeft: 'auto',
+                            marginRight:['auto', '10%']
                         }}
                     >
                         {frameComponent}
@@ -45,7 +47,7 @@ const CreateLayout = ({
                 <Box
                     sx={{
                         ml: 3,
-                        mt: 3,
+                        mt: 0,
                         display: 'inline-block',
                         verticalAlign: 'top',
                         float: 'right',
@@ -58,7 +60,7 @@ const CreateLayout = ({
                             flexDirection: ['row', 'row', 'row', 'column'],
                             alignItems: 'start',
                             rowGap: 18,
-                            mb: [30, 30, 40, 60],
+                            mb: [30, 30, 40, 30],
                         }}
                     >
                         <Button
