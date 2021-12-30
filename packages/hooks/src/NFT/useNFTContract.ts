@@ -15,7 +15,7 @@ export function useNFTContract(contractAddress: string) {
     const { getContract, accountId } = useNearHooksContainer()
 
     const setupContract = () => {
-        if (contractAddress.includes('undefined')) {
+        if (!contractAddress || contractAddress.includes('undefined')) {
             return
         }
 
