@@ -91,7 +91,7 @@ export const Header = ({
                             sx={{
                                 position: 'relative',
                                 zIndex: 11,
-                                borderColor: isMenuOpen ? 'white' : 'initial',
+                                borderColor: isMenuOpen ? mode == 'dark' ? 'black' :  'white' : 'initial',
                                 transitionDuration: '0.3s',
                                 transform: isMenuOpen
                                     ? 'rotate(135deg)'
@@ -109,7 +109,7 @@ export const Header = ({
                                 fill="none"
                                 sx={{
                                     fill: isMenuOpen ? 'white' : 'text',
-                                    stroke: isMenuOpen ? 'white' : 'inherit',
+                                    stroke: isMenuOpen ? mode == 'dark' ? 'black' : 'white' : 'inherit',
                                     height: '100%',
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -147,6 +147,11 @@ export const Header = ({
                                     <Button
                                         onClick={onSignIn}
                                         variant="mobileMenu"
+                                        sx={{
+                                            color: mode == 'dark' ? 'black' : 'white',
+                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                        }}
+
                                     >
                                         connect NEAR
                                     </Button>
@@ -156,6 +161,11 @@ export const Header = ({
                                     href="https://twitter.com/CuraNear"
                                     target="_blank"
                                     variant="mobileMenu"
+                                    sx={{
+                                        color: mode == 'dark' ? 'black' : 'white',
+                                        borderColor: mode == 'dark' ? 'black' : 'white',
+                                    }}
+
                                 >
                                     twitter ↗
                                 </Button>
