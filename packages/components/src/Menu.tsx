@@ -35,7 +35,7 @@ export function Menu({
     if (accountId) {
         return (
             <Box
-                sx={{ width: '100%', bg: 'bg', borderTop: 1, borderBottom: 1 }}
+                sx={{ width: '100%', bg: 'bg', borderTop: 1, borderBottom: 1}}
             >
                 <Container
                     as="nav"

@@ -35,8 +35,10 @@ const ViewLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            width: '100%',
-                            height: '100%',
+                            maxWidth: ['100%', '70%'],
+                            maxHeight: ['100%', '70%'],
+                            marginLeft: 'auto',
+                            marginRight:['auto', '10%']
                         }}
                     >
                         {frameComponent}
@@ -45,7 +47,7 @@ const ViewLayout = ({
                 <Box
                     sx={{
                         ml: 3,
-                        mt: 3,
+                        mt: 0,
                         display: 'inline-block',
                         verticalAlign: 'top',
                         float: 'right',

@@ -51,8 +51,8 @@ export const Header = ({
             <Container
                 as="header"
                 variant="wide"
-                pt={[2, 60]}
-                pb={[0, 36]}
+                pt={[0, 25]}
+                pb={[0, 25]}
                 px={0}
                 sx={{
                     display: 'flex',
@@ -91,7 +91,7 @@ export const Header = ({
                             sx={{
                                 position: 'relative',
                                 zIndex: 11,
-                                borderColor: isMenuOpen ? 'white' : 'initial',
+                                borderColor: isMenuOpen ? mode == 'dark' ? 'black' :  'white' : 'initial',
                                 transitionDuration: '0.3s',
                                 transform: isMenuOpen
                                     ? 'rotate(135deg)'
@@ -109,7 +109,7 @@ export const Header = ({
                                 fill="none"
                                 sx={{
                                     fill: isMenuOpen ? 'white' : 'text',
-                                    stroke: isMenuOpen ? 'white' : 'inherit',
+                                    stroke: isMenuOpen ? mode == 'dark' ? 'black' : 'white' : 'inherit',
                                     height: '100%',
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +139,13 @@ export const Header = ({
                                 {accountId ? (
                                     nextLinkWrapper(
                                         `/${base}/bids`,
-                                        <Button variant="mobileMenu">
+                                        <Button 
+                                            variant="mobileMenu"
+                                            sx={{
+                                                color: mode == 'dark' ? 'black' : 'white',
+                                                borderColor: mode == 'dark' ? 'black' : 'white',
+                                            }}
+                                        >
                                             bids
                                         </Button>
                                     )
@@ -147,6 +153,11 @@ export const Header = ({
                                     <Button
                                         onClick={onSignIn}
                                         variant="mobileMenu"
+                                        sx={{
+                                            color: mode == 'dark' ? 'black' : 'white',
+                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                        }}
+
                                     >
                                         connect NEAR
                                     </Button>
@@ -156,6 +167,11 @@ export const Header = ({
                                     href="https://twitter.com/CuraNear"
                                     target="_blank"
                                     variant="mobileMenu"
+                                    sx={{
+                                        color: mode == 'dark' ? 'black' : 'white',
+                                        borderColor: mode == 'dark' ? 'black' : 'white',
+                                    }}
+
                                 >
                                     twitter ↗
                                 </Button>
@@ -163,6 +179,10 @@ export const Header = ({
                                     <Button
                                         onClick={onSignOut}
                                         variant="mobileMenu"
+                                        sx={{
+                                            color: mode == 'dark' ? 'black' : 'white',
+                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                        }}
                                     >
                                         disconnect
                                     </Button>
@@ -295,7 +315,7 @@ export const Header = ({
                     <IconButton
                         sx={{
                             borderBottomLeftRadius: ['100%', 0],
-                            borderBottomRightRadius: 0,
+                            borderBottomRightRadius: `0px !important`,
                             borderTopRightRadius: [0, '100%'],
                             bg: mode == 'dark' ? ['bg', 'white'] : 'tranparent',
                             borderColor:
@@ -329,7 +349,7 @@ export const Header = ({
                     <IconButton
                         sx={{
                             borderTopRightRadius: ['100%', 0],
-                            borderTopLeftRadius: 0,
+                            borderTopLeftRadius: `0px !important`,
                             borderBottomLeftRadius: [0, '100%'],
                             borderTop: [1, 0],
                             borderLeft: [0, 1],

@@ -71,7 +71,7 @@ export default function Layout({ children, project = 'share' }) {
         <>
             <Head>
                 <title>CURA</title>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/logo.png" />
             </Head>
             <Box style={{ minHeight: '100vh' }}>
                 <Header
@@ -87,7 +87,7 @@ export default function Layout({ children, project = 'share' }) {
                 <Box
                     sx={{
                         margin: `0 auto`,
-                        minHeight: '80.5vh',
+                        minHeight: ['80vh', '94vh'],
                     }}
                 >
                     <Menu
