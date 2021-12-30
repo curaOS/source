@@ -139,7 +139,13 @@ export const Header = ({
                                 {accountId ? (
                                     nextLinkWrapper(
                                         `/${base}/bids`,
-                                        <Button variant="mobileMenu">
+                                        <Button 
+                                            variant="mobileMenu"
+                                            sx={{
+                                                color: mode == 'dark' ? 'black' : 'white',
+                                                borderColor: mode == 'dark' ? 'black' : 'white',
+                                            }}
+                                        >
                                             bids
                                         </Button>
                                     )
@@ -173,6 +179,10 @@ export const Header = ({
                                     <Button
                                         onClick={onSignOut}
                                         variant="mobileMenu"
+                                        sx={{
+                                            color: mode == 'dark' ? 'black' : 'white',
+                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                        }}
                                     >
                                         disconnect
                                     </Button>
