@@ -295,7 +295,7 @@ export const Header = ({
                     <IconButton
                         sx={{
                             borderBottomLeftRadius: ['100%', 0],
-                            borderBottomRightRadius: 0,
+                            borderBottomRightRadius: `0px !important`,
                             borderTopRightRadius: [0, '100%'],
                             bg: mode == 'dark' ? ['bg', 'white'] : 'tranparent',
                             borderColor:
@@ -329,7 +329,7 @@ export const Header = ({
                     <IconButton
                         sx={{
                             borderTopRightRadius: ['100%', 0],
-                            borderTopLeftRadius: 0,
+                            borderTopLeftRadius: `0px !important`,
                             borderBottomLeftRadius: [0, '100%'],
                             borderTop: [1, 0],
                             borderLeft: [0, 1],
