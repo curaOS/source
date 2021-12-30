@@ -77,8 +77,8 @@ const MLProjectCreate = () => {
                 })
             )
             .then(async function (response) {
-                await contract.claim_media(
-                    {
+                await contract.claim_media({
+                    args: {
                         tokenMetadata: {
                             media: response.data.transaction.id,
                             extra: Buffer.from(
@@ -88,9 +88,10 @@ const MLProjectCreate = () => {
                             ).toString(`base64`),
                         },
                     },
-                    CONTRACT_CLAIM_GAS,
-                    CONTRACT_CLAIM_PRICE
-                )
+                    callbackUrl: `${window.location.origin}/${project}`,
+                    amount: CONTRACT_CLAIM_PRICE,
+                    gas: CONTRACT_CLAIM_GAS,
+                })
             })
             .catch(function (error) {
                 setIndexLoader(false)

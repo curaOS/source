@@ -15,6 +15,8 @@ import {
     DESIGN_PRICE,
     GAS_FOR_NFT_APPROVE,
     NFTOnApprovedArgs,
+    StorageBalance,
+    accounts_storage
 } from './models'
 import { NFTContractMetadata, TokenMetadata } from './metadata'
 import {

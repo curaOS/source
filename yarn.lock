@@ -52,7 +52,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@as-pect/cli@npm:^6.0.0":
+"@as-pect/cli@npm:^6.0.0, @as-pect/cli@npm:^6.2.4":
   version: 6.2.4
   resolution: "@as-pect/cli@npm:6.2.4"
   dependencies:
@@ -1761,7 +1761,7 @@ __metadata:
   resolution: "@cura/components@workspace:packages/components"
   dependencies:
     "@babel/core": ^7.16.5
-    "@cura/hooks": 0.0.9
+    "@cura/hooks": "workspace:*"
     "@storybook/addon-actions": ^6.4.9
     "@storybook/addon-essentials": ^6.4.9
     "@storybook/addon-links": ^6.4.9
@@ -1786,6 +1786,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cura/contracts@workspace:packages/contracts"
   dependencies:
+    "@as-pect/cli": ^6.2.4
+    asbuild: ^0.2.0
     async: ^3.2.2
     bn.js: ^5.2.0
     chalk: ^5.0.0
@@ -1800,7 +1802,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cura/hooks@0.0.9, @cura/hooks@workspace:*, @cura/hooks@workspace:packages/hooks":
+"@cura/hooks@workspace:*, @cura/hooks@workspace:packages/hooks":
   version: 0.0.0-use.local
   resolution: "@cura/hooks@workspace:packages/hooks"
   dependencies:
