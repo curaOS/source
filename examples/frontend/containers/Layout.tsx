@@ -9,7 +9,7 @@ import Head from 'next/head'
 import { indexLoaderState } from '../state/recoil'
 import { useRecoilValue } from 'recoil'
 import { useFTMethod, useNearHooksContainer } from '@cura/hooks'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { mapPathToProject } from 'utils/path-to-project'
 
@@ -26,11 +26,13 @@ export default function Layout({ children, project = 'share' }) {
         {
             account_id: accountId,
         }
-    )
+    );
+
+    const [currentProject, setCurrentProject] = useState('');
+    const [signedProject, setSignedProject] = useState('');
 
     const switchProject = () => {
-        const currentProject = mapPathToProject(router.asPath)
-        const signedProject = localStorage.getItem('contractAddress')
+        setCurrentProject(mapPathToProject(router.asPath));
 
         if (
             signedProject &&
@@ -41,8 +43,12 @@ export default function Layout({ children, project = 'share' }) {
         }
     }
 
-    const preSignIn = () => {
+    const preSignIn = async () => {
         const project = mapPathToProject(router.asPath)
+        if(localStorage.getItem('contractAddress')){
+            localStorage.removeItem('contractAddress')
+            await signOut();
+        }
         localStorage.setItem('contractAddress', project)
 
         signIn(
@@ -54,11 +60,15 @@ export default function Layout({ children, project = 'share' }) {
 
     const preSignOut = () => {
         localStorage.removeItem('contractAddress')
-        signOut()
         router.reload(window.location.origin + router.asPath)
+        signOut()
     }
 
     useEffect(switchProject, [router.asPath])
+    useEffect(switchProject, [])
+    useEffect(()=>{
+        setSignedProject(localStorage.getItem('contractAddress'))
+    }, [])
 
     // get the last part of the path (e.g. create, view, explore)
     const lastPath = router.pathname.split('/').slice(-1)[0]
@@ -76,7 +86,7 @@ export default function Layout({ children, project = 'share' }) {
             <Box style={{ minHeight: '100vh' }}>
                 <Header
                     base={project}
-                    accountId={accountId}
+                    accountId={currentProject == signedProject ? accountId : null}
                     onSignIn={preSignIn}
                     onSignOut={preSignOut}
                     title={project.toUpperCase()}
@@ -91,6 +101,7 @@ export default function Layout({ children, project = 'share' }) {
                     }}
                 >
                     <Menu
+                        accountId={currentProject == signedProject ? accountId : null}
                         base={project}
                         nextLinkWrapper={(href, children) => (
                             <Link href={href}>{children}</Link>
