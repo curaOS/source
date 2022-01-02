@@ -23,7 +23,7 @@ const slideDetails = [
         path: `/ml/1w`,
     },
     {
-        title: `ML/APRTS`,
+        title: `CC/APRTS`,
         image: `/aprts.png`,
         description: `Apparations example from Eth.`,
         tags: [`js`, `sample`],
