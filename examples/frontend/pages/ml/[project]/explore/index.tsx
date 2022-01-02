@@ -79,10 +79,13 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
 
     // Excute function if contract change or currentPage change
     useEffect(() => {
+        let signedAddress = localStorage.getItem('contractAddress');
+        
         // make sure the user is logged in and the contract is the right contract
         if (
             contract?.account?.accountId &&
-            contract.contractId == contractAdress
+            contract.contractId == contractAdress &&
+            contract.contractId == signedAddress
         ) {
             setIsLoading(true)
             getData()
