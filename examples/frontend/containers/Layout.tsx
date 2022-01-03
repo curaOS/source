@@ -33,6 +33,7 @@ export default function Layout({ children, project = 'share' }) {
 
     const switchProject = () => {
         setCurrentProject(mapPathToProject(router.asPath));
+        setSignedProject(localStorage.getItem('contractAddress'))
 
         if (
             signedProject &&
@@ -46,7 +47,6 @@ export default function Layout({ children, project = 'share' }) {
     const preSignIn = async () => {
         const project = mapPathToProject(router.asPath)
         if(localStorage.getItem('contractAddress')){
-            localStorage.removeItem('contractAddress')
             await signOut();
         }
         localStorage.setItem('contractAddress', project)
@@ -60,15 +60,11 @@ export default function Layout({ children, project = 'share' }) {
 
     const preSignOut = () => {
         localStorage.removeItem('contractAddress')
-        router.reload(window.location.origin + router.asPath)
         signOut()
+        router.reload(window.location.origin + router.asPath)
     }
 
     useEffect(switchProject, [router.asPath])
-    useEffect(switchProject, [])
-    useEffect(()=>{
-        setSignedProject(localStorage.getItem('contractAddress'))
-    }, [])
 
     // get the last part of the path (e.g. create, view, explore)
     const lastPath = router.pathname.split('/').slice(-1)[0]
