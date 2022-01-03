@@ -16,6 +16,7 @@ const CreateLayout = ({
             <Box
                 sx={{
                     my: [44, 44, 44, 66],
+                    textAlign:'center'
                 }}
             >
                 <Box
@@ -25,6 +26,7 @@ const CreateLayout = ({
                         maxWidth: '90vh',
                         mr: [0, 0, 0, 4],
                         mb: [4, 4, 0, 0],
+                        margin:'auto'
                     }}
                 >
                     <AspectRatio
