@@ -13,6 +13,7 @@ import {
 } from 'theme-ui'
 
 export const Header = ({
+    isInitial,
     base,
     accountId,
     onSignIn,
@@ -25,6 +26,7 @@ export const Header = ({
     mode,
     setMode,
 }: {
+    isInitial: boolean
     base: string
     accountId?: string
     onSignIn: () => void
@@ -38,7 +40,7 @@ export const Header = ({
     setMode: () => void
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const titleArray = title.split('/')
+    const titleArray = title ? title.split('/') : ''
 
     return (
         <Box
@@ -136,7 +138,7 @@ export const Header = ({
                                     flexDirection: 'column',
                                 }}
                             >
-                                {accountId ? (
+                                {accountId && !isInitial ? (
                                     nextLinkWrapper(
                                         `/${base}/bids`,
                                         <Button 
@@ -149,7 +151,7 @@ export const Header = ({
                                             bids
                                         </Button>
                                     )
-                                ) : (
+                                ) : !isInitial ? (
                                     <Button
                                         onClick={onSignIn}
                                         variant="mobileMenu"
@@ -161,7 +163,7 @@ export const Header = ({
                                     >
                                         connect NEAR
                                     </Button>
-                                )}
+                                ) : ''}
                                 <Button
                                     as="a"
                                     href="https://twitter.com/CuraNear"
@@ -175,7 +177,7 @@ export const Header = ({
                                 >
                                     twitter ↗
                                 </Button>
-                                {accountId && (
+                                {accountId && !isInitial (
                                     <Button
                                         onClick={onSignOut}
                                         variant="mobileMenu"
@@ -191,93 +193,97 @@ export const Header = ({
                         )}
                     </Box>
                 </Box>
-                <a
-                    href="#nothing"
-                    sx={{
-                        p: 3,
-                        flex: 1,
-                        textAlign: ['left', 'center'],
-                        textDecoration: 'none',
-                        color: 'text',
-                    }}
-                >
-                    <Text
-                        variant="monospace"
+                {!isInitial &&
+                    <a
+                        href="#nothing"
                         sx={{
-                            display: ['block', 'none'],
-                            pb: '8px',
+                            p: 3,
+                            flex: 1,
+                            textAlign: ['left', 'center'],
+                            textDecoration: 'none',
+                            color: 'text',
                         }}
                     >
-                        {accountId ? accountId : 'blank'}
-                    </Text>
-                    <Text
-                        variant="title"
+                        <Text
+                            variant="monospace"
+                            sx={{
+                                display: ['block', 'none'],
+                                pb: '8px',
+                            }}
+                        >
+                            {accountId ? accountId : 'blank'}
+                        </Text>
+                        <Text
+                            variant="title"
+                            sx={{
+                                fontWeight: 'normal',
+                                display: 'inline-block',
+                            }}
+                        >
+                            {titleArray[1] && (titleArray[0] + '/')}
+                        </Text>
+                        <Text
+                            variant="title"
+                            sx={{
+                                display: 'inline-block',
+                            }}
+                        >
+                            {titleArray[1] ? titleArray[1] : titleArray[0]}
+                        </Text>
+                        <Text
+                            variant="monospace"
+                            m={[0, 2]}
+                            sx={{
+                                display: 'inline-block',
+                            }}
+                        >
+                            /PROJECTS
+                        </Text>
+                    </a>
+                }
+                {!isInitial && 
+                    <Box
                         sx={{
-                            fontWeight: 'normal',
-                            display: 'inline-block',
+                            flex: 1,
+                            textAlign: 'right',
+                            display: ['none', 'block'],
                         }}
                     >
-                        {titleArray[1] && (titleArray[0] + '/')}
-                    </Text>
-                    <Text
-                        variant="title"
-                        sx={{
-                            display: 'inline-block',
-                        }}
-                    >
-                        {titleArray[1] ? titleArray[1] : titleArray[0]}
-                    </Text>
-                    <Text
-                        variant="monospace"
-                        m={[0, 2]}
-                        sx={{
-                            display: 'inline-block',
-                        }}
-                    >
-                        /PROJECTS
-                    </Text>
-                </a>
-                <Box
-                    sx={{
-                        flex: 1,
-                        textAlign: 'right',
-                        display: ['none', 'block'],
-                    }}
-                >
-                    {accountId ? (
-                        <>
-                            {nextLinkWrapper(
-                                `/${base}/bids`,
-                                <Button variant="outline">{accountId}</Button>
-                            )}
-                            <IconButton
-                                onClick={onSignOut}
-                                p={0}
-                                ml={2}
-                                sx={{
-                                    width: 31,
-                                    height: 31,
-                                }}
-                            >
-                                <svg
-                                    width="14"
-                                    height="16"
-                                    viewBox="0 0 14 16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
+                        {accountId ? (
+                            <>
+                                {nextLinkWrapper(
+                                    `/${base}/bids`,
+                                    <Button variant="outline">{accountId}</Button>
+                                )}
+                                <IconButton
+                                    onClick={onSignOut}
+                                    p={0}
+                                    ml={2}
+                                    sx={{
+                                        width: 31,
+                                        height: 31,
+                                    }}
                                 >
-                                    <path d="M2 1H13V15H2" strokeWidth="1.3" />
-                                    <path d="M0 8H8" strokeWidth="1.3" />
-                                    <path d="M4 4L8 8L4 12" strokeWidth="1.3" />
-                                </svg>
-                            </IconButton>
-                        </>
-                    ) : (
-                        <Button onClick={onSignIn} variant="primary">
-                            Connect NEAR
-                        </Button>
-                    )}
-                </Box>
+                                    <svg
+                                        width="14"
+                                        height="16"
+                                        viewBox="0 0 14 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path d="M2 1H13V15H2" strokeWidth="1.3" />
+                                        <path d="M0 8H8" strokeWidth="1.3" />
+                                        <path d="M4 4L8 8L4 12" strokeWidth="1.3" />
+                                    </svg>
+                                </IconButton>
+                            </>
+                        ) : (
+                            <Button onClick={onSignIn} variant="primary">
+                                Connect NEAR
+                            </Button>
+                        )}
+                    </Box>
+                }
                 <Box
                     sx={{
                         position: 'fixed',
