@@ -21,9 +21,9 @@ const ViewLayout = ({
                 <Box
                     sx={{
                         display: ['block', 'block', 'block','inline-block'],
-                        width: ['100%', '100%', '70%', '50%'],
-                        mr: [0, 0, 'auto', 4],
-                        ml: [0, 0, 'auto', 0],
+                        width: ['100%', '70%', '70%', '50%'],
+                        mr: [0, 'auto', 'auto', 4],
+                        ml: [0, 'auto', 'auto', 0],
                         mb: [4, 4, 0, 0],
                         textAlign:'center',
                     }}
@@ -51,7 +51,7 @@ const ViewLayout = ({
                         display: ['block', 'block', 'block','inline-block'],
                         verticalAlign: 'top',
                         margin: 'auto',
-                        width: ['100%', '100%', '70%', '40%'],
+                        width: ['100%', '70%', '70%', '40%'],
                     }}
                 >
                     <Button onClick={burnDesign} variant="borderless">
