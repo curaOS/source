@@ -24,7 +24,7 @@ const CreateLayout = ({
                         width: ['100%', '100%', '100%', '50%'],
                         maxWidth: '90vh',
                         mr: [0, 0, 0, 4],
-                        mb: [4, 4, 4, 0],
+                        mb: [4, 4, 0, 0],
                     }}
                 >
                     <AspectRatio
@@ -35,10 +35,10 @@ const CreateLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            width: ['100%', '70%'],
-                            height: ['100%', '70%'],
+                            width: ['100%', '100%', '70%', '70%'],
+                            height: ['100%', '100%', '70%', '70%'],
                             marginLeft: 'auto',
-                            marginRight:['auto', '10%']
+                            marginRight:['auto', 'auto', 'auto', '10%']
                         }}
                     >
                         {frameComponent}
@@ -60,7 +60,7 @@ const CreateLayout = ({
                             flexDirection: ['row', 'row', 'row', 'column'],
                             alignItems: 'start',
                             rowGap: 18,
-                            mb: [30, 30, 40, 30],
+                            mb: [30, 30, 30, 30],
                         }}
                     >
                         <Button

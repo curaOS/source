@@ -35,10 +35,10 @@ const ViewLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            maxWidth: ['100%', '70%'],
-                            maxHeight: ['100%', '70%'],
+                            width: ['100%', '100%', '70%', '70%'],
+                            height: ['100%', '100%', '70%', '70%'],
                             marginLeft: 'auto',
-                            marginRight:['auto', '10%']
+                            marginRight:['auto', 'auto', 'auto', '10%']
                         }}
                     >
                         {frameComponent}
