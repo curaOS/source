@@ -7,7 +7,7 @@ import ViewLayout from '../../../containers/layouts/View'
 import { CreatorShare, Bidders, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
-import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
+import { useNFTContract, useNFTViewMethod, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`) // 290 Tgas
 const MARKET_ACCEPT_BID_GAS = utils.format.parseNearAmount(`0.00000000025`) // 250 Tgas
@@ -29,14 +29,13 @@ const MLProject = () => {
         `ml${router.query.project}.ysn-1_0_0.ysn.testnet`
     )
 
-    const { data: media } = useNFTMethod(
+    const { data: media } = useNFTViewMethod(
         `ml${router.query.project}.ysn-1_0_0.ysn.testnet`,
         `nft_token`,
         {
             token_id: router.query.id,
             limit: 2,
         },
-        undefined,
         updateStatus
     )
 

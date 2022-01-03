@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil'
 import { useRouter } from 'next/router'
 import { utils } from 'near-api-js'
 
-import { useNFTMethod, useNFTContract } from '@cura/hooks'
+import { useNFTViewMethod, useNFTContract } from '@cura/hooks'
 
 import ExploreLayout from '../../../../containers/layouts/Explore'
 import { mapPathToProject } from 'utils/path-to-project'
@@ -24,7 +24,7 @@ const Explore = () => {
     const project = `ml/${router.query.project}`
 
     // get total supply, which we need to detect if all NFTs are loaded
-    const { data: totalSupply } = useNFTMethod(
+    const { data: totalSupply } = useNFTViewMethod(
         `${contractAdress}`,
         `nft_total_supply`,
         {}
@@ -70,8 +70,7 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
             {
                 from_index: from_index ? from_index.toString() : `0`, // prevent toString() from converting 0 to NaN
                 limit: limitPerPage,
-            },
-            CONTRACT_RANDOM_GAS
+            }
         )
         setData([...data, ...newData])
         setIsLoading(false)

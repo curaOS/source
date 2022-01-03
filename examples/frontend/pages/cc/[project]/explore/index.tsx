@@ -4,15 +4,12 @@
 import { useState, useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { useRouter } from 'next/router'
-import { utils } from 'near-api-js'
 
-import { useNFTMethod, useNFTContract } from '@cura/hooks'
+import { useNFTViewMethod, useNFTContract } from '@cura/hooks'
 
 import ExploreLayout from '../../../../containers/layouts/Explore'
 import { mapPathToProject } from 'utils/path-to-project'
 import { alertMessageState } from '../../../../state/recoil'
-
-const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
 const NFT_PER_PAGE = 4
 
@@ -24,17 +21,14 @@ const Explore = () => {
     const project = `cc/${router.query.project}`
 
     // get total supply, which we need to detect if all NFTs are loaded
-    const { data: totalSupply } = useNFTMethod(
+    const { data: totalSupply } = useNFTViewMethod(
         contractAdress,
         `nft_total_supply`,
         {}
     )
 
     // hook that contains all the logic of explore page
-    const { items, nextPage } = useNFTExplore(
-        contractAdress,
-        NFT_PER_PAGE
-    )
+    const { items, nextPage } = useNFTExplore(contractAdress, NFT_PER_PAGE)
 
     function loadMore() {
         try {
@@ -68,13 +62,10 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
     const { contract } = useNFTContract(contractAdress)
 
     async function getData() {
-        const newData = await contract.nft_tokens(
-            {
-                from_index: from_index ? from_index.toString() : `0`, // prevent toString() from converting 0 to NaN
-                limit: limitPerPage,
-            },
-            CONTRACT_RANDOM_GAS
-        )
+        const newData = await contract.nft_tokens({
+            from_index: from_index ? from_index.toString() : `0`, // prevent toString() from converting 0 to NaN
+            limit: limitPerPage,
+        })
         setData([...data, ...newData])
         setIsLoading(false)
     }
@@ -89,8 +80,8 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
             setIsLoading(true)
             getData()
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [contract,  currentPage])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contract, currentPage])
 
     return {
         items: data,
