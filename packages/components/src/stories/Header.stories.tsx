@@ -42,4 +42,4 @@ Initial.args = {
     logo: logo,
     nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
-Initial.parameters = { controls : {include : ['logo'] }}
+Initial.parameters = { controls : {include : ['logo', 'mode', 'setMode', 'nextLinkWrapper'] }}
