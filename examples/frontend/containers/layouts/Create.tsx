@@ -16,17 +16,16 @@ const CreateLayout = ({
             <Box
                 sx={{
                     my: [44, 44, 44, 66],
-                    textAlign:'center'
                 }}
             >
                 <Box
                     sx={{
-                        display: 'inline-block',
+                        display: ['block', 'block', 'block','inline-block'],
                         width: ['100%', '100%', '70%', '50%'],
-                        maxWidth: '90vh',
-                        mr: [0, 0, 0, 4],
+                        mr: [0, 0, 'auto', 4],
+                        ml: [0, 0, 'auto', 0],
                         mb: [4, 4, 0, 0],
-                        margin:'auto'
+                        textAlign:'center',
                     }}
                 >
                     <AspectRatio
@@ -37,8 +36,8 @@ const CreateLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            width: '100%',
-                            height: '100%',
+                            width: ['100%', '100%', '100%', '70%'],
+                            maxHeight: ['100%', '100%', '100%', '70%'],
                             marginLeft: 'auto',
                             marginRight:['auto', 'auto', 'auto', '10%']
                         }}
@@ -48,12 +47,11 @@ const CreateLayout = ({
                 </Box>
                 <Box
                     sx={{
-                        ml: 3,
                         mt: 0,
-                        display: 'inline-block',
+                        display: ['block', 'block', 'block','inline-block'],
                         verticalAlign: 'top',
-                        float: 'right',
-                        width: ['100%', '100%', '100%', '40%'],
+                        margin:'auto',
+                        width: ['100%', '100%', '70%', '40%'],
                     }}
                 >
                     <Box
