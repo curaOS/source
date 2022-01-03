@@ -47,7 +47,7 @@ export const Header = ({
             sx={{
                 width: '100%',
                 bg: 'bg',
-                borderBottom: accountId ? 0 : 1,
+                borderBottom: accountId || isInitial ? 0 : 1,
             }}
         >
             <Container
