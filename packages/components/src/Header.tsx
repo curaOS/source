@@ -64,7 +64,7 @@ export const Header = ({
                 <Box
                     p={3}
                     sx={{
-                        flex: 1,
+                        flex: ['unset', 'unset', 'unset', 1],
                         textAlign: 'left',
                         borderBottom: [1, 0],
                         display: 'flex',
@@ -91,7 +91,11 @@ export const Header = ({
                             sx={{
                                 position: 'relative',
                                 zIndex: 11,
-                                borderColor: isMenuOpen ? mode == 'dark' ? 'black' :  'white' : 'initial',
+                                borderColor: isMenuOpen
+                                    ? mode == 'dark'
+                                        ? 'black'
+                                        : 'white'
+                                    : 'initial',
                                 transitionDuration: '0.3s',
                                 transform: isMenuOpen
                                     ? 'rotate(135deg)'
@@ -109,7 +113,11 @@ export const Header = ({
                                 fill="none"
                                 sx={{
                                     fill: isMenuOpen ? 'white' : 'text',
-                                    stroke: isMenuOpen ? mode == 'dark' ? 'black' : 'white' : 'inherit',
+                                    stroke: isMenuOpen
+                                        ? mode == 'dark'
+                                            ? 'black'
+                                            : 'white'
+                                        : 'inherit',
                                     height: '100%',
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -139,11 +147,17 @@ export const Header = ({
                                 {accountId ? (
                                     nextLinkWrapper(
                                         `/${base}/bids`,
-                                        <Button 
+                                        <Button
                                             variant="mobileMenu"
                                             sx={{
-                                                color: mode == 'dark' ? 'black' : 'white',
-                                                borderColor: mode == 'dark' ? 'black' : 'white',
+                                                color:
+                                                    mode == 'dark'
+                                                        ? 'black'
+                                                        : 'white',
+                                                borderColor:
+                                                    mode == 'dark'
+                                                        ? 'black'
+                                                        : 'white',
                                             }}
                                         >
                                             bids
@@ -154,10 +168,15 @@ export const Header = ({
                                         onClick={onSignIn}
                                         variant="mobileMenu"
                                         sx={{
-                                            color: mode == 'dark' ? 'black' : 'white',
-                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                            color:
+                                                mode == 'dark'
+                                                    ? 'black'
+                                                    : 'white',
+                                            borderColor:
+                                                mode == 'dark'
+                                                    ? 'black'
+                                                    : 'white',
                                         }}
-
                                     >
                                         connect NEAR
                                     </Button>
@@ -168,10 +187,11 @@ export const Header = ({
                                     target="_blank"
                                     variant="mobileMenu"
                                     sx={{
-                                        color: mode == 'dark' ? 'black' : 'white',
-                                        borderColor: mode == 'dark' ? 'black' : 'white',
+                                        color:
+                                            mode == 'dark' ? 'black' : 'white',
+                                        borderColor:
+                                            mode == 'dark' ? 'black' : 'white',
                                     }}
-
                                 >
                                     twitter ↗
                                 </Button>
@@ -180,8 +200,14 @@ export const Header = ({
                                         onClick={onSignOut}
                                         variant="mobileMenu"
                                         sx={{
-                                            color: mode == 'dark' ? 'black' : 'white',
-                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                            color:
+                                                mode == 'dark'
+                                                    ? 'black'
+                                                    : 'white',
+                                            borderColor:
+                                                mode == 'dark'
+                                                    ? 'black'
+                                                    : 'white',
                                         }}
                                     >
                                         disconnect
@@ -217,7 +243,7 @@ export const Header = ({
                             display: 'inline-block',
                         }}
                     >
-                        {titleArray[1] && (titleArray[0] + '/')}
+                        {titleArray[1] && titleArray[0] + '/'}
                     </Text>
                     <Text
                         variant="title"
