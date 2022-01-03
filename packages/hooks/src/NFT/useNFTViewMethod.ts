@@ -42,18 +42,22 @@ const fetchNFTView = async (
  * @param {string} contractAddress - contract adress
  * @param {string} methodName - the view method to execute
  * @param {object} params - method parameters
+ * @param {object} updateStatus
  * @returns {useNFTViewMethodType} { error, loading, data }
  */
 
 export function useNFTViewMethod(
     contractAddress: string,
     methodName: string,
-    params?: object
+    params?: object,
+    updateStatus?: () => void
 ): useNFTViewMethodType {
     const { data, error } = useSWR(
         [contractAddress, methodName, JSON.stringify(params || {})],
         fetchNFTView
     )
+
+    updateStatus && updateStatus(error, data)
 
     return {
         error: error,
