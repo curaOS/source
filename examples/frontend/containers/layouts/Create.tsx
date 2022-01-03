@@ -36,7 +36,6 @@ const CreateLayout = ({
                             justifyContent: 'center',
                             mb: 36,
                             width: ['100%', '100%', '70%', '70%'],
-                            height: ['100%', '100%', '70%', '70%'],
                             marginLeft: 'auto',
                             marginRight:['auto', 'auto', 'auto', '10%']
                         }}
