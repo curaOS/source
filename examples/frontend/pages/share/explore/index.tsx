@@ -31,7 +31,7 @@ const Explore = () => {
     )
 
     // hook that contains all the logic of explore page
-    const { items, nextPage } = useNFTExplore(contractAdress, NFT_PER_PAGE)
+    const { items, nextPage, notLogged } = useNFTExplore(contractAdress, NFT_PER_PAGE)
 
     function loadMore() {
         try {
@@ -47,7 +47,7 @@ const Explore = () => {
             project={project}
             items={items}
             loadMore={loadMore}
-            totalSupply={totalSupply}
+            totalSupply={notLogged ? 0 : totalSupply}
             baseUrl={`/${project}/explore/`}
         />
     )
@@ -59,6 +59,7 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
     const [currentPage, setCurrentPage] = useState(0)
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [notLogged, setNotLogged] = useState(true)
 
     const from_index = Math.floor(limitPerPage * currentPage)
 
@@ -78,13 +79,19 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
 
     // Excute function if contract change or currentPage change
     useEffect(() => {
+        let signedAddress = localStorage.getItem('contractAddress');
+
         // make sure the user is logged in and the contract is the right contract
         if (
             contract?.account?.accountId &&
-            contract.contractId == contractAdress
+            contract.contractId == contractAdress &&
+            contract.contractId == signedAddress
         ) {
+            setNotLogged(false)
             setIsLoading(true)
             getData()
+        } else {
+            setNotLogged(true)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contract, currentPage])
@@ -93,5 +100,6 @@ function useNFTExplore(contractAdress: string, limitPerPage = 4) {
         items: data,
         loading: isLoading,
         nextPage: () => setCurrentPage(currentPage + 1),
+        notLogged: notLogged,
     }
 }
