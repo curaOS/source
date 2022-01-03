@@ -21,7 +21,7 @@ const CreateLayout = ({
                 <Box
                     sx={{
                         display: 'inline-block',
-                        width: ['100%', '100%', '100%', '50%'],
+                        width: ['100%', '100%', '70%', '50%'],
                         maxWidth: '90vh',
                         mr: [0, 0, 0, 4],
                         mb: [4, 4, 0, 0],
@@ -35,7 +35,8 @@ const CreateLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            width: ['100%', '100%', '70%', '70%'],
+                            width: '100%',
+                            height: '100%',
                             marginLeft: 'auto',
                             marginRight:['auto', 'auto', 'auto', '10%']
                         }}
