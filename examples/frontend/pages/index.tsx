@@ -179,7 +179,7 @@ const Index = () => {
                                     position: `absolute`,
                                     left: `50%`,
                                     top: `48%`,
-                                    width: [`100%`, `70%`, `auto`],
+                                    width: [`80%`, `60%`, `auto`],
                                 }}
                             >
                                 <ProjectCard
