@@ -8,6 +8,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useNearHooksContainer } from '@cura/hooks'
 import { mapPathToProject } from 'utils/path-to-project'
+import Link from 'next/link'
+
+import Header from '../containers/Header'
 
 const slideDetails = [
     {
@@ -50,7 +53,7 @@ const slideDetails = [
 const slideVariants = {
     enter: (direction: number) => {
         return {
-            y: `-50%`,
+            y: `-60%`,
             x: direction > 0 ? 1000 : -1000,
             opacity: 0,
         }
@@ -58,13 +61,13 @@ const slideVariants = {
     center: {
         zIndex: 1,
         x: `-50%`,
-        y: `-50%`,
+        y: `-60%`,
         opacity: 1,
     },
     exit: (direction: number) => {
         return {
             zIndex: 0,
-            y: `-50%`,
+            y: `-60%`,
             x: direction < 0 ? 1000 : -1000,
             opacity: 0,
         }
@@ -123,6 +126,12 @@ const Index = () => {
                 position: `relative`,
             }}
         >
+            <Header
+                isInitial={true}
+                nextLinkWrapper={(href, children) => (
+                    <Link href={href}>{children}</Link>
+                )}
+            />
             <motion.div
                 sx={{
                     transform: `translate3d(0, 0, 0) scale(1, 1)`,
@@ -162,7 +171,7 @@ const Index = () => {
                                 position: `absolute`,
                                 left: `50%`,
                                 top: `48%`,
-                                width: [`100%`, `100%`, `auto`],
+                                width: [`100%`, `70%`, `auto`],
                             }}
                         >
                             <ProjectCard

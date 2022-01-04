@@ -70,7 +70,7 @@ export const Header = ({
                     sx={{
                         flex: ['unset', 'unset', 'unset', 1],
                         textAlign: 'left',
-                        borderBottom: [1, 0],
+                        borderBottom: [(isInitial ? 0 : 1), 0],
                         display: 'flex',
                         justifyContent: 'space-between',
                     }}
