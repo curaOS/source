@@ -13,7 +13,6 @@ import {
 } from 'theme-ui'
 
 export const Header = ({
-    isInitial,
     base,
     accountId,
     onSignIn,
@@ -22,11 +21,12 @@ export const Header = ({
     setAlertMessage,
     title,
     logo,
+    twitter = 'https://twitter.com/CuraOnNear',
     nextLinkWrapper,
+    isInitial,
     mode,
     setMode,
 }: {
-    isInitial: boolean
     base: string
     accountId?: string
     onSignIn: () => void
@@ -35,7 +35,9 @@ export const Header = ({
     setAlertMessage: () => void
     title: string
     logo: string
+    twitter: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
+    isInitial: boolean
     mode: string
     setMode: () => void
 }) => {
@@ -93,7 +95,11 @@ export const Header = ({
                             sx={{
                                 position: 'relative',
                                 zIndex: 11,
-                                borderColor: isMenuOpen ? mode == 'dark' ? 'black' :  'white' : 'initial',
+                                borderColor: isMenuOpen
+                                    ? mode == 'dark'
+                                        ? 'black'
+                                        : 'white'
+                                    : 'initial',
                                 transitionDuration: '0.3s',
                                 transform: isMenuOpen
                                     ? 'rotate(135deg)'
@@ -111,7 +117,11 @@ export const Header = ({
                                 fill="none"
                                 sx={{
                                     fill: isMenuOpen ? 'white' : 'text',
-                                    stroke: isMenuOpen ? mode == 'dark' ? 'black' : 'white' : 'inherit',
+                                    stroke: isMenuOpen
+                                        ? mode == 'dark'
+                                            ? 'black'
+                                            : 'white'
+                                        : 'inherit',
                                     height: '100%',
                                 }}
                                 xmlns="http://www.w3.org/2000/svg"
@@ -138,64 +148,83 @@ export const Header = ({
                                     flexDirection: 'column',
                                 }}
                             >
-                                {accountId && !isInitial ? (
+                                {accountId &&
+                                    !isInitial &&
                                     nextLinkWrapper(
                                         `/${base}/bids`,
-                                        <Button 
+                                        <Button
                                             variant="mobileMenu"
                                             sx={{
-                                                color: mode == 'dark' ? 'black' : 'white',
-                                                borderColor: mode == 'dark' ? 'black' : 'white',
+                                                color:
+                                                    mode == 'dark'
+                                                        ? 'black'
+                                                        : 'white',
+                                                borderColor:
+                                                    mode == 'dark'
+                                                        ? 'black'
+                                                        : 'white',
                                             }}
                                         >
                                             bids
                                         </Button>
-                                    )
-                                ) : !isInitial ? (
+                                    )}
+                                {!isInitial && (
                                     <Button
                                         onClick={onSignIn}
                                         variant="mobileMenu"
                                         sx={{
-                                            color: mode == 'dark' ? 'black' : 'white',
-                                            borderColor: mode == 'dark' ? 'black' : 'white',
+                                            color:
+                                                mode == 'dark'
+                                                    ? 'black'
+                                                    : 'white',
+                                            borderColor:
+                                                mode == 'dark'
+                                                    ? 'black'
+                                                    : 'white',
                                         }}
-
                                     >
                                         connect NEAR
                                     </Button>
-                                ) : ''}
+                                )}
                                 <Button
                                     as="a"
-                                    href="https://twitter.com/CuraNear"
+                                    href={twitter}
                                     target="_blank"
                                     variant="mobileMenu"
                                     sx={{
-                                        color: mode == 'dark' ? 'black' : 'white',
-                                        borderColor: mode == 'dark' ? 'black' : 'white',
+                                        color:
+                                            mode == 'dark' ? 'black' : 'white',
+                                        borderColor:
+                                            mode == 'dark' ? 'black' : 'white',
                                     }}
-
                                 >
                                     twitter ↗
                                 </Button>
-                                {accountId && !isInitial (
-                                    <Button
-                                        onClick={onSignOut}
-                                        variant="mobileMenu"
-                                        sx={{
-                                            color: mode == 'dark' ? 'black' : 'white',
-                                            borderColor: mode == 'dark' ? 'black' : 'white',
-                                        }}
-                                    >
-                                        disconnect
-                                    </Button>
-                                )}
+                                {accountId &&
+                                    !isInitial(
+                                        <Button
+                                            onClick={onSignOut}
+                                            variant="mobileMenu"
+                                            sx={{
+                                                color:
+                                                    mode == 'dark'
+                                                        ? 'black'
+                                                        : 'white',
+                                                borderColor:
+                                                    mode == 'dark'
+                                                        ? 'black'
+                                                        : 'white',
+                                            }}
+                                        >
+                                            disconnect
+                                        </Button>
+                                    )}
                             </Box>
                         )}
                     </Box>
                 </Box>
-                {!isInitial &&
-                    <a
-                        href="#nothing"
+                {!isInitial && (
+                    <Text
                         sx={{
                             p: 3,
                             flex: 1,
@@ -220,7 +249,7 @@ export const Header = ({
                                 display: 'inline-block',
                             }}
                         >
-                            {titleArray[1] && (titleArray[0] + '/')}
+                            {titleArray[1] && titleArray[0] + '/'}
                         </Text>
                         <Text
                             variant="title"
@@ -239,9 +268,9 @@ export const Header = ({
                         >
                             /PROJECTS
                         </Text>
-                    </a>
-                }
-                {!isInitial && 
+                    </Text>
+                )}
+                {!isInitial && (
                     <Box
                         sx={{
                             flex: 1,
@@ -253,7 +282,9 @@ export const Header = ({
                             <>
                                 {nextLinkWrapper(
                                     `/${base}/bids`,
-                                    <Button variant="outline">{accountId}</Button>
+                                    <Button variant="outline">
+                                        {accountId}
+                                    </Button>
                                 )}
                                 <IconButton
                                     onClick={onSignOut}
@@ -271,9 +302,15 @@ export const Header = ({
                                         fill="none"
                                         xmlns="http://www.w3.org/2000/svg"
                                     >
-                                        <path d="M2 1H13V15H2" strokeWidth="1.3" />
+                                        <path
+                                            d="M2 1H13V15H2"
+                                            strokeWidth="1.3"
+                                        />
                                         <path d="M0 8H8" strokeWidth="1.3" />
-                                        <path d="M4 4L8 8L4 12" strokeWidth="1.3" />
+                                        <path
+                                            d="M4 4L8 8L4 12"
+                                            strokeWidth="1.3"
+                                        />
                                     </svg>
                                 </IconButton>
                             </>
@@ -283,7 +320,7 @@ export const Header = ({
                             </Button>
                         )}
                     </Box>
-                }
+                )}
                 <Box
                     sx={{
                         position: 'fixed',
@@ -306,7 +343,7 @@ export const Header = ({
                             display: ['none', 'flex'],
                         }}
                         as="a"
-                        href="https://twitter.com/CuraNear"
+                        href={twitter}
                         target="_blank"
                     >
                         <svg
