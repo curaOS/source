@@ -53,7 +53,7 @@ const slideDetails = [
 const slideVariants = {
     enter: (direction: number) => {
         return {
-            y: `-60%`,
+            y: `-65%`,
             x: direction > 0 ? 1000 : -1000,
             opacity: 0,
         }
@@ -61,13 +61,13 @@ const slideVariants = {
     center: {
         zIndex: 1,
         x: `-50%`,
-        y: `-60%`,
+        y: `-65%`,
         opacity: 1,
     },
     exit: (direction: number) => {
         return {
             zIndex: 0,
-            y: `-60%`,
+            y: `-65%`,
             x: direction < 0 ? 1000 : -1000,
             opacity: 0,
         }
@@ -137,6 +137,7 @@ const Index = () => {
                     transform: `translate3d(0, 0, 0) scale(1, 1)`,
                     height: `100%`,
                     width: `100%`,
+                    position:'absolute'
                 }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
