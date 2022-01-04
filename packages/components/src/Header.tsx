@@ -68,7 +68,7 @@ export const Header = ({
                 <Box
                     p={3}
                     sx={{
-                        flex: 1,
+                        flex: ['unset', 'unset', 'unset', 1],
                         textAlign: 'left',
                         borderBottom: [1, 0],
                         display: 'flex',
@@ -218,7 +218,7 @@ export const Header = ({
                                         >
                                             disconnect
                                         </Button>
-                                    )}
+                                )}
                             </Box>
                         )}
                     </Box>

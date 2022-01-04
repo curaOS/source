@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ProjectCard } from '@cura/components'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useNearHooksContainer } from '@cura/hooks'
+import { mapPathToProject } from 'utils/path-to-project'
 
 const slideDetails = [
     {
@@ -23,7 +25,7 @@ const slideDetails = [
         path: `/ml/1w`,
     },
     {
-        title: `ML/APRTS`,
+        title: `CC/APRTS`,
         image: `/aprts.png`,
         description: `Apparations example from Eth.`,
         tags: [`js`, `sample`],
@@ -75,6 +77,8 @@ const Index = () => {
     const [pauseSlider, setPauseSlider] = useState(0)
     const [loading, setLoading] = useState(true)
 
+    const { signOut } = useNearHooksContainer()
+
 
     const slidify = (newDirection: number) => {
         if (pauseSlider) return
@@ -93,6 +97,23 @@ const Index = () => {
         setPage([Math.floor(Math.random() * slideDetails.length), 0])
         setLoading(false)
     }, [])
+
+    const handleClick = async (path, buttonType) =>{
+        if(localStorage.getItem('contractAddress') != mapPathToProject(path)){
+            localStorage.removeItem('contractAddress')
+            await signOut();
+        }
+
+        if(buttonType == 'create') {
+            router.push(
+                slideDetails[page].path + `/create`
+            )
+        } else {
+            router.push(
+                slideDetails[page].path + `/explore`
+            )
+        }
+    }
 
     return (
         <div
@@ -150,14 +171,10 @@ const Index = () => {
                                 description={slideDetails[page].description}
                                 tags={slideDetails[page].tags}
                                 onCreateClick={() =>
-                                    router.push(
-                                        slideDetails[page].path + `/create`
-                                    )
+                                    handleClick(slideDetails[page].path, 'create')
                                 }
                                 onExploreClick={() =>
-                                    router.push(
-                                        slideDetails[page].path + `/explore`
-                                    )
+                                    handleClick(slideDetails[page].path, 'explore')
                                 }
                             />
                         </motion.div>
