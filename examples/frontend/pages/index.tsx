@@ -121,7 +121,7 @@ const Index = () => {
     return (
         <Box
             sx={{
-                overflow: ['auto', `hidden`],
+                overflow: 'auto',
                 height: `100vh`,
                 position: `relative`,
             }}
