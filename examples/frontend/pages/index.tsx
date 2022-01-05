@@ -121,7 +121,8 @@ const Index = () => {
     return (
         <Box
             sx={{
-                overflow: 'auto',
+                overflowY: 'auto',
+                overflowX: 'hidden',
                 height: `100vh`,
                 position: `relative`,
             }}
@@ -180,6 +181,7 @@ const Index = () => {
                                     left: `50%`,
                                     top: `48%`,
                                     width: [`80%`, `60%`, `auto`],
+                                    maxWidth: '80vh'
                                 }}
                             >
                                 <ProjectCard
