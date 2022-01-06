@@ -362,8 +362,8 @@ export const Header = ({
                                 display: ['none', 'flex'],
                                 transitionDuration: '0.5s',
                                 transform: isButtonGrpOpen
-                                    ? 'translate(0px,162px)'
-                                    : 'translate(0,0)',
+                                    ? 'translate(0px,162px) rotate(60deg)'
+                                    : 'translate(0,0) rotate(0deg)',
                                 opacity: !isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
@@ -388,8 +388,8 @@ export const Header = ({
                                 display: ['none', 'flex'],
                                 transitionDuration: '0.5s',
                                 transform: isButtonGrpOpen
-                                    ? 'translate(0px,108px)'
-                                    : 'translate(0,0)',
+                                    ? 'translate(0px,108px) rotate(40deg)'
+                                    : 'translate(0,0) rotate(0deg)',
                                 opacity: !isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
@@ -415,8 +415,8 @@ export const Header = ({
                                 display: ['none', 'flex'],
                                 transitionDuration: '0.5s',
                                 transform: isButtonGrpOpen
-                                    ? 'translate(0px,54px)'
-                                    : 'translate(0,0)',
+                                    ? 'translate(0px,54px) rotate(50deg)'
+                                    : 'translate(0,0) rotate(0deg)',
                                 opacity: !isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
@@ -442,8 +442,8 @@ export const Header = ({
                                     ? 'white'
                                     : 'black',
                             transitionDuration: '0.3s',
-                            transform: isButtonGrpOpen
-                                ? 'rotate(135deg)'
+                            transform: !isButtonGrpOpen
+                                ? 'rotate(-135deg)'
                                 : 'rotate(0deg)',
                             ':hover': {
                                 bg: 'transparent',
@@ -457,12 +457,7 @@ export const Header = ({
                             viewBox="0 0 25 25"
                             fill="none"
                             sx={{
-                                fill: isMenuOpen ? 'white' : 'text',
-                                stroke: isMenuOpen
-                                    ? mode == 'dark'
-                                        ? 'black'
-                                        : 'white'
-                                    : 'inherit',
+                                fill: 'text',
                                 height: '100%',
                             }}
                             xmlns="http://www.w3.org/2000/svg"
