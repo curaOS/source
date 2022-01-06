@@ -367,7 +367,7 @@ export const Header = ({
                                 opacity: !isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
-                            href="https://twitter.com/CuraNear"
+                            href={discord}
                             target="_blank"
                         >
                             <svg 
@@ -393,7 +393,7 @@ export const Header = ({
                                 opacity: !isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
-                            href="https://twitter.com/CuraNear"
+                            href={telegram}
                             target="_blank"
                         >
                             <svg 
@@ -420,7 +420,7 @@ export const Header = ({
                                 opacity: !isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
-                            href="https://twitter.com/CuraNear"
+                            href={twitter}
                             target="_blank"
                         >
                             <svg
