@@ -24,6 +24,9 @@ export const Header = ({
     nextLinkWrapper,
     mode,
     setMode,
+    twitter = 'https://twitter.com/curaonnear?s=21',
+    discord = 'https://discord.gg/r649VD5TwD',
+    telegram = 'https://t.me/creative_coding_guild',
 }: {
     base: string
     accountId?: string
@@ -35,7 +38,10 @@ export const Header = ({
     logo: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
     mode: string
-    setMode: () => void
+    setMode: () => void,
+    twitter?: string,
+    discord?: string,
+    telegram?: string,
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const titleArray = title.split('/')
@@ -183,7 +189,7 @@ export const Header = ({
                                 )}
                                 <Button
                                     as="a"
-                                    href="https://twitter.com/CuraNear"
+                                    href={twitter}
                                     target="_blank"
                                     variant="mobileMenu"
                                     sx={{
@@ -194,6 +200,34 @@ export const Header = ({
                                     }}
                                 >
                                     twitter ↗
+                                </Button>
+                                <Button
+                                    as="a"
+                                    href={discord}
+                                    target="_blank"
+                                    variant="mobileMenu"
+                                    sx={{
+                                        color:
+                                            mode == 'dark' ? 'black' : 'white',
+                                        borderColor:
+                                            mode == 'dark' ? 'black' : 'white',
+                                    }}
+                                >
+                                    discord
+                                </Button>
+                                <Button
+                                    as="a"
+                                    href={telegram}
+                                    target="_blank"
+                                    variant="mobileMenu"
+                                    sx={{
+                                        color:
+                                            mode == 'dark' ? 'black' : 'white',
+                                        borderColor:
+                                            mode == 'dark' ? 'black' : 'white',
+                                    }}
+                                >
+                                    telegram
                                 </Button>
                                 {accountId && (
                                     <Button
