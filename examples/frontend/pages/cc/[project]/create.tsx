@@ -43,7 +43,11 @@ const MLProjectCreate = () => {
 
             setSeed(newSeed)
 
-            const nftMetadata = await contract.nft_metadata()
+            const nftMetadata = await contract.nft_metadata({
+                args: {},
+                gas: CONTRACT_CLAIM_GAS,
+            })
+
 
             const arweaveHTML = combineHTML(
                 `<script>
