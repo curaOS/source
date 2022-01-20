@@ -48,7 +48,6 @@ const MLProjectCreate = () => {
                 gas: CONTRACT_CLAIM_GAS,
             })
 
-
             const arweaveHTML = combineHTML(
                 `<script>
             let tokenData = {
@@ -90,6 +89,10 @@ const MLProjectCreate = () => {
                                     seed: seed,
                                 })
                             ).toString(`base64`),
+                        },
+                        token_royalty: {
+                            split_between: {},
+                            percentage: 0,
                         },
                     },
                     callbackUrl: `${window.location.origin}/${project}`,
