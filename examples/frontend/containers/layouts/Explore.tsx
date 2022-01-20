@@ -66,7 +66,7 @@ const ExploreLayout = ({
                                         }}
                                     ></div>
                                     <MediaObject
-                                        mediaURI={`https://arweave.net/${item.metadata.media}`}
+                                        mediaURI={`https://arweave.net/${item.media}`}
                                         width={'100%'}
                                         height={'100%'}
                                         type={type}

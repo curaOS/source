@@ -12,9 +12,23 @@ import ExploreLayout from '../../../../containers/layouts/Explore'
 import { mapPathToProject } from 'utils/path-to-project'
 import { alertMessageState } from '../../../../state/recoil'
 
+import { useQuery, gql } from '@apollo/client'
+
 const CONTRACT_RANDOM_GAS = utils.format.parseNearAmount(`0.00000000020`) // 200 Tgas
 
 const NFT_PER_PAGE = 4
+
+
+const GET_NFTS = gql`
+    query GetNfts {
+        nfts {
+            id
+            title
+            description
+            media
+        }
+    }
+`
 
 const Explore = () => {
     const router = useRouter()
@@ -31,10 +45,10 @@ const Explore = () => {
     )
 
     // hook that contains all the logic of explore page
-    const { items, nextPage } = useNFTExplore(
-        contractAdress,
-        NFT_PER_PAGE
-    )
+    // const { items, nextPage } = useNFTExplore(
+    //     contractAdress,
+    //     NFT_PER_PAGE
+    // )
 
     function loadMore() {
         try {
@@ -45,10 +59,15 @@ const Explore = () => {
         }
     }
 
+
+    const { loading, error, data } = useQuery(GET_NFTS)
+
+    console.log(data, error, loading)
+
     return (
         <ExploreLayout
             project={project}
-            items={items}
+            items={(data && data.nfts) || []}
             loadMore={loadMore}
             totalSupply={totalSupply}
             baseUrl={`/${project}/explore/`}

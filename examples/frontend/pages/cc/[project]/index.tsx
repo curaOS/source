@@ -8,7 +8,20 @@ import { useNFTMethod, useNearHooksContainer } from '@cura/hooks'
 import { mapPathToProject } from 'utils/path-to-project'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
+import { useQuery, gql } from '@apollo/client'
+
 const CONTRACT_VIEW_GAS = utils.format.parseNearAmount(`0.00000000010`) // 100 Tgas
+
+const GET_NFTS = gql`
+    query GetNfts {
+        nfts {
+            id
+            title
+            description
+            media
+        }
+    }
+`
 
 const CCProject = () => {
     const router = useRouter()
@@ -19,22 +32,26 @@ const CCProject = () => {
 
     const project = `cc/${router.query.project}`
 
-    const { data: media } = useNFTMethod(
-        `${mapPathToProject(router.asPath)}`,
-        `nft_tokens_for_owner`,
-        {
-            account_id: accountId,
-        },
-        CONTRACT_VIEW_GAS,
-        updateStatus
-    )
+    // const { data: media } = useNFTMethod(
+    //     `${mapPathToProject(router.asPath)}`,
+    //     `nft_tokens_for_owner`,
+    //     {
+    //         account_id: accountId,
+    //     },
+    //     CONTRACT_VIEW_GAS,
+    //     updateStatus
+    // )
+
+    const { loading, error, data } = useQuery(GET_NFTS)
+
+    console.log(data, error, loading)
 
     return (
         <ExploreLayout
             project={project}
-            items={media || []}
+            items={(data && data.nfts) || []}
             loadMore={() => null}
-            totalSupply={media?.length || 0}
+            totalSupply={data?.length || 0}
             baseUrl={`/${project}/`}
         />
     )
