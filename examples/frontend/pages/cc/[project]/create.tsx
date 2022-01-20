@@ -81,7 +81,7 @@ const MLProjectCreate = () => {
                 })
             )
             .then(async function (response) {
-                await contract.claim_media({
+                await contract.mint({
                     args: {
                         tokenMetadata: {
                             media: response.data.transaction.id,
