@@ -29,7 +29,7 @@ export function getContractMethods(contractName: string) {
                     'remove_bid',
                     'accept_bid',
                     'generate',
-                    'claim_media',
+                    'mint',
                     'burn_design',
                     'view_media',
                     'nft_tokens',
