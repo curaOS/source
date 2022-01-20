@@ -36,7 +36,7 @@ export function getContractMethods(contractName: string) {
                     'nft_tokens_for_owner',
                     'nft_metadata',
                 ],
-                viewMethods: ['nft_total_supply', , 'nft_token'],
+                viewMethods: ['nft_total_supply', 'nft_token'],
             }
         case 'market':
             return {
