@@ -41,7 +41,7 @@ Just make sure to write bug reports with details, background, and sample code.
 
 We use [semantic-release](https://github.com/semantic-release/semantic-release) to automatically publish packages from `master` to npm, which is relying on the **commit message format** below to determine the next release based on it.
 
--   When merging a PR, make sure that it has at least one commit with the this commit format below. If it doesn't, squash the PR and use this format as a title then merge.
+-   When merging a PR, make sure that it has at least one commit with this commit format below. If it doesn't, squash the PR and use this format as a title then merge.
 
 ## Commit Message Format
 
