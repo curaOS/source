@@ -20,11 +20,12 @@ const CreateLayout = ({
             >
                 <Box
                     sx={{
-                        display: 'inline-block',
-                        width: ['100%', '100%', '100%', '50%'],
-                        maxWidth: '90vh',
-                        mr: [0, 0, 0, 4],
-                        mb: [4, 4, 4, 0],
+                        display: ['block', 'block', 'block','inline-block'],
+                        width: ['100%', '70%', '70%', '50%'],
+                        mr: [0, 'auto', 'auto', 4],
+                        ml: [0, 'auto', 'auto', 0],
+                        mb: [4, 4, 0, 0],
+                        textAlign:'center',
                     }}
                 >
                     <AspectRatio
@@ -35,10 +36,10 @@ const CreateLayout = ({
                             display: 'flex',
                             justifyContent: 'center',
                             mb: 36,
-                            width: ['100%', '70%'],
-                            height: ['100%', '70%'],
+                            width: ['100%', '100%', '100%', '70%'],
+                            maxHeight: ['100%', '100%', '100%', '70%'],
                             marginLeft: 'auto',
-                            marginRight:['auto', '10%']
+                            marginRight:['auto', 'auto', 'auto', '10%']
                         }}
                     >
                         {frameComponent}
@@ -46,12 +47,11 @@ const CreateLayout = ({
                 </Box>
                 <Box
                     sx={{
-                        ml: 3,
                         mt: 0,
-                        display: 'inline-block',
+                        display: ['block', 'block', 'block','inline-block'],
                         verticalAlign: 'top',
-                        float: 'right',
-                        width: ['100%', '100%', '100%', '40%'],
+                        margin:'auto',
+                        width: ['100%', '70%', '70%', '40%'],
                     }}
                 >
                     <Box
@@ -60,7 +60,7 @@ const CreateLayout = ({
                             flexDirection: ['row', 'row', 'row', 'column'],
                             alignItems: 'start',
                             rowGap: 18,
-                            mb: [30, 30, 40, 30],
+                            mb: [30, 30, 30, 30],
                         }}
                     >
                         <Button
