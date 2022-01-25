@@ -9,19 +9,21 @@ import { useColorMode } from 'theme-ui'
 export default function HeaderContainer({
     base,
     accountId,
+    isInitial,
     onSignIn,
     onSignOut,
     title,
     logo,
     nextLinkWrapper,
 }: {
-    base: string
+    base?: string
     accountId?: string
-    onSignIn: () => void
-    onSignOut: () => void
-    title: string
-    logo: string
-    nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
+    isInitial?: boolean
+    onSignIn?: () => void
+    onSignOut?: () => void
+    title?: string
+    logo?: string
+    nextLinkWrapper?: (link: string, children: JSX.Element) => JSX.Element
 }) {
     const alertMessage = useRecoilValue(alertMessageState)
     const setAlertMessage = useSetRecoilState(alertMessageState)
@@ -29,6 +31,7 @@ export default function HeaderContainer({
     const [mode, setMode] = useColorMode()
     return (
         <Header
+            isInitial={isInitial ? isInitial : false}
             base={base}
             accountId={accountId}
             onSignIn={onSignIn}
