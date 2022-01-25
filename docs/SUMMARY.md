@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Introduction](../README.md)
+* [Contributing Guidelines](CONTRIBUTING.md)
 
 ## Frontend <a href="front-end" id="front-end"></a>
 
