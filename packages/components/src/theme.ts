@@ -125,9 +125,9 @@ const elements = {
             borderLeft: 0,
             flex: 1,
             py: 12,
-            paddingTop:'0.75rem',
-            paddingBottom:'0.5rem',
-            lineHeight:'25px',
+            paddingTop: '0.75rem',
+            paddingBottom: '0.5rem',
+            lineHeight: '25px',
             transitionDuration: `0.2s`,
             ':last-child': {
                 borderRight: 0,
@@ -146,7 +146,7 @@ const elements = {
             borderRadius: 36,
             px: 3,
             py: 1,
-            paddingTop:'0.5rem',
+            paddingTop: '0.5rem',
             transitionDuration: `0.2s`,
             ':hover': {
                 opacity: 0.9,
@@ -161,7 +161,7 @@ const elements = {
             borderRadius: 36,
             px: 3,
             py: 1,
-            paddingTop:'0.5rem',
+            paddingTop: '0.5rem',
             transitionDuration: `0.2s`,
             ':hover': {
                 borderColor: `primary`,
@@ -175,7 +175,7 @@ const elements = {
             color: `text`,
             p: 1,
             pl: 0,
-            paddingTop:'0.75rem',
+            paddingTop: '0.75rem',
             transitionDuration: `0.2s`,
             ':hover': {
                 textDecoration: `underline`,
@@ -195,12 +195,12 @@ const elements = {
             variant: `text.buttons.1`,
             cursor: `pointer`,
             border: 1,
-            width: [`2.5rem`,`2.3rem`],
-            height: [`2.5rem`,`2.3rem`],
-            borderBottomLeftRadius: [`40px`,`45px`],
-            borderBottomRightRadius: [`40px`,`45px`],
-            borderTopRightRadius: [`40px`,`45px`],
-            borderTopLeftRadius: [`40px`,`45px`],
+            width: [`2.5rem`, `2.3rem`],
+            height: [`2.5rem`, `2.3rem`],
+            borderBottomLeftRadius: [`40px`, `45px`],
+            borderBottomRightRadius: [`40px`, `45px`],
+            borderTopRightRadius: [`40px`, `45px`],
+            borderTopLeftRadius: [`40px`, `45px`],
             transitionDuration: `0.2s`,
             stroke: `text`,
         },
@@ -213,9 +213,9 @@ const elements = {
             borderRadius: `full`,
             px: 2,
             py: 1,
-            lineHeight:0,
-            paddingTop:`0.75rem`,
-            paddingBottom:`0.6rem`
+            lineHeight: 0,
+            paddingTop: `0.75rem`,
+            paddingBottom: `0.6rem`,
         },
     },
     images: {
@@ -338,4 +338,8 @@ export const theme = {
     ...elements,
     ...layout,
     ...misc,
+
+    config: {
+        useColorSchemeMediaQuery: false, // fix react hydration error
+    },
 }

@@ -115,7 +115,7 @@ export default function Layout({ children, project = 'share' }) {
                             >
                                 <Spinner />
                             </Box>
-                        ) : accountId ? (
+                        ) : (accountId && currentProject == signedProject) ? (
                             children
                         ) : null}
                     </Container>
