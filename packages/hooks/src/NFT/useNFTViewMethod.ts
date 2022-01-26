@@ -15,20 +15,31 @@ const fetchNFTView = async (
     methodName: string,
     serializedParams: string
 ) => {
-    const near = await connect({
-        networkId,
-        nodeUrl,
-        deps: {
-            keyStore: undefined,
-        },
-    })
-    const account = await near.account(null)
+    let contract
 
-    const contract = await new Contract(
-        account,
-        contractAddress,
-        getContractMethods('nft')
-    )
+    if (window.near_contracts && window.near_contracts[contractAddress]) {
+        contract = window.near_contracts[contractAddress]
+        console.log('using cached contract')
+    } else {
+        console.log('setting new contract')
+        const near = await connect({
+            networkId,
+            nodeUrl,
+            deps: {
+                keyStore: undefined,
+            },
+        })
+        const account = await near.account(null)
+        contract = await new Contract(
+            account,
+            contractAddress,
+            getContractMethods('nft')
+        )
+        if (!window.near_contracts) {
+            window.near_contracts = {}
+        }
+        window.near_contracts[contractAddress] = contract
+    }
 
     const params = JSON.parse(serializedParams)
     return await contract[methodName]({ ...params }).then((res) => {
@@ -42,18 +53,22 @@ const fetchNFTView = async (
  * @param {string} contractAddress - contract adress
  * @param {string} methodName - the view method to execute
  * @param {object} params - method parameters
+ * @param {object} updateStatus
  * @returns {useNFTViewMethodType} { error, loading, data }
  */
 
 export function useNFTViewMethod(
     contractAddress: string,
     methodName: string,
-    params?: object
+    params?: object,
+    updateStatus?: () => void
 ): useNFTViewMethodType {
     const { data, error } = useSWR(
         [contractAddress, methodName, JSON.stringify(params || {})],
         fetchNFTView
     )
+
+    updateStatus && updateStatus(error, data)
 
     return {
         error: error,

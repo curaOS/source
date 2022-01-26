@@ -31,11 +31,15 @@ export function getContractMethods(contractName: string) {
                     'generate',
                     'claim_media',
                     'burn_design',
-                    'view_media',
-                    'nft_tokens',
-                    'nft_tokens_for_owner',
                 ],
-                viewMethods: ['nft_total_supply', 'nft_metadata', 'nft_token'],
+                viewMethods: [
+                    'nft_total_supply',
+                    'nft_metadata',
+                    'nft_token',
+                    'nft_tokens_for_owner',
+                    'nft_tokens',
+                    'view_media',
+                ],
             }
         case 'market':
             return {
