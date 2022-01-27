@@ -14,7 +14,7 @@ import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import {
     useNFTContract,
-    useNFTMethod,
+    useNFTViewMethod,
     useNearHooksContainer,
 } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
@@ -37,13 +37,12 @@ const ExploreToken = () => {
     const { contract } = useNFTContract(contractAdress)
     const { accountId } = useNearHooksContainer()
 
-    const { data: media } = useNFTMethod(
+    const { data: media } = useNFTViewMethod(
         contractAdress,
         `nft_token`,
         {
             token_id: router.query.id,
         },
-        undefined,
         updateStatus
     )
 

@@ -21,7 +21,9 @@ export const Header = ({
     setAlertMessage,
     title,
     logo,
+    twitter = 'https://twitter.com/CuraOnNear',
     nextLinkWrapper,
+    isInitial,
     mode,
     setMode,
     twitter = 'https://twitter.com/curaonnear?s=21',
@@ -36,7 +38,9 @@ export const Header = ({
     setAlertMessage: () => void
     title: string
     logo: string
+    twitter: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
+    isInitial: boolean
     mode: string
     setMode: () => void,
     twitter?: string,
@@ -45,14 +49,14 @@ export const Header = ({
 }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isButtonGrpOpen, setIsButtonGrpOpen] = useState(false)
-    const titleArray = title.split('/')
+    const titleArray = title ? title.split('/') : ''
 
     return (
         <Box
             sx={{
                 width: '100%',
                 bg: 'bg',
-                borderBottom: accountId ? 0 : 1,
+                borderBottom: accountId || isInitial ? 0 : 1,
             }}
         >
             <Container
@@ -73,7 +77,7 @@ export const Header = ({
                     sx={{
                         flex: ['unset', 'unset', 'unset', 1],
                         textAlign: 'left',
-                        borderBottom: [1, 0],
+                        borderBottom: [(isInitial ? 0 : 1), 0],
                         display: 'flex',
                         justifyContent: 'space-between',
                     }}
@@ -151,7 +155,8 @@ export const Header = ({
                                     flexDirection: 'column',
                                 }}
                             >
-                                {accountId ? (
+                                {accountId &&
+                                    !isInitial &&
                                     nextLinkWrapper(
                                         `/${base}/bids`,
                                         <Button
@@ -169,8 +174,8 @@ export const Header = ({
                                         >
                                             bids
                                         </Button>
-                                    )
-                                ) : (
+                                    )}
+                                {!isInitial && (
                                     <Button
                                         onClick={onSignIn}
                                         variant="mobileMenu"
@@ -252,93 +257,104 @@ export const Header = ({
                         )}
                     </Box>
                 </Box>
-                <a
-                    href="#nothing"
-                    sx={{
-                        p: 3,
-                        flex: 1,
-                        textAlign: ['left', 'center'],
-                        textDecoration: 'none',
-                        color: 'text',
-                    }}
-                >
+                {!isInitial && (
                     <Text
-                        variant="monospace"
                         sx={{
-                            display: ['block', 'none'],
-                            pb: '8px',
+                            p: 3,
+                            flex: 1,
+                            textAlign: ['left', 'center'],
+                            textDecoration: 'none',
+                            color: 'text',
                         }}
                     >
-                        {accountId ? accountId : 'blank'}
+                        <Text
+                            variant="monospace"
+                            sx={{
+                                display: ['block', 'none'],
+                                pb: '8px',
+                            }}
+                        >
+                            {accountId ? accountId : 'blank'}
+                        </Text>
+                        <Text
+                            variant="title"
+                            sx={{
+                                fontWeight: 'normal',
+                                display: 'inline-block',
+                            }}
+                        >
+                            {titleArray[1] && titleArray[0] + '/'}
+                        </Text>
+                        <Text
+                            variant="title"
+                            sx={{
+                                display: 'inline-block',
+                            }}
+                        >
+                            {titleArray[1] ? titleArray[1] : titleArray[0]}
+                        </Text>
+                        <Text
+                            variant="monospace"
+                            m={[0, 2]}
+                            sx={{
+                                display: 'inline-block',
+                            }}
+                        >
+                            /PROJECTS
+                        </Text>
                     </Text>
-                    <Text
-                        variant="title"
+                )}
+                {!isInitial && (
+                    <Box
                         sx={{
-                            fontWeight: 'normal',
-                            display: 'inline-block',
+                            flex: 1,
+                            textAlign: 'right',
+                            display: ['none', 'block'],
                         }}
                     >
-                        {titleArray[1] && titleArray[0] + '/'}
-                    </Text>
-                    <Text
-                        variant="title"
-                        sx={{
-                            display: 'inline-block',
-                        }}
-                    >
-                        {titleArray[1] ? titleArray[1] : titleArray[0]}
-                    </Text>
-                    <Text
-                        variant="monospace"
-                        m={[0, 2]}
-                        sx={{
-                            display: 'inline-block',
-                        }}
-                    >
-                        /PROJECTS
-                    </Text>
-                </a>
-                <Box
-                    sx={{
-                        flex: 1,
-                        textAlign: 'right',
-                        display: ['none', 'block'],
-                    }}
-                >
-                    {accountId ? (
-                        <>
-                            {nextLinkWrapper(
-                                `/${base}/bids`,
-                                <Button variant="outline">{accountId}</Button>
-                            )}
-                            <IconButton
-                                onClick={onSignOut}
-                                p={0}
-                                ml={2}
-                                sx={{
-                                    width: 31,
-                                    height: 31,
-                                }}
-                            >
-                                <svg
-                                    width="14"
-                                    height="16"
-                                    viewBox="0 0 14 16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
+                        {accountId ? (
+                            <>
+                                {nextLinkWrapper(
+                                    `/${base}/bids`,
+                                    <Button variant="outline">
+                                        {accountId}
+                                    </Button>
+                                )}
+                                <IconButton
+                                    onClick={onSignOut}
+                                    p={0}
+                                    ml={2}
+                                    sx={{
+                                        width: 31,
+                                        height: 31,
+                                    }}
                                 >
-                                    <path d="M2 1H13V15H2" strokeWidth="1.3" />
-                                    <path d="M0 8H8" strokeWidth="1.3" />
-                                    <path d="M4 4L8 8L4 12" strokeWidth="1.3" />
-                                </svg>
-                            </IconButton>
-                        </>
-                    ) : (
-                        <Button onClick={onSignIn} variant="primary">
-                            Connect NEAR
-                        </Button>
-                    )}
-                </Box>
+                                    <svg
+                                        width="14"
+                                        height="16"
+                                        viewBox="0 0 14 16"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M2 1H13V15H2"
+                                            strokeWidth="1.3"
+                                        />
+                                        <path d="M0 8H8" strokeWidth="1.3" />
+                                        <path
+                                            d="M4 4L8 8L4 12"
+                                            strokeWidth="1.3"
+                                        />
+                                    </svg>
+                                </IconButton>
+                            </>
+                        ) : (
+                            <Button onClick={onSignIn} variant="primary">
+                                Connect NEAR
+                            </Button>
+                        )}
+                    </Box>
+                )}
                 <Box
                     sx={{
                         position: 'fixed',
@@ -450,6 +466,9 @@ export const Header = ({
                             },
                         }}
                         onClick={() => setIsButtonGrpOpen(!isButtonGrpOpen)}
+                        as="a"
+                        href={twitter}
+                        target="_blank"
                     >
                         <svg
                             width="25"

@@ -8,7 +8,7 @@ import { Bidders, CreatorShare, MediaObject } from '@cura/components'
 import { alertMessageState, indexLoaderState } from '../../../state/recoil'
 import { useSetRecoilState } from 'recoil'
 import { mapPathToProject } from 'utils/path-to-project'
-import { useNFTContract, useNFTMethod, useMarketMethod } from '@cura/hooks'
+import { useNFTContract, useNFTViewMethod, useMarketMethod } from '@cura/hooks'
 import { useStatusUpdate } from 'utils/hooks-helpers'
 
 const CONTRACT_BURN_GAS = utils.format.parseNearAmount(`0.00000000029`) // 290 Tgas
@@ -29,14 +29,13 @@ const CCProjectID = () => {
     const project = `cc/${router.query.project}`
     const { contract } = useNFTContract(`${mapPathToProject(router.asPath)}`)
 
-    const { data: media } = useNFTMethod(
+    const { data: media } = useNFTViewMethod(
         `${mapPathToProject(router.asPath)}`,
         `nft_token`,
         {
             token_id: router.query.id,
             limit: 2,
         },
-        undefined,
         updateStatus
     )
 

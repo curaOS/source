@@ -7,6 +7,13 @@ export default {
     parameters: {
         layout: 'fullscreen',
     },
+    argTypes: {
+        isInitial: {
+            table: {
+                disable: true
+            }
+        }
+    }
 } as ComponentMeta<typeof Header>
 
 const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />
@@ -28,3 +35,11 @@ Disconnected.args = {
     logo: logo,
     nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
+
+export const Initial = Template.bind({})
+Initial.args = {
+    isInitial: true,
+    logo: logo,
+    nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
+}
+Initial.parameters = { controls : {include : ['logo', 'mode', 'setMode', 'nextLinkWrapper'] }}
