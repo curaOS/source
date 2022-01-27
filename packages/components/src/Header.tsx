@@ -21,7 +21,6 @@ export const Header = ({
     setAlertMessage,
     title,
     logo,
-    twitter = 'https://twitter.com/CuraOnNear',
     nextLinkWrapper,
     isInitial,
     mode,
@@ -38,7 +37,6 @@ export const Header = ({
     setAlertMessage: () => void
     title: string
     logo: string
-    twitter: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
     isInitial: boolean
     mode: string
@@ -377,10 +375,10 @@ export const Header = ({
                                 fill: mode == 'dark' ? 'bg' : 'white',
                                 display: ['none', 'flex'],
                                 transitionDuration: '0.5s',
-                                transform: isButtonGrpOpen
+                                transform:!isButtonGrpOpen
                                     ? 'translate(0px,162px) rotate(60deg)'
                                     : 'translate(0,0) rotate(0deg)',
-                                opacity: !isButtonGrpOpen ? '1' : '0',
+                                opacity: isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
                             href={discord}
@@ -403,10 +401,10 @@ export const Header = ({
                                 fill: mode == 'dark' ? 'bg' : 'white',
                                 display: ['none', 'flex'],
                                 transitionDuration: '0.5s',
-                                transform: isButtonGrpOpen
+                                transform: !isButtonGrpOpen
                                     ? 'translate(0px,108px) rotate(40deg)'
                                     : 'translate(0,0) rotate(0deg)',
-                                opacity: !isButtonGrpOpen ? '1' : '0',
+                                opacity: isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
                             href={telegram}
@@ -430,10 +428,10 @@ export const Header = ({
                                 fill: mode == 'dark' ? 'bg' : 'white',
                                 display: ['none', 'flex'],
                                 transitionDuration: '0.5s',
-                                transform: isButtonGrpOpen
+                                transform: !isButtonGrpOpen
                                     ? 'translate(0px,54px) rotate(50deg)'
                                     : 'translate(0,0) rotate(0deg)',
-                                opacity: !isButtonGrpOpen ? '1' : '0',
+                                opacity: isButtonGrpOpen ? '1' : '0',
                             }}
                             as="a"
                             href={twitter}
@@ -458,7 +456,7 @@ export const Header = ({
                                     ? 'white'
                                     : 'black',
                             transitionDuration: '0.3s',
-                            transform: !isButtonGrpOpen
+                            transform: isButtonGrpOpen
                                 ? 'rotate(-135deg)'
                                 : 'rotate(0deg)',
                             ':hover': {
@@ -466,9 +464,6 @@ export const Header = ({
                             },
                         }}
                         onClick={() => setIsButtonGrpOpen(!isButtonGrpOpen)}
-                        as="a"
-                        href={twitter}
-                        target="_blank"
                     >
                         <svg
                             width="25"
