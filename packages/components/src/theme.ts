@@ -189,7 +189,7 @@ const elements = {
             borderColor: `white`,
             color: `white`,
             px: 1,
-            py: `30px`,
+            py: `22px`,
         },
         icon: {
             variant: `text.buttons.1`,
