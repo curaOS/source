@@ -49,8 +49,7 @@ export function Menu({
                 </Container>
             </Box>
         )
-    }
-    if (isDisconnected) {
+    } else {
         return (
             <Box
                 sx={{
