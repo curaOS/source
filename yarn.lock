@@ -1762,7 +1762,6 @@ __metadata:
   resolution: "@cura/components@workspace:packages/components"
   dependencies:
     "@babel/core": ^7.16.5
-    "@cura/hooks": latest
     "@semantic-release/exec": ^6.0.3
     "@storybook/addon-actions": ^6.4.9
     "@storybook/addon-essentials": ^6.4.9
@@ -1805,20 +1804,6 @@ __metadata:
     curasc: index.js
   languageName: unknown
   linkType: soft
-
-"@cura/hooks@npm:latest":
-  version: 1.1.0
-  resolution: "@cura/hooks@npm:1.1.0"
-  dependencies:
-    near-api-js: ^0.44.2
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    swr: 0.5.7
-    tslib: ^2.3.1
-    unstated-next: ^1.1.0
-  checksum: 474818719c29a1f1172a0363ef04418f268b21bedf7605c562a5b9d13dc912aa4ce7f1d781774cf88b9ca57e98909e1445e4c6a182cde4ef2ee36f0d464831e8
-  languageName: node
-  linkType: hard
 
 "@cura/hooks@workspace:*, @cura/hooks@workspace:packages/hooks":
   version: 0.0.0-use.local
