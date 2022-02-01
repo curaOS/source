@@ -18,5 +18,6 @@ jobs:
               with:
                   node-version: '15'
             - run: yarn install
+            - run: "echo \"npmAuthToken: '$NPM_TOKEN'\" >> ~/.yarnrc.yml"
             - run: yarn release:hooks
             - run: yarn release:components

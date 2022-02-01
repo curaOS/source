@@ -21,7 +21,7 @@
     "author": "Yassine",
     "license": "MIT",
     "dependencies": {
-        "@cura/hooks": "workspace:*",
+        "@cura/hooks": "latest",
         "@theme-ui/color": "^0.12.1",
         "@theme-ui/match-media": "^0.12.1",
         "@theme-ui/presets": "^0.12.1",
