@@ -28,6 +28,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.16.5",
+        "@semantic-release/exec": "^6.0.3",
         "@testing-library/react-hooks": "^7.0.2",
         "@types/jest": "^27.0.3",
         "babel-loader": "^8.2.3",
