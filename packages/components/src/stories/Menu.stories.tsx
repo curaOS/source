@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ComponentStory, ComponentMeta } from '@storybook/react'
 import { Menu } from '../Menu'
 
@@ -20,11 +21,12 @@ const Template: ComponentStory<typeof Menu> = (args) => {
 export const Connected = Template.bind({})
 Connected.args = {
     base: 'cc',
-    accountId: 'ys24.testnet',
+    isDisconnected: false,
     nextLinkWrapper: (link, children) => <a href={link}>{children}</a>,
 }
 
 export const Disconnected = Template.bind({})
 Disconnected.args = {
+    isDisconnected: true,
     base: 'cc',
 }
