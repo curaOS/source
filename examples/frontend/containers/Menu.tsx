@@ -14,13 +14,12 @@ export default function MenuContainer({
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
     activeLink: string
 }) {
-    
     return (
         <Menu
-            accountId={accountId}
             base={base}
             nextLinkWrapper={nextLinkWrapper}
             activeLink={activeLink}
+            isDisconnected={accountId ? false : true}
         />
     )
 }

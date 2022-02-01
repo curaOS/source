@@ -4,15 +4,15 @@
 import { Text, Box, Container, Button } from 'theme-ui'
 
 export function Menu({
-    accountId,
     base,
     nextLinkWrapper,
     activeLink,
+    isDisconnected = false,
 }: {
-    accountId: string
     base: string
     nextLinkWrapper: (link: string, children: JSX.Element) => JSX.Element
     activeLink: string
+    isDisconnected: boolean
 }) {
     const Btn = ({ href, content }) => {
         return nextLinkWrapper(
@@ -32,10 +32,10 @@ export function Menu({
         )
     }
 
-    if (accountId) {
+    if (!isDisconnected) {
         return (
             <Box
-                sx={{ width: '100%', bg: 'bg', borderTop: 1, borderBottom: 1}}
+                sx={{ width: '100%', bg: 'bg', borderTop: 1, borderBottom: 1 }}
             >
                 <Container
                     as="nav"
@@ -49,7 +49,8 @@ export function Menu({
                 </Container>
             </Box>
         )
-    } else {
+    }
+    if (isDisconnected) {
         return (
             <Box
                 sx={{
