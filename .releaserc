@@ -7,7 +7,7 @@
             "@semantic-release/exec",
             {
                 "prepareCmd": "yarn version ${nextRelease.version}",
-                "publishCmd": "yarn npm publish"
+                "publishCmd": "yarn npm publish --access public"
             }
         ]
     ]
