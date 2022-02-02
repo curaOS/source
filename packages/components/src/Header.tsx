@@ -173,7 +173,7 @@ export const Header = ({
                                             bids
                                         </Button>
                                     )}
-                                {!isInitial && (
+                                {(!isInitial && !accountId) && (
                                     <Button
                                         onClick={onSignIn}
                                         variant="mobileMenu"
