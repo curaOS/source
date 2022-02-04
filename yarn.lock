@@ -1773,6 +1773,7 @@ __metadata:
     babel-loader: ^8.2.3
     copyfiles: ^2.4.1
     find-yarn-workspace-root: ^2.0.0
+    moment: ^2.29.1
     near-api-js: ^0.44.2
     prettier: 2.5.1
     react: ^17.0.2
@@ -14522,6 +14523,13 @@ __metadata:
   version: 1.0.1
   resolution: "modify-values@npm:1.0.1"
   checksum: 8296610c608bc97b03c2cf889c6cdf4517e32fa2d836440096374c2209f6b7b3e256c209493a0b32584b9cb32d528e99d0dd19dcd9a14d2d915a312d391cc7e9
+  languageName: node
+  linkType: hard
+
+"moment@npm:^2.29.1":
+  version: 2.29.1
+  resolution: "moment@npm:2.29.1"
+  checksum: 1e14d5f422a2687996be11dd2d50c8de3bd577c4a4ca79ba5d02c397242a933e5b941655de6c8cb90ac18f01cc4127e55b4a12ae3c527a6c0a274e455979345e
   languageName: node
   linkType: hard
 
