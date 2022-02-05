@@ -1,17 +1,31 @@
-import {Box, Heading, Text} from "theme-ui";
+import {Box, Heading, Text, Link} from "theme-ui";
 import moment from "moment";
+
 
 type historyProps = {
     type: string
     timestamp: string
     mintBy?: string | null
     burnBy?: string | null
+    bidBy?: string | null
     transferFrom?: string | null
     transferTo?: string | null
     transactionHash: string
 }
 
-function HistoryItemLayout({ children, timestamp } : { children: JSX.Element, timestamp: string }){
+function HistoryItemLayout(
+    {
+        children,
+        timestamp,
+        transactionHash
+    }
+        :
+    {
+        children: JSX.Element,
+        timestamp: string,
+        transactionHash: string
+    }
+) {
     return(
         <Box
             sx={{
@@ -20,22 +34,28 @@ function HistoryItemLayout({ children, timestamp } : { children: JSX.Element, ti
         >
             <Box
                 sx={{
-                    fontWeight:600,
+                    fontWeight:500,
                     mb:1
                 }}
             >
                 {children}
             </Box>
             <Box>
-                <Text
+                <Link
                     sx={{
                         color:'gray.7',
                         fontSize: 16,
                         fontWeight: 400,
+                        '&:hover':{
+                            textDecoration: 'unset',
+                            color: 'gray.8'
+                        }
                     }}
-                >
-                    {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:MM:SS")}
-                </Text>
+                    href={`https://explorer.near.org/transactions/${transactionHash}`} target={"_blank"}>
+                    <Text>
+                        {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:MM:SS")}
+                    </Text>
+                </Link>
             </Box>
         </Box>
     )
@@ -44,7 +64,7 @@ function HistoryItemLayout({ children, timestamp } : { children: JSX.Element, ti
 function Burn({ accountId } : { accountId : string }){
     return(
         <Box>
-            { accountId } burned this NFT.
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>{ accountId }</Link> burned this NFT.
         </Box>
     )
 }
@@ -52,7 +72,7 @@ function Burn({ accountId } : { accountId : string }){
 function Mint({ accountId } : { accountId : string }){
     return(
         <Box>
-            {accountId} minted this NFT.
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> minted this NFT.
         </Box>
     )
 }
@@ -60,7 +80,12 @@ function Mint({ accountId } : { accountId : string }){
 function Transfer({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
-            {accountId} transferred this NFT to {receiverId}
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>
+                {accountId}
+            </Link> transferred this NFT to{" "}
+            <Link href={`https://explorer.near.org/accounts/${receiverId}`} target={"_blank"}>
+                { receiverId}
+            </Link>
         </Box>
     )
 }
@@ -86,7 +111,10 @@ export function History ({ history = [] } : {
             <Box>
                 { history.map((historyItem)=>{
                     return(
-                        <HistoryItemLayout timestamp={ historyItem.timestamp } >
+                        <HistoryItemLayout
+                            timestamp={ historyItem.timestamp }
+                            transactionHash={ historyItem.transactionHash }
+                        >
                             <>
                                 {historyItem.type == "burn" && <Burn accountId = {historyItem.burnBy! }/> }
                                 {historyItem.type == "mint" && <Mint accountId = {historyItem.mintBy! }/> }
