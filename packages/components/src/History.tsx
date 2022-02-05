@@ -29,7 +29,7 @@ function HistoryItemLayout({ children, timestamp } : { children: JSX.Element, ti
             <Box>
                 <Text
                     sx={{
-                        color:'gray.1',
+                        color:'gray.7',
                         fontSize: 16,
                         fontWeight: 400,
                     }}
@@ -75,15 +75,11 @@ export function History ({ history = [] } : {
                 width: ['100%', '100%', 600],
                 bg: 'bg',
                 py: 3,
-                px: 3
             }}
         >
             <Heading
                 variant="h3"
-                sx={{
-                    textAlign: "center",
-                    mb: 4
-                }}
+                mb={4}
             >
                 HISTORY
             </Heading>
