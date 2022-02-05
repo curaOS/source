@@ -7,6 +7,7 @@ import { Header } from './Header'
 import { ProjectCard } from './ProjectCard'
 import { Menu } from './Menu'
 import { MediaObject } from './MediaObject'
+import { List } from './List'
 // import { NFTE } from './NFTE'
 
 import { theme } from './theme'
@@ -21,6 +22,7 @@ export {
     Menu,
     ProjectCard,
     MediaObject,
+    List,
     // NFTE,
     theme,
 }
