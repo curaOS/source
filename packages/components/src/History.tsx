@@ -77,6 +77,14 @@ function Mint({ accountId } : { accountId : string }){
     )
 }
 
+function Bid({ accountId } : { accountId : string }){
+    return(
+        <Box>
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> placed a bid.
+        </Box>
+    )
+}
+
 function Transfer({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
@@ -118,6 +126,7 @@ export function History ({ history = [] } : {
                             <>
                                 {historyItem.type == "burn" && <Burn accountId = {historyItem.burnBy! }/> }
                                 {historyItem.type == "mint" && <Mint accountId = {historyItem.mintBy! }/> }
+                                {historyItem.type == "bid" && <Bid accountId = {historyItem.bidBy! }/> }
                                 {historyItem.type == "transfer" && <Transfer accountId = {historyItem.transferFrom! } receiverId={ historyItem.transferTo! } /> }
                             </>
                         </HistoryItemLayout>
