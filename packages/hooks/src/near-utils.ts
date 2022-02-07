@@ -31,6 +31,7 @@ export function getContractMethods(contractName: string) {
                     'generate',
                     'claim_media',
                     'burn_design',
+                    'mint',
                 ],
                 viewMethods: [
                     'nft_total_supply',
@@ -39,6 +40,9 @@ export function getContractMethods(contractName: string) {
                     'nft_tokens_for_owner',
                     'nft_tokens',
                     'view_media',
+                    'nft_supply_for_owner',
+                    'get_bids',
+                    'get_bidder_bids',
                 ],
             }
         case 'market':
