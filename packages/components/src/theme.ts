@@ -109,6 +109,7 @@ const typography = {
             fontWeight: `bold`,
             fontSize: [5, 6],
         },
+
     },
 }
 
