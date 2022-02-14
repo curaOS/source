@@ -43,6 +43,7 @@ export function getContractMethods(contractName: string) {
                     'nft_supply_for_owner',
                     'get_bids',
                     'get_bidder_bids',
+                    'nft_metadata_extra',
                 ],
             }
         case 'market':
