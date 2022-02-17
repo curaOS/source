@@ -5,11 +5,11 @@ import moment from "moment";
 type historyProps = {
     type: string
     timestamp: string
-    mintBy?: string | null
-    burnBy?: string | null
-    bidBy?: string | null
-    transferFrom?: string | null
-    transferTo?: string | null
+    mintBy?: { id : string | null } | null
+    burnBy?: { id : string | null } | null
+    bidBy?: { id : string | null } | null
+    transferFrom?: { id : string | null } | null
+    transferTo?: { id : string | null } | null
     transactionHash: string
 }
 
@@ -124,10 +124,10 @@ export function History ({ history = [] } : {
                             transactionHash={ historyItem.transactionHash }
                         >
                             <>
-                                {historyItem.type == "burn" && <Burn accountId = {historyItem.burnBy! }/> }
-                                {historyItem.type == "mint" && <Mint accountId = {historyItem.mintBy! }/> }
-                                {historyItem.type == "bid" && <Bid accountId = {historyItem.bidBy! }/> }
-                                {historyItem.type == "transfer" && <Transfer accountId = {historyItem.transferFrom! } receiverId={ historyItem.transferTo! } /> }
+                                {historyItem.type == "burn" && <Burn accountId = {historyItem.burnBy!.id! }/> }
+                                {historyItem.type == "mint" && <Mint accountId = {historyItem.mintBy!.id! }/> }
+                                {historyItem.type == "bid" && <Bid accountId = {historyItem.bidBy!.id! }/> }
+                                {historyItem.type == "transfer" && <Transfer accountId = {historyItem.transferFrom!.id! } receiverId={ historyItem.transferTo!.id! } /> }
                             </>
                         </HistoryItemLayout>
                     )

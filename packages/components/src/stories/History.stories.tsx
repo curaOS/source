@@ -22,7 +22,7 @@ Tre.args = {
         {
             type: "mint",
             timestamp: "1641199188285678087",
-            mintBy: "demo.testnet",
+            mintBy: { id: "demo.testnet" },
             burnBy: null,
             bidBy: null,
             transferFrom: null,
@@ -33,7 +33,7 @@ Tre.args = {
             timestamp: "1649199188285678087",
             mintBy: null,
             burnBy: null,
-            bidBy: "demo.testnet",
+            bidBy: { id: "demo.testnet" },
             transferFrom: null,
             transferTo: null,
             transactionHash: "aayyx44578FFFbb5654fbjby8"
@@ -41,7 +41,7 @@ Tre.args = {
             type: "burn",
             timestamp: "1642599168285678017",
             mintBy: null,
-            burnBy: "demo.testnet",
+            burnBy: { id: "demo.testnet" },
             bidBy: null,
             transferFrom: null,
             transferTo: null,
@@ -52,8 +52,8 @@ Tre.args = {
             mintBy: null,
             burnBy: null,
             bidBy: null,
-            transferFrom: "demo.testnet",
-            transferTo: "demo2.testnet",
+            transferFrom: { id: "demo.testnet" },
+            transferTo: {id : "demo2.testnet" },
             transactionHash: "aadddJhjdB7889HUu?78dvfn89787fbjby8"
         }
     ]
