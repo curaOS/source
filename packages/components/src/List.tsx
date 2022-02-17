@@ -3,11 +3,11 @@
 import { useState } from 'react'
 import { Box, IconButton, Link, Text } from 'theme-ui'
 
-export function List({ data = [] }) {
+export function List({ data = [], width }) {
     return (
         <Box
             sx={{
-                width: ['100%', '100%', 400],
+                width: width ? width : ['100%', '100%', 400],
                 bg: 'bg',
                 py: 3,
             }}
