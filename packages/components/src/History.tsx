@@ -44,7 +44,7 @@ function HistoryItemLayout(
                 <Link
                     sx={{
                         color:'gray.7',
-                        fontSize: 16,
+                        fontSize: 15,
                         fontWeight: 400,
                         '&:hover':{
                             textDecoration: 'unset',
@@ -112,7 +112,7 @@ export function History ({ history = [] } : {
         >
             <Heading
                 variant="h3"
-                mb={4}
+                mb={3}
             >
                 HISTORY
             </Heading>
