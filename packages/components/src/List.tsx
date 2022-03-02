@@ -1,21 +1,28 @@
 // @ts-nocheck
 /** @jsxImportSource theme-ui */
 import { useState } from 'react'
-import { Box, IconButton, Link, Text } from 'theme-ui'
+import { Box, IconButton, Link, Text, Heading } from 'theme-ui'
 
-export function List({ data = [], width }) {
+export function List({ data = [], width, title }) {
     return (
-        <Box
-            sx={{
-                width: width ? width : ['100%', '100%', 400],
-                bg: 'bg',
-                py: 3,
-            }}
-        >
-            {data.map((v, i) => (
-                <Row item={v} key={i} />
-            ))}
-        </Box>
+        <>
+            <Box
+                sx={{
+                    width: width ? width : ['100%', '100%', 400],
+                    bg: 'bg',
+                    py: 3,
+                }}
+            >
+                {title && (
+                    <Heading variant="h3" mb={3}>
+                        {title}
+                    </Heading>
+                )}
+                {data.map((v, i) => (
+                    <Row item={v} key={i} />
+                ))}
+            </Box>
+        </>
     )
 }
 
