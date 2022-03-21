@@ -160,6 +160,7 @@ export const Header = ({
                                         <Button
                                             variant="mobileMenu"
                                             sx={{
+                                                width: '100%',
                                                 color:
                                                     mode == 'dark'
                                                         ? 'black'
