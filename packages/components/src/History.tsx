@@ -124,10 +124,10 @@ export function History ({ history = [] } : {
                             transactionHash={ historyItem.transactionHash }
                         >
                             <>
-                                {historyItem.type == "burn" && <Burn accountId = {historyItem.burnBy!.id! }/> }
-                                {historyItem.type == "mint" && <Mint accountId = {historyItem.mintBy!.id! }/> }
-                                {historyItem.type == "bid" && <Bid accountId = {historyItem.bidBy!.id! }/> }
-                                {historyItem.type == "transfer" && <Transfer accountId = {historyItem.transferFrom!.id! } receiverId={ historyItem.transferTo!.id! } /> }
+                                {historyItem.type == "burn" && <Burn accountId = {historyItem.sender!.id! }/> }
+                                {historyItem.type == "mint" && <Mint accountId = {historyItem.sender!.id! }/> }
+                                {historyItem.type == "set_bid" && <Bid accountId = {historyItem.sender!.id! }/> }
+                                {historyItem.type == "transfer" && <Transfer accountId = {historyItem.sender!.id! } receiverId={ historyItem.recipient!.id! } /> }
                             </>
                         </HistoryItemLayout>
                     )
