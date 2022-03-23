@@ -5,11 +5,9 @@ import moment from "moment";
 type historyProps = {
     type: string
     timestamp: string
-    mintBy?: { id : string | null } | null
-    burnBy?: { id : string | null } | null
-    bidBy?: { id : string | null } | null
-    transferFrom?: { id : string | null } | null
-    transferTo?: { id : string | null } | null
+    amount: number | null
+    sender?: { id : string | null } | null
+    recipient?: { id : string | null } | null
     transactionHash: string
 }
 
