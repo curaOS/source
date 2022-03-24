@@ -156,12 +156,9 @@ export function History ({ history = [] } : {
                                 {historyItem.type == "burn" && <Burn accountId = {historyItem.sender!.id! }/> }
                                 {historyItem.type == "mint" && <Mint accountId = {historyItem.sender!.id! }/> }
                                 {historyItem.type == "set_bid" && <Bid accountId = {historyItem.sender!.id! }/> }
-<<<<<<< HEAD
                                 {historyItem.type == "remove_bid" && <BidRemove accountId = {historyItem.sender!.id! }/> }
                                 {historyItem.type == "accept_bid" && <BidAccept accountId = {historyItem.sender!.id! } receiverId={ historyItem.recipient!.id! }/> }
                                 {historyItem.type == "update_bid" && <BidUpdate accountId = {historyItem.sender!.id! }/> }
-=======
->>>>>>> 0885e3cd3d2d2352c88ddfc67425194d6cd8c86c
                                 {historyItem.type == "transfer" && <Transfer accountId = {historyItem.sender!.id! } receiverId={ historyItem.recipient!.id! } /> }
                             </>
                         </HistoryItemLayout>
