@@ -27,13 +27,34 @@ Tre.args = {
             recipient: null,
             transactionHash: "aayyx44578ggnkk98989787fbjby8"
         }, {
-            type: "bid",
+            type: "set_bid",
             timestamp: "1649199188285678087",
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: null,
             transactionHash: "aayyx44578FFFbb5654fbjby8"
         }, {
+            type: "remove_bid",
+            timestamp: "1649199188285678087",
+            sender: { id: "demo.testnet" },
+            amount: null,
+            recipient: null,
+            transactionHash: "aayyx44578FFFbb5654fbjby8"
+        }, {
+            type: "update_bid",
+            timestamp: "1649199188285678087",
+            sender: { id: "demo.testnet" },
+            amount: null,
+            recipient: null,
+            transactionHash: "aayyx44578FFFbb5654fbjby8"
+        }, {
+            type: "accept_bid",
+            timestamp: "1649199188285678087",
+            sender: { id: "demo.testnet" },
+            amount: null,
+            recipient: {id : "demo2.testnet" },
+            transactionHash: "aayyx44578FFFbb5654fbjby8"
+        },{
             type: "burn",
             timestamp: "1642599168285678017",
             sender: { id: "demo.testnet" },

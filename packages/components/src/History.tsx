@@ -83,6 +83,37 @@ function Bid({ accountId } : { accountId : string }){
     )
 }
 
+function BidRemove({ accountId } : { accountId : string }){
+    return(
+        <Box>
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> removed their bid.
+        </Box>
+    )
+}
+
+function BidAccept({ accountId, receiverId } : { accountId : string, receiverId: string }){
+    return(
+        <Box>
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>
+                {accountId}
+            </Link> accepted{" "}
+            <Link href={`https://explorer.near.org/accounts/${receiverId}`} target={"_blank"}>
+                { receiverId }
+            </Link>
+            's bid.
+        </Box>
+    )
+}
+
+function BidUpdate({ accountId } : { accountId : string }){
+    return(
+        <Box>
+            <Link href={`https://explorer.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> updated their bid.
+        </Box>
+    )
+}
+
+
 function Transfer({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
@@ -125,6 +156,9 @@ export function History ({ history = [] } : {
                                 {historyItem.type == "burn" && <Burn accountId = {historyItem.sender!.id! }/> }
                                 {historyItem.type == "mint" && <Mint accountId = {historyItem.sender!.id! }/> }
                                 {historyItem.type == "set_bid" && <Bid accountId = {historyItem.sender!.id! }/> }
+                                {historyItem.type == "remove_bid" && <BidRemove accountId = {historyItem.sender!.id! }/> }
+                                {historyItem.type == "accept_bid" && <BidAccept accountId = {historyItem.sender!.id! } receiverId={ historyItem.recipient!.id! }/> }
+                                {historyItem.type == "update_bid" && <BidUpdate accountId = {historyItem.sender!.id! }/> }
                                 {historyItem.type == "transfer" && <Transfer accountId = {historyItem.sender!.id! } receiverId={ historyItem.recipient!.id! } /> }
                             </>
                         </HistoryItemLayout>
