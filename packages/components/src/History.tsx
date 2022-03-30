@@ -49,7 +49,7 @@ function HistoryItemLayout(
                             color: 'gray.8'
                         }
                     }}
-                    href={`https://explorer.near.org/blocks/${blockHash58}`} target={"_blank"}>
+                    href={`https://explorer.testnet.near.org/blocks/${blockHash58}`} target={"_blank"}>
                     <Text>
                         {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:MM:SS")}
                     </Text>
