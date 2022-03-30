@@ -51,7 +51,7 @@ function HistoryItemLayout(
                     }}
                     href={`https://explorer.testnet.near.org/blocks/${blockHash58}`} target={"_blank"}>
                     <Text>
-                        {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:MM:SS")}
+                        {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:mm:ss")}
                     </Text>
                 </Link>
             </Box>
