@@ -25,49 +25,49 @@ Tre.args = {
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: null,
-            transactionHash: "aayyx44578ggnkk98989787fbjby8"
+            block_hash_58: "5XK7taQRUen7xXAPUsnbMWW7eEEjV4vptK4Mp1qgPySB"
         }, {
             type: "set_bid",
             timestamp: "1649199188285678087",
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: null,
-            transactionHash: "aayyx44578FFFbb5654fbjby8"
+            block_hash_58: "3hTEvKRs2iW12D4DMWgZGT3ZU53Y87dgNaKsaqZBrDAB"
         }, {
             type: "remove_bid",
             timestamp: "1649199188285678087",
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: null,
-            transactionHash: "aayyx44578FFFbb5654fbjby8"
+            block_hash_58: "5g6SqmSfEDrAJsgrGnhGhZr1bCu8LALcQxqJoFyHBmb4"
         }, {
             type: "update_bid",
             timestamp: "1649199188285678087",
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: null,
-            transactionHash: "aayyx44578FFFbb5654fbjby8"
+            block_hash_58: "5XK7taQRUen7xXAPUsnbMWW7eEEjV4vptK4Mp1qgPySB"
         }, {
             type: "accept_bid",
             timestamp: "1649199188285678087",
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: {id : "demo2.testnet" },
-            transactionHash: "aayyx44578FFFbb5654fbjby8"
+            block_hash_58: "3hTEvKRs2iW12D4DMWgZGT3ZU53Y87dgNaKsaqZBrDAB"
         },{
             type: "burn",
             timestamp: "1642599168285678017",
             sender: { id: "demo.testnet" },
             amount: null,
             recipient: null,
-            transactionHash: "aayyx44578gg4666h583vvnkk98989787fbjby8"
+            block_hash_58: "5XK7taQRUen7xXAPUsnbMWW7eEEjV4vptK4Mp1qgPySB"
         }, {
             type: "transfer",
             timestamp: "1642199908285679017",
             sender: { id: "demo.testnet" },
             recipient: {id : "demo2.testnet" },
             amount: null,
-            transactionHash: "aadddJhjdB7889HUu?78dvfn89787fbjby8"
+            block_hash_58: "5XK7taQRUen7xXAPUsnbMWW7eEEjV4vptK4Mp1qgPySB"
         }
     ]
 }

@@ -8,20 +8,20 @@ type historyProps = {
     amount: number | null
     sender?: { id : string | null } | null
     recipient?: { id : string | null } | null
-    transactionHash: string
+    block_hash_58: string
 }
 
 function HistoryItemLayout(
     {
         children,
         timestamp,
-        transactionHash
+        blockHash58
     }
         :
     {
         children: JSX.Element,
         timestamp: string,
-        transactionHash: string
+        blockHash58: string
     }
 ) {
     return(
@@ -49,7 +49,7 @@ function HistoryItemLayout(
                             color: 'gray.8'
                         }
                     }}
-                    href={`https://explorer.near.org/transactions/${transactionHash}`} target={"_blank"}>
+                    href={`https://explorer.testnet.near.org/blocks/${blockHash58}`} target={"_blank"}>
                     <Text>
                         {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:MM:SS")}
                     </Text>
@@ -150,7 +150,7 @@ export function History ({ history = [] } : {
                     return(
                         <HistoryItemLayout
                             timestamp={ historyItem.timestamp }
-                            transactionHash={ historyItem.transactionHash }
+                            blockHash58={ historyItem.block_hash_58 }
                         >
                             <>
                                 {historyItem.type == "burn" && <Burn accountId = {historyItem.sender!.id! }/> }
