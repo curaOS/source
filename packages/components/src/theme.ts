@@ -304,10 +304,6 @@ const elements = {
             },
         },
     },
-    error:{
-        color:'red.7',
-        fontSize:14
-    }
 }
 
 // Layout containers

@@ -71,7 +71,18 @@ export function BidCreate({
                 />
             </Box>
             <Box sx={{ variant: 'forms.primary.row' }}>
-                <Label htmlFor="resale">RESALE FEE</Label>
+                <Label htmlFor="resale">
+                    RESALE FEE
+                    <Text
+                        sx={{
+                            marginTop:'3px',
+                            marginLeft:1,
+                            fontSize:14
+                        }}
+                    >
+                        {`(MAX ${maxResale ? maxResale : '100'}%)`}
+                    </Text>
+                </Label>
                 <Input
                     type="number"
                     step="1"
@@ -79,27 +90,15 @@ export function BidCreate({
                     id="resale"
                     value={resale}
                     min={0}
-                    max={100}
+                    max={maxResale || 100}
                     autoComplete="off"
                     onChange={(e) => {
-                        if(e.target.value <= 100){
+                        if(maxResale ?  e.target.value <= Number(maxResale) : e.target.value <= 100){
                             setResale(e.target.value)
                         }
                     }}
                 />
             </Box>
-
-            {((maxResale || maxResale === 0) && resale > maxResale) &&
-                <Box
-                    sx={{
-                        variant: 'forms.primary.row',
-                        borderBottom: 'none !important',
-                        paddingTop: 2
-                    }}
-                >
-                    <Text sx={{ variant: 'error' }}>Must be no more than {maxResale}% to respect contract resale royalty</Text>
-                </Box>
-            }
             <Button
                 disabled={!amount || Number(resale) > maxResale}
                 mt={24}
