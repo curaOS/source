@@ -14,4 +14,6 @@ const Template: ComponentStory<typeof BidCreate> = (args) => (
 )
 
 export const Zero = Template.bind({})
-Zero.args = {}
+Zero.args = {
+    maxResale: 40,
+}

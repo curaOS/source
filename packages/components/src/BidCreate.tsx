@@ -6,8 +6,10 @@ import { Box, Select, Label, Input, Button, Text } from 'theme-ui'
 
 export function BidCreate({
     onBid,
+    maxResale
 }: {
-    onBid: (amount: string, resale: string) => void
+    onBid: (amount: string, resale: string) => void,
+    maxResale?: number
 }) {
     const [amount, setAmount] = useState(null)
     const [resale, setResale] = useState('0')
@@ -77,12 +79,29 @@ export function BidCreate({
                     id="resale"
                     value={resale}
                     min={0}
+                    max={100}
                     autoComplete="off"
-                    onChange={(e) => setResale(e.target.value)}
+                    onChange={(e) => {
+                        if(e.target.value <= 100){
+                            setResale(e.target.value)
+                        }
+                    }}
                 />
             </Box>
+
+            {((maxResale || maxResale === 0) && resale > maxResale) &&
+                <Box
+                    sx={{
+                        variant: 'forms.primary.row',
+                        borderBottom: 'none !important',
+                        paddingTop: 2
+                    }}
+                >
+                    <Text sx={{ variant: 'error' }}>Must be no more than {maxResale}% to respect contract resale royalty</Text>
+                </Box>
+            }
             <Button
-                disabled={!amount}
+                disabled={!amount || Number(resale) > maxResale}
                 mt={24}
                 sx={{
                     width: ['100%', '100%', '100%', 'unset'],
