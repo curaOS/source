@@ -11,28 +11,17 @@ type historyProps = {
     block_hash_58: string
 }
 
-function getNetworkLink(accountId: string){
-    let network = accountId.split('.').pop();
-    if(network === 'near'){
-        return ''
-    } else {
-        return (network+ '.')
-    }
-}
-
 function HistoryItemLayout(
     {
         children,
         timestamp,
         blockHash58,
-        sender
     }
         :
     {
         children: JSX.Element,
         timestamp: string,
         blockHash58: string,
-        sender: string
     }
 ) {
     return(
@@ -60,7 +49,7 @@ function HistoryItemLayout(
                             color: 'gray.8'
                         }
                     }}
-                    href={`https://explorer.${getNetworkLink(sender)}near.org/blocks/${blockHash58}`} target={"_blank"}>
+                    href={`https://explorer.testnet.near.org/blocks/${blockHash58}`} target={"_blank"}>
                     <Text>
                         {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:mm:ss")}
                     </Text>
@@ -73,7 +62,7 @@ function HistoryItemLayout(
 function Burn({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>{ accountId }</Link> burned this NFT.
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{ accountId }</Link> burned this NFT.
         </Box>
     )
 }
@@ -81,7 +70,7 @@ function Burn({ accountId } : { accountId : string }){
 function Mint({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> minted this NFT.
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> minted this NFT.
         </Box>
     )
 }
@@ -89,7 +78,7 @@ function Mint({ accountId } : { accountId : string }){
 function Bid({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> placed a bid.
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> placed a bid.
         </Box>
     )
 }
@@ -97,7 +86,7 @@ function Bid({ accountId } : { accountId : string }){
 function BidRemove({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> removed their bid.
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> removed their bid.
         </Box>
     )
 }
@@ -105,10 +94,10 @@ function BidRemove({ accountId } : { accountId : string }){
 function BidAccept({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>
                 {accountId}
             </Link> accepted{" "}
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${receiverId}`} target={"_blank"}>
+            <Link href={`https://explorer.testnet.near.org/accounts/${receiverId}`} target={"_blank"}>
                 { receiverId }
             </Link>
             's bid.
@@ -119,7 +108,7 @@ function BidAccept({ accountId, receiverId } : { accountId : string, receiverId:
 function BidUpdate({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> updated their bid.
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> updated their bid.
         </Box>
     )
 }
@@ -128,10 +117,10 @@ function BidUpdate({ accountId } : { accountId : string }){
 function Transfer({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${accountId}`} target={"_blank"}>
+            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>
                 {accountId}
             </Link> transferred this NFT to{" "}
-            <Link href={`https://explorer.${getNetworkLink(accountId)}near.org/accounts/${receiverId}`} target={"_blank"}>
+            <Link href={`https://explorer.testnet.near.org/accounts/${receiverId}`} target={"_blank"}>
                 { receiverId}
             </Link>
         </Box>
@@ -162,7 +151,6 @@ export function History ({ history = [] } : {
                         <HistoryItemLayout
                             timestamp={ historyItem.timestamp }
                             blockHash58={ historyItem.block_hash_58 }
-                            sender={ historyItem.sender!.id! }
                         >
                             <>
                                 {historyItem.type == "burn" && <Burn accountId = {historyItem.sender!.id! }/> }
