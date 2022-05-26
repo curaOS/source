@@ -31,7 +31,7 @@ export function getContractMethods(contractName: string) {
                     'generate',
                     'claim_media',
                     'burn_design',
-                    'mint',
+                    'nft_mint',
                 ],
                 viewMethods: [
                     'nft_total_supply',
