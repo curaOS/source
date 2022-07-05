@@ -1,15 +1,27 @@
-function getConfig() {
-    let config = {
-        networkId: 'testnet',
-        nodeUrl: 'https://rpc.testnet.near.org',
-        walletUrl: 'https://wallet.testnet.near.org',
-        helperUrl: 'https://helper.testnet.near.org',
+function getConfig(env: string) {
+    switch (env) {
+        case 'mainnet':
+            return {
+                networkId: 'mainnet',
+                nodeUrl: 'https://rpc.mainnet.near.org',
+                walletUrl: 'https://wallet.near.org',
+                helperUrl: 'https://helper.mainnet.near.org',
+                explorerUrl: 'https://explorer.near.org'
+            }
+        case 'testnet':
+            return {
+                networkId: 'testnet',
+                nodeUrl: 'https://rpc.testnet.near.org',
+                walletUrl: 'https://wallet.testnet.near.org',
+                helperUrl: 'https://helper.testnet.near.org',
+                explorerUrl: 'https://explorer.testnet.near.org',
+            }
+        default:
+            throw Error('Environment not found.')
     }
-
-    return config
 }
 
-export const { nodeUrl, networkId, walletUrl } = getConfig()
+export const { nodeUrl, networkId, walletUrl, explorerUrl } = getConfig(process.env.NEAR_ENV || 'testnet')
 
 export function getContractMethods(contractName: string) {
     switch (contractName) {
