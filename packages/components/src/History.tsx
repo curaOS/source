@@ -1,6 +1,8 @@
 import {Box, Heading, Text, Link} from "theme-ui";
 import moment from "moment";
 
+const EXPLORER_URL = process?.env?.NEAR_ENV == 'mainnet' ?
+    'https://explorer.near.org' : 'https://explorer.testnet.near.org';
 
 type historyProps = {
     type: string
@@ -49,7 +51,7 @@ function HistoryItemLayout(
                             color: 'gray.8'
                         }
                     }}
-                    href={`https://explorer.testnet.near.org/blocks/${blockHash58}`} target={"_blank"}>
+                    href={`${EXPLORER_URL}/blocks/${blockHash58}`} target={"_blank"}>
                     <Text>
                         {moment(Number(timestamp)/1000000).format("dddd, DD MMMM YYYY, HH:mm:ss")}
                     </Text>
@@ -62,7 +64,7 @@ function HistoryItemLayout(
 function Burn({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{ accountId }</Link> burned this NFT.
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>{ accountId }</Link> burned this NFT.
         </Box>
     )
 }
@@ -70,7 +72,7 @@ function Burn({ accountId } : { accountId : string }){
 function Mint({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> minted this NFT.
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> minted this NFT.
         </Box>
     )
 }
@@ -78,7 +80,7 @@ function Mint({ accountId } : { accountId : string }){
 function Bid({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> placed a bid.
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> placed a bid.
         </Box>
     )
 }
@@ -86,7 +88,7 @@ function Bid({ accountId } : { accountId : string }){
 function BidRemove({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> removed their bid.
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> removed their bid.
         </Box>
     )
 }
@@ -94,10 +96,10 @@ function BidRemove({ accountId } : { accountId : string }){
 function BidAccept({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>
                 {accountId}
             </Link> accepted{" "}
-            <Link href={`https://explorer.testnet.near.org/accounts/${receiverId}`} target={"_blank"}>
+            <Link href={`${EXPLORER_URL}/accounts/${receiverId}`} target={"_blank"}>
                 { receiverId }
             </Link>
             's bid.
@@ -108,7 +110,7 @@ function BidAccept({ accountId, receiverId } : { accountId : string, receiverId:
 function BidUpdate({ accountId } : { accountId : string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> updated their bid.
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>{accountId}</Link> updated their bid.
         </Box>
     )
 }
@@ -117,10 +119,10 @@ function BidUpdate({ accountId } : { accountId : string }){
 function Transfer({ accountId, receiverId } : { accountId : string, receiverId: string }){
     return(
         <Box>
-            <Link href={`https://explorer.testnet.near.org/accounts/${accountId}`} target={"_blank"}>
+            <Link href={`${EXPLORER_URL}/accounts/${accountId}`} target={"_blank"}>
                 {accountId}
             </Link> transferred this NFT to{" "}
-            <Link href={`https://explorer.testnet.near.org/accounts/${receiverId}`} target={"_blank"}>
+            <Link href={`${EXPLORER_URL}/accounts/${receiverId}`} target={"_blank"}>
                 { receiverId}
             </Link>
         </Box>

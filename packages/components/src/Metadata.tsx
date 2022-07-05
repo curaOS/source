@@ -3,6 +3,9 @@
 import { Box, Flex, Heading, Text, Link } from 'theme-ui'
 import { Placeholder } from './Placeholder'
 
+const EXPLORER_URL = process?.env?.NEAR_ENV == 'mainnet' ?
+    'https://explorer.near.org' : 'https://explorer.testnet.near.org';
+
 type NFTMetadataType = {
     creator_id?: string
     owner_id?:
@@ -65,7 +68,7 @@ function MetadataLoaded({
                             CREATED BY
                         </Heading>
                         <Link
-                            href={`https://explorer.testnet.near.org/accounts/${creator}`}
+                            href={`${EXPLORER_URL}/accounts/${creator}`}
                             target="_blank"
                             variant="explorer"
                         >
@@ -80,7 +83,7 @@ function MetadataLoaded({
                             OWNED BY
                         </Heading>
                         <Link
-                            href={`https://explorer.testnet.near.org/accounts/${owner}`}
+                            href={`${EXPLORER_URL}/accounts/${owner}`}
                             target="_blank"
                             variant="explorer"
                         >
