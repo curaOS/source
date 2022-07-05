@@ -17,3 +17,5 @@ packages/commands/build/release
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+.idea
