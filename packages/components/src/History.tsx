@@ -1,8 +1,10 @@
 import {Box, Heading, Text, Link} from "theme-ui";
 import moment from "moment";
 
-const EXPLORER_URL = process?.env?.NEAR_ENV == 'mainnet' ?
+const EXPLORER_URL = process.env.NEAR_ENV == 'mainnet' ?
     'https://explorer.near.org' : 'https://explorer.testnet.near.org';
+
+console.log(process.env.NEAR_ENV);
 
 type historyProps = {
     type: string
