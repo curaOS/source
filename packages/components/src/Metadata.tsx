@@ -3,8 +3,10 @@
 import { Box, Flex, Heading, Text, Link } from 'theme-ui'
 import { Placeholder } from './Placeholder'
 
-const EXPLORER_URL = process?.env?.NEAR_ENV == 'mainnet' ?
-    'https://explorer.near.org' : 'https://explorer.testnet.near.org';
+const EXPLORER_URL = process.env.NEAR_ENV == 'testnet' ?
+    'https://explorer.testnet.near.org' : 'https://explorer.near.org';
+
+console.log(process.env.NEAR_ENV);
 
 type NFTMetadataType = {
     creator_id?: string

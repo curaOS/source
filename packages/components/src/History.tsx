@@ -1,8 +1,8 @@
 import {Box, Heading, Text, Link} from "theme-ui";
 import moment from "moment";
 
-const EXPLORER_URL = process.env.NEAR_ENV == 'mainnet' ?
-    'https://explorer.near.org' : 'https://explorer.testnet.near.org';
+const EXPLORER_URL = process.env.NEAR_ENV == 'testnet' ?
+    'https://explorer.testnet.near.org' : 'https://explorer.near.org';
 
 console.log(process.env.NEAR_ENV);
 
